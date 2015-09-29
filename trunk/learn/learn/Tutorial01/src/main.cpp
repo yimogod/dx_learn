@@ -9,7 +9,7 @@ HWND g_hWnd = nullptr;
 //--------------------------------------------------------------------------------------
 // Forward declarations
 //--------------------------------------------------------------------------------------
-HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
+HRESULT InitWindow(HINSTANCE, int);
 LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
 
 

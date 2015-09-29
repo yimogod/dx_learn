@@ -8,6 +8,9 @@
     <Filter Include="sample">
       <UniqueIdentifier>{cc7b4f0b-a872-466d-9277-160688d82712}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{18c054df-acb8-4119-a714-5f093b1366f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -33,5 +36,16 @@
     <ClCompile Include="src\sample\DemoApp1.cpp">
       <Filter>sample</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader\Triangle_PS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\Triangle_VS.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\Triangle.fx">
+      <Filter>shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

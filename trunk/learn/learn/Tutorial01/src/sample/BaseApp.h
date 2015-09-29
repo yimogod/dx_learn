@@ -27,4 +27,7 @@ protected:
 	ID3D11DeviceContext* _context;
 	IDXGISwapChain* _chain;
 	ID3D11RenderTargetView* _backBuffTarget;
+
+	HRESULT compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
+		LPCSTR szShaderModel, ID3DBlob** ppBlobOut);
 };

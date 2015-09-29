@@ -1,3 +1,4 @@
+#include <d3dcompiler.h>
 #include "BaseApp.h"
 
 BaseApp::BaseApp():_driverType(D3D_DRIVER_TYPE_NULL),
@@ -107,4 +108,26 @@ void BaseApp::destroy(){
 	_chain = NULL;
 	_context = NULL;
 	_device = NULL;
+}
+
+HRESULT BaseApp::compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
+							LPCSTR szShaderModel, ID3DBlob** ppBlobOut){
+	HRESULT hr = S_OK;
+
+	DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
+#ifdef _DEBUG
+	dwShaderFlags |= D3DCOMPILE_DEBUG;
+	dwShaderFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+
+	ID3DBlob* pErrorBlob = nullptr;
+	hr = D3DCompileFromFile(szFileName, nullptr, nullptr, szEntryPoint, szShaderModel,
+		dwShaderFlags, 0, ppBlobOut, &pErrorBlob);
+	
+	if(FAILED(hr) && pErrorBlob){
+		OutputDebugStringA(reinterpret_cast<const char*>(pErrorBlob->GetBufferPointer()));
+	}
+	if(pErrorBlob) pErrorBlob->Release();
+
+	return S_OK;
 }
