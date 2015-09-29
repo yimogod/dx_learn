@@ -93,7 +93,7 @@ bool DemoApp1::loadContent(){
 	_context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
 
 	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
+	
 	return true;
 }
 
