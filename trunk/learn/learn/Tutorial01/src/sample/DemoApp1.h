@@ -4,8 +4,9 @@
 
 using namespace DirectX;
 
-struct SimpleVertex{
-	XMFLOAT3 Pos;
+struct VertexPos{
+	XMFLOAT3 pos;
+	XMFLOAT2 tex0;
 };
 
 class DemoApp1 : public BaseApp{
@@ -24,7 +25,10 @@ private:
 	ID3D11PixelShader*  _ps = nullptr;
 	ID3D11InputLayout*  _vertexLayout = nullptr;
 	ID3D11Buffer* _vertexBuff = nullptr;
+	ID3D11ShaderResourceView* _resView;
+	ID3D11SamplerState* _sampleState;
 
 	bool createShader();
 	bool createVertexBuffer();
+	bool createTexture();
 };

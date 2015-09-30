@@ -11,22 +11,29 @@
     <Filter Include="shader">
       <UniqueIdentifier>{18c054df-acb8-4119-a714-5f093b1366f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{f885f0fa-7599-4d9c-9811-918044d15d21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{5c12c1b6-5494-4626-a517-1f803b474573}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CLInclude Include="resource.h">
-      <Filter>Resource Files</Filter>
-    </CLInclude>
     <ClInclude Include="src\sample\BaseApp.h">
       <Filter>sample</Filter>
     </ClInclude>
     <ClInclude Include="src\sample\DemoApp1.h">
       <Filter>sample</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="src\Tutorial01.rc">
+    <ClInclude Include="src\util\DDSTextureLoader.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource.h">
       <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    </ClInclude>
+    <ClInclude Include="src\core\Application.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
@@ -35,6 +42,12 @@
     </ClCompile>
     <ClCompile Include="src\sample\DemoApp1.cpp">
       <Filter>sample</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\DDSTextureLoader.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Application.cpp">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,5 +60,15 @@
     <FxCompile Include="shader\Triangle.fx">
       <Filter>shader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\assets\seafloor.dds">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\Tutorial01.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

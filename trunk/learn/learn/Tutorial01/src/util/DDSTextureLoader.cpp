@@ -28,7 +28,8 @@ using namespace DirectX;
 
 const uint32_t DDS_MAGIC = 0x20534444; // "DDS "
 
-struct DDS_PIXELFORMAT{
+struct DDS_PIXELFORMAT
+{
     uint32_t    size;
     uint32_t    flags;
     uint32_t    fourCC;
