@@ -1,5 +1,6 @@
 #include <DirectXMath.h>
 #include <DirectXColors.h>
+#include <dinput.h>
 #include "DemoApp1.h"
 #include "../core/Application.h"
 #include "../util/DDSTextureLoader.h"
@@ -110,7 +111,47 @@ bool DemoApp1::createTexture(){
 	if(FAILED(hr))return false;
 }
 
+bool DemoApp1::createDXInput(){
+	HRESULT hr = DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION,
+		IID_IDirectInput8, (VOID**)&_inputDevice, nullptr);
+	if(FAILED(hr))return false;
+	
+	hr = _inputDevice->CreateDevice(GUID_SysMouse, &_mouse, nullptr);
+	if(FAILED(hr))return false;
+
+
+	_inputObjFormat[0] = {&GUID_XAxis, FIELD_OFFSET(MouseState, lAxisX),    // X axis
+		DIDFT_AXIS|DIDFT_ANYINSTANCE, 0};
+	_inputObjFormat[1] = {&GUID_YAxis, FIELD_OFFSET(MouseState, lAxisY),    // Y axis
+		DIDFT_AXIS|DIDFT_ANYINSTANCE, 0};
+	_inputObjFormat[2] = {0, FIELD_OFFSET(MouseState, abButtons[0]),        // Button 0
+		DIDFT_BUTTON|DIDFT_ANYINSTANCE, 0};
+	_inputObjFormat[3] = {0, FIELD_OFFSET(MouseState, abButtons[1]),        // Button 1 (optional)
+		DIDFT_BUTTON|DIDFT_ANYINSTANCE, 0};
+	_inputObjFormat[4] = {0, FIELD_OFFSET(MouseState, abButtons[2]),        // Button 2 (optional)
+		DIDFT_BUTTON|DIDFT_ANYINSTANCE, 0};
+
+	int numMouseObjects = 5;
+	_mouseDataFormat = {
+		sizeof(DIDATAFORMAT),
+		sizeof(DIOBJECTDATAFORMAT),
+		DIDF_ABSAXIS,
+		sizeof(MouseState),
+		numMouseObjects,
+		_inputObjFormat
+	};
+
+	hr = _mouse->SetDataFormat(&_mouseDataFormat);
+	if(FAILED(hr))return false;
+
+	hr = _mouse->SetCooperativeLevel(_hwnd, DISCL_NONEXCLUSIVE|DISCL_FOREGROUND);
+	if(FAILED(hr))return false;
+
+	return true;
+}
+
 bool DemoApp1::loadContent(){
+	createDXInput();
 	createShader();
 	createVertexBuffer();
 	createTexture();
@@ -125,11 +166,18 @@ bool DemoApp1::loadContent(){
 }
 
 void DemoApp1::unloadContent(){
+	if(_mouse){
+		_mouse->Unacquire();
+		_mouse->Release();
+	}
+	if(_inputDevice)_inputDevice->Release();
 	if(_vs)_vs->Release();
 	if(_ps)_ps->Release();
 	if(_vertexLayout)_vertexLayout->Release();
 	if(_vertexBuff)_vertexBuff->Release();
 
+	_mouse = nullptr;
+	_inputDevice = nullptr;
 	_vs = nullptr;
 	_ps = nullptr;
 	_vertexLayout = nullptr;
