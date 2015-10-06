@@ -92,7 +92,7 @@ bool DemoApp1::createShader(){
 
 bool DemoApp1::createTexture(){
 	const wchar_t* path =
-		L"F:/projects/dx_learn/trunk/learn/learn/Tutorial01/src/assets/seafloor.dds";
+		L"E:/learn/dx_learn/trunk/learn/Tutorial01/src/assets/seafloor.dds";
 	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView, 2048U);
 	if(FAILED(hr))return false;
 
