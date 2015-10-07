@@ -115,11 +115,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <OpenMPSupport>false</OpenMPSupport>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -127,10 +127,12 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0600;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <AdditionalIncludeDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2015.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxguid.lib;winmm.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dinput8.lib;d3d11.lib;d3dcompiler.lib;dxguid.lib;winmm.lib;comctl32.lib;D:\Program Files\Autodesk\FBX\FBX SDK\2015.1\lib\vs2013\x86\debug\libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>true</LargeAddressAware>
@@ -138,7 +140,9 @@
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
-      <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
+      <DelayLoadDLLs>
+      </DelayLoadDLLs>
+      <AdditionalLibraryDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2015.1\lib\vs2013\x86\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <EnableDPIAwareness>true</EnableDPIAwareness>
@@ -349,17 +353,45 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Application.h" />
+    <ClInclude Include="src\core\Camera.h" />
+    <ClInclude Include="src\core\Color.h" />
+    <ClInclude Include="src\core\DLog.h" />
+    <ClInclude Include="src\core\Light.h" />
+    <ClInclude Include="src\core\Mesh.h" />
+    <ClInclude Include="src\core\Plane3D.h" />
+    <ClInclude Include="src\core\Scene.h" />
+    <ClInclude Include="src\core\SteadyLine.h" />
+    <ClInclude Include="src\core\Triangle.h" />
+    <ClInclude Include="src\core\Vector3D.h" />
+    <ClInclude Include="src\core\Vertex.h" />
     <ClInclude Include="src\resource.h" />
     <ClInclude Include="src\sample\BaseApp.h" />
     <ClInclude Include="src\sample\DemoApp1.h" />
+    <ClInclude Include="src\util\CUtil.h" />
     <ClInclude Include="src\util\DDSTextureLoader.h" />
+    <ClInclude Include="src\util\FBXReader.h" />
+    <ClInclude Include="src\util\FBXUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Application.cpp" />
+    <ClCompile Include="src\core\Camera.cpp" />
+    <ClCompile Include="src\core\Color.cpp" />
+    <ClCompile Include="src\core\DLog.cpp" />
+    <ClCompile Include="src\core\Light.cpp" />
+    <ClCompile Include="src\core\Mesh.cpp" />
+    <ClCompile Include="src\core\Plane3D.cpp" />
+    <ClCompile Include="src\core\Scene.cpp" />
+    <ClCompile Include="src\core\SteadyLine.cpp" />
+    <ClCompile Include="src\core\Triangle.cpp" />
+    <ClCompile Include="src\core\Vector3D.cpp" />
+    <ClCompile Include="src\core\Vertex.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\sample\BaseApp.cpp" />
     <ClCompile Include="src\sample\DemoApp1.cpp" />
+    <ClCompile Include="src\util\CUtil.cpp" />
     <ClCompile Include="src\util\DDSTextureLoader.cpp" />
+    <ClCompile Include="src\util\FBXReader.cpp" />
+    <ClCompile Include="src\util\FBXUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\Triangle.fx">

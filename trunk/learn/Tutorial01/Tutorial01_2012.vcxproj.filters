@@ -34,6 +34,48 @@
     <ClInclude Include="src\core\Application.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\DLog.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Camera.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Color.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Light.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Mesh.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Plane3D.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Scene.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SteadyLine.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Triangle.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Vector3D.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Vertex.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\CUtil.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\FBXReader.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\FBXUtil.h">
+      <Filter>util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
@@ -47,6 +89,48 @@
       <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Application.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\DLog.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Camera.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Color.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Light.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Mesh.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Plane3D.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Scene.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\SteadyLine.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Triangle.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Vertex.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\CUtil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\FBXReader.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\FBXUtil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Vector3D.cpp">
       <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>

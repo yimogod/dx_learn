@@ -39,6 +39,7 @@ protected:
 	/*dx input*/
 	IDirectInput8* _inputDevice;
 	IDirectInputDevice8* _mouse;
+	IDirectInputDevice8* _keyborad;
 	DIDATAFORMAT _mouseDataFormat;
 	DIOBJECTDATAFORMAT _inputObjFormat[5];
 
@@ -46,4 +47,9 @@ protected:
 	bool createVertexBuffer();
 	bool createTexture();
 	bool createDXInput();
+
+protected:
+	char _keyboardBuff[256];
+	MouseState _mouseState;
+	void onKeyDown(char keycode);
 };

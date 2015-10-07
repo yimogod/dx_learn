@@ -5,6 +5,9 @@
 #include "../core/Application.h"
 #include "../util/DDSTextureLoader.h"
 
+
+#define DIRECTINPUT_VERSION 0x0800
+
 DemoApp1::DemoApp1(){}
 
 DemoApp1::~DemoApp1(){}
@@ -112,10 +115,13 @@ bool DemoApp1::createTexture(){
 }
 
 bool DemoApp1::createDXInput(){
-	HRESULT hr = DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION,
+	ZeroMemory(_keyboardBuff, sizeof(_keyboardBuff));
+
+	HRESULT hr = DirectInput8Create(_ins, DIRECTINPUT_VERSION,
 		IID_IDirectInput8, (VOID**)&_inputDevice, nullptr);
 	if(FAILED(hr))return false;
 	
+	/*创建鼠标*/
 	hr = _inputDevice->CreateDevice(GUID_SysMouse, &_mouse, nullptr);
 	if(FAILED(hr))return false;
 
@@ -124,14 +130,14 @@ bool DemoApp1::createDXInput(){
 		DIDFT_AXIS|DIDFT_ANYINSTANCE, 0};
 	_inputObjFormat[1] = {&GUID_YAxis, FIELD_OFFSET(MouseState, lAxisY),    // Y axis
 		DIDFT_AXIS|DIDFT_ANYINSTANCE, 0};
-	_inputObjFormat[2] = {0, FIELD_OFFSET(MouseState, abButtons[0]),        // Button 0
+	_inputObjFormat[2] = {0, (DWORD)FIELD_OFFSET(MouseState, abButtons[0]),        // Button 0
 		DIDFT_BUTTON|DIDFT_ANYINSTANCE, 0};
-	_inputObjFormat[3] = {0, FIELD_OFFSET(MouseState, abButtons[1]),        // Button 1 (optional)
+	_inputObjFormat[3] = {0, (DWORD)FIELD_OFFSET(MouseState, abButtons[1]),        // Button 1 (optional)
 		DIDFT_BUTTON|DIDFT_ANYINSTANCE, 0};
-	_inputObjFormat[4] = {0, FIELD_OFFSET(MouseState, abButtons[2]),        // Button 2 (optional)
+	_inputObjFormat[4] = {0, (DWORD)FIELD_OFFSET(MouseState, abButtons[2]),        // Button 2 (optional)
 		DIDFT_BUTTON|DIDFT_ANYINSTANCE, 0};
 
-	int numMouseObjects = 5;
+	DWORD numMouseObjects = 5;
 	_mouseDataFormat = {
 		sizeof(DIDATAFORMAT),
 		sizeof(DIOBJECTDATAFORMAT),
@@ -145,6 +151,19 @@ bool DemoApp1::createDXInput(){
 	if(FAILED(hr))return false;
 
 	hr = _mouse->SetCooperativeLevel(_hwnd, DISCL_NONEXCLUSIVE|DISCL_FOREGROUND);
+	if(FAILED(hr))return false;
+
+	hr = _mouse->Acquire();
+	if(FAILED(hr))return false;
+	
+	/*创建键盘*/
+	hr = _inputDevice->CreateDevice(GUID_SysKeyboard, &_keyborad, nullptr);
+	if(FAILED(hr))return false;
+
+	hr = _keyborad->SetDataFormat(&c_dfDIKeyboard);
+	if(FAILED(hr))return false;
+
+	hr = _keyborad->SetCooperativeLevel(_hwnd, DISCL_NONEXCLUSIVE|DISCL_FOREGROUND);
 	if(FAILED(hr))return false;
 
 	return true;
@@ -170,6 +189,10 @@ void DemoApp1::unloadContent(){
 		_mouse->Unacquire();
 		_mouse->Release();
 	}
+	if(_keyborad){
+		_keyborad->Unacquire();
+		_keyborad->Release();
+	}
 	if(_inputDevice)_inputDevice->Release();
 	if(_vs)_vs->Release();
 	if(_ps)_ps->Release();
@@ -177,6 +200,7 @@ void DemoApp1::unloadContent(){
 	if(_vertexBuff)_vertexBuff->Release();
 
 	_mouse = nullptr;
+	_keyborad = nullptr;
 	_inputDevice = nullptr;
 	_vs = nullptr;
 	_ps = nullptr;
@@ -184,7 +208,30 @@ void DemoApp1::unloadContent(){
 	_vertexBuff = nullptr;
 }
 
-void DemoApp1::update(){}
+void DemoApp1::update(){
+	/*按下键盘*/
+	HRESULT hr = _keyborad->Acquire();
+	if(SUCCEEDED(hr)){
+		hr = _keyborad->GetDeviceState(sizeof(_keyboardBuff), (LPVOID)&_keyboardBuff);
+		if(SUCCEEDED(hr)){
+			char a = _keyboardBuff[DIK_A];
+			if(a&0x80)onKeyDown(a);
+		}
+	}
+
+	/*按下鼠标*/
+	hr = _mouse->Acquire();
+	if(SUCCEEDED(hr)){
+		hr = _mouse->GetDeviceState(sizeof(MouseState), &_mouseState);
+		if(SUCCEEDED(hr)){
+			//i want a simple ui
+		}
+	}
+}
+
+void DemoApp1::onKeyDown(char keycode){
+	
+}
 
 void DemoApp1::render(){
 	if(_context == NULL)return;
