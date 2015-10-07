@@ -2,7 +2,6 @@
 #include <DirectXColors.h>
 #include <dinput.h>
 #include "DemoApp1.h"
-#include "../core/Application.h"
 #include "../util/DDSTextureLoader.h"
 
 
@@ -13,20 +12,63 @@ DemoApp1::DemoApp1(){}
 DemoApp1::~DemoApp1(){}
 
 bool DemoApp1::createVertexBuffer(){
-	VertexPos vertices[] = {
-		{XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f)},
-		{XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f)},
-		{XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f)},
-	
-		{XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f)},
-		{XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f)},
-		{XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f)},
+	// Create vertex buffer
+	VertexPos vertices[] =
+	{
+		{XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
+		{XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
+		{XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
+		{XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
+
+		{XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT3(0.0f, -1.0f, 0.0f)},
+		{XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT3(0.0f, -1.0f, 0.0f)},
+		{XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT3(0.0f, -1.0f, 0.0f)},
+		{XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT3(0.0f, -1.0f, 0.0f)},
+
+		{XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT3(-1.0f, 0.0f, 0.0f)},
+		{XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT3(-1.0f, 0.0f, 0.0f)},
+		{XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT3(-1.0f, 0.0f, 0.0f)},
+		{XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT3(-1.0f, 0.0f, 0.0f)},
+
+		{XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
+		{XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
+		{XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
+		{XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
+
+		{XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT3(0.0f, 0.0f, -1.0f)},
+		{XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT3(0.0f, 0.0f, -1.0f)},
+		{XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT3(0.0f, 0.0f, -1.0f)},
+		{XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT3(0.0f, 0.0f, -1.0f)},
+
+		{XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
+		{XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
+		{XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
+		{XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
+	};
+
+	WORD indices[] = {
+		3,1,0,
+		2,1,3,
+
+		6,4,5,
+		7,4,6,
+
+		11,9,8,
+		10,9,11,
+
+		14,12,13,
+		15,12,14,
+
+		19,17,16,
+		18,17,19,
+
+		22,20,21,
+		23,20,22
 	};
 
 	/*设置buff desc*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
-
 	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.ByteWidth = sizeof(VertexPos) * 3;
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
@@ -39,6 +81,38 @@ bool DemoApp1::createVertexBuffer(){
 	
 	/*创建vertex buff*/
 	HRESULT hr = _device->CreateBuffer(&bd, &InitData, &_vertexBuff);
+	if(FAILED(hr))return false;
+
+	/*设置当前vertex buff*/
+	UINT stride = sizeof(VertexPos);
+	UINT offset = 0;
+	_context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
+
+
+	/*设置index buff*/
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(WORD) * 36;        // 36 vertices needed for 12 triangles in a triangle list
+	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+
+	/*创建index buff*/
+	InitData.pSysMem = indices;
+	hr = _device->CreateBuffer(&bd, &InitData, &_indexBuff);
+	if(FAILED(hr))return false;
+
+	/*设置当前vertex buff*/
+	_context->IASetIndexBuffer(_indexBuff, DXGI_FORMAT_R16_UINT, 0);
+
+	/*设置三角形排列方式*/
+	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+
+	// Create the constant buffer
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(ConstantBuffer);
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	bd.CPUAccessFlags = 0;
+	hr = _device->CreateBuffer(&bd, nullptr, &_constBuff);
 	if(FAILED(hr))return false;
 
 	return true;
@@ -174,12 +248,6 @@ bool DemoApp1::loadContent(){
 	createShader();
 	createVertexBuffer();
 	createTexture();
-
-	UINT stride = sizeof(VertexPos);
-	UINT offset = 0;
-	_context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
-
-	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	
 	return true;
 }
@@ -243,7 +311,7 @@ void DemoApp1::render(){
 	_context->PSSetShader(_ps, nullptr, 0);
 	_context->PSSetShaderResources(0, 1, &_resView);
 	_context->PSSetSamplers(0, 1, &_sampleState);
-	_context->Draw(6, 0);
+	_context->DrawIndexed(36, 0, 0);
 
 	_chain->Present(0, 0);
 }

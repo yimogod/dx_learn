@@ -7,8 +7,15 @@ using namespace DirectX;
 
 struct VertexPos{
 	XMFLOAT3 pos;
-	XMFLOAT2 tex0;
+	XMFLOAT3 tex0;
 };
+
+struct ConstantBuffer{
+	XMMATRIX mWorld;
+	XMMATRIX mView;
+	XMMATRIX mProjection;
+};
+
 
 struct MouseState{
 	LONG lAxisX;
@@ -33,6 +40,8 @@ protected:
 	ID3D11PixelShader*  _ps = nullptr;
 	ID3D11InputLayout*  _vertexLayout = nullptr;
 	ID3D11Buffer* _vertexBuff = nullptr;
+	ID3D11Buffer* _indexBuff = nullptr;
+	ID3D11Buffer* _constBuff = nullptr;
 	ID3D11ShaderResourceView* _resView;
 	ID3D11SamplerState* _sampleState;
 
