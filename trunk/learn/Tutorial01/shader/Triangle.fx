@@ -3,7 +3,7 @@ SamplerState samLinear : register(s0);
 
 struct VS_INPUT{
 	float4 Pos : POSITION;
-	float2 Tex : TEXCOORD0;
+	//float2 Tex : TEXCOORD0;
 };
 
 struct PS_INPUT{
@@ -16,12 +16,13 @@ struct PS_INPUT{
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
 	output.Pos = input.Pos;
-	output.Tex = input.Tex;
+	//output.Tex = input.Tex;
 
 	return output;
 }
 
 
 float4 PS(PS_INPUT input) : SV_Target{
-	return txDiffuse.Sample(samLinear, input.Tex);
+	return float4(1.0, 1.0, 1.0, 1.0);
+	//return txDiffuse.Sample(samLinear, input.Tex);
 }

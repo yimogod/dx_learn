@@ -55,12 +55,6 @@
     <ClInclude Include="src\core\Scene.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\SteadyLine.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\Triangle.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\Vector3D.h">
       <Filter>core</Filter>
     </ClInclude>
@@ -110,12 +104,6 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Scene.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\SteadyLine.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Triangle.cpp">
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Vertex.cpp">

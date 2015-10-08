@@ -1,6 +1,7 @@
 #pragma once
 #include <DirectXMath.h>
 #include <dinput.h>
+#include "../core/Scene.h"
 #include "BaseApp.h"
 
 using namespace DirectX;
@@ -61,4 +62,6 @@ protected:
 	char _keyboardBuff[256];
 	MouseState _mouseState;
 	void onKeyDown(char keycode);
+
+	Scene _scene;
 };

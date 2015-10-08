@@ -2,6 +2,7 @@
 #include <DirectXColors.h>
 #include <dinput.h>
 #include "DemoApp1.h"
+#include "../util/FBXReader.h"
 #include "../util/DDSTextureLoader.h"
 
 
@@ -12,65 +13,67 @@ DemoApp1::DemoApp1(){}
 DemoApp1::~DemoApp1(){}
 
 bool DemoApp1::createVertexBuffer(){
-	// Create vertex buffer
-	VertexPos vertices[] =
+	/*char* sInputFile = "assets/simple_scene.fbx";
+	FBXReader reader;
+	reader.read(sInputFile, &_scene);
+	_scene.buildMesh();
+	_scene.renderType = Scene::RENDER_TYPE_FRAME;
+
+	_scene.camera = new Camera(0, 0, -10.0f, 0, 0, 0);
+	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 100.0f, 800.0f, 600.0f);
+
+	_scene.lightList[0] = new Light();
+	_scene.lightList[0]->type = Light::TYPE_AMBIENT;
+	_scene.lightList[0]->ambientColor = Color(0.0f, 1.0f, 1.0f);
+	_scene.lightNum = 1;*/
+
+	XMFLOAT3 vertices[] =
 	{
-		{XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
-		{XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
-		{XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
-		{XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT3(0.0f, 1.0f, 0.0f)},
-
-		{XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT3(0.0f, -1.0f, 0.0f)},
-		{XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT3(0.0f, -1.0f, 0.0f)},
-		{XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT3(0.0f, -1.0f, 0.0f)},
-		{XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT3(0.0f, -1.0f, 0.0f)},
-
-		{XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT3(-1.0f, 0.0f, 0.0f)},
-		{XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT3(-1.0f, 0.0f, 0.0f)},
-		{XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT3(-1.0f, 0.0f, 0.0f)},
-		{XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT3(-1.0f, 0.0f, 0.0f)},
-
-		{XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
-		{XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
-		{XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
-		{XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(1.0f, 0.0f, 0.0f)},
-
-		{XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT3(0.0f, 0.0f, -1.0f)},
-		{XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT3(0.0f, 0.0f, -1.0f)},
-		{XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT3(0.0f, 0.0f, -1.0f)},
-		{XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT3(0.0f, 0.0f, -1.0f)},
-
-		{XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
-		{XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
-		{XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
-		{XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)},
+		{0.0f, 0.5f, 0.5f},
+		{0.5f, -0.5f, 0.5f},
+		{-0.5f, -0.5f, 0.5f},
 	};
 
+	/*XMFLOAT3 vertices[] = {
+		{-1.0f, 1.0f, -1.0f},
+		{1.0f, 1.0f, -1.0f},
+		{1.0f, 1.0f, 1.0f},
+		{-1.0f, 1.0f, 1.0f},
+		{-1.0f, -1.0f, -1.0f},
+		{1.0f, -1.0f, -1.0f},
+		{1.0f, -1.0f, 1.0f},
+		{-1.0f, -1.0f, 1.0f},
+	};*/
+
 	WORD indices[] = {
+		2,1,0,
+	};
+
+	/*WORD indices[] = {
 		3,1,0,
 		2,1,3,
 
+		0,5,4,
+		1,5,0,
+
+		3,4,7,
+		0,4,3,
+
+		1,6,5,
+		2,6,1,
+
+		2,7,6,
+		3,7,2,
+
 		6,4,5,
 		7,4,6,
-
-		11,9,8,
-		10,9,11,
-
-		14,12,13,
-		15,12,14,
-
-		19,17,16,
-		18,17,19,
-
-		22,20,21,
-		23,20,22
-	};
+	};*/
 
 	/*设置buff desc*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(VertexPos) * 3;
+	bd.ByteWidth = sizeof(XMFLOAT3) * 3;//数据总长度
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = NULL;
 
@@ -84,14 +87,14 @@ bool DemoApp1::createVertexBuffer(){
 	if(FAILED(hr))return false;
 
 	/*设置当前vertex buff*/
-	UINT stride = sizeof(VertexPos);
+	UINT stride = sizeof(XMFLOAT3);
 	UINT offset = 0;
 	_context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
 
 
 	/*设置index buff*/
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(WORD) * 36;        // 36 vertices needed for 12 triangles in a triangle list
+	bd.ByteWidth = sizeof(WORD) * 3;        // 36 vertices needed for 12 triangles in a triangle list
 	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	bd.CPUAccessFlags = 0;
 
@@ -107,7 +110,7 @@ bool DemoApp1::createVertexBuffer(){
 	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 
-	// Create the constant buffer
+	/*创建constant buff, 类似于uniform变量*/
 	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.ByteWidth = sizeof(ConstantBuffer);
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -139,7 +142,7 @@ bool DemoApp1::createShader(){
 	/*创建 layout*/
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		//{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
 	};
 	UINT numElements = ARRAYSIZE(layout);
 	
@@ -170,7 +173,7 @@ bool DemoApp1::createShader(){
 
 bool DemoApp1::createTexture(){
 	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/Tutorial01/src/assets/seafloor.dds";
+		L"E:/learn/dx_learn/trunk/learn/Tutorial01/assets/seafloor.dds";
 	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView, 2048U);
 	if(FAILED(hr))return false;
 
@@ -309,9 +312,10 @@ void DemoApp1::render(){
 	// Render a triangle
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetShaderResources(0, 1, &_resView);
-	_context->PSSetSamplers(0, 1, &_sampleState);
-	_context->DrawIndexed(36, 0, 0);
+	//_context->PSSetShaderResources(0, 1, &_resView);
+	//_context->PSSetSamplers(0, 1, &_sampleState);
+	_context->DrawIndexed(3, 0, 0);
+	//_context->Draw(3, 0);
 
 	_chain->Present(0, 0);
 }

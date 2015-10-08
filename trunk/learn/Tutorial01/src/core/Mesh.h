@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include "Vertex.h"
-#include "Triangle.h"
 
 /* 很多个三角形组成的三角网 */
 class Mesh{
@@ -33,7 +32,7 @@ public:
 
 	/* mesh包含的三角形个数 */
     int triangleNum;
-    Triangle triangleList[128];
+    //Triangle triangleList[128];
     
 	/* 理论上uvNum == vertexNum */
 	int uvNum;

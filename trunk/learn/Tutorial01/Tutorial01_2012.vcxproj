@@ -360,8 +360,6 @@
     <ClInclude Include="src\core\Mesh.h" />
     <ClInclude Include="src\core\Plane3D.h" />
     <ClInclude Include="src\core\Scene.h" />
-    <ClInclude Include="src\core\SteadyLine.h" />
-    <ClInclude Include="src\core\Triangle.h" />
     <ClInclude Include="src\core\Vector3D.h" />
     <ClInclude Include="src\core\Vertex.h" />
     <ClInclude Include="src\resource.h" />
@@ -381,8 +379,6 @@
     <ClCompile Include="src\core\Mesh.cpp" />
     <ClCompile Include="src\core\Plane3D.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
-    <ClCompile Include="src\core\SteadyLine.cpp" />
-    <ClCompile Include="src\core\Triangle.cpp" />
     <ClCompile Include="src\core\Vector3D.cpp" />
     <ClCompile Include="src\core\Vertex.cpp" />
     <ClCompile Include="src\main.cpp" />
