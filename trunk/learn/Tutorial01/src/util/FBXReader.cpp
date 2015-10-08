@@ -56,25 +56,71 @@ void FBXReader::processMesh(FbxNode* node){
 	Mesh* mesh = new Mesh();
 	FbxDouble3 pos = node->LclTranslation.Get();
 	mesh->setWorldPos(pos[0], pos[1], pos[2]);
+	
+	readVertex(mesh, fmesh);
+	readIndex(mesh, fmesh);
+	readUV(mesh, fmesh);
+
+	_scene->meshList[_scene->meshNum] = mesh;
+	_scene->meshNum += 1;
+}
+
+/* 顶点数组 */
+void FBXReader::readVertex(Mesh* mesh, FbxMesh* fmesh){
+	mesh->vertexNum = fmesh->GetControlPointsCount();
+	FbxVector4* ctrlPoint = fmesh->GetControlPoints();
+	/* 读取顶点信息 */
+	for(int i = 0; i < mesh->vertexNum; ++i){
+		Vector3D v = Vector3D(ctrlPoint[i][0]*0.1f, ctrlPoint[i][1]*0.1f, ctrlPoint[i][2]*0.1f);
+		mesh->vertexList[i] = v;
+	}
+}
+
+/*读取索引*/
+void FBXReader::readIndex(Mesh* mesh, FbxMesh* fmesh){
 	/* 三角形顶点索引数量, cube = 36 */
 	mesh->indexNum = fmesh->GetPolygonVertexCount();
 	/* 索引数组指针 */
 	int* index = fmesh->GetPolygonVertices();
-	/* 顶点数组 */
-	mesh->vertexNum = fmesh->GetControlPointsCount();
-	FbxVector4* ctrlPoint = fmesh->GetControlPoints();
-
-	/* 读取顶点信息 */
-	for (int i = 0; i < mesh->vertexNum; ++i){
-		Vector3D v = Vector3D(ctrlPoint[i][0] * 0.1f, ctrlPoint[i][1] * 0.1f, ctrlPoint[i][2] * 0.1f);
-		mesh->vertexList[i] = v;
-	}
-
 	/* 读取顶点索引信息 */
-	for (int i = 0; i < mesh->indexNum; ++i){
+	for(int i = 0; i < mesh->indexNum; ++i){
 		mesh->indexList[i] = index[i];
 	}
+}
 
-	_scene->meshList[_scene->meshNum] = mesh;
-	_scene->meshNum += 1;
+void FBXReader::readUV(Mesh* mesh, FbxMesh* pMesh){
+	//get all UV set names
+	FbxStringList lUVSetNameList;
+	pMesh->GetUVSetNames(lUVSetNameList);
+
+	//iterating over all uv sets
+	for(int lUVSetIndex = 0; lUVSetIndex < lUVSetNameList.GetCount(); lUVSetIndex++){
+		//get lUVSetIndex-th uv set
+		const char* lUVSetName = lUVSetNameList.GetStringAt(lUVSetIndex);
+		const FbxGeometryElementUV* lUVElement = pMesh->GetElementUV(lUVSetName);
+
+		if(!lUVElement)continue;
+
+		// only support mapping mode eByPolygonVertex
+		if(lUVElement->GetMappingMode()!=FbxGeometryElement::eByPolygonVertex)return;
+
+
+		const int triangleNum = pMesh->GetPolygonCount();
+		int polyIndex = 0;
+		/*遍历三角形*/
+		for(int i = 0; i < triangleNum; ++i){
+			/*遍历三角形的三个点*/
+			for(int j = 0; j < 3; ++j){
+				int lUVIndex = lUVElement->GetIndexArray().GetAt(polyIndex);
+				FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
+
+				mesh->uvList[polyIndex * 2] = lUVValue[0];
+				mesh->uvList[polyIndex * 2 + 1] = lUVValue[1];
+
+				polyIndex++;
+			}
+		}
+
+	}
+
 }

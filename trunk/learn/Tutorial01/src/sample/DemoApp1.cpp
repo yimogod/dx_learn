@@ -104,7 +104,8 @@ bool DemoApp1::createShader(){
 	/*´´½¨ layout*/
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		//{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"COLOR", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0},
 	};
 	UINT numElements = ARRAYSIZE(layout);
 	
@@ -274,8 +275,8 @@ void DemoApp1::render(){
 	// Render a triangle
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->PSSetShader(_ps, nullptr, 0);
-	//_context->PSSetShaderResources(0, 1, &_resView);
-	//_context->PSSetSamplers(0, 1, &_sampleState);
+	_context->PSSetShaderResources(0, 1, &_resView);
+	_context->PSSetSamplers(0, 1, &_sampleState);
 	Mesh *m = _scene.getMesh(0);
 	_context->DrawIndexed(m->indexNum, 0, 0);
 
