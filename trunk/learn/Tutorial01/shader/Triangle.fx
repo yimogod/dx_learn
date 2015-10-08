@@ -13,8 +13,6 @@ struct PS_INPUT{
 	float4 color : COLOR;
 };
 
-
-
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
 	output.Pos = input.Pos;

@@ -404,13 +404,13 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="src\assets\seafloor.dds" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="src\Tutorial01.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\seafloor.dds" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
