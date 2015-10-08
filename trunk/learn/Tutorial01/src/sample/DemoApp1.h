@@ -48,6 +48,11 @@ protected:
 	DIDATAFORMAT _mouseDataFormat;
 	DIOBJECTDATAFORMAT _inputObjFormat[5];
 
+	/* mvp */
+	XMMATRIX                g_World;
+	XMMATRIX                g_View;
+	XMMATRIX                g_Projection;
+
 	bool createShader();
 	bool createVertexBuffer();
 	bool createTexture();

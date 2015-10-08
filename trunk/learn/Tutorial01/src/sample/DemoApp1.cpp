@@ -8,6 +8,8 @@
 
 #define DIRECTINPUT_VERSION 0x0800
 
+using namespace DirectX;
+
 DemoApp1::DemoApp1(){}
 
 DemoApp1::~DemoApp1(){}
@@ -79,6 +81,18 @@ bool DemoApp1::createVertexBuffer(){
 	bd.CPUAccessFlags = 0;
 	hr = _device->CreateBuffer(&bd, nullptr, &_constBuff);
 	if(FAILED(hr))return false;
+
+
+	g_World = XMMatrixIdentity();
+
+	// Initialize the view matrix
+	XMVECTOR Eye = XMVectorSet(0.0f, 1.0f, -5.0f, 0.0f);
+	XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	g_View = XMMatrixLookAtLH(Eye, At, Up);
+
+	// Initialize the projection matrix
+	g_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV2, _width / _height, 0.01f, 100.0f);
 
 	return true;
 }
@@ -270,10 +284,22 @@ void DemoApp1::onKeyDown(char keycode){
 void DemoApp1::render(){
 	if(_context == NULL)return;
 
+	static float t = 0.11f;
+	t += 0.001f;
+	g_World = XMMatrixRotationY(t);
+
+
 	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
 
-	// Render a triangle
+	ConstantBuffer cb;
+	cb.mWorld = XMMatrixTranspose(g_World);
+	cb.mView = XMMatrixTranspose(g_View);
+	cb.mProjection = XMMatrixTranspose(g_Projection);
+	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+
+
 	_context->VSSetShader(_vs, nullptr, 0);
+	_context->VSSetConstantBuffers(0, 1, &_constBuff);
 	_context->PSSetShader(_ps, nullptr, 0);
 	_context->PSSetShaderResources(0, 1, &_resView);
 	_context->PSSetSamplers(0, 1, &_sampleState);

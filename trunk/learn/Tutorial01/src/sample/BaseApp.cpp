@@ -19,8 +19,8 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 
 	RECT rect;
 	GetClientRect(_hwnd, &rect);
-	int width = rect.right-rect.left;
-	int height = rect.bottom-rect.top;
+	_width = rect.right - rect.left;
+	_height = rect.bottom - rect.top;
 
 	_driverType = D3D_DRIVER_TYPE_HARDWARE;
 	int createDeviceFlags = 0;
@@ -62,8 +62,8 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
 	sd.BufferCount = 1;
-	sd.BufferDesc.Width = width;
-	sd.BufferDesc.Height = height;
+	sd.BufferDesc.Width = _width;
+	sd.BufferDesc.Height = _height;
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
@@ -93,8 +93,8 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 
 	/*…Ë÷√viewport*/
 	D3D11_VIEWPORT vp;
-	vp.Width = (FLOAT)width;
-	vp.Height = (FLOAT)height;
+	vp.Width = _width;
+	vp.Height = _height;
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 0;

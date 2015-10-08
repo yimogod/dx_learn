@@ -20,6 +20,8 @@ protected:
 	HINSTANCE _ins;
 	HWND _hwnd;
 
+	float _width, _height;
+
 	D3D_DRIVER_TYPE _driverType;
 	D3D_FEATURE_LEVEL _featureLevel;
 
