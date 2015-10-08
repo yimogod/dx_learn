@@ -15,9 +15,6 @@ public:
 
 	Mesh* getMesh(int i);
 
-	void buildMesh();
-	void resetMesh();
-
 public:
 	int renderType;
 	

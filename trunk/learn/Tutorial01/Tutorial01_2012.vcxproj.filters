@@ -58,9 +58,6 @@
     <ClInclude Include="src\core\Vector3D.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Vertex.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="src\util\CUtil.h">
       <Filter>util</Filter>
     </ClInclude>
@@ -69,6 +66,12 @@
     </ClInclude>
     <ClInclude Include="src\util\FBXUtil.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\FloatData.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Vertex.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,9 +94,6 @@
     <ClCompile Include="src\core\Camera.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Color.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\Light.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -104,9 +104,6 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Scene.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Vertex.cpp">
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="src\util\CUtil.cpp">
@@ -142,5 +139,8 @@
     <ResourceCompile Include="src\Tutorial01.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

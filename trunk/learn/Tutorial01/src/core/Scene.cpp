@@ -9,15 +9,3 @@ Scene::~Scene(){}
 	 return meshList[i];
  }
 
-void Scene::buildMesh() {
-	for (int i = 0; i < meshNum; i++){
-		meshList[i]->setTriangleByVertex();
-		meshList[i]->copyLocalVertexToTrans();
-	}
-}
-
-void Scene::resetMesh() {
-	for (int i = 0; i < meshNum; i++) {
-		meshList[i]->copyLocalVertexToTrans();
-	}
-}

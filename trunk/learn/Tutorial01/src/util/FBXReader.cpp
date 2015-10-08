@@ -66,8 +66,8 @@ void FBXReader::processMesh(FbxNode* node){
 
 	/* 读取顶点信息 */
 	for (int i = 0; i < mesh->vertexNum; ++i){
-		Vertex v = Vertex(ctrlPoint[i][0], ctrlPoint[i][1], ctrlPoint[i][2]);
-		mesh->vertexLocalList[i] = v;
+		Vector3D v = Vector3D(ctrlPoint[i][0] * 0.1f, ctrlPoint[i][1] * 0.1f, ctrlPoint[i][2] * 0.1f);
+		mesh->vertexList[i] = v;
 	}
 
 	/* 读取顶点索引信息 */

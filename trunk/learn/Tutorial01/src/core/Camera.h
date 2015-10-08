@@ -1,12 +1,11 @@
 ﻿#pragma once
 
 #include <iostream>
-#include "Vertex.h"
 #include "Plane3D.h"
 
 class Camera{
 public:
-    Vertex position;
+    Vector3D position;
     /* base on angle radians(弧度), 逆时针, 数据基于世界坐标系 */
     float rotateX;
     float rotateY;

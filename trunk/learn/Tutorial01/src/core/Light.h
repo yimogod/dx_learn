@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include "Color.h"
-#include "Vertex.h"
 #include "Vector3D.h"
 
 class Light{

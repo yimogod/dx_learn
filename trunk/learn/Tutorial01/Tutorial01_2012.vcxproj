@@ -356,6 +356,7 @@
     <ClInclude Include="src\core\Camera.h" />
     <ClInclude Include="src\core\Color.h" />
     <ClInclude Include="src\core\DLog.h" />
+    <ClInclude Include="src\core\FloatData.h" />
     <ClInclude Include="src\core\Light.h" />
     <ClInclude Include="src\core\Mesh.h" />
     <ClInclude Include="src\core\Plane3D.h" />
@@ -373,14 +374,12 @@
   <ItemGroup>
     <ClCompile Include="src\core\Application.cpp" />
     <ClCompile Include="src\core\Camera.cpp" />
-    <ClCompile Include="src\core\Color.cpp" />
     <ClCompile Include="src\core\DLog.cpp" />
     <ClCompile Include="src\core\Light.cpp" />
     <ClCompile Include="src\core\Mesh.cpp" />
     <ClCompile Include="src\core\Plane3D.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\core\Vector3D.cpp" />
-    <ClCompile Include="src\core\Vertex.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\sample\BaseApp.cpp" />
     <ClCompile Include="src\sample\DemoApp1.cpp" />
@@ -409,6 +408,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\Tutorial01.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

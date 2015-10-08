@@ -6,11 +6,6 @@
 
 using namespace DirectX;
 
-struct VertexPos{
-	XMFLOAT3 pos;
-	XMFLOAT3 tex0;
-};
-
 struct ConstantBuffer{
 	XMMATRIX mWorld;
 	XMMATRIX mView;
