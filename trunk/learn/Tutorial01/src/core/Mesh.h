@@ -29,10 +29,10 @@ public:
 	unsigned short indexList[512];
 	/*下面所有的颜色, uv, normal都跟index一一匹配. 有多少个index, 就有多少个color, uv, normal*/
 	/*顶点颜色*/
-	Color colorList[64];
+	Color colorList[512];
 
 	/*S, T, S, T, S, T, 贴图数据列表*/
-	float uvList[128];
+	float uvList[1024];
 
 public:
 	/* mesh在世界中的坐标 */

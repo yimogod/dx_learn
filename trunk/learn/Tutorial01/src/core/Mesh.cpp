@@ -13,10 +13,11 @@ void Mesh::setWorldPos(float x, float y, float z){
 }
 
 void Mesh::getVertexList(Vertex list[]){
-	for(int i = 0; i < vertexNum; i++){
-		list[i].pos = Float3{vertexList[i].x, vertexList[i].y, vertexList[i].z};
-		list[i].color = Float3{colorList[i].r, colorList[i].g, colorList[i].b};
-		list[i].uv = Float2A{uvList[i * 2], uvList[i * 2 + 1]};
+	for(int i = 0; i < indexNum; i++){
+		int index = indexList[i];
+		list[i].pos = Float3{vertexList[index].x, vertexList[index].y, vertexList[index].z};
+		list[i].color = Float3{colorList[index].r, colorList[index].g, colorList[index].b};
+		list[i].uv = Float2A{uvList[index* 2], uvList[index* 2 + 1]};
 	}
 }
 

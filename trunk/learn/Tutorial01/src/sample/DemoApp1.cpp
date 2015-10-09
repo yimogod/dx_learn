@@ -30,14 +30,14 @@ bool DemoApp1::createVertexBuffer(){
 
 	/*准备顶点缓冲数据*/
 	Mesh* mesh = _scene.getMesh(0);
-	Vertex *vertices = new Vertex[mesh->vertexNum];
+	Vertex *vertices = new Vertex[mesh->indexNum];
 	mesh->getVertexList(vertices);
 
 	/*设置buff desc*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(Vertex) * mesh->vertexNum;//数据总长度
+	bd.ByteWidth = sizeof(Vertex) * mesh->indexNum;//数据总长度
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = NULL;
 
@@ -283,10 +283,6 @@ void DemoApp1::onKeyDown(char keycode){
 void DemoApp1::render(){
 	if(_context == NULL)return;
 
-	static float t = 0.12f;
-	t += 0.001f;
-	g_World = XMMatrixRotationY(t);
-
 
 	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
 
@@ -303,7 +299,8 @@ void DemoApp1::render(){
 	_context->PSSetShaderResources(0, 1, &_resView);
 	_context->PSSetSamplers(0, 1, &_sampleState);
 	Mesh *m = _scene.getMesh(0);
-	_context->DrawIndexed(m->indexNum, 0, 0);
+	//_context->DrawIndexed(m->indexNum, 0, 0);
+	_context->Draw(m->indexNum, 0);
 
 	_chain->Present(0, 0);
 }

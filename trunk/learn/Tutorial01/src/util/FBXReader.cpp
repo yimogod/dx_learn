@@ -1,4 +1,5 @@
 #include <fbxsdk.h>
+#include <fbxsdk\scene\geometry\fbxlayer.h>
 #include "FBXReader.h"
 #include "FBXUtil.h"
 #include "../core/Scene.h"
@@ -94,30 +95,25 @@ void FBXReader::readUV(Mesh* mesh, FbxMesh* pMesh){
 	pMesh->GetUVSetNames(lUVSetNameList);
 
 	//iterating over all uv sets
-	const int triangleNum = pMesh->GetPolygonCount();
 	for(int lUVSetIndex = 0; lUVSetIndex < lUVSetNameList.GetCount(); lUVSetIndex++){
 		//get lUVSetIndex-th uv set
 		const char* lUVSetName = lUVSetNameList.GetStringAt(lUVSetIndex);
 		const FbxGeometryElementUV* lUVElement = pMesh->GetElementUV(lUVSetName);
 
 		if(!lUVElement)continue;
-
 		// only support mapping mode eByPolygonVertex
-		if(lUVElement->GetMappingMode()!=FbxGeometryElement::eByPolygonVertex)return;
+		if(lUVElement->GetMappingMode() != FbxGeometryElement::eByPolygonVertex)return;
 		
-		int polyIndex = 0;
+
+		const int lIndexCount = lUVElement->GetIndexArray().GetCount();
 		/*遍历三角形*/
-		for(int i = 0; i < triangleNum; ++i){
+		for(int polyIndex = 0; polyIndex < lIndexCount; polyIndex++){
 			/*遍历三角形的三个点*/
-			for(int j = 0; j < 3; ++j){
-				int lUVIndex = lUVElement->GetIndexArray().GetAt(polyIndex);
-				FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
+			int lUVIndex = lUVElement->GetIndexArray().GetAt(polyIndex);
+			FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
 
-				mesh->uvList[polyIndex * 2] = lUVValue[0];
-				mesh->uvList[polyIndex * 2 + 1] = lUVValue[1];
-
-				polyIndex++;
-			}
+			mesh->uvList[polyIndex * 2] = lUVValue[0];
+			mesh->uvList[polyIndex * 2 + 1] = lUVValue[1];
 		}
 
 	}
