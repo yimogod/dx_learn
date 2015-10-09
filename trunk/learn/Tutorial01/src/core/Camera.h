@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <iostream>
+#include "Matrix4x4.h"
 #include "Plane3D.h"
 
 class Camera{
@@ -52,4 +53,6 @@ public:
     
     void setProperty(float viewDis, float pfov, float nz, float fz,
                      float pviewportWidth, float pviewportHeight);
+
+	Matrix4x4 getWorldToCameraMatrix();
 };

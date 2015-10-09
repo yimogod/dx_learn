@@ -26,3 +26,13 @@ void Camera::setProperty(float viewDis, float pfov, float nz, float fz,
     viewportHeight = pviewportHeight;
     aspect = pviewportWidth / pviewportHeight;
 }
+
+Matrix4x4 Camera::getWorldToCameraMatrix(){
+	Matrix4x4 move(1.0f, 0.0f, 0.0f, 0.0f,
+				0.0f, 1.0f, 0.0f, 0.0f,
+				0.0f, 0.0f, 1.0f, 0.0f,
+				-position.x, -position.y, -position.z, 1.0f);
+	Matrix4x4 rotate;
+
+	return move.mul(rotate);
+}

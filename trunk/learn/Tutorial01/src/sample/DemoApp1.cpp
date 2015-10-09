@@ -20,8 +20,8 @@ bool DemoApp1::createVertexBuffer(){
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
-	_scene.camera = new Camera(0, 0, -10.0f, 0, 0, 0);
-	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 100.0f, 800.0f, 600.0f);
+	_scene.camera = new Camera(0, 0, 0.0f, 0, 0, 0);
+	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 100.0f, _width, _height);
 
 	_scene.lightList[0] = new Light();
 	_scene.lightList[0]->type = Light::TYPE_AMBIENT;
@@ -274,9 +274,21 @@ void DemoApp1::onKeyDown(char keycode){
 
 void DemoApp1::render(){
 	if(_context == NULL)return;
-
-
 	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
+
+	/*根据相机重新计算各个矩阵*/
+	world_to_camera = _scene.camera->getWorldToCameraMatrix();
+	camera_to_view = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+							0.0f, 1.0f, 0.0f, 0.0f,
+							0.0f, 0.0f, 1.0f, 1.0f,
+							0.0f, 0.0f, 0.0f, 1.0f);
+
+	float a = 0.5f * _width - 0.5f;
+	float b = 0.5f * _height - 0.5f;
+	view_to_project = Matrix4x4(a, 0.0f, 0.0f, 0.0f, 
+		0.0f, -b, 0.0f, 0.0f, 
+		0.0f, 0.0f, 1.0f, 0.0f,
+		a, b, 0.0f, 1.0f);
 
 	ConstantBuffer cb;
 	cb.mWorld = world_to_camera;
