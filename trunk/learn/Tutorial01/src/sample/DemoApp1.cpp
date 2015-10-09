@@ -61,7 +61,6 @@ bool DemoApp1::createVertexBuffer(){
 	bd.ByteWidth = sizeof(short) * mesh->indexNum;//定点数据占用的所有空间
 	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	bd.CPUAccessFlags = 0;
-
 	/*创建index buff*/
 	InitData.pSysMem = mesh->indexList;
 	hr = _device->CreateBuffer(&bd, &InitData, &_indexBuff);
@@ -118,7 +117,7 @@ bool DemoApp1::createShader(){
 	/*创建 layout*/
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"COLOR", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0},
 	};
 	UINT numElements = ARRAYSIZE(layout);

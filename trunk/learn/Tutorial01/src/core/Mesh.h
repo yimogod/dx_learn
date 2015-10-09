@@ -24,15 +24,15 @@ public:
 	/*顶点颜色*/
 	Vector3D vertexList[64];
     
+	/* 顶点索引个数 */
+	unsigned short indexNum;
+	unsigned short indexList[512];
+	/*下面所有的颜色, uv, normal都跟index一一匹配. 有多少个index, 就有多少个color, uv, normal*/
 	/*顶点颜色*/
 	Color colorList[64];
 
 	/*S, T, S, T, S, T, 贴图数据列表*/
 	float uvList[128];
-
-	/* 顶点索引个数 */
-	unsigned short indexNum;
-	unsigned short indexList[512];
 
 public:
 	/* mesh在世界中的坐标 */

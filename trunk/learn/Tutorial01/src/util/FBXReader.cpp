@@ -94,6 +94,7 @@ void FBXReader::readUV(Mesh* mesh, FbxMesh* pMesh){
 	pMesh->GetUVSetNames(lUVSetNameList);
 
 	//iterating over all uv sets
+	const int triangleNum = pMesh->GetPolygonCount();
 	for(int lUVSetIndex = 0; lUVSetIndex < lUVSetNameList.GetCount(); lUVSetIndex++){
 		//get lUVSetIndex-th uv set
 		const char* lUVSetName = lUVSetNameList.GetStringAt(lUVSetIndex);
@@ -103,9 +104,7 @@ void FBXReader::readUV(Mesh* mesh, FbxMesh* pMesh){
 
 		// only support mapping mode eByPolygonVertex
 		if(lUVElement->GetMappingMode()!=FbxGeometryElement::eByPolygonVertex)return;
-
-
-		const int triangleNum = pMesh->GetPolygonCount();
+		
 		int polyIndex = 0;
 		/*±éÀúÈı½ÇĞÎ*/
 		for(int i = 0; i < triangleNum; ++i){
