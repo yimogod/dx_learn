@@ -73,6 +73,9 @@
     <ClInclude Include="src\core\BaseDataStruct.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\Matrix4x4.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
@@ -118,6 +121,9 @@
     <ClCompile Include="src\core\Vector3D.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\Matrix4x4.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\Triangle_PS.hlsl">
@@ -134,9 +140,6 @@
     <ResourceCompile Include="src\Tutorial01.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\seafloor.dds">

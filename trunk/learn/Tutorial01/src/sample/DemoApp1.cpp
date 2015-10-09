@@ -81,17 +81,9 @@ bool DemoApp1::createVertexBuffer(){
 	hr = _device->CreateBuffer(&bd, nullptr, &_constBuff);
 	if(FAILED(hr))return false;
 
-
-	g_World = XMMatrixIdentity();
-
-	// Initialize the view matrix
-	XMVECTOR Eye = XMVectorSet(0.0f, 1.0f, -5.0f, 0.0f);
-	XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	g_View = XMMatrixLookAtLH(Eye, At, Up);
-
-	// Initialize the projection matrix
-	g_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV2, _width / _height, 0.01f, 100.0f);
+	world_to_camera = Matrix4x4();
+	camera_to_view = Matrix4x4();
+	view_to_project = Matrix4x4();
 
 	return true;
 }
@@ -287,9 +279,9 @@ void DemoApp1::render(){
 	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
 
 	ConstantBuffer cb;
-	cb.mWorld = XMMatrixTranspose(g_World);
-	cb.mView = XMMatrixTranspose(g_View);
-	cb.mProjection = XMMatrixTranspose(g_Projection);
+	cb.mWorld = world_to_camera;
+	cb.mView = camera_to_view;
+	cb.mProjection = view_to_project;
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
 
 

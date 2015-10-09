@@ -2,14 +2,15 @@
 #include <DirectXMath.h>
 #include <dinput.h>
 #include "../core/Scene.h"
+#include "../core/Matrix4x4.h"
 #include "BaseApp.h"
 
 using namespace DirectX;
 
 struct ConstantBuffer{
-	XMMATRIX mWorld;
-	XMMATRIX mView;
-	XMMATRIX mProjection;
+	Matrix4x4 mWorld;
+	Matrix4x4 mView;
+	Matrix4x4 mProjection;
 };
 
 
@@ -49,9 +50,9 @@ protected:
 	DIOBJECTDATAFORMAT _inputObjFormat[5];
 
 	/* mvp */
-	XMMATRIX                g_World;
-	XMMATRIX                g_View;
-	XMMATRIX                g_Projection;
+	Matrix4x4 world_to_camera;
+	Matrix4x4 camera_to_view;
+	Matrix4x4 view_to_project;
 
 	bool createShader();
 	bool createVertexBuffer();

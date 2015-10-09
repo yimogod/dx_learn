@@ -358,6 +358,7 @@
     <ClInclude Include="src\core\DLog.h" />
     <ClInclude Include="src\core\BaseDataStruct.h" />
     <ClInclude Include="src\core\Light.h" />
+    <ClInclude Include="src\core\Matrix4x4.h" />
     <ClInclude Include="src\core\Mesh.h" />
     <ClInclude Include="src\core\Plane3D.h" />
     <ClInclude Include="src\core\Scene.h" />
@@ -376,6 +377,7 @@
     <ClCompile Include="src\core\Camera.cpp" />
     <ClCompile Include="src\core\DLog.cpp" />
     <ClCompile Include="src\core\Light.cpp" />
+    <ClCompile Include="src\core\Matrix4x4.cpp" />
     <ClCompile Include="src\core\Mesh.cpp" />
     <ClCompile Include="src\core\Plane3D.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
@@ -405,9 +407,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\Tutorial01.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\seafloor.dds" />
