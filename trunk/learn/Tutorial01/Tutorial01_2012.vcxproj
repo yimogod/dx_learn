@@ -356,7 +356,7 @@
     <ClInclude Include="src\core\Camera.h" />
     <ClInclude Include="src\core\Color.h" />
     <ClInclude Include="src\core\DLog.h" />
-    <ClInclude Include="src\core\FloatData.h" />
+    <ClInclude Include="src\core\BaseDataStruct.h" />
     <ClInclude Include="src\core\Light.h" />
     <ClInclude Include="src\core\Mesh.h" />
     <ClInclude Include="src\core\Plane3D.h" />

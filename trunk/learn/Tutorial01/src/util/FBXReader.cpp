@@ -71,7 +71,7 @@ void FBXReader::readVertex(Mesh* mesh, FbxMesh* fmesh){
 	FbxVector4* ctrlPoint = fmesh->GetControlPoints();
 	/* 读取顶点信息 */
 	for(int i = 0; i < mesh->vertexNum; ++i){
-		Vector3D v = Vector3D(ctrlPoint[i][0]*0.1f, ctrlPoint[i][1]*0.1f, ctrlPoint[i][2]*0.1f);
+		Vector3D v = Vector3D(ctrlPoint[i][0], ctrlPoint[i][1], ctrlPoint[i][2]);
 		mesh->vertexList[i] = v;
 	}
 }

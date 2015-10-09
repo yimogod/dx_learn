@@ -58,7 +58,7 @@ bool DemoApp1::createVertexBuffer(){
 
 	/*设置index buff*/
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(int) * mesh->indexNum;//定点数据占用的所有空间
+	bd.ByteWidth = sizeof(short) * mesh->indexNum;//定点数据占用的所有空间
 	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	bd.CPUAccessFlags = 0;
 
@@ -284,7 +284,7 @@ void DemoApp1::onKeyDown(char keycode){
 void DemoApp1::render(){
 	if(_context == NULL)return;
 
-	static float t = 0.11f;
+	static float t = 0.12f;
 	t += 0.001f;
 	g_World = XMMatrixRotationY(t);
 

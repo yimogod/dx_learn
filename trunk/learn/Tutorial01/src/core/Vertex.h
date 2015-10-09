@@ -1,5 +1,5 @@
 #pragma once
-#include "FloatData.h"
+#include "BaseDataStruct.h"
 
 struct Vertex{
 	Float3 pos;

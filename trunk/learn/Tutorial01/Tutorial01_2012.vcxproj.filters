@@ -67,10 +67,10 @@
     <ClInclude Include="src\util\FBXUtil.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\FloatData.h">
+    <ClInclude Include="src\core\Vertex.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Vertex.h">
+    <ClInclude Include="src\core\BaseDataStruct.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>

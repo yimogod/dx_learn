@@ -14,3 +14,13 @@ struct Float3{
 	float y;
 	float z;
 };
+
+struct  Int2{
+	int x;
+	int y;
+};
+
+struct Int2A{
+	int u;
+	int v;
+};

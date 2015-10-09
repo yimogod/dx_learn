@@ -20,7 +20,7 @@ public:
 	int state;
 
 	/*顶点个数*/
-	int vertexNum;
+	unsigned short vertexNum;
 	/*顶点颜色*/
 	Vector3D vertexList[64];
     
@@ -31,8 +31,8 @@ public:
 	float uvList[128];
 
 	/* 顶点索引个数 */
-	int indexNum;
-	int indexList[512];
+	unsigned short indexNum;
+	unsigned short indexList[512];
 
 public:
 	/* mesh在世界中的坐标 */
