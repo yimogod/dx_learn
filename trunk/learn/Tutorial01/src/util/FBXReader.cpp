@@ -105,15 +105,14 @@ void FBXReader::readUV(Mesh* mesh, FbxMesh* pMesh){
 		if(lUVElement->GetMappingMode() != FbxGeometryElement::eByPolygonVertex)return;
 		
 
+		/*遍历所有顶点*/
 		const int lIndexCount = lUVElement->GetIndexArray().GetCount();
-		/*遍历三角形*/
 		for(int polyIndex = 0; polyIndex < lIndexCount; polyIndex++){
-			/*遍历三角形的三个点*/
 			int lUVIndex = lUVElement->GetIndexArray().GetAt(polyIndex);
 			FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
 
 			mesh->uvList[polyIndex * 2] = lUVValue[0];
-			mesh->uvList[polyIndex * 2 + 1] = lUVValue[1];
+			mesh->uvList[polyIndex * 2 + 1] = 1 - lUVValue[1];
 		}
 
 	}

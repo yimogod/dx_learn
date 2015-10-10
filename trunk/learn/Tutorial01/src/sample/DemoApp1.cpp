@@ -15,7 +15,7 @@ DemoApp1::DemoApp1(){}
 DemoApp1::~DemoApp1(){}
 
 bool DemoApp1::createVertexBuffer(){
-	char* sInputFile = "assets/simple_scene.fbx";
+	char* sInputFile = "assets/rect.fbx";
 	FBXReader reader;
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
