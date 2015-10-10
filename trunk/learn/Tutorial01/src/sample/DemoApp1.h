@@ -62,6 +62,7 @@ protected:
 protected:
 	char _keyboardBuff[256];
 	MouseState _mouseState;
+	bool isKeyDown(char keycode);
 	void onKeyDown(char keycode);
 
 	Scene _scene;

@@ -20,7 +20,7 @@ bool DemoApp1::createVertexBuffer(){
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
-	_scene.camera = new Camera(0, -1.0f, -1.0f, 0, 0, 0);
+	_scene.camera = new Camera(0, -1.0f, -2.0f, 0, 0, 0);
 	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 100.0f, _width, _height);
 
 	_scene.lightList[0] = new Light();
@@ -249,14 +249,9 @@ void DemoApp1::unloadContent(){
 
 void DemoApp1::update(){
 	/*按下键盘*/
-	return;
 	HRESULT hr = _keyborad->Acquire();
 	if(SUCCEEDED(hr)){
 		hr = _keyborad->GetDeviceState(sizeof(_keyboardBuff), (LPVOID)&_keyboardBuff);
-		if(SUCCEEDED(hr)){
-			char a = _keyboardBuff[DIK_A];
-			if(a&0x80)onKeyDown(a);
-		}
 	}
 
 	/*按下鼠标*/
@@ -267,6 +262,25 @@ void DemoApp1::update(){
 			//i want a simple ui
 		}
 	}
+
+	if(isKeyDown(DIK_A)){
+		_scene.camera->position.x -= 0.001f;
+	}else if(isKeyDown(DIK_D)){
+		_scene.camera->position.x += 0.001f;
+	}else if(isKeyDown(DIK_W)){
+		_scene.camera->position.y += 0.001f;
+	}else if(isKeyDown(DIK_S)){
+		_scene.camera->position.y -= 0.001f;
+	}else if(isKeyDown(DIK_Z)){
+		_scene.camera->position.z += 0.001f;
+	}else if(isKeyDown(DIK_X)){
+		_scene.camera->position.z -= 0.001f;
+	}
+}
+
+bool DemoApp1::isKeyDown(char keycode){
+	char a = _keyboardBuff[keycode];
+	return a & 0x80;
 }
 
 void DemoApp1::onKeyDown(char keycode){
