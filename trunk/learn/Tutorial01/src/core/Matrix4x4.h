@@ -15,4 +15,9 @@ public:
 	~Matrix4x4();
 
 	Matrix4x4 mul(Matrix4x4 &mb);
+	/*×°ÖÃ*/
+	Matrix4x4 transpose();
+
+	/*¿ËÂ¡*/
+	Matrix4x4 clone();
 };

@@ -51,3 +51,23 @@ Matrix4x4 Matrix4x4::mul(Matrix4x4 &mb){
 
 	return m;
 }
+
+Matrix4x4 Matrix4x4::transpose(){
+	Matrix4x4 m = clone();
+
+	Matrix4x4 n(m.m00, m.m10, m.m20, m.m30,
+		m.m01, m.m11, m.m21, m.m31, 
+		m.m02, m.m12, m.m22, m.m32, 
+		m.m03, m.m13, m.m23, m.m33);
+
+	return n;
+}
+
+Matrix4x4 Matrix4x4::clone(){
+	Matrix4x4 n(m00, m01, m02, m03,
+		m10, m11, m12, m13,
+		m20, m21, m22, m23,
+		m30, m31, m32, m33);
+
+	return n;
+}

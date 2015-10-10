@@ -15,6 +15,20 @@ struct Float3{
 	float z;
 };
 
+struct Float4{
+	float x;
+	float y;
+	float z;
+	float w;
+};
+
+struct Float4A{
+	float r;
+	float g;
+	float b;
+	float a;
+};
+
 struct  Int2{
 	int x;
 	int y;

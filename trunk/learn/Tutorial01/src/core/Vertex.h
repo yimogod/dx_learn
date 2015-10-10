@@ -2,7 +2,7 @@
 #include "BaseDataStruct.h"
 
 struct Vertex{
-	Float3 pos;
-	Float3 color;
+	Float4 pos;
+	Float4A color;
 	Float2A uv;
 };

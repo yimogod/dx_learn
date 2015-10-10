@@ -51,8 +51,8 @@ protected:
 
 	/* mvp */
 	Matrix4x4 world_to_camera;
-	Matrix4x4 camera_to_view;
-	Matrix4x4 view_to_project;
+	Matrix4x4 camera_to_project;
+	Matrix4x4 project_to_screen;
 
 	bool createShader();
 	bool createVertexBuffer();

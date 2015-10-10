@@ -20,7 +20,7 @@ bool DemoApp1::createVertexBuffer(){
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
-	_scene.camera = new Camera(0, 0, 0.0f, 0, 0, 0);
+	_scene.camera = new Camera(0, -1.0f, -1.0f, 0, 0, 0);
 	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 100.0f, _width, _height);
 
 	_scene.lightList[0] = new Light();
@@ -82,8 +82,8 @@ bool DemoApp1::createVertexBuffer(){
 	if(FAILED(hr))return false;
 
 	world_to_camera = Matrix4x4();
-	camera_to_view = Matrix4x4();
-	view_to_project = Matrix4x4();
+	camera_to_project = Matrix4x4();
+	project_to_screen = Matrix4x4();
 
 	return true;
 }
@@ -108,9 +108,9 @@ bool DemoApp1::createShader(){
 
 	/*创建 layout*/
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
-		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0},
 	};
 	UINT numElements = ARRAYSIZE(layout);
 	
@@ -249,6 +249,7 @@ void DemoApp1::unloadContent(){
 
 void DemoApp1::update(){
 	/*按下键盘*/
+	return;
 	HRESULT hr = _keyborad->Acquire();
 	if(SUCCEEDED(hr)){
 		hr = _keyborad->GetDeviceState(sizeof(_keyboardBuff), (LPVOID)&_keyboardBuff);
@@ -278,22 +279,25 @@ void DemoApp1::render(){
 
 	/*根据相机重新计算各个矩阵*/
 	world_to_camera = _scene.camera->getWorldToCameraMatrix();
-	camera_to_view = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+
+	float aspect = _scene.camera->aspect;
+	camera_to_project = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
 							0.0f, 1.0f, 0.0f, 0.0f,
 							0.0f, 0.0f, 1.0f, 1.0f,
-							0.0f, 0.0f, 0.0f, 1.0f);
+							0.0f, 0.0f, 0.0f, 0.0f);
+
 
 	float a = 0.5f * _width - 0.5f;
 	float b = 0.5f * _height - 0.5f;
-	view_to_project = Matrix4x4(a, 0.0f, 0.0f, 0.0f, 
-		0.0f, -b, 0.0f, 0.0f, 
-		0.0f, 0.0f, 1.0f, 0.0f,
-		a, b, 0.0f, 1.0f);
+	/*project_to_screen = Matrix4x4(a, 0.0f, 0.0f, 0.0f, 
+								0.0f, -b, 0.0f, 0.0f, 
+								a, b, 1.0f, 0.0f,
+								0.0f, 0.0f, 0.0f, 1.0f);*/
 
 	ConstantBuffer cb;
-	cb.mWorld = world_to_camera;
-	cb.mView = camera_to_view;
-	cb.mProjection = view_to_project;
+	cb.mWorld = world_to_camera.transpose();
+	cb.mView = camera_to_project.transpose();
+	cb.mProjection = project_to_screen.transpose();
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
 
 
