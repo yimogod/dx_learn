@@ -19,9 +19,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\sample\BaseApp.h">
-      <Filter>sample</Filter>
-    </ClInclude>
     <ClInclude Include="src\sample\DemoApp1.h">
       <Filter>sample</Filter>
     </ClInclude>
@@ -76,12 +73,10 @@
     <ClInclude Include="src\core\Matrix4x4.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="src\BaseApp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\sample\BaseApp.cpp">
-      <Filter>sample</Filter>
-    </ClCompile>
     <ClCompile Include="src\sample\DemoApp1.cpp">
       <Filter>sample</Filter>
     </ClCompile>
@@ -124,6 +119,7 @@
     <ClCompile Include="src\core\Matrix4x4.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="src\BaseApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\Triangle_PS.hlsl">

@@ -3,7 +3,7 @@
 #include <dinput.h>
 #include "../core/Scene.h"
 #include "../core/Matrix4x4.h"
-#include "BaseApp.h"
+#include "../BaseApp.h"
 
 using namespace DirectX;
 

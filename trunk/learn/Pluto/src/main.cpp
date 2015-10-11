@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "sample/BaseApp.h"
+#include "BaseApp.h"
 #include "sample/DemoApp1.h"
 #include "resource.h"
 

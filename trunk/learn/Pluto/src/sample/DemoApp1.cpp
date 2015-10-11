@@ -15,7 +15,7 @@ DemoApp1::DemoApp1(){}
 DemoApp1::~DemoApp1(){}
 
 bool DemoApp1::createVertexBuffer(){
-	char* sInputFile = "assets/rect.fbx";
+	char* sInputFile = "assets/simple_scene.fbx";
 	FBXReader reader;
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
@@ -141,7 +141,7 @@ bool DemoApp1::createShader(){
 
 bool DemoApp1::createTexture(){
 	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/Tutorial01/assets/seafloor.dds";
+		L"F:/projects/dx_learn/trunk/learn/Tutorial01/assets/seafloor.dds";
 	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView, 2048U);
 	if(FAILED(hr))return false;
 
