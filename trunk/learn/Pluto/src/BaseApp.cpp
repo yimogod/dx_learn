@@ -1,6 +1,8 @@
 #include <d3dcompiler.h>
 #include "BaseApp.h"
 
+#pragma comment (lib, "libfbxsdk.lib")
+
 BaseApp::BaseApp():_driverType(D3D_DRIVER_TYPE_NULL),
 				_featureLevel(D3D_FEATURE_LEVEL_11_1),
 				_device(NULL),

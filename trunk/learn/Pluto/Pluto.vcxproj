@@ -35,7 +35,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
@@ -92,6 +92,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
+    <OutDir>$(SolutionDir)lib\</OutDir>
+    <TargetName>pluto</TargetName>
+    <IncludePath>$(SolutionDir)include\;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Program Files\Autodesk\FBX\FBX SDK\2015.1\lib\vs2013\x86\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
     <LinkIncremental>true</LinkIncremental>
@@ -124,7 +128,7 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0600;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <AdditionalIncludeDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2015.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -352,21 +356,25 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\BaseApp.h" />
-    <ClInclude Include="src\core\Application.h" />
-    <ClInclude Include="src\core\Camera.h" />
-    <ClInclude Include="src\core\Color.h" />
-    <ClInclude Include="src\core\DLog.h" />
+    <ClInclude Include="..\include\Application.h" />
+    <ClInclude Include="..\include\BaseApp.h" />
+    <ClInclude Include="..\include\BaseDataStruct.h" />
+    <ClInclude Include="..\include\Camera.h" />
+    <ClInclude Include="..\include\Color.h" />
+    <ClInclude Include="..\include\CUtil.h" />
+    <ClInclude Include="..\include\DDSTextureLoader.h" />
+    <ClInclude Include="..\include\DLog.h" />
+    <ClInclude Include="..\include\FBXReader.h" />
+    <ClInclude Include="..\include\FBXUtil.h" />
+    <ClInclude Include="..\include\Light.h" />
+    <ClInclude Include="..\include\Matrix4x4.h" />
+    <ClInclude Include="..\include\Mesh.h" />
+    <ClInclude Include="..\include\Plane3D.h" />
+    <ClInclude Include="..\include\Scene.h" />
+    <ClInclude Include="..\include\SteadyLine.h" />
+    <ClInclude Include="..\include\Vector3D.h" />
+    <ClInclude Include="..\include\Vertex.h" />
     <ClInclude Include="src\core\BaseDataStruct.h" />
-    <ClInclude Include="src\core\Light.h" />
-    <ClInclude Include="src\core\Matrix4x4.h" />
-    <ClInclude Include="src\core\Mesh.h" />
-    <ClInclude Include="src\core\Plane3D.h" />
-    <ClInclude Include="src\core\Scene.h" />
-    <ClInclude Include="src\core\Vector3D.h" />
-    <ClInclude Include="src\core\Vertex.h" />
-    <ClInclude Include="src\resource.h" />
-    <ClInclude Include="src\sample\DemoApp1.h" />
     <ClInclude Include="src\util\CUtil.h" />
     <ClInclude Include="src\util\DDSTextureLoader.h" />
     <ClInclude Include="src\util\FBXReader.h" />
@@ -383,33 +391,10 @@
     <ClCompile Include="src\core\Plane3D.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\core\Vector3D.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\sample\DemoApp1.cpp" />
     <ClCompile Include="src\util\CUtil.cpp" />
     <ClCompile Include="src\util\DDSTextureLoader.cpp" />
     <ClCompile Include="src\util\FBXReader.cpp" />
     <ClCompile Include="src\util\FBXUtil.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="shader\Triangle.fx">
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
-    </FxCompile>
-    <FxCompile Include="shader\Triangle_PS.hlsl">
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="shader\Triangle_VS.hlsl">
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="src\Tutorial01.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\seafloor.dds" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

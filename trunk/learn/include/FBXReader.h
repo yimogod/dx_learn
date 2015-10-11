@@ -1,7 +1,6 @@
 #pragma once
-
 #include <fbxsdk.h>
-#include "../core/Scene.h"
+#include <Scene.h>
 
 class FBXReader{
 public:

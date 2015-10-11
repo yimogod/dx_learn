@@ -2,9 +2,9 @@
 #include <DirectXColors.h>
 #include <dinput.h>
 #include "DemoApp1.h"
-#include "../util/FBXReader.h"
-#include "../util/DDSTextureLoader.h"
-#include "../core/Mesh.h"
+#include <FBXReader.h>
+#include <DDSTextureLoader.h>
+#include <Mesh.h>
 
 #define DIRECTINPUT_VERSION 0x0800
 

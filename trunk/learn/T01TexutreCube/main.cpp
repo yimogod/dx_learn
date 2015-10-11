@@ -1,8 +1,9 @@
 #include <windows.h>
-#include "BaseApp.h"
-#include "sample/DemoApp1.h"
+#include <BaseApp.h>
+#include "DemoApp1.h"
 #include "resource.h"
 
+//#pragma comment (lib, "GLFW_d64.lib")
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 

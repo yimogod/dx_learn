@@ -1,59 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
-    </Filter>
-    <Filter Include="sample">
-      <UniqueIdentifier>{cc7b4f0b-a872-466d-9277-160688d82712}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shader">
-      <UniqueIdentifier>{18c054df-acb8-4119-a714-5f093b1366f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="util">
       <UniqueIdentifier>{f885f0fa-7599-4d9c-9811-918044d15d21}</UniqueIdentifier>
     </Filter>
     <Filter Include="core">
       <UniqueIdentifier>{5c12c1b6-5494-4626-a517-1f803b474573}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{140385ab-05d0-458b-9c98-706bbbfb4e2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\sample\DemoApp1.h">
-      <Filter>sample</Filter>
-    </ClInclude>
     <ClInclude Include="src\util\DDSTextureLoader.h">
       <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\Application.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\DLog.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\Camera.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\Color.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\Light.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\Mesh.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\Plane3D.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\Scene.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\Vector3D.h">
-      <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="src\util\CUtil.h">
       <Filter>util</Filter>
@@ -64,22 +24,65 @@
     <ClInclude Include="src\util\FBXUtil.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Vertex.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\BaseDataStruct.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Matrix4x4.h">
-      <Filter>core</Filter>
+    <ClInclude Include="..\include\Application.h">
+      <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="src\BaseApp.h" />
+    <ClInclude Include="..\include\BaseDataStruct.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Camera.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Color.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DLog.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Light.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Matrix4x4.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Mesh.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Plane3D.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Scene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SteadyLine.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Vector3D.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Vertex.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BaseApp.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CUtil.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DDSTextureLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FBXReader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FBXUtil.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\sample\DemoApp1.cpp">
-      <Filter>sample</Filter>
-    </ClCompile>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -120,26 +123,5 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="src\BaseApp.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="shader\Triangle_PS.hlsl">
-      <Filter>shader</Filter>
-    </FxCompile>
-    <FxCompile Include="shader\Triangle_VS.hlsl">
-      <Filter>shader</Filter>
-    </FxCompile>
-    <FxCompile Include="shader\Triangle.fx">
-      <Filter>shader</Filter>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="src\Tutorial01.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\seafloor.dds">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

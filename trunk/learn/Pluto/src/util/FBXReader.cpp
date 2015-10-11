@@ -1,8 +1,8 @@
 #include <fbxsdk.h>
 #include <fbxsdk\scene\geometry\fbxlayer.h>
-#include "FBXReader.h"
-#include "FBXUtil.h"
-#include "../core/Scene.h"
+#include <FBXReader.h>
+#include <FBXUtil.h>
+#include <Scene.h>
 
 FBXReader::FBXReader(){}
 
