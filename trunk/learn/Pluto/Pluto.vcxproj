@@ -375,10 +375,6 @@
     <ClInclude Include="..\include\Vector3D.h" />
     <ClInclude Include="..\include\Vertex.h" />
     <ClInclude Include="src\core\BaseDataStruct.h" />
-    <ClInclude Include="src\util\CUtil.h" />
-    <ClInclude Include="src\util\DDSTextureLoader.h" />
-    <ClInclude Include="src\util\FBXReader.h" />
-    <ClInclude Include="src\util\FBXUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseApp.cpp" />

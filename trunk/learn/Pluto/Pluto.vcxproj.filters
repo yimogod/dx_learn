@@ -12,18 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\util\DDSTextureLoader.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\CUtil.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\FBXReader.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\FBXUtil.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\BaseDataStruct.h">
       <Filter>core</Filter>
     </ClInclude>
