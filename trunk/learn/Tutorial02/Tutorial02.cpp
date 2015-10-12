@@ -78,7 +78,7 @@ int WINAPI wWinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
         CleanupDevice();
         return 0;
     }
-	float_equal(1.0f, 0.1f);
+	
     // Main message loop
     MSG msg = {0};
     while( WM_QUIT != msg.message )
