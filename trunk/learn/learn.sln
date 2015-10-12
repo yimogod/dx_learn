@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "T01TexutreCube", "T01Texutr
 		{06EDC280-1187-4614-A248-E640C095FA6B} = {06EDC280-1187-4614-A248-E640C095FA6B}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPluto", "TestPluto\TestPluto.vcxproj", "{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -153,6 +155,18 @@ Global
 		{7B1C49DF-9CCA-4239-8740-203E09D10B00}.Release|Win32.Build.0 = Release|Win32
 		{7B1C49DF-9CCA-4239-8740-203E09D10B00}.Release|x64.ActiveCfg = Release|x64
 		{7B1C49DF-9CCA-4239-8740-203E09D10B00}.Release|x64.Build.0 = Release|x64
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Debug|Win32.Build.0 = Debug|Win32
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Debug|x64.ActiveCfg = Debug|x64
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Debug|x64.Build.0 = Debug|x64
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Profile|Win32.ActiveCfg = Release|Win32
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Profile|Win32.Build.0 = Release|Win32
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Profile|x64.ActiveCfg = Release|x64
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Profile|x64.Build.0 = Release|x64
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Release|Win32.ActiveCfg = Release|Win32
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Release|Win32.Build.0 = Release|Win32
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Release|x64.ActiveCfg = Release|x64
+		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

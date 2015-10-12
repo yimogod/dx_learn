@@ -3,7 +3,7 @@
 #include "DemoApp1.h"
 #include "resource.h"
 
-//#pragma comment (lib, "GLFW_d64.lib")
+//#pragma comment (lib, "pluto.lib")
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 
