@@ -69,6 +69,12 @@
     <ClInclude Include="..\include\FBXUtil.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Vector2D.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Matrix3x3.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -111,5 +117,11 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="src\BaseApp.cpp" />
+    <ClCompile Include="src\core\Vector2D.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Matrix3x3.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

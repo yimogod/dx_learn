@@ -367,11 +367,13 @@
     <ClInclude Include="..\include\FBXReader.h" />
     <ClInclude Include="..\include\FBXUtil.h" />
     <ClInclude Include="..\include\Light.h" />
+    <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\Matrix4x4.h" />
     <ClInclude Include="..\include\Mesh.h" />
     <ClInclude Include="..\include\Plane3D.h" />
     <ClInclude Include="..\include\Scene.h" />
     <ClInclude Include="..\include\SteadyLine.h" />
+    <ClInclude Include="..\include\Vector2D.h" />
     <ClInclude Include="..\include\Vector3D.h" />
     <ClInclude Include="..\include\Vertex.h" />
     <ClInclude Include="src\core\BaseDataStruct.h" />
@@ -382,10 +384,12 @@
     <ClCompile Include="src\core\Camera.cpp" />
     <ClCompile Include="src\core\DLog.cpp" />
     <ClCompile Include="src\core\Light.cpp" />
+    <ClCompile Include="src\core\Matrix3x3.cpp" />
     <ClCompile Include="src\core\Matrix4x4.cpp" />
     <ClCompile Include="src\core\Mesh.cpp" />
     <ClCompile Include="src\core\Plane3D.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
+    <ClCompile Include="src\core\Vector2D.cpp" />
     <ClCompile Include="src\core\Vector3D.cpp" />
     <ClCompile Include="src\util\CUtil.cpp" />
     <ClCompile Include="src\util\DDSTextureLoader.cpp" />

@@ -1,4 +1,5 @@
 #include "Matrix4x4.h"
+#include "Matrix3x3.h"
 
 /*构造标准矩阵*/
 Matrix4x4::Matrix4x4(){
@@ -52,6 +53,15 @@ Matrix4x4 Matrix4x4::mul(Matrix4x4 &mb){
 	return m;
 }
 
+Matrix4x4 Matrix4x4::mul(float f){
+	Matrix4x4 n(f * m00, f * m01, f * m02, f * m03,
+		f * m10, f * m11, f * m12, f * m13,
+		f * m20, f * m21, f * m22, f * m23,
+		f * m30, f * m31, f * m32, f * m33);
+
+	return n;
+}
+
 Matrix4x4 Matrix4x4::transpose(){
 	Matrix4x4 m = clone();
 
@@ -70,4 +80,159 @@ Matrix4x4 Matrix4x4::clone(){
 		m30, m31, m32, m33);
 
 	return n;
+}
+
+Matrix3x3 Matrix4x4::minor(int row, int col){
+	if(row == 0 && col == 0){
+		return Matrix3x3(m11, m12, m13,
+			m21, m22, m23,
+			m31, m32, m33);
+	}
+
+	if(row == 0 && col == 1){
+		return Matrix3x3(m10, m12, m13,
+			m20, m22, m23,
+			m30, m32, m33);
+	}
+
+	if(row == 0 && col == 2){
+		return Matrix3x3(m10, m11, m13,
+			m20, m21, m23,
+			m30, m31, m33);
+	}
+
+	if(row == 0 && col == 3){
+		return Matrix3x3(m10, m11, m12,
+			m20, m21, m22,
+			m30, m31, m32);
+	}
+
+	//-----------
+	if(row == 1 && col == 0){
+		return Matrix3x3(m01, m02, m03,
+			m21, m22, m23,
+			m31, m32, m33);
+	}
+
+	if(row == 1 && col == 1){
+		return Matrix3x3(m00, m02, m03,
+			m20, m22, m23,
+			m30, m32, m33);
+	}
+
+	if(row == 1 && col == 2){
+		return Matrix3x3(m00, m01, m03,
+			m20, m21, m23,
+			m30, m31, m33);
+	}
+
+	if(row == 1 && col == 3){
+		return Matrix3x3(m00, m01, m02,
+			m20, m21, m22,
+			m30, m31, m32);
+	}
+
+	//-------------------------
+	if(row == 2 && col == 0){
+		return Matrix3x3(m01, m02, m03,
+			m11, m12, m13,
+			m31, m32, m33);
+	}
+
+	if(row == 2 && col == 1){
+		return Matrix3x3(m00, m02, m03,
+			m10, m12, m13,
+			m30, m32, m33);
+	}
+
+	if(row == 2 && col == 2){
+		return Matrix3x3(m00, m01, m03,
+			m10, m11, m13,
+			m30, m31, m33);
+	}
+
+	if(row == 2 && col == 3){
+		return Matrix3x3(m00, m01, m02,
+			m10, m11, m12,
+			m30, m31, m32);
+	}
+
+	//----------------------------
+	if(row == 3 && col == 0){
+		return Matrix3x3(m01, m02, m03,
+			m11, m12, m13,
+			m21, m22, m23);
+	}
+
+	if(row == 3 && col == 1){
+		return Matrix3x3(m00, m02, m03,
+			m10, m12, m13,
+			m20, m22, m23);
+	}
+
+	if(row == 3 && col == 2){
+		return Matrix3x3(m00, m01, m03,
+			m10, m11, m13,
+			m20, m21, m23);
+	}
+
+	if(row == 3 && col == 3){
+		return Matrix3x3(m00, m01, m02,
+			m10, m11, m12,
+			m20, m21, m22);
+	}
+}
+
+float Matrix4x4::cMinor(int row, int col){
+	int tag = row + col;
+	if(tag % 2 == 0)tag = 1;
+	else tag = -1;
+
+	Matrix3x3 m33 = minor(row, col);
+	float d = m33.det();
+	return tag * d;
+}
+
+Matrix4x4 Matrix4x4::adj(){
+	float m00 = cMinor(0, 0);
+	float m01 = cMinor(0, 1);
+	float m02 = cMinor(0, 2);
+	float m03 = cMinor(0, 3);
+
+	float m10 = cMinor(1, 0);
+	float m11 = cMinor(1, 1);
+	float m12 = cMinor(1, 2);
+	float m13 = cMinor(1, 3);
+
+	float m20 = cMinor(2, 0);
+	float m21 = cMinor(2, 1);
+	float m22 = cMinor(2, 2);
+	float m23 = cMinor(2, 3);
+
+	float m30 = cMinor(3, 0);
+	float m31 = cMinor(3, 1);
+	float m32 = cMinor(3, 2);
+	float m33 = cMinor(3, 3);
+
+	Matrix4x4 m(m00, m01, m02, m03,
+		m10, m11, m12, m13,
+		m20, m21, m22, m23,
+		m30, m31, m32, m33);
+
+	return m.transpose();
+}
+
+float Matrix4x4::det(){
+	float d = m00 * minor(0, 0).det();
+	d -= m01 * minor(0, 1).det();
+	d += m02 * minor(0, 2).det();
+	d -= m03 * minor(0, 3).det();
+
+	return d;
+}
+
+Matrix4x4 Matrix4x4::reverse(){
+	Matrix4x4 m = adj();
+	float n = 1.0f / det();
+	return m.mul(n);
 }

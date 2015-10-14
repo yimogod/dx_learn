@@ -1,4 +1,6 @@
 #pragma once
+#include "Matrix3x3.h"
+
 /* 行优先矩阵, 0123是第一行 */
 class Matrix4x4{
 public:
@@ -14,10 +16,26 @@ public:
 		float v30, float v31, float v32, float v33);
 	~Matrix4x4();
 
+	/*矩阵右乘*/
 	Matrix4x4 mul(Matrix4x4 &mb);
-	/*装置*/
+	Matrix4x4 mul(float f);
+	/*转置*/
 	Matrix4x4 transpose();
 
 	/*克隆*/
 	Matrix4x4 clone();
+
+	/*余子式~~注意和代数余子式的区别!*/
+	Matrix3x3 minor(int row, int col);
+	/*有符号代数余子式*/
+	float cMinor(int row, int col);
+
+	/*标准伴随矩阵~~也就代数余子式矩阵的转置矩阵*/
+	Matrix4x4 adj();
+
+	/*行列式, 用余子式来计算*/
+	float det();
+
+	/*逆矩阵~~如果矩阵式正交(选择和镜像)的, 则转置矩阵就是逆矩阵*/
+	Matrix4x4 reverse();
 };
