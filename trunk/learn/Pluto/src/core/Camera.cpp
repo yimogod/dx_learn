@@ -32,7 +32,9 @@ Matrix4x4 Camera::getWorldToCameraMatrix(){
 				0.0f, 1.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 1.0f, 0.0f,
 				-position.x, -position.y, -position.z, 1.0f);
-	Matrix4x4 rotate;
+	Matrix4x4 m = move.rotateY(rotateY);
+	m = m.rotateZ(rotateZ);
+	m = m.rotateX(rotateX);
 
-	return move.mul(rotate);
+	return m;
 }

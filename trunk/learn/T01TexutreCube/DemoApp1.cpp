@@ -271,10 +271,22 @@ void DemoApp1::update(){
 		_scene.camera->position.y += 0.001f;
 	}else if(isKeyDown(DIK_S)){
 		_scene.camera->position.y -= 0.001f;
-	}else if(isKeyDown(DIK_Z)){
+	}else if(isKeyDown(DIK_Q)){
 		_scene.camera->position.z += 0.001f;
-	}else if(isKeyDown(DIK_X)){
+	}else if(isKeyDown(DIK_E)){
 		_scene.camera->position.z -= 0.001f;
+	}else if(isKeyDown(DIK_J)){
+		_scene.camera->rotateY -= 0.001f;
+	}else if(isKeyDown(DIK_L)){
+		_scene.camera->rotateY += 0.001f;
+	}else if(isKeyDown(DIK_I)){
+		_scene.camera->rotateX -= 0.001f;
+	}else if(isKeyDown(DIK_K)){
+		_scene.camera->rotateX += 0.001f;
+	}else if(isKeyDown(DIK_U)){
+		_scene.camera->rotateZ -= 0.001f;
+	}else if(isKeyDown(DIK_O)){
+		_scene.camera->rotateZ += 0.001f;
 	}
 }
 
