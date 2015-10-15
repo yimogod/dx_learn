@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Matrix4x4.h"
 #include "Matrix3x3.h"
 
@@ -235,4 +236,35 @@ Matrix4x4 Matrix4x4::reverse(){
 	Matrix4x4 m = adj();
 	float n = 1.0f / det();
 	return m.mul(n);
+}
+
+Matrix4x4 Matrix4x4::rotateX(float v){
+	float c = cosf(v);
+	float s = sinf(v);
+	Matrix4x4 m(1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, c, s, 0.0f,
+		0.0f, -s, c, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f);
+
+	return mul(m);
+}
+Matrix4x4 Matrix4x4::rotateY(float v){
+	float c = cosf(v);
+	float s = sinf(v);
+	Matrix4x4 m(c, 0.0f, -s, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		s, 0.0f, c, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f);
+
+	return mul(m);
+}
+Matrix4x4 Matrix4x4::rotateZ(float v){
+	float c = cosf(v);
+	float s = sinf(v);
+	Matrix4x4 m(c, s, 0.0f, 0.0f,
+		-s, c, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f);
+
+	return mul(m);
 }
