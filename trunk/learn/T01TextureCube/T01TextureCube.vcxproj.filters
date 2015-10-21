@@ -38,6 +38,5 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DemoApp1.cpp" />
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
 </Project>

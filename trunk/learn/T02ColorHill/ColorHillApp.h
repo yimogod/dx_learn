@@ -7,24 +7,10 @@
 
 using namespace DirectX;
 
-struct ConstantBuffer{
-	Matrix4x4 mWorld;
-	Matrix4x4 mView;
-	Matrix4x4 mProjection;
-};
-
-
-struct MouseState{
-	LONG lAxisX;
-	LONG lAxisY;
-	BYTE abButtons[3];
-	BYTE bPadding;       // Structure must be DWORD multiple in size.
-};
-
-class DemoApp1 : public BaseApp{
+class ColorHillApp : public BaseApp{
 public:
-	DemoApp1();
-	virtual ~DemoApp1();
+	ColorHillApp();
+	virtual ~ColorHillApp();
 
 	bool loadContent();
 	void unloadContent();

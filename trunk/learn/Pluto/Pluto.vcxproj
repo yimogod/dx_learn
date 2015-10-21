@@ -367,6 +367,7 @@
     <ClInclude Include="..\include\FBXReader.h" />
     <ClInclude Include="..\include\FBXUtil.h" />
     <ClInclude Include="..\include\Light.h" />
+    <ClInclude Include="..\include\Main.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\Matrix4x4.h" />
     <ClInclude Include="..\include\Mesh.h" />
@@ -376,7 +377,6 @@
     <ClInclude Include="..\include\Vector2D.h" />
     <ClInclude Include="..\include\Vector3D.h" />
     <ClInclude Include="..\include\Vertex.h" />
-    <ClInclude Include="src\core\BaseDataStruct.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseApp.cpp" />

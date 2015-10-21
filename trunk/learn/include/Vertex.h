@@ -1,5 +1,6 @@
 #pragma once
-#include "BaseDataStruct.h"
+#include <BaseDataStruct.h>
+#include <Matrix4x4.h>
 
 struct Vertex{
 	Float4 pos;

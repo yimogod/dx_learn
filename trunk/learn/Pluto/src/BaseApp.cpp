@@ -40,6 +40,7 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 		D3D11_SDK_VERSION, &_device, &_featureLevel, &_context);
 	if(FAILED(hr))return false;
 
+	/*开始创建swap chain需要的factory*/
 	IDXGIDevice* dxgiDevice = nullptr;
 	hr = _device->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&dxgiDevice));
 	if(FAILED(hr)){
@@ -70,16 +71,16 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	sd.OutputWindow = _hwnd;
 	sd.SampleDesc.Count = 1;
 	sd.SampleDesc.Quality = 0;
 	sd.Windowed = TRUE;
+	sd.OutputWindow = _hwnd;
 
 	hr = dxgiFactory->CreateSwapChain(_device, &sd, &_chain);
-	if(FAILED(hr))return false;
-
 	dxgiFactory->MakeWindowAssociation(_hwnd, DXGI_MWA_NO_ALT_ENTER);
 	dxgiFactory->Release();
+	
+	if(FAILED(hr))return false;
 
 	/*创建back buff*/
 	ID3D11Texture2D* pBackBuffer = nullptr;

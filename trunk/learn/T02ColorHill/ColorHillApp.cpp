@@ -1,20 +1,20 @@
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <dinput.h>
-#include "DemoApp1.h"
 #include <FBXReader.h>
 #include <DDSTextureLoader.h>
 #include <Mesh.h>
+#include "ColorHillApp.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 
 using namespace DirectX;
 
-DemoApp1::DemoApp1(){}
+ColorHillApp::ColorHillApp(){}
 
-DemoApp1::~DemoApp1(){}
+ColorHillApp::~ColorHillApp(){}
 
-bool DemoApp1::createVertexBuffer(){
+bool ColorHillApp::createVertexBuffer(){
 	char* sInputFile = "assets/simple_scene.fbx";
 	FBXReader reader;
 	reader.read(sInputFile, &_scene);
@@ -69,7 +69,7 @@ bool DemoApp1::createVertexBuffer(){
 	/*设置当前vertex buff*/
 	_context->IASetIndexBuffer(_indexBuff, DXGI_FORMAT_R16_UINT, 0);
 
-	/*设置三角形排列方式*/
+	/*设置三角形排列方式, 即顶点拓扑方式*/
 	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 
@@ -88,7 +88,7 @@ bool DemoApp1::createVertexBuffer(){
 	return true;
 }
 
-bool DemoApp1::createShader(){
+bool ColorHillApp::createShader(){
 	/*编译shader*/
 	ID3DBlob* pVSBlob = nullptr;
 	HRESULT hr = compileShaderFromFile(L"shader/Triangle.fx", "VS", "vs_4_0", &pVSBlob);
@@ -139,7 +139,7 @@ bool DemoApp1::createShader(){
 	return true;
 }
 
-bool DemoApp1::createTexture(){
+bool ColorHillApp::createTexture(){
 	const wchar_t* path =
 		L"E:/learn/dx_learn/trunk/learn/T01TexutreCube/assets/seafloor.dds";
 	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView, 2048U);
@@ -159,7 +159,7 @@ bool DemoApp1::createTexture(){
 	if(FAILED(hr))return false;
 }
 
-bool DemoApp1::createDXInput(){
+bool ColorHillApp::createDXInput(){
 	ZeroMemory(_keyboardBuff, sizeof(_keyboardBuff));
 
 	HRESULT hr = DirectInput8Create(_ins, DIRECTINPUT_VERSION,
@@ -214,7 +214,7 @@ bool DemoApp1::createDXInput(){
 	return true;
 }
 
-bool DemoApp1::loadContent(){
+bool ColorHillApp::loadContent(){
 	createDXInput();
 	createShader();
 	createVertexBuffer();
@@ -223,7 +223,7 @@ bool DemoApp1::loadContent(){
 	return true;
 }
 
-void DemoApp1::unloadContent(){
+void ColorHillApp::unloadContent(){
 	if(_mouse){
 		_mouse->Unacquire();
 		_mouse->Release();
@@ -247,7 +247,7 @@ void DemoApp1::unloadContent(){
 	_vertexBuff = nullptr;
 }
 
-void DemoApp1::update(){
+void ColorHillApp::update(){
 	/*按下键盘*/
 	HRESULT hr = _keyborad->Acquire();
 	if(SUCCEEDED(hr)){
@@ -290,16 +290,16 @@ void DemoApp1::update(){
 	}
 }
 
-bool DemoApp1::isKeyDown(char keycode){
+bool ColorHillApp::isKeyDown(char keycode){
 	char a = _keyboardBuff[keycode];
 	return a & 0x80;
 }
 
-void DemoApp1::onKeyDown(char keycode){
+void ColorHillApp::onKeyDown(char keycode){
 	
 }
 
-void DemoApp1::render(){
+void ColorHillApp::render(){
 	if(_context == NULL)return;
 	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
 

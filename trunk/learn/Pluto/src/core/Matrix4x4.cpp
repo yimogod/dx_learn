@@ -5,10 +5,10 @@
 /*构造标准矩阵*/
 Matrix4x4::Matrix4x4(){
 	m00 = m11 = m22 = m33 = 1.0f;
-	m01 = m02 = m03 = 0;
-	m10 = m12 = m13 = 0;
-	m20 = m21 = m23 = 0;
-	m30 = m31 = m32 = 0;
+	m01 = m02 = m03 = 0.0f;
+	m10 = m12 = m13 = 0.0f;
+	m20 = m21 = m23 = 0.0f;
+	m30 = m31 = m32 = 0.0f;
 }
 
 Matrix4x4::Matrix4x4(float v00, float v01, float v02, float v03,

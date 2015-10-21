@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pluto", "Pluto\Pluto.vcxproj", "{06EDC280-1187-4614-A248-E640C095FA6B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tutorial02", "Tutorial02\Tutorial02_2012.vcxproj", "{28877253-3120-4098-86B8-BAAC1C0AF240}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "T02ColorHill", "T02ColorHill\T02ColorHill.vcxproj", "{28877253-3120-4098-86B8-BAAC1C0AF240}"
 	ProjectSection(ProjectDependencies) = postProject
 		{06EDC280-1187-4614-A248-E640C095FA6B} = {06EDC280-1187-4614-A248-E640C095FA6B}
 	EndProjectSection
@@ -18,7 +18,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tutorial06", "Tutorial06\Tu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tutorial07", "Tutorial07\Tutorial07_2012.vcxproj", "{D29C6982-A589-4081-89B1-91E78D7C41E2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "T01TexutreCube", "T01TexutreCube\T01TexutreCube.vcxproj", "{7B1C49DF-9CCA-4239-8740-203E09D10B00}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "T01TextureCube", "T01TextureCube\T01TextureCube.vcxproj", "{7B1C49DF-9CCA-4239-8740-203E09D10B00}"
 	ProjectSection(ProjectDependencies) = postProject
 		{06EDC280-1187-4614-A248-E640C095FA6B} = {06EDC280-1187-4614-A248-E640C095FA6B}
 	EndProjectSection

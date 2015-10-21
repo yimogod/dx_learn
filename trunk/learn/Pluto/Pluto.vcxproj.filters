@@ -12,9 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\BaseDataStruct.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Application.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -73,6 +70,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Matrix3x3.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Main.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

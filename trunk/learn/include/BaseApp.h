@@ -1,6 +1,19 @@
 #pragma once
-
 #include <d3d11_1.h>
+#include <Matrix4x4.h>
+
+struct ConstantBuffer{
+	Matrix4x4 mWorld;
+	Matrix4x4 mView;
+	Matrix4x4 mProjection;
+};
+
+struct MouseState{
+	long lAxisX;
+	long lAxisY;
+	char abButtons[3];
+	char bPadding;       // Structure must be DWORD multiple in size.
+};
 
 class BaseApp{
 public:
