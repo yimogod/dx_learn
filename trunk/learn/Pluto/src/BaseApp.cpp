@@ -246,7 +246,7 @@ bool BaseApp::createIndexBuffer(unsigned short* indexList, int indexNum){
 	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.ByteWidth = sizeof(short) * indexNum;//定点数据占用的所有空间
 	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	bd.CPUAccessFlags = 0;
+	bd.CPUAccessFlags = NULL;
 
 	/*设置 resource data*/
 	D3D11_SUBRESOURCE_DATA InitData;
@@ -267,7 +267,7 @@ bool BaseApp::createConstBuffer(){
 	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.ByteWidth = sizeof(ConstantBuffer);
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	bd.CPUAccessFlags = 0;
+	bd.CPUAccessFlags = NULL;
 
 	HRESULT hr = _device->CreateBuffer(&bd, nullptr, &_constBuff);
 	if(FAILED(hr))return false;

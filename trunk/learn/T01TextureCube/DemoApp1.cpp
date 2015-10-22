@@ -47,12 +47,14 @@ bool DemoApp1::loadContent(){
 
 	createDevice();
 	createDXInput();
-	createVertexBuffer(vertices, mesh->indexNum);
-	createIndexBuffer(mesh->indexList, mesh->indexNum);
-	createConstBuffer();
 	createShader(vs, ps);
+	createVertexBuffer(vertices, mesh->indexNum);
+	//createIndexBuffer(mesh->indexList, mesh->indexNum);
+	createConstBuffer();
 	createTexture(path);
 	
+	delete(vertices);
+
 	return true;
 }
 
@@ -61,7 +63,6 @@ void DemoApp1::unloadContent(){
 }
 
 void DemoApp1::update(){
-	return;
 	acquireInput();
 
 	if(isKeyDown(DIK_A)){
@@ -98,17 +99,17 @@ void DemoApp1::render(){
 	/*根据相机重新计算各个矩阵*/
 	world_to_camera = _scene.camera->getWorldToCameraMatrix();
 
-	float aspect = _scene.camera->aspect;
+	//float aspect = _scene.camera->aspect;
 	camera_to_perspective = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
 							0.0f, 1.0f, 0.0f, 0.0f,
 							0.0f, 0.0f, 1.0f, 1.0f,
 							0.0f, 0.0f, 0.0f, 0.0f);
-
+							
 	ConstantBuffer cb;
 	cb.view = world_to_camera.transpose();
 	cb.perspective = camera_to_perspective.transpose();
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
-
+	
 
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
@@ -117,8 +118,8 @@ void DemoApp1::render(){
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);
-	//_context->DrawIndexed(m->indexNum, 0, 0);
 	_context->Draw(m->indexNum, 0);
+	//_context->DrawIndexed(m->indexNum, 0, 0);
 
 	_chain->Present(0, 0);
 }
