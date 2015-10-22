@@ -1,7 +1,15 @@
 #include <d3dcompiler.h>
+#include <DirectXMath.h>
+#include <DirectXColors.h>
+#include <dinput.h>
+#include <DDSTextureLoader.h>
 #include "BaseApp.h"
 
 #pragma comment (lib, "libfbxsdk.lib")
+
+#define DIRECTINPUT_VERSION 0x0800
+
+using namespace DirectX;
 
 BaseApp::BaseApp():_driverType(D3D_DRIVER_TYPE_NULL),
 				_featureLevel(D3D_FEATURE_LEVEL_11_1),
@@ -24,6 +32,10 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 	_width = rect.right - rect.left;
 	_height = rect.bottom - rect.top;
 
+	return loadContent();
+}
+
+bool BaseApp::createDevice(){
 	_driverType = D3D_DRIVER_TYPE_HARDWARE;
 	int createDeviceFlags = 0;
 #ifdef _DEBUG
@@ -61,7 +73,7 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 	adapter->Release();
 	dxgiDevice->Release();
 	if(FAILED(hr))return false;
-	
+
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
 	sd.BufferCount = 1;
@@ -79,7 +91,7 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 	hr = dxgiFactory->CreateSwapChain(_device, &sd, &_chain);
 	dxgiFactory->MakeWindowAssociation(_hwnd, DXGI_MWA_NO_ALT_ENTER);
 	dxgiFactory->Release();
-	
+
 	if(FAILED(hr))return false;
 
 	/*创建back buff*/
@@ -103,8 +115,6 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
 	_context->RSSetViewports(1, &vp);
-
-	return loadContent();
 }
 
 bool BaseApp::loadContent(){
@@ -112,15 +122,56 @@ bool BaseApp::loadContent(){
 }
 
 void BaseApp::unloadContent(){
+	if(_mouse){
+		_mouse->Unacquire();
+		_mouse->Release();
+	}
+	if(_keyborad){
+		_keyborad->Unacquire();
+		_keyborad->Release();
+	}
+	if(_inputDevice)_inputDevice->Release();
+	if(_vs)_vs->Release();
+	if(_ps)_ps->Release();
+	if(_vertexLayout)_vertexLayout->Release();
+	if(_vertexBuff)_vertexBuff->Release();
 
+	_mouse = nullptr;
+	_keyborad = nullptr;
+	_inputDevice = nullptr;
+	_vs = nullptr;
+	_ps = nullptr;
+	_vertexLayout = nullptr;
+	_vertexBuff = nullptr;
 }
 
 void BaseApp::render(){
-
 }
 
 void BaseApp::update(){
+	
+}
 
+void BaseApp::acquireInput(){
+	HRESULT hr = S_OK;
+	if(_keyborad != NULL){
+		/*按下键盘*/
+		hr = _keyborad->Acquire();
+		if(SUCCEEDED(hr)){
+			hr = _keyborad->GetDeviceState(sizeof(_keyboardBuff), (LPVOID)&_keyboardBuff);
+		}
+	}
+
+	if(_mouse != NULL){
+		/*按下鼠标*/
+		hr = _mouse->Acquire();
+		if(SUCCEEDED(hr)){
+			hr = _mouse->GetDeviceState(sizeof(MouseState), &_mouseState);
+			if(SUCCEEDED(hr)){
+				//i want a simple ui
+			}
+		}
+	}
 }
 
 void BaseApp::destroy(){
@@ -157,4 +208,203 @@ HRESULT BaseApp::compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
 	if(pErrorBlob) pErrorBlob->Release();
 
 	return S_OK;
+}
+
+bool BaseApp::createVertexBuffer(Vertex *vertices, int indexNum){
+	/*设置buff desc*/
+	D3D11_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(Vertex) * indexNum;//数据总长度
+	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = NULL;
+
+	/*设置 resource data*/
+	D3D11_SUBRESOURCE_DATA InitData;
+	ZeroMemory(&InitData, sizeof(InitData));
+	InitData.pSysMem = vertices;
+
+	/*创建vertex buff*/
+	HRESULT hr = _device->CreateBuffer(&bd, &InitData, &_vertexBuff);
+	if(FAILED(hr))return false;
+
+	/*设置当前vertex buff*/
+	UINT stride = sizeof(Vertex);
+	UINT offset = 0;
+	_context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
+
+	/*设置三角形排列方式, 即顶点拓扑方式*/
+	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	return true;
+}
+
+/*设置index buff*/
+bool BaseApp::createIndexBuffer(unsigned short* indexList, int indexNum){
+	D3D11_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(short) * indexNum;//定点数据占用的所有空间
+	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+
+	/*设置 resource data*/
+	D3D11_SUBRESOURCE_DATA InitData;
+	ZeroMemory(&InitData, sizeof(InitData));
+	InitData.pSysMem = indexList;
+	HRESULT hr = _device->CreateBuffer(&bd, &InitData, &_indexBuff);
+	if(FAILED(hr))return false;
+
+	_context->IASetIndexBuffer(_indexBuff, DXGI_FORMAT_R16_UINT, 0);
+
+	return true;
+}
+
+bool BaseApp::createConstBuffer(){
+	/*创建constant buff, 类似于uniform变量*/
+	D3D11_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(ConstantBuffer);
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	bd.CPUAccessFlags = 0;
+
+	HRESULT hr = _device->CreateBuffer(&bd, nullptr, &_constBuff);
+	if(FAILED(hr))return false;
+
+	world_to_camera = Matrix4x4();
+	camera_to_perspective = Matrix4x4();
+
+	return true;
+}
+
+bool BaseApp::createShader(CreateShaderInfo vs, CreateShaderInfo ps){
+	/*编译shader*/
+	ID3DBlob* pVSBlob = nullptr;
+	HRESULT hr = compileShaderFromFile(vs.fileName, vs.entryPoint, vs.shaderModel, &pVSBlob);
+	if(FAILED(hr)){
+		pVSBlob->Release();
+		return false;
+	}
+
+	/*创建 vertex shader*/
+	hr = _device->CreateVertexShader(pVSBlob->GetBufferPointer(),
+		pVSBlob->GetBufferSize(), nullptr, &_vs);
+
+	if(FAILED(hr)){
+		pVSBlob->Release();
+		return false;
+	}
+
+	/*创建 layout*/
+	D3D11_INPUT_ELEMENT_DESC layout[] = {
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+	UINT numElements = ARRAYSIZE(layout);
+
+	hr = _device->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(),
+		pVSBlob->GetBufferSize(), &_vertexLayout);
+	pVSBlob->Release();
+	if(FAILED(hr))return false;
+
+	/*设置 layout*/
+	_context->IASetInputLayout(_vertexLayout);
+
+	/*编译shader*/
+	ID3DBlob* pPSBlob = nullptr;
+	hr = compileShaderFromFile(ps.fileName, ps.entryPoint, ps.shaderModel, &pPSBlob);
+	if(FAILED(hr)){
+		pPSBlob->Release();
+		return false;
+	}
+
+	/*创建 pixel shader*/
+	hr = _device->CreatePixelShader(pPSBlob->GetBufferPointer(),
+		pPSBlob->GetBufferSize(), nullptr, &_ps);
+	pPSBlob->Release();
+
+	if(FAILED(hr))return false;
+	return true;
+}
+
+bool BaseApp::createTexture(const wchar_t* path){
+	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView, 2048U);
+	if(FAILED(hr))return false;
+
+	// Create the sample state
+	D3D11_SAMPLER_DESC sampDesc;
+	ZeroMemory(&sampDesc, sizeof(sampDesc));
+	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sampDesc.MinLOD = 0;
+	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+	hr = _device->CreateSamplerState(&sampDesc, &_sampleState);
+	if(FAILED(hr))return false;
+
+	return true;
+}
+
+bool BaseApp::createDXInput(){
+	ZeroMemory(_keyboardBuff, sizeof(_keyboardBuff));
+
+	HRESULT hr = DirectInput8Create(_ins, DIRECTINPUT_VERSION,
+		IID_IDirectInput8, (VOID**)&_inputDevice, nullptr);
+	if(FAILED(hr))return false;
+
+	/*创建鼠标*/
+	hr = _inputDevice->CreateDevice(GUID_SysMouse, &_mouse, nullptr);
+	if(FAILED(hr))return false;
+
+
+	_inputObjFormat[0] = { &GUID_XAxis, FIELD_OFFSET(MouseState, lAxisX),    // X axis
+		DIDFT_AXIS | DIDFT_ANYINSTANCE, 0 };
+	_inputObjFormat[1] = { &GUID_YAxis, FIELD_OFFSET(MouseState, lAxisY),    // Y axis
+		DIDFT_AXIS | DIDFT_ANYINSTANCE, 0 };
+	_inputObjFormat[2] = { 0, (DWORD)FIELD_OFFSET(MouseState, abButtons[0]),        // Button 0
+		DIDFT_BUTTON | DIDFT_ANYINSTANCE, 0 };
+	_inputObjFormat[3] = { 0, (DWORD)FIELD_OFFSET(MouseState, abButtons[1]),        // Button 1 (optional)
+		DIDFT_BUTTON | DIDFT_ANYINSTANCE, 0 };
+	_inputObjFormat[4] = { 0, (DWORD)FIELD_OFFSET(MouseState, abButtons[2]),        // Button 2 (optional)
+		DIDFT_BUTTON | DIDFT_ANYINSTANCE, 0 };
+
+	DWORD numMouseObjects = 5;
+	_mouseDataFormat = {
+		sizeof(DIDATAFORMAT),
+		sizeof(DIOBJECTDATAFORMAT),
+		DIDF_ABSAXIS,
+		sizeof(MouseState),
+		numMouseObjects,
+		_inputObjFormat
+	};
+
+	hr = _mouse->SetDataFormat(&_mouseDataFormat);
+	if(FAILED(hr))return false;
+
+	hr = _mouse->SetCooperativeLevel(_hwnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+	if(FAILED(hr))return false;
+
+	hr = _mouse->Acquire();
+	if(FAILED(hr))return false;
+
+	/*创建键盘*/
+	hr = _inputDevice->CreateDevice(GUID_SysKeyboard, &_keyborad, nullptr);
+	if(FAILED(hr))return false;
+
+	hr = _keyborad->SetDataFormat(&c_dfDIKeyboard);
+	if(FAILED(hr))return false;
+
+	hr = _keyborad->SetCooperativeLevel(_hwnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+	if(FAILED(hr))return false;
+
+	return true;
+}
+
+bool BaseApp::isKeyDown(char keycode){
+	char a = _keyboardBuff[keycode];
+	return a & 0x80;
 }

@@ -2,9 +2,8 @@ Texture2D txDiffuse : register(t0);
 SamplerState samLinear : register(s0);
 
 cbuffer ConstantBuffer : register(b0){
-	matrix World;
 	matrix View;
-	matrix Projection;
+	matrix Perspective;
 }
 
 struct VS_INPUT{
@@ -21,9 +20,8 @@ struct PS_INPUT{
 
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
-	output.Pos = mul(input.Pos, World);
 	output.Pos = mul(output.Pos, View);
-	output.Pos = mul(output.Pos, Projection);
+	output.Pos = mul(output.Pos, Perspective);
 
 	output.color = input.color;
 	output.Tex = input.Tex;

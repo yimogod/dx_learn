@@ -1,4 +1,8 @@
 #pragma once
+#include <windows.h>
+#include <Main.h>
+#include "resource.h"
+
 #include <DirectXMath.h>
 #include <dinput.h>
 #include <Scene.h>
@@ -53,3 +57,17 @@ protected:
 
 	Scene _scene;
 };
+
+int WINAPI wWinMain(_In_ HINSTANCE hInstance,
+	_In_opt_ HINSTANCE hPrevInstance,
+	_In_ LPWSTR lpCmdLine,
+	_In_ int nCmdShow){
+	MainInfo info;
+	info.app = new ColorHillApp();
+	info.icon = (LPCWSTR)IDI_TUTORIAL1;
+	info.title = L"ColorHill";
+	info.width = 800;
+	info.height = 600;
+
+	return MainBody(hInstance, hPrevInstance, lpCmdLine, nCmdShow, info);
+}
