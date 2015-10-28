@@ -13,13 +13,15 @@ ColorHillApp::ColorHillApp(){}
 ColorHillApp::~ColorHillApp(){}
 
 bool ColorHillApp::loadContent(){
+	_scene.meshNum = 1;
 	_scene.meshList[0] = new Mesh();
 	Mesh* mesh = _scene.getMesh(0);
 
 	createGrid(64.0f, 64.0f, 8.0f, (*mesh));
+	mesh->setWorldPos(-32.0f, 0.0f, -32.0f);
 
-	_scene.camera = new Camera(0, -1.0f, -2.0f, 0, 0, 0);
-	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 100.0f, _width, _height);
+	_scene.camera = new Camera(0, -1.0f, -60.0f, 0, 0, 0);
+	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 1000.0f, _width, _height);
 
 	_scene.lightList[0] = new Light();
 	_scene.lightList[0]->type = Light::TYPE_AMBIENT;
@@ -57,7 +59,7 @@ void ColorHillApp::unloadContent(){
 }
 
 void ColorHillApp::update(){
-	UpdatePosByKeyboard(_scene.camera, 0.001f);
+	UpdatePosByKeyboard(_scene.camera, 0.01f);
 
 	/*根据相机重新计算各个矩阵*/
 	world_to_camera = _scene.camera->getWorldToCameraMatrix();
@@ -78,12 +80,9 @@ void ColorHillApp::render(){
 	if(_context == NULL)return;
 	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
 
-
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
 	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetShaderResources(0, 1, &_resView);
-	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);
 	_context->DrawIndexed(m->indexNum, 0, 0);

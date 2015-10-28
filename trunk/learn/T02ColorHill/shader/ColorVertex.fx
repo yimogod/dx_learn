@@ -6,6 +6,7 @@ cbuffer ConstantBuffer : register(b0){
 struct VS_INPUT{
 	float4 pos : POSITION;
 	float4 color : COLOR;
+	float2 tex : TEXCOORD0;
 };
 
 struct PS_INPUT{
@@ -24,6 +25,6 @@ PS_INPUT VS(VS_INPUT input){
 	return output;
 }
 
-float4 PS(PS_INPUT input) :SV_Target{
+float4 PS(PS_INPUT input) : SV_Target{
 	return input.color;
 }

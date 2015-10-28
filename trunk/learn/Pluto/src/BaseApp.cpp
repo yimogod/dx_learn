@@ -205,7 +205,13 @@ HRESULT BaseApp::compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
 	if(FAILED(hr) && pErrorBlob){
 		OutputDebugStringA(reinterpret_cast<const char*>(pErrorBlob->GetBufferPointer()));
 	}
-	if(pErrorBlob) pErrorBlob->Release();
+	if(pErrorBlob){
+		pErrorBlob->Release();
+		return S_FALSE;
+	}
+	if(FAILED(hr)){
+		return S_FALSE;
+	}
 
 	return S_OK;
 }

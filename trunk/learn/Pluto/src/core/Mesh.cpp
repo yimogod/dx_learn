@@ -25,7 +25,7 @@ void Mesh::getVertexListV2(Vertex list[]){
 	Vector3D vec;
 	Color color;
 	for(int i = 0; i < vertexNum; i++){
-		vec = vertexList[i];
+		vec = vertexList[i].add(&position);
 		color = vertexColorList[i];
 		list[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
 		list[i].color = Float4A{ color.r, color.g, color.b, 1.0f };
