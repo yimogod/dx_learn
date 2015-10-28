@@ -408,3 +408,33 @@ bool BaseApp::isKeyDown(char keycode){
 	char a = _keyboardBuff[keycode];
 	return a & 0x80;
 }
+
+void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
+	acquireInput();
+
+	if(isKeyDown(DIK_A)){
+		camera->position.x -= value;
+	}else if(isKeyDown(DIK_D)){
+		camera->position.x += value;
+	}else if(isKeyDown(DIK_W)){
+		camera->position.y += value;
+	}else if(isKeyDown(DIK_S)){
+		camera->position.y -= value;
+	}else if(isKeyDown(DIK_Q)){
+		camera->position.z += value;
+	}else if(isKeyDown(DIK_E)){
+		camera->position.z -= value;
+	}else if(isKeyDown(DIK_J)){
+		camera->rotateY -= value;
+	}else if(isKeyDown(DIK_L)){
+		camera->rotateY += value;
+	}else if(isKeyDown(DIK_I)){
+		camera->rotateX -= value;
+	}else if(isKeyDown(DIK_K)){
+		camera->rotateX += value;
+	}else if(isKeyDown(DIK_U)){
+		camera->rotateZ -= value;
+	}else if(isKeyDown(DIK_O)){
+		camera->rotateZ += value;
+	}
+}

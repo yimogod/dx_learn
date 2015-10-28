@@ -89,6 +89,7 @@ protected:
 	MouseState _mouseState;
 	void acquireInput();
 	bool isKeyDown(char keycode);
+	void UpdatePosByKeyboard(Camera* camera, float value);
 
 	Scene _scene;
 };

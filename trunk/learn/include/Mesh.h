@@ -21,15 +21,16 @@ public:
 
 	/*顶点个数*/
 	unsigned short vertexNum;
-	/*顶点颜色*/
 	Vector3D vertexList[64];
+	/* vertex color, each vertex has its color */
+	Color vertexColorList[64];
     
 	/* 顶点索引个数 */
 	unsigned short indexNum;
 	unsigned short indexList[512];
 	/*下面所有的颜色, uv, normal都跟index一一匹配. 有多少个index, 就有多少个color, uv, normal*/
 	/*顶点颜色*/
-	Color colorList[512];
+	Color indexColorList[512];
 
 	/*S, T, S, T, S, T, 贴图数据列表*/
 	float uvList[1024];
@@ -40,5 +41,8 @@ public:
 	void setWorldPos(float x, float y, float z);
 
 	/*格式化数据准备传入vertext buff, 我们使用vbo*/
+	/*length is index num*/
 	void getVertexList(Vertex list[]);
+	/*length is vertex num*/
+	void getVertexListV2(Vertex list[]);
 };

@@ -23,13 +23,13 @@
     <ClInclude Include="ColorHillApp.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Tutorial02.fx">
+    <FxCompile Include="ColorVertex.fx">
       <Filter>shaders</Filter>
     </FxCompile>
-    <FxCompile Include="Tutorial02_PS.hlsl">
+    <FxCompile Include="ColorVertex_PS.hlsl">
       <Filter>shaders</Filter>
     </FxCompile>
-    <FxCompile Include="Tutorial02_VS.hlsl">
+    <FxCompile Include="ColorVertex_VS.hlsl">
       <Filter>shaders</Filter>
     </FxCompile>
   </ItemGroup>

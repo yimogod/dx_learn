@@ -63,52 +63,28 @@ void DemoApp1::unloadContent(){
 }
 
 void DemoApp1::update(){
-	acquireInput();
-
-	if(isKeyDown(DIK_A)){
-		_scene.camera->position.x -= 0.001f;
-	}else if(isKeyDown(DIK_D)){
-		_scene.camera->position.x += 0.001f;
-	}else if(isKeyDown(DIK_W)){
-		_scene.camera->position.y += 0.001f;
-	}else if(isKeyDown(DIK_S)){
-		_scene.camera->position.y -= 0.001f;
-	}else if(isKeyDown(DIK_Q)){
-		_scene.camera->position.z += 0.001f;
-	}else if(isKeyDown(DIK_E)){
-		_scene.camera->position.z -= 0.001f;
-	}else if(isKeyDown(DIK_J)){
-		_scene.camera->rotateY -= 0.001f;
-	}else if(isKeyDown(DIK_L)){
-		_scene.camera->rotateY += 0.001f;
-	}else if(isKeyDown(DIK_I)){
-		_scene.camera->rotateX -= 0.001f;
-	}else if(isKeyDown(DIK_K)){
-		_scene.camera->rotateX += 0.001f;
-	}else if(isKeyDown(DIK_U)){
-		_scene.camera->rotateZ -= 0.001f;
-	}else if(isKeyDown(DIK_O)){
-		_scene.camera->rotateZ += 0.001f;
-	}
-}
-
-void DemoApp1::render(){
-	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
+	UpdatePosByKeyboard(_scene.camera, 0.001f);
 
 	/*根据相机重新计算各个矩阵*/
 	world_to_camera = _scene.camera->getWorldToCameraMatrix();
 
 	//float aspect = _scene.camera->aspect;
 	camera_to_perspective = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
-							0.0f, 1.0f, 0.0f, 0.0f,
-							0.0f, 0.0f, 1.0f, 1.0f,
-							0.0f, 0.0f, 0.0f, 0.0f);
-							
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 1.0f,
+		0.0f, 0.0f, 0.0f, 0.0f);
+
 	ConstantBuffer cb;
 	cb.view = world_to_camera.transpose();
 	cb.perspective = camera_to_perspective.transpose();
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+}
+
+void DemoApp1::render(){
+	if(_context == NULL)return;
+	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
+
+
 	
 
 	_context->VSSetShader(_vs, nullptr, 0);
