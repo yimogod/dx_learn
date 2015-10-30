@@ -13,12 +13,6 @@
     <FxCompile Include="shader\Triangle.fx">
       <Filter>shader</Filter>
     </FxCompile>
-    <FxCompile Include="shader\Triangle_PS.hlsl">
-      <Filter>shader</Filter>
-    </FxCompile>
-    <FxCompile Include="shader\Triangle_VS.hlsl">
-      <Filter>shader</Filter>
-    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="directx.ico">
