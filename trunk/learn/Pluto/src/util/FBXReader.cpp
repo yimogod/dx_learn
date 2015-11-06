@@ -86,24 +86,10 @@ void FBXReader::readIndex(Mesh* mesh, FbxMesh* fmesh){
 	/* 三角形顶点索引数量, cube = 36 */
 	mesh->indexNum = fmesh->GetPolygonVertexCount();
 	/* 索引数组指针 */
-	//int* index = fmesh->GetPolygonVertices();
+	int* index = fmesh->GetPolygonVertices();
 	/* 读取顶点索引信息 */
-	//for(int i = 0; i < mesh->indexNum; ++i){
-	//	mesh->indexList[i] = index[i];
-	//}
-
-	 
-	/*遍历所有顶点*/
-	int triNum = fmesh->GetPolygonCount();
-	int temp = 0;
-	FbxVector2 uv_value;
-	bool unmap, result;
-	for(int i = 0; i < triNum; i++){
-		for(int j = 0; j < 3; j++){
-			//mesh->indexList[temp] = fmesh->getpoi 
-
-			temp++;
-		}
+	for(int i = 0; i < mesh->indexNum; ++i){
+		mesh->indexList[i] = index[i];
 	}
 }
 
@@ -117,37 +103,21 @@ void FBXReader::readUV(Mesh* mesh, FbxMesh* fmesh){
 		//get lUVSetIndex-th uv set
 		const char* uv_name = lUVSetNameList.GetStringAt(lUVSetIndex);
 		const FbxGeometryElementUV* lUVElement = fmesh->GetElementUV(uv_name);
-
-		if(!lUVElement)continue;
+		
 		// only support mapping mode eByPolygonVertex
-		if(lUVElement->GetMappingMode() != FbxGeometryElement::eByPolygonVertex)return;
+		if(!lUVElement)continue;
+		if(lUVElement->GetMappingMode() != FbxGeometryElement::eByPolygonVertex)continue;
 		
+		const int uvNum = lUVElement->GetIndexArray().GetCount();
+		int index, uvIndex;
+		for(int i = 0; i < uvNum; i++){
+			index = mesh->indexList[i];
+			uvIndex = lUVElement->GetIndexArray().GetAt(index);
+			FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(uvIndex);
 
-		/*遍历所有顶点*/
-		int triNum = fmesh->GetPolygonCount();
-		int temp = 0;
-		FbxVector2 uv_value;
-		bool unmap, result;
-		for(int i = 0; i < triNum; i++){
-			for(int j = 0; j < 3; j++){
-				result = fmesh->GetPolygonVertexUV(i, j, uv_name, uv_value, unmap);
-				mesh->uvList[temp * 2] = uv_value[0];
-				mesh->uvList[temp * 2 + 1] = uv_value[1];
-
-				temp++;
-			}
+			mesh->uvList[i * 2] = lUVValue[0];
+			mesh->uvList[i * 2 + 1] = lUVValue[1];
 		}
-		
-		
-		
-		/*const int lIndexCount = lUVElement->GetIndexArray().GetCount();
-		for(int polyIndex = 0; polyIndex < lIndexCount; polyIndex++){
-			int lUVIndex = lUVElement->GetIndexArray().GetAt(polyIndex);
-			FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
-
-			mesh->uvList[polyIndex * 2] = lUVValue[0];
-			mesh->uvList[polyIndex * 2 + 1] = lUVValue[1];
-		}*/
 
 	}
 
