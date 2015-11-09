@@ -14,18 +14,18 @@ public:
     float getLengthSQ();
     
     /* 矢量相加 */
-    Vector3D add(const Vector3D* v);
+    Vector3D add(const Vector3D &v);
     /* 矢量相减 */
-    Vector3D sub(const Vector3D* v);
+    Vector3D sub(const Vector3D &v);
     /* 矢量于标量相乘 */
     Vector3D mul(float k);
 
     /* 点乘 */
-    float dot(const Vector3D* v);
+    float dot(const Vector3D &v);
     /* 叉乘 */
-    Vector3D cross(const Vector3D* v);
+    Vector3D cross(const Vector3D &v);
     /* 归一化 */
     void normalize();
 };
 
-float distanceBetweenVector3D(const Vector3D* va, const Vector3D* vb);
+float distanceBetweenVector3D(const Vector3D &va, const Vector3D &vb);

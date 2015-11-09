@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "T01TextureCube", "T01Textur
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPluto", "TestPluto\TestPluto.vcxproj", "{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "T03ADSSphere", "T03ADSSphere\T03ADSSphere.vcxproj", "{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -167,6 +169,18 @@ Global
 		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Release|Win32.Build.0 = Release|Win32
 		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Release|x64.ActiveCfg = Release|x64
 		{E8EC2A8F-7F7E-48AA-91C5-7630222218AF}.Release|x64.Build.0 = Release|x64
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Debug|Win32.Build.0 = Debug|Win32
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Debug|x64.ActiveCfg = Debug|x64
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Debug|x64.Build.0 = Debug|x64
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Profile|Win32.ActiveCfg = Release|Win32
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Profile|Win32.Build.0 = Release|Win32
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Profile|x64.ActiveCfg = Release|x64
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Profile|x64.Build.0 = Release|x64
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Release|Win32.ActiveCfg = Release|Win32
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Release|Win32.Build.0 = Release|Win32
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Release|x64.ActiveCfg = Release|x64
+		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

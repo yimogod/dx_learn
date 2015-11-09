@@ -9,8 +9,6 @@
 #include <Matrix4x4.h>
 #include <BaseApp.h>
 
-using namespace DirectX;
-
 class T03ADSSphere : public BaseApp{
 public:
 	T03ADSSphere();
@@ -30,7 +28,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new T03ADSSphere();
 	info.icon = (LPCWSTR)IDI_TUTORIAL1;
-	info.title = L"TextureCube";
+	info.title = L"ADS Sphere";
 	info.width = 800;
 	info.height = 600;
 

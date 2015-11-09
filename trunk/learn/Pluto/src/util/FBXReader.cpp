@@ -68,6 +68,7 @@ void FBXReader::processMesh(FbxNode* node){
 
 	_scene->meshList[_scene->meshNum] = mesh;
 	_scene->meshNum += 1;
+	mesh->calVertexNormal();
 }
 
 /* ถฅตใสýื้ */
