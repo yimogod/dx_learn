@@ -8,6 +8,28 @@
 #include <Scene.h>
 #include <Matrix4x4.h>
 #include <BaseApp.h>
+#include <BaseDataStruct.h>
+
+/*方向光*/
+struct DirectionLight{
+	Float4A color;
+	Float4 direction;
+};
+
+/*点光源*/
+struct PointLight{
+	Float4A color;
+	Float4 worldPos;
+};
+
+struct PhongBuffer{
+	Float4 ambient;
+
+	DirectionLight directionLight;
+	PointLight pointLight;
+
+	Float4 eyeWorldPos;
+};
 
 class T03ADSSphere : public BaseApp{
 public:
@@ -19,6 +41,8 @@ public:
 
 	void update();
 	void render();
+protected:
+	ID3D11Buffer* _envBuff = nullptr;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,

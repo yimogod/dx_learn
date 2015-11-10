@@ -50,7 +50,7 @@ bool DemoApp1::loadContent(){
 	createShader(vs, ps);
 	createVertexBuffer(vertices, mesh->indexNum);
 	//createIndexBuffer(mesh->indexList, mesh->indexNum);
-	createConstBuffer();
+	createConstBuffer(&_constBuff);
 	createTexture(path);
 	
 	delete(vertices);

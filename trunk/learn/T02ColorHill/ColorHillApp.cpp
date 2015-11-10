@@ -47,7 +47,7 @@ bool ColorHillApp::loadContent(){
 	createShader(vs, ps);
 	createVertexBuffer(vertices, mesh->vertexNum);
 	createIndexBuffer(mesh->indexList, mesh->indexNum);
-	createConstBuffer();
+	createConstBuffer(_constBuff);
 
 	delete(vertices);
 

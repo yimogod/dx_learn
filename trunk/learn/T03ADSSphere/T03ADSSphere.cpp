@@ -17,7 +17,7 @@ bool T03ADSSphere::loadContent(){
 		L"E:/learn/dx_learn/trunk/learn/T03ADSSphere/assets/seafloor.dds";
 
 
-	char* sInputFile = "assets/sphere.fbx";
+	char* sInputFile = "assets/simple_scene.fbx";
 	FBXReader reader;
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
@@ -49,11 +49,16 @@ bool T03ADSSphere::loadContent(){
 	createDXInput();
 	createShader(vs, ps);
 	createVertexBuffer(vertices, mesh->indexNum);
-	//createIndexBuffer(mesh->indexList, mesh->indexNum);
-	createConstBuffer();
+	createConstBuffer(&_constBuff);
+	createConstBuffer(&_envBuff);
 	createTexture(path);
 	
 	delete(vertices);
+
+	camera_to_perspective = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 1.0f,
+		0.0f, 0.0f, 0.0f, 0.0f);
 
 	return true;
 }
@@ -68,16 +73,12 @@ void T03ADSSphere::update(){
 	/*根据相机重新计算各个矩阵*/
 	world_to_camera = _scene.camera->getWorldToCameraMatrix();
 
-	//float aspect = _scene.camera->aspect;
-	camera_to_perspective = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 1.0f,
-		0.0f, 0.0f, 0.0f, 0.0f);
-
 	ConstantBuffer cb;
 	cb.view = world_to_camera.transpose();
 	cb.perspective = camera_to_perspective.transpose();
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+
+	PhongBuffer pb;
 }
 
 void T03ADSSphere::render(){
@@ -95,7 +96,6 @@ void T03ADSSphere::render(){
 
 	Mesh *m = _scene.getMesh(0);
 	_context->Draw(m->indexNum, 0);
-	//_context->DrawIndexed(m->indexNum, 0, 0);
 
 	_chain->Present(0, 0);
 }

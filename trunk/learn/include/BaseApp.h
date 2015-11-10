@@ -66,14 +66,14 @@ protected:
 
 
 	/* mvp */
-	Matrix4x4 world_to_camera;
-	Matrix4x4 camera_to_perspective;
+	Matrix4x4 world_to_camera = Matrix4x4();
+	Matrix4x4 camera_to_perspective = Matrix4x4();
 
 	bool createDevice();
 	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps);
 	bool createVertexBuffer(Vertex *vertices, int indexNum);
 	bool createIndexBuffer(unsigned short* indexList, int indexNum);
-	bool createConstBuffer();
+	bool createConstBuffer(ID3D11Buffer** constBuff);
 	bool createTexture(const wchar_t* path);
 	bool createDXInput();
 

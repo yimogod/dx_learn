@@ -266,7 +266,7 @@ bool BaseApp::createIndexBuffer(unsigned short* indexList, int indexNum){
 	return true;
 }
 
-bool BaseApp::createConstBuffer(){
+bool BaseApp::createConstBuffer(ID3D11Buffer** constBuff){
 	/*创建constant buff, 类似于uniform变量*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
@@ -275,11 +275,8 @@ bool BaseApp::createConstBuffer(){
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	bd.CPUAccessFlags = NULL;
 
-	HRESULT hr = _device->CreateBuffer(&bd, nullptr, &_constBuff);
+	HRESULT hr = _device->CreateBuffer(&bd, nullptr, constBuff);
 	if(FAILED(hr))return false;
-
-	world_to_camera = Matrix4x4();
-	camera_to_perspective = Matrix4x4();
 
 	return true;
 }
