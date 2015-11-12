@@ -30,7 +30,7 @@ bool T03ADSSphere::loadContent(){
 	_scene.lightList[0]->type = Light::TYPE_DIRECTION;
 	_scene.lightList[0]->ambientColor = Color{ 0.8f, 0.8f, 0.0f, 1.0f };
 	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 0.0f, 0.0f, 1.0f };
-	_scene.lightList[0]->specularColor = Color{ 0.0f, 0.0f, 0.0f, 1.0f };
+	_scene.lightList[0]->specularColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
 	_scene.lightList[0]->dir = Vector3D(1.0f, 0.0f, 0.0f);
 
 	_scene.lightNum = 1;
@@ -95,12 +95,16 @@ void T03ADSSphere::update(){
 	Light* light = _scene.lightList[0];
 	Color ac = light->ambientColor;
 	Color dc = light->diffuseColor;
+	Color sc = light->specularColor;
 	Vector3D d = light->dir;
 
 	PhongBuffer pb;
+	pb.eyeWorldPos = Float4{ 0.0f, 0.0f, 0.0f, 1.0f };
+
 	DirectionLight dl = DirectionLight{
 		Float4A{ ac.r, ac.g, ac.b, ac.a },
 		Float4A{ dc.r, dc.g, dc.b, dc.a },
+		Float4A{ sc.r, sc.g, sc.b, sc.a },
 		Float4{ d.x, d.y, d.z, 1.0f } };
 	pb.directionLight = dl;
 

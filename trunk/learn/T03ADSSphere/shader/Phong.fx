@@ -2,6 +2,7 @@
 struct DirectionLight{
 	float4 ambientColor;
 	float4 diffuseColor;
+	float4 specularColor;
 	float4 direction;
 };
 
@@ -11,19 +12,24 @@ struct PointLight{
 	float4 worldPos;
 };
 
-void computeDirectionLight(float4 color, DirectionLight light, float4 pixelNormal,
-	out float4 ambient, out float4 diffuse){
+void computeDirectionLight(float4 color,
+	DirectionLight light, float3 pixelNormal, float3 toEyeW,
+	out float4 ambient, out float4 diffuse, out float4 spec){
 	ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
 	ambient = color * light.ambientColor;
 
 	float3 lightVec = -light.direction.xyz;
-	float3 normalVec = pixelNormal.xyz;
-	float diffuseFactor = dot(lightVec, normalVec);
+	float diffuseFactor = dot(lightVec, pixelNormal);
 	//[flatten]
 	if(diffuseFactor > 0){
 		diffuse = diffuseFactor * light.diffuseColor * color;
+
+		float3 v = reflect(-lightVec, pixelNormal);
+		float specFactor = max(0.0f, dot(v, toEyeW));
+		spec = specFactor * light.specularColor * color;
 	}
 }
 
@@ -36,10 +42,10 @@ cbuffer cbTransform : register(b0){
 }
 
 cbuffer cbPhong : register(b1){
+	float4 eyePosW;
+
 	DirectionLight directionLight;
 	PointLight pointLight;
-
-	float4 eyeWorldPos;
 }
 
 struct VS_INPUT{
@@ -70,19 +76,22 @@ PS_INPUT VS(VS_INPUT input){
 }
 
 float4 PS(PS_INPUT input) :SV_Target{
-	input.normalW = normalize(input.normalW);
-	
+	float3 normalW = normalize(input.normalW).xyz;
+	float3 toEyeW = normalize(eyePosW - input.posW).xyz;
+
 	float4 color = txDiffuse.Sample(samLinear, input.tex);
 
 	float4 ac = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	float4 dc = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	float sc = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	float4 A, D;
-	computeDirectionLight(color, directionLight, input.normalW, A, D);
+	float4 A, D, S;
+	computeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
 	ac += A;
 	dc += D;
+	sc += S;
 
-	float4 lit = ac + dc;
+	float4 lit = ac + dc + sc;
 	lit.a = color.a;
 
 	return lit;

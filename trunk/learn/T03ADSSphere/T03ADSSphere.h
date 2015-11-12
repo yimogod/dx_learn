@@ -14,6 +14,7 @@
 struct DirectionLight{
 	Float4A ambientColor;
 	Float4A diffuseColor;
+	Float4A specularColor;
 	Float4 direction;
 };
 
@@ -24,10 +25,9 @@ struct PointLight{
 };
 
 struct PhongBuffer{
+	Float4 eyeWorldPos;
 	DirectionLight directionLight;
 	PointLight pointLight;
-
-	Float4 eyeWorldPos;
 };
 
 class T03ADSSphere : public BaseApp{
