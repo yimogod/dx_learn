@@ -80,8 +80,9 @@ bool T03ADSSphere::loadContent(){
 	
 	delete(vertices);
 
+	float aspect = _scene.camera->aspect;
 	camera_to_perspective = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, aspect, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 1.0f,
 		0.0f, 0.0f, 0.0f, 0.0f);
 

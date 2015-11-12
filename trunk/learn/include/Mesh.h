@@ -35,6 +35,7 @@ public:
 	Color indexColorList[512];
 
 	/*S, T, S, T, S, T, 贴图数据列表*/
+	/*uv列表可以跟顶点对应， 也可以跟index对应， 两种方案*/
 	float uvList[1024];
 
 public:

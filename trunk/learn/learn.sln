@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPluto", "TestPluto\Test
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "T03ADSSphere", "T03ADSSphere\T03ADSSphere.vcxproj", "{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "T04Sprite", "T04Sprite\T04Sprite.vcxproj", "{DA601764-FB9A-4983-8CAD-FA4E35DB923E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -181,6 +183,18 @@ Global
 		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Release|Win32.Build.0 = Release|Win32
 		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Release|x64.ActiveCfg = Release|x64
 		{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}.Release|x64.Build.0 = Release|x64
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Debug|Win32.Build.0 = Debug|Win32
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Debug|x64.ActiveCfg = Debug|x64
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Debug|x64.Build.0 = Debug|x64
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Profile|Win32.ActiveCfg = Release|Win32
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Profile|Win32.Build.0 = Release|Win32
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Profile|x64.ActiveCfg = Release|x64
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Profile|x64.Build.0 = Release|x64
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Release|Win32.ActiveCfg = Release|Win32
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Release|Win32.Build.0 = Release|Win32
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Release|x64.ActiveCfg = Release|x64
+		{DA601764-FB9A-4983-8CAD-FA4E35DB923E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

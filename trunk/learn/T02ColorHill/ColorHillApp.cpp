@@ -66,9 +66,9 @@ void ColorHillApp::update(){
 	/*根据相机重新计算各个矩阵*/
 	world_to_camera = _scene.camera->getWorldToCameraMatrix();
 
-	//float aspect = _scene.camera->aspect;
+	float aspect = _scene.camera->aspect;
 	camera_to_perspective = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, aspect, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 1.0f,
 		0.0f, 0.0f, 0.0f, 0.0f);
 
