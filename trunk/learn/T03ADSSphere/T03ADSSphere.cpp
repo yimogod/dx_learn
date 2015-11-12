@@ -32,8 +32,19 @@ bool T03ADSSphere::loadContent(){
 	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 0.0f, 0.0f, 1.0f };
 	_scene.lightList[0]->specularColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
 	_scene.lightList[0]->dir = Vector3D(1.0f, 0.0f, 0.0f);
+	
+	_scene.lightList[1] = new Light();
+	_scene.lightList[1]->type = Light::TYPE_POINT;
+	_scene.lightList[1]->ambientColor = Color{ 0.0f, 0.0f, 0.0f, 1.0f };
+	_scene.lightList[1]->diffuseColor = Color{ 0.0f, 0.0f, 1.0f, 1.0f };
+	_scene.lightList[1]->specularColor = Color{ 0.0f, 0.0f, 0.0f, 1.0f };
+	_scene.lightList[1]->pos = Vector3D(0.8f, 0.0f, 0.0f);
+	_scene.lightList[1]->range = 200.0f;
+	_scene.lightList[1]->kc = 0.0f;
+	_scene.lightList[1]->kl = 1.0f;
+	_scene.lightList[1]->kq = 0.0f;
 
-	_scene.lightNum = 1;
+	_scene.lightNum = 2;
 
 	/*准备顶点缓冲数据*/
 	Mesh* mesh = _scene.getMesh(0);
@@ -108,8 +119,21 @@ void T03ADSSphere::update(){
 		Float4{ d.x, d.y, d.z, 1.0f } };
 	pb.directionLight = dl;
 
-	_context->UpdateSubresource(_phongBuff, 0, nullptr, &pb, 0, 0);
+	light = _scene.lightList[1];
+	ac = light->ambientColor;
+	dc = light->diffuseColor;
+	sc = light->specularColor;
+	d = light->pos;
+	PointLight pl = PointLight{
+		Float4A{ ac.r, ac.g, ac.b, ac.a },
+		Float4A{ dc.r, dc.g, dc.b, dc.a },
+		Float4A{ sc.r, sc.g, sc.b, sc.a },
+		Float4{ d.x, d.y, d.z, 1.0f },
+		light->range,
+		Float3{ light->kc, light->kl, light->kq } };
+	pb.pointLight = pl;
 
+	_context->UpdateSubresource(_phongBuff, 0, nullptr, &pb, 0, 0);
 }
 
 void T03ADSSphere::render(){

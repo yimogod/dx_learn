@@ -25,6 +25,8 @@ public:
     Vector3D pos;
     Vector3D dir;
     
+	/* 影响范围 */
+	float range;
     /* 衰减系数 */
     float kc, kl, kq;
 };

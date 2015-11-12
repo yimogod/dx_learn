@@ -20,8 +20,12 @@ struct DirectionLight{
 
 /*µ„π‚‘¥*/
 struct PointLight{
-	Float4A color;
+	Float4A ambientColor;
+	Float4A diffuseColor;
+	Float4A specularColor;
 	Float4 worldPos;
+	float range;
+	Float3 attenuate;
 };
 
 struct PhongBuffer{
