@@ -24,12 +24,7 @@ bool DemoApp1::loadContent(){
 
 	_scene.camera = new Camera(0, -1.0f, -2.0f, 0, 0, 0);
 	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 100.0f, _width, _height);
-
-	_scene.lightList[0] = new Light();
-	_scene.lightList[0]->type = Light::TYPE_AMBIENT;
-	_scene.lightList[0]->ambientColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
-	_scene.lightNum = 1;
-
+	
 	/*准备顶点缓冲数据*/
 	Mesh* mesh = _scene.getMesh(0);
 	Vertex *vertices = new Vertex[mesh->indexNum];
@@ -45,12 +40,20 @@ bool DemoApp1::loadContent(){
 	ps.entryPoint = "PS";
 	ps.shaderModel = "ps_4_0";
 
+	/*创建 layout*/
+	D3D11_INPUT_ELEMENT_DESC layout[] = {
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+	int numElements = ARRAYSIZE(layout);
+
 	createDevice();
 	createDXInput();
-	createShader(vs, ps);
+	createShader(vs, ps, layout, numElements);
 	createVertexBuffer(vertices, mesh->indexNum);
 	//createIndexBuffer(mesh->indexList, mesh->indexNum);
-	createConstBuffer(&_constBuff);
+	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createTexture(path);
 	
 	delete(vertices);
