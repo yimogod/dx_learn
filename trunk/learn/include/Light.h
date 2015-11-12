@@ -6,9 +6,8 @@
 
 class Light{
 public:
-    static const int TYPE_AMBIENT = 1;
-    static const int TYPE_INFINITE = 2;
-    static const int TYPE_POINT = 4;
+    static const int TYPE_DIRECTION = 1;
+    static const int TYPE_POINT = 2;
     
     Light();
     

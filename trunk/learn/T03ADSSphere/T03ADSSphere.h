@@ -12,7 +12,8 @@
 
 /*·½Ïò¹â*/
 struct DirectionLight{
-	Float4A color;
+	Float4A ambientColor;
+	Float4A diffuseColor;
 	Float4 direction;
 };
 
@@ -23,8 +24,6 @@ struct PointLight{
 };
 
 struct PhongBuffer{
-	Float4 ambient;
-
 	DirectionLight directionLight;
 	PointLight pointLight;
 
@@ -42,7 +41,7 @@ public:
 	void update();
 	void render();
 protected:
-	ID3D11Buffer* _envBuff = nullptr;
+	ID3D11Buffer* _phongBuff = nullptr;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,

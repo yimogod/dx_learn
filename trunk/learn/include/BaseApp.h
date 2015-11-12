@@ -70,10 +70,10 @@ protected:
 	Matrix4x4 camera_to_perspective = Matrix4x4();
 
 	bool createDevice();
-	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps);
+	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
 	bool createVertexBuffer(Vertex *vertices, int indexNum);
 	bool createIndexBuffer(unsigned short* indexList, int indexNum);
-	bool createConstBuffer(ID3D11Buffer** constBuff);
+	bool createConstBuffer(ID3D11Buffer** constBuff, int byteWidth);
 	bool createTexture(const wchar_t* path);
 	bool createDXInput();
 

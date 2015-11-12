@@ -266,12 +266,12 @@ bool BaseApp::createIndexBuffer(unsigned short* indexList, int indexNum){
 	return true;
 }
 
-bool BaseApp::createConstBuffer(ID3D11Buffer** constBuff){
+bool BaseApp::createConstBuffer(ID3D11Buffer** constBuff, int byteWidth){
 	/*创建constant buff, 类似于uniform变量*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(ConstantBuffer);
+	bd.ByteWidth = byteWidth;
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	bd.CPUAccessFlags = NULL;
 
@@ -281,7 +281,7 @@ bool BaseApp::createConstBuffer(ID3D11Buffer** constBuff){
 	return true;
 }
 
-bool BaseApp::createShader(CreateShaderInfo vs, CreateShaderInfo ps){
+bool BaseApp::createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){
 	/*编译shader*/
 	ID3DBlob* pVSBlob = nullptr;
 	HRESULT hr = compileShaderFromFile(vs.fileName, vs.entryPoint, vs.shaderModel, &pVSBlob);
@@ -298,14 +298,6 @@ bool BaseApp::createShader(CreateShaderInfo vs, CreateShaderInfo ps){
 		pVSBlob->Release();
 		return false;
 	}
-
-	/*创建 layout*/
-	D3D11_INPUT_ELEMENT_DESC layout[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-	UINT numElements = ARRAYSIZE(layout);
 
 	hr = _device->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(),
 		pVSBlob->GetBufferSize(), &_vertexLayout);
