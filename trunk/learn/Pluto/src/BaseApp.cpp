@@ -44,7 +44,7 @@ bool BaseApp::createDevice(){
 
 	HRESULT hr = S_OK;
 	/*创建device*/
-	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_1 };
+	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0 };
 	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
 	hr = D3D11CreateDevice(nullptr, _driverType, nullptr,
@@ -247,12 +247,12 @@ HRESULT BaseApp::compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
 	return S_OK;
 }
 
-bool BaseApp::createVertexBuffer(Vertex *vertices, int indexNum){
+bool BaseApp::createVertexBuffer(Vertex *vertices, int vertNum){
 	/*设置buff desc*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(Vertex) * indexNum;//数据总长度
+	bd.ByteWidth = sizeof(Vertex) * vertNum;//数据总长度
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = NULL;
 
@@ -360,12 +360,14 @@ bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerSt
 	ZeroMemory(&rsd, sizeof(D3D11_RASTERIZER_DESC));
 
 	rsd.FillMode = fillmode;
-	rsd.CullMode = D3D11_CULL_BACK;
+	rsd.CullMode = D3D11_CULL_NONE;
 	rsd.FrontCounterClockwise = false;
 	rsd.DepthClipEnable = true;
 
 	HRESULT hr = _device->CreateRasterizerState(&rsd, &rs);
 	if(FAILED(hr))return false;
+
+	_context->RSSetState(rs);
 	return true;
 }
 

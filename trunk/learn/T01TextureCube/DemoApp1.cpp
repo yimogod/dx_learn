@@ -28,7 +28,7 @@ bool DemoApp1::loadContent(){
 	/*准备顶点缓冲数据*/
 	Mesh* mesh = _scene.getMesh(0);
 	Vertex *vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexList(vertices);
+	mesh->getVertexListV2(vertices);
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
@@ -50,14 +50,12 @@ bool DemoApp1::loadContent(){
 
 	createDevice();
 	createDXInput();
+	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum);
-	//createIndexBuffer(mesh->indexList, mesh->indexNum);
+	createVertexBuffer(vertices, mesh->vertexNum);
+	createIndexBuffer(mesh->indexList, mesh->indexNum);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createTexture(path);
-	
-	//createRasterizerState(D3D11_FILL_SOLID, _solidRS);
-	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 
 	delete(vertices);
 
@@ -88,8 +86,8 @@ void DemoApp1::update(){
 
 void DemoApp1::render(){
 	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
 	//_context->RSSetState(_wireframeRS);
+	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
 
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
@@ -98,8 +96,8 @@ void DemoApp1::render(){
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);
-	_context->Draw(m->indexNum, 0);
-	//_context->DrawIndexed(m->indexNum, 0, 0);
+	//_context->Draw(m->indexNum, 0);
+	_context->DrawIndexed(m->indexNum, 0, 0);
 
 	_chain->Present(0, 0);
 }
