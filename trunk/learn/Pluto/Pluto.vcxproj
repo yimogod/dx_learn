@@ -371,6 +371,7 @@
     <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\Matrix4x4.h" />
     <ClInclude Include="..\include\Mesh.h" />
+    <ClInclude Include="..\include\ObjParser.h" />
     <ClInclude Include="..\include\Plane3D.h" />
     <ClInclude Include="..\include\Scene.h" />
     <ClInclude Include="..\include\SteadyLine.h" />
@@ -395,6 +396,7 @@
     <ClCompile Include="src\util\DDSTextureLoader.cpp" />
     <ClCompile Include="src\util\FBXParser.cpp" />
     <ClCompile Include="src\util\FBXUtil.cpp" />
+    <ClCompile Include="src\util\ObjParser.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

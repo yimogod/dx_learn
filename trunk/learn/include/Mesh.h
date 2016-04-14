@@ -20,7 +20,7 @@ public:
 	int state;
 
 	/*顶点个数*/
-	unsigned short vertexNum;
+	unsigned short vertexNum = 0;
 	Vector3D vertexList[64];
 	/* vertex color, each vertex has its color */
 	Color vertexColorList[64];
@@ -28,7 +28,7 @@ public:
 	Vector3D vertexNormalList[54];
 
 	/* 顶点索引个数 */
-	unsigned short indexNum;
+	unsigned short indexNum = 0;
 	unsigned short indexList[512];
 	/*下面所有的颜色, uv, normal都跟index一一匹配. 有多少个index, 就有多少个color, uv, normal*/
 	/*顶点颜色*/

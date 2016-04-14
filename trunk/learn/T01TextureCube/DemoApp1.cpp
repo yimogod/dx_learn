@@ -1,7 +1,7 @@
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <dinput.h>
-#include <FBXParser.h>
+#include <ObjParser.h>
 
 #include <Mesh.h>
 #include "DemoApp1.h"
@@ -17,8 +17,8 @@ bool DemoApp1::loadContent(){
 		L"E:/learn/dx_learn/trunk/learn/T01TextureCube/assets/seafloor.dds";
 
 
-	char* sInputFile = "assets/simple_scene.fbx";
-	FBXParser reader;
+	char* sInputFile = "assets/simple_scene.obj";
+	ObjParser reader;
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 

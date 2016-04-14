@@ -75,6 +75,9 @@
     <ClInclude Include="..\include\FBXParser.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ObjParser.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -121,6 +124,9 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="src\util\FBXParser.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\ObjParser.cpp">
       <Filter>util</Filter>
     </ClCompile>
   </ItemGroup>
