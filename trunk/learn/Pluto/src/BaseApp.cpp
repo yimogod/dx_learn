@@ -44,13 +44,19 @@ bool BaseApp::createDevice(){
 
 	HRESULT hr = S_OK;
 	/*创建device*/
-	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0 };
+	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_1 };
 	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
 	hr = D3D11CreateDevice(nullptr, _driverType, nullptr,
 		createDeviceFlags, featureLevels, numFeatureLevels,
 		D3D11_SDK_VERSION, &_device, &_featureLevel, &_context);
 	if(FAILED(hr))return false;
+
+	/*这里可以启动多重采样*/
+	UINT m4xMsaaQuality;
+	_device->CheckMultisampleQualityLevels(
+		DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m4xMsaaQuality);
+	assert(m4xMsaaQuality > 0);
 
 	/*开始创建swap chain需要的factory*/
 	IDXGIDevice* dxgiDevice = nullptr;
@@ -85,8 +91,12 @@ bool BaseApp::createDevice(){
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.SampleDesc.Count = 1;
 	sd.SampleDesc.Quality = 0;
+	//sd.SampleDesc.Count = 4;
+	//sd.SampleDesc.Quality = m4xMsaaQuality - 1;
 	sd.Windowed = TRUE;
 	sd.OutputWindow = _hwnd;
+	//sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	sd.Flags = 0;
 
 	hr = dxgiFactory->CreateSwapChain(_device, &sd, &_chain);
 	dxgiFactory->MakeWindowAssociation(_hwnd, DXGI_MWA_NO_ALT_ENTER);
@@ -104,7 +114,28 @@ bool BaseApp::createDevice(){
 	pBackBuffer->Release();
 	if(FAILED(hr))return hr;
 
-	_context->OMSetRenderTargets(1, &_backBuffTarget, nullptr);
+	/*声明深度模板描述数据*/
+	D3D11_TEXTURE2D_DESC td;
+	td.Width = _width;
+	td.Height = _height;
+	td.MipLevels = 1;
+	td.ArraySize = 1;
+	td.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	td.SampleDesc.Count = 1;
+	td.SampleDesc.Quality = 0;
+	td.Usage = D3D11_USAGE_DEFAULT;
+	td.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	td.CPUAccessFlags = 0;
+	td.MiscFlags = 0;
+
+	/*创建深度/模板缓存*/
+	hr = _device->CreateTexture2D(&td, 0, &_depthStencilBuffer);
+	if(FAILED(hr))return hr;
+	hr = _device->CreateDepthStencilView(_depthStencilBuffer, 0, &_depthStencilView);
+	if(FAILED(hr))return hr;
+
+	//_context->OMSetRenderTargets(1, &_backBuffTarget, _depthStencilView);
+	_context->OMSetRenderTargets(1, &_backBuffTarget, __nullptr);
 
 	/*设置viewport*/
 	D3D11_VIEWPORT vp;
@@ -320,6 +351,20 @@ bool BaseApp::createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT
 		pPSBlob->GetBufferSize(), nullptr, &_ps);
 	pPSBlob->Release();
 
+	if(FAILED(hr))return false;
+	return true;
+}
+
+bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs){
+	D3D11_RASTERIZER_DESC rsd;
+	ZeroMemory(&rsd, sizeof(D3D11_RASTERIZER_DESC));
+
+	rsd.FillMode = fillmode;
+	rsd.CullMode = D3D11_CULL_BACK;
+	rsd.FrontCounterClockwise = false;
+	rsd.DepthClipEnable = true;
+
+	HRESULT hr = _device->CreateRasterizerState(&rsd, &rs);
 	if(FAILED(hr))return false;
 	return true;
 }
