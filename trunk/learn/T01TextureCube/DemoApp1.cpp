@@ -56,6 +56,9 @@ bool DemoApp1::loadContent(){
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createTexture(path);
 	
+	//createRasterizerState(D3D11_FILL_SOLID, _solidRS);
+	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
+
 	delete(vertices);
 
 	return true;
@@ -86,9 +89,7 @@ void DemoApp1::update(){
 void DemoApp1::render(){
 	if(_context == NULL)return;
 	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
-
-
-	
+	//_context->RSSetState(_wireframeRS);
 
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);

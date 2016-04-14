@@ -51,6 +51,12 @@ protected:
 	IDXGISwapChain* _chain;
 	ID3D11RenderTargetView* _backBuffTarget;
 
+	ID3D11Texture2D* _depthStencilBuffer;
+	ID3D11DepthStencilView* _depthStencilView;
+
+	ID3D11RasterizerState* _wireframeRS;
+	ID3D11RasterizerState* _solidRS;
+
 	HRESULT compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
 		LPCSTR szShaderModel, ID3DBlob** ppBlobOut);
 
@@ -74,6 +80,7 @@ protected:
 	bool createVertexBuffer(Vertex *vertices, int indexNum);
 	bool createIndexBuffer(unsigned short* indexList, int indexNum);
 	bool createConstBuffer(ID3D11Buffer** constBuff, int byteWidth);
+	bool createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs);
 	bool createTexture(const wchar_t* path);
 	bool createDXInput();
 

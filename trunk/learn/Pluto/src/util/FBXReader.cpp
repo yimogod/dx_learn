@@ -1,5 +1,4 @@
 #include <fbxsdk.h>
-#include <fbxsdk\scene\geometry\fbxlayer.h>
 #include <FBXReader.h>
 #include <FBXUtil.h>
 #include <Scene.h>
@@ -73,6 +72,7 @@ void FBXReader::processMesh(FbxNode* node){
 
 /* 顶点数组 */
 void FBXReader::readVertex(Mesh* mesh, FbxMesh* fmesh){
+	//cube的话, 8个顶点
 	mesh->vertexNum = fmesh->GetControlPointsCount();
 	FbxVector4* ctrlPoint = fmesh->GetControlPoints();
 	/* 读取顶点信息 */
@@ -107,19 +107,33 @@ void FBXReader::readUV(Mesh* mesh, FbxMesh* fmesh){
 		
 		// only support mapping mode eByPolygonVertex
 		if(!lUVElement)continue;
-		if(lUVElement->GetMappingMode() != FbxGeometryElement::eByPolygonVertex)continue;
+		if(lUVElement->GetMappingMode() != FbxGeometryElement::eByPolygonVertex)return;
 		
-		const int uvNum = lUVElement->GetIndexArray().GetCount();
-		int index, uvIndex;
-		for(int i = 0; i < uvNum; i++){
-			index = mesh->indexList[i];
-			uvIndex = lUVElement->GetIndexArray().GetAt(index);
-			FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(uvIndex);
+		//index array, where holds the index referenced to the uv data
+		const bool lUseIndex = lUVElement->GetReferenceMode() != FbxGeometryElement::eDirect;
+		const int lIndexCount = (lUseIndex) ? lUVElement->GetIndexArray().GetCount() : 0;
 
-			mesh->uvList[i * 2] = lUVValue[0];
-			mesh->uvList[i * 2 + 1] = lUVValue[1];
+		//iterating through the data by polygon
+		const int lPolyCount = fmesh->GetPolygonCount();
+
+		int lPolyIndexCounter = 0;
+		for(int lPolyIndex = 0; lPolyIndex < lPolyCount; ++lPolyIndex){
+			// build the max index array that we need to pass into MakePoly
+			const int lPolySize = fmesh->GetPolygonSize(lPolyIndex);
+			for(int lVertIndex = 0; lVertIndex < lPolySize; ++lVertIndex){
+				if(lPolyIndexCounter < lIndexCount){
+					//the UV index depends on the reference mode
+					int lUVIndex = lUseIndex ? lUVElement->GetIndexArray().GetAt(lPolyIndexCounter) : lPolyIndexCounter;
+
+					FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
+
+					mesh->uvList[lUVIndex * 2] = lUVValue[0];
+					mesh->uvList[lUVIndex * 2 + 1] = lUVValue[1];
+
+					lPolyIndexCounter++;
+				}
+			}
 		}
-
 	}
 
 }
