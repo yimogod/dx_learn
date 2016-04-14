@@ -60,9 +60,6 @@
     <ClInclude Include="..\include\DDSTextureLoader.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\FBXReader.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\FBXUtil.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -73,6 +70,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Main.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FBXParser.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,9 +104,6 @@
     <ClCompile Include="src\util\CUtil.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="src\util\FBXReader.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="src\util\FBXUtil.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -122,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="src\core\Matrix3x3.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\FBXParser.cpp">
+      <Filter>util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

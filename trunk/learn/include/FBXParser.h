@@ -2,9 +2,9 @@
 #include <fbxsdk.h>
 #include <Scene.h>
 
-class FBXReader{
+class FBXParser{
 public:
-	FBXReader();
+	FBXParser();
     
 	void read(char* name, Scene* scene);
 

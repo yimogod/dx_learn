@@ -1,5 +1,5 @@
 #include <fbxsdk.h>
-#include <FBXReader.h>
+#include <FBXParser.h>
 #include <FBXUtil.h>
 #include <Scene.h>
 
@@ -7,9 +7,9 @@
 
 using namespace std;
 
-FBXReader::FBXReader(){}
+FBXParser::FBXParser(){}
 
-void FBXReader::read(char* name, Scene* pscene){
+void FBXParser::read(char* name, Scene* pscene){
 	_scene = pscene;
 
 	FbxManager* lSdkManager = NULL;
@@ -34,7 +34,7 @@ void FBXReader::read(char* name, Scene* pscene){
 	DestroySdkObjects(lSdkManager, lResult);
 }
 
-void FBXReader::processNode(FbxNode* node){
+void FBXParser::processNode(FbxNode* node){
 	FbxNodeAttribute::EType attType;
 
 	if (node->GetNodeAttribute()){
@@ -53,7 +53,7 @@ void FBXReader::processNode(FbxNode* node){
 	}
 }
 
-void FBXReader::processMesh(FbxNode* node){
+void FBXParser::processMesh(FbxNode* node){
 	FbxMesh* fmesh = node->GetMesh();
 	if (fmesh == NULL)return;
 
@@ -71,7 +71,7 @@ void FBXReader::processMesh(FbxNode* node){
 }
 
 /* 顶点数组 */
-void FBXReader::readVertex(Mesh* mesh, FbxMesh* fmesh){
+void FBXParser::readVertex(Mesh* mesh, FbxMesh* fmesh){
 	//cube的话, 8个顶点
 	mesh->vertexNum = fmesh->GetControlPointsCount();
 	FbxVector4* ctrlPoint = fmesh->GetControlPoints();
@@ -83,7 +83,7 @@ void FBXReader::readVertex(Mesh* mesh, FbxMesh* fmesh){
 }
 
 /*读取索引*/
-void FBXReader::readIndex(Mesh* mesh, FbxMesh* fmesh){
+void FBXParser::readIndex(Mesh* mesh, FbxMesh* fmesh){
 	/* 三角形顶点索引数量, cube = 36 */
 	mesh->indexNum = fmesh->GetPolygonVertexCount();
 	/* 索引数组指针 */
@@ -94,7 +94,7 @@ void FBXReader::readIndex(Mesh* mesh, FbxMesh* fmesh){
 	}
 }
 
-void FBXReader::readUV(Mesh* mesh, FbxMesh* fmesh){
+void FBXParser::readUV(Mesh* mesh, FbxMesh* fmesh){
 	//get all UV set names
 	FbxStringList lUVSetNameList;
 	fmesh->GetUVSetNames(lUVSetNameList);

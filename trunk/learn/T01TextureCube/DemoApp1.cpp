@@ -1,7 +1,7 @@
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <dinput.h>
-#include <FBXReader.h>
+#include <FBXParser.h>
 
 #include <Mesh.h>
 #include "DemoApp1.h"
@@ -18,7 +18,7 @@ bool DemoApp1::loadContent(){
 
 
 	char* sInputFile = "assets/simple_scene.fbx";
-	FBXReader reader;
+	FBXParser reader;
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
@@ -50,7 +50,7 @@ bool DemoApp1::loadContent(){
 
 	createDevice();
 	createDXInput();
-	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
+	createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 	createShader(vs, ps, layout, numElements);
 	createVertexBuffer(vertices, mesh->vertexNum);
 	createIndexBuffer(mesh->indexList, mesh->indexNum);

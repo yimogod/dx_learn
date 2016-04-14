@@ -364,7 +364,7 @@
     <ClInclude Include="..\include\CUtil.h" />
     <ClInclude Include="..\include\DDSTextureLoader.h" />
     <ClInclude Include="..\include\DLog.h" />
-    <ClInclude Include="..\include\FBXReader.h" />
+    <ClInclude Include="..\include\FBXParser.h" />
     <ClInclude Include="..\include\FBXUtil.h" />
     <ClInclude Include="..\include\Light.h" />
     <ClInclude Include="..\include\Main.h" />
@@ -393,7 +393,7 @@
     <ClCompile Include="src\core\Vector3D.cpp" />
     <ClCompile Include="src\util\CUtil.cpp" />
     <ClCompile Include="src\util\DDSTextureLoader.cpp" />
-    <ClCompile Include="src\util\FBXReader.cpp" />
+    <ClCompile Include="src\util\FBXParser.cpp" />
     <ClCompile Include="src\util\FBXUtil.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
