@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "Vector3D.h"
+#include "Vector2D.h"
 #include "Color.h"
 #include "Vertex.h"
 
@@ -27,17 +28,15 @@ public:
 	/*顶点法线*/
 	Vector3D vertexNormalList[54];
 
-	/* 顶点索引个数 */
+	/*S, T, S, T, S, T, 贴图数据列表*/
+	unsigned short uvNum = 0;
+	Vector2D uvList[64];
+
+	/* 顶点索引 */
 	unsigned short indexNum = 0;
 	unsigned short indexList[512];
-	/*下面所有的颜色, uv, normal都跟index一一匹配. 有多少个index, 就有多少个color, uv, normal*/
-	/*顶点颜色*/
-	Color indexColorList[512];
-
-	/*S, T, S, T, S, T, 贴图数据列表*/
-	/*uv列表可以跟顶点对应， 也可以跟index对应， 两种方案*/
-	float uvList[1024];
-
+	/* uv坐标索引 */
+	unsigned short uvIndexList[512];
 public:
 	/* mesh在世界中的坐标 */
 	Vector3D position;

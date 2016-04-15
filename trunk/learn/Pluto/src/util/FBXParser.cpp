@@ -127,8 +127,7 @@ void FBXParser::readUV(Mesh* mesh, FbxMesh* fmesh){
 
 					FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
 
-					mesh->uvList[lUVIndex * 2] = lUVValue[0];
-					mesh->uvList[lUVIndex * 2 + 1] = lUVValue[1];
+					mesh->uvList[lUVIndex] = Vector2D( lUVValue[0], lUVValue[1]);
 
 					lPolyIndexCounter++;
 				}

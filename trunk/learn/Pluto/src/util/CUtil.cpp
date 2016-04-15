@@ -1,5 +1,5 @@
+#include <sstream>
 #include "CUtil.h"
-
 using namespace::std;
 
 void print_pwd(){
@@ -35,4 +35,14 @@ void swap_int(int* f1, int* f2){
 	int temp = *f2;
 	*f2 = *f1;
 	*f1 = temp;
+}
+
+int str_2_int(string& str){
+	int v;
+	if(!(istringstream(str) >> v)) v = 0;
+	return v;
+}
+
+int char_2_int(char c){
+	return c - 48;
 }

@@ -16,17 +16,21 @@ void Mesh::getVertexList(Vertex list[]){
 	Vector3D vec;
 	Color color;
 	Vector3D normal;
+	Vector2D uv;
 	for(int i = 0; i < indexNum; i++){
 		int index = indexList[i];
+		int uvIndex = uvIndexList[i];
 		vec = vertexList[index].add(position);
 		color = vertexColorList[index];
 		normal = vertexNormalList[index].add(position);
+		uv = uvList[uvIndex];
 
-		list[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f};
-		list[i].color = Float4A{ color.r, color.g, color.b, 1.0f};
-		list[i].uv = Float2A{uvList[index* 2], uvList[index* 2 + 1]};
-		list[i].normal = Float4{ normal.x, normal.y, normal.z, 1.0f};
+		list[i].pos = Float4{vec.x, vec.y, vec.z, 1.0f};
+		list[i].color = Float4A{color.r, color.g, color.b, 1.0f};
+		list[i].uv = Float2A{uv.x, uv.y};
+		list[i].normal = Float4{normal.x, normal.y, normal.z, 1.0f};
 	}
+
 }
 
 void Mesh::getVertexListV2(Vertex list[]){
@@ -40,7 +44,7 @@ void Mesh::getVertexListV2(Vertex list[]){
 
 		list[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
 		list[i].color = Float4A{ color.r, color.g, color.b, 1.0f };
-		list[i].uv = Float2A{ uvList[i * 2], uvList[i * 2 + 1] };
+		list[i].uv = Float2A{ uvList[i].x, uvList[i].y };
 		list[i].normal = Float4{ normal.x, normal.y, normal.z, 1.0f };
 	}
 }

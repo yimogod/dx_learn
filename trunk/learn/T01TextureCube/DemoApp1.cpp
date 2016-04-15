@@ -12,6 +12,8 @@ DemoApp1::DemoApp1(){}
 
 DemoApp1::~DemoApp1(){}
 
+static bool use_index = false;
+
 bool DemoApp1::loadContent(){
 	const wchar_t* path =
 		L"E:/learn/dx_learn/trunk/learn/T01TextureCube/assets/seafloor.dds";
@@ -27,8 +29,14 @@ bool DemoApp1::loadContent(){
 	
 	/*准备顶点缓冲数据*/
 	Mesh* mesh = _scene.getMesh(0);
-	Vertex *vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexListV2(vertices);
+	Vertex *vertices = 0;
+	if(use_index){
+		vertices = new Vertex[mesh->vertexNum];
+		mesh->getVertexListV2(vertices);
+	}else{
+		vertices = new Vertex[mesh->indexNum];
+		mesh->getVertexList(vertices);
+	}
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
@@ -50,10 +58,16 @@ bool DemoApp1::loadContent(){
 
 	createDevice();
 	createDXInput();
-	createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
+	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
+	createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
+
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->vertexNum);
-	createIndexBuffer(mesh->indexList, mesh->indexNum);
+	if(use_index){
+		createVertexBuffer(vertices, mesh->vertexNum);
+		createIndexBuffer(mesh->indexList, mesh->indexNum);
+	}else{
+		createVertexBuffer(vertices, mesh->indexNum);
+	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createTexture(path);
 
@@ -96,8 +110,11 @@ void DemoApp1::render(){
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);
-	//_context->Draw(m->indexNum, 0);
-	_context->DrawIndexed(m->indexNum, 0, 0);
+	if(use_index){
+		_context->DrawIndexed(m->indexNum, 0, 0);
+	}else{
+		_context->Draw(m->indexNum, 0);
+	}
 
 	_chain->Present(0, 0);
 }

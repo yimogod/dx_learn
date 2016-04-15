@@ -12,10 +12,13 @@ public:
 
 private:
 	Scene* _scene;
-	void readVertex(Mesh& mesh, string& line);
-	void readIndex(Mesh& mesh, string& line);
-	void readUV(Mesh& mesh, string& line);
+	/*解析的obj赋予到的mesh*/
+	Mesh* _mesh;
+	void readVertex(string& line);
+	void readIndex(string& line);
+	void readUV(string& line);
 
 private:
-	int _uvIndex = 0;//辅助存储uv数据
+	/*解析由vertext_index/un_index/normal_index组成的字符串*/
+	void parseVUNStr(string& line);
 };

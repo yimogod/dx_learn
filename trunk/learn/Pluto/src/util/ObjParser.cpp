@@ -1,5 +1,6 @@
 #include <ObjParser.h>
 #include <Scene.h>
+#include <CUtil.h>
 
 #include <iostream>
 #include <fstream>
@@ -20,63 +21,83 @@ void ObjParser::read(char* name, Scene* pscene){
 		return;
 	}
 
-	Mesh* mesh = new Mesh();
+	_mesh = new Mesh();
 
 	string line;
 	while(getline(fs, line)){
 		if(line.size() == 0)continue;
 		if(line[0] == 'v'){
 			if(line[1] == 't'){//纹理坐标
-				readUV(*mesh, line);
+				readUV(line);
 			}else if(line[1] == ' '){//顶点数据
-				readVertex(*mesh, line);
+				readVertex(line);
 			}
 		}else if(line[0] == 'f'){
-			readIndex(*mesh, line);
+			readIndex(line);
 		}
 	}
 
 	fs.close();
 
-	mesh->calVertexNormal();
+	_mesh->calVertexNormal();
 
-	_scene->meshList[_scene->meshNum] = mesh;
+	_scene->meshList[_scene->meshNum] = _mesh;
 	_scene->meshNum += 1;
 }
 
 
 /* 顶点数组 */
-void ObjParser::readVertex(Mesh& mesh, string &line){
+void ObjParser::readVertex(string &line){
 	string s1;
 	float f2, f3, f4;
 
 	istringstream ss(line);
 	ss >> s1 >> f2 >> f3 >> f4;
 
-	Vector3D v(f2, f4, f3);
-	mesh.vertexList[mesh.vertexNum] = v;
-	mesh.vertexNum++;
+	_mesh->vertexList[_mesh->vertexNum] = Vector3D(f2, f4, f3);
+	_mesh->vertexNum++;
 }
 
 /*读取索引*/
-void ObjParser::readIndex(Mesh& mesh, string& line){
+void ObjParser::readIndex(string& line){
 	string s1, s2, s3, s4;
 
 	istringstream ss(line);
 	ss >> s1 >> s2 >> s3 >> s4;
-
-	mesh.indexList[mesh.indexNum] = (int)s1;
-	mesh.indexNum++;
+	parseVUNStr(s2);
+	parseVUNStr(s3);
+	parseVUNStr(s4);
 }
 
-void ObjParser::readUV(Mesh& mesh, string& line){
+void ObjParser::parseVUNStr(string& str){
+	int k, a = 0;
+	for(k = 0; str[k] != '/'; k++){
+		a = a * 10 + char_2_int(str[k]);
+	}
+	
+	_mesh->indexList[_mesh->indexNum] = a - 1;
+
+	a = 0;
+	for(k = k + 1; str[k] != '/'; k++){
+		a = a * 10 + char_2_int(str[k]);
+	}
+	_mesh->uvIndexList[_mesh->indexNum] = a - 1;
+
+	//读取法线, 我不需要. 因为自己计算法线
+	//a = 0;
+	//for(k = k + 1; str[k]; k++)
+	//	a = a * 10 + (str[k] - 48);
+
+	_mesh->indexNum++;
+}
+
+void ObjParser::readUV(string& line){
 	string s1;
 	float f2, f3;
 
 	istringstream ss(line);
 	ss >> s1 >> f2 >> f3;
 
-	mesh.uvList[_uvIndex * 2] = f2;
-	mesh.uvList[_uvIndex * 2 + 1] = f3;
-	_uvIndex++;
+	_mesh->uvList[_mesh->uvNum] = Vector2D(f2, f3);
+	_mesh->uvNum++;
 }
