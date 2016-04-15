@@ -31,8 +31,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	info.app = new DemoApp1();
 	info.icon = (LPCWSTR)IDI_TUTORIAL1;
 	info.title = L"TextureCube";
-	info.width = 800;
-	info.height = 600;
+	info.width = 1200;
+	info.height = 960;
 
 	return MainBody(hInstance, hPrevInstance, lpCmdLine, nCmdShow, info);
 }

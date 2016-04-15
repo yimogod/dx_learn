@@ -361,6 +361,7 @@ bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerSt
 
 	rsd.FillMode = fillmode;
 	rsd.CullMode = D3D11_CULL_BACK;
+	//rsd.CullMode = D3D11_CULL_NONE;
 	rsd.FrontCounterClockwise = false;
 	rsd.DepthClipEnable = true;
 

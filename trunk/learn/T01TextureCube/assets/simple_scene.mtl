@@ -1,12 +1,16 @@
-#
-#
-#
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 15.04.2016 14:03:41
 
-newmtl _Material #25
-illum 2
-Ka 0.588000 0.588000 0.588000
-Kd 0.588000 0.588000 0.588000
-Ks 0.000000 0.000000 0.000000
-Ns 2.000000
-map_Kd seafloor.dds
-
+newmtl Material__25
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka E:\learn\dx_learn\trunk\learn\Debug\assets\seafloor.dds
+	map_Kd E:\learn\dx_learn\trunk\learn\Debug\assets\seafloor.dds

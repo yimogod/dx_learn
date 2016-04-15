@@ -54,7 +54,7 @@ void ObjParser::readVertex(string &line){
 	istringstream ss(line);
 	ss >> s1 >> f2 >> f3 >> f4;
 
-	_mesh->vertexList[_mesh->vertexNum] = Vector3D(f2, f4, f3);
+	_mesh->vertexList[_mesh->vertexNum] = Vector3D(f2, f3, -1.0f * f4);
 	_mesh->vertexNum++;
 }
 
@@ -64,9 +64,9 @@ void ObjParser::readIndex(string& line){
 
 	istringstream ss(line);
 	ss >> s1 >> s2 >> s3 >> s4;
-	parseVUNStr(s2);
-	parseVUNStr(s3);
 	parseVUNStr(s4);
+	parseVUNStr(s3);
+	parseVUNStr(s2);
 }
 
 void ObjParser::parseVUNStr(string& str){
@@ -98,6 +98,6 @@ void ObjParser::readUV(string& line){
 	istringstream ss(line);
 	ss >> s1 >> f2 >> f3;
 
-	_mesh->uvList[_mesh->uvNum] = Vector2D(f2, f3);
+	_mesh->uvList[_mesh->uvNum] = Vector2D(f2, 1.0f - f3);
 	_mesh->uvNum++;
 }
