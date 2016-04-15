@@ -1,7 +1,7 @@
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <dinput.h>
-#include <FBXReader.h>
+#include <ObjParser.h>
 
 #include <Mesh.h>
 #include "T03ADSSphere.h"
@@ -12,13 +12,15 @@ T03ADSSphere::T03ADSSphere(){}
 
 T03ADSSphere::~T03ADSSphere(){}
 
+static bool use_index = false;
+
 bool T03ADSSphere::loadContent(){
 	const wchar_t* path =
 		L"E:/learn/dx_learn/trunk/learn/T03ADSSphere/assets/seafloor.dds";
 
 
-	char* sInputFile = "assets/simple_scene.fbx";
-	FBXReader reader;
+	char* sInputFile = "assets/sphere.obj";
+	ObjParser reader;
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
@@ -48,8 +50,14 @@ bool T03ADSSphere::loadContent(){
 
 	/*准备顶点缓冲数据*/
 	Mesh* mesh = _scene.getMesh(0);
-	Vertex *vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexList(vertices);
+	Vertex *vertices = 0;
+	if(use_index){
+		vertices = new Vertex[mesh->vertexNum];
+		mesh->getVertexListV2(vertices);
+	}else{
+		vertices = new Vertex[mesh->indexNum];
+		mesh->getVertexList(vertices);
+	}
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
@@ -72,8 +80,17 @@ bool T03ADSSphere::loadContent(){
 
 	createDevice();
 	createDXInput();
+	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
+	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
+
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum);
+	if(use_index){
+		createVertexBuffer(vertices, mesh->vertexNum);
+		createIndexBuffer(mesh->indexList, mesh->indexNum);
+	}else{
+		createVertexBuffer(vertices, mesh->indexNum);
+	}
+
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
 	createTexture(path);

@@ -44,7 +44,7 @@ bool BaseApp::createDevice(){
 
 	HRESULT hr = S_OK;
 	/*´´½¨device*/
-	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0 };
+	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_1 };
 	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
 	hr = D3D11CreateDevice(nullptr, _driverType, nullptr,

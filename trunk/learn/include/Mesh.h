@@ -22,20 +22,19 @@ public:
 
 	/*顶点个数*/
 	unsigned short vertexNum = 0;
-	Vector3D vertexList[64];
+	Vector3D vertexList[128];
 	/* vertex color, each vertex has its color */
-	Color vertexColorList[64];
+	Color vertexColorList[128];
 	/*顶点法线*/
-	Vector3D vertexNormalList[54];
+	Vector3D vertexNormalList[128];
 
 	/*S, T, S, T, S, T, 贴图数据列表*/
 	unsigned short uvNum = 0;
-	Vector2D uvList[64];
+	Vector2D uvList[256];
 
-	/* 顶点索引 */
+	/* 顶点索引和uv坐标索引 */
 	unsigned short indexNum = 0;
 	unsigned short indexList[512];
-	/* uv坐标索引 */
 	unsigned short uvIndexList[512];
 public:
 	/* mesh在世界中的坐标 */

@@ -59,7 +59,7 @@ bool DemoApp1::loadContent(){
 	createDevice();
 	createDXInput();
 	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
-	createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
+	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
 
 	createShader(vs, ps, layout, numElements);
 	if(use_index){
@@ -100,7 +100,6 @@ void DemoApp1::update(){
 
 void DemoApp1::render(){
 	if(_context == NULL)return;
-	//_context->RSSetState(_wireframeRS);
 	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
 
 	_context->VSSetShader(_vs, nullptr, 0);
