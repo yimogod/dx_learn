@@ -15,6 +15,8 @@ T03ADSSphere::~T03ADSSphere(){}
 static bool use_index = false;
 
 bool T03ADSSphere::loadContent(){
+	createDXInput();
+
 	const wchar_t* path =
 		L"E:/learn/dx_learn/trunk/learn/T03ADSSphere/assets/seafloor.dds";
 
@@ -30,15 +32,15 @@ bool T03ADSSphere::loadContent(){
 
 	_scene.lightList[0] = new Light();
 	_scene.lightList[0]->type = Light::TYPE_DIRECTION;
-	_scene.lightList[0]->ambientColor = Color{ 0.8f, 0.8f, 0.0f, 1.0f };
-	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 0.0f, 0.0f, 1.0f };
-	_scene.lightList[0]->specularColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+	_scene.lightList[0]->ambientColor = Color{ 0.0f, 0.0f, 0.0f, 1.0f };
+	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+	_scene.lightList[0]->specularColor = Color{ 0.0f, 1.0f, 0.0f, 1.0f };
 	_scene.lightList[0]->dir = Vector3D(1.0f, 0.0f, 0.0f);
 	
 	_scene.lightList[1] = new Light();
 	_scene.lightList[1]->type = Light::TYPE_POINT;
 	_scene.lightList[1]->ambientColor = Color{ 0.0f, 0.0f, 0.0f, 1.0f };
-	_scene.lightList[1]->diffuseColor = Color{ 0.0f, 0.0f, 1.0f, 1.0f };
+	_scene.lightList[1]->diffuseColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
 	_scene.lightList[1]->specularColor = Color{ 0.0f, 0.0f, 0.0f, 1.0f };
 	_scene.lightList[1]->pos = Vector3D(0.8f, 0.0f, 0.0f);
 	_scene.lightList[1]->range = 200.0f;
@@ -72,14 +74,13 @@ bool T03ADSSphere::loadContent(){
 	/*´´½¨ layout*/
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 40, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	int numElements = ARRAYSIZE(layout);
 
 	createDevice();
-	createDXInput();
+	
 	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
 
@@ -128,7 +129,7 @@ void T03ADSSphere::update(){
 	Vector3D d = light->dir;
 
 	PhongBuffer pb;
-	pb.eyeWorldPos = Float4{ 0.0f, 0.0f, 0.0f, 1.0f };
+	pb.eyeWorldPos = Float4{ 0.0f, 0.0f, -2.0f, 1.0f };
 
 	DirectionLight dl = DirectionLight{
 		Float4A{ ac.r, ac.g, ac.b, ac.a },

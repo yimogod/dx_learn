@@ -29,11 +29,12 @@ void computeDirectionLight(float4 color, DirectionLight light,
 	float diffuseFactor = dot(lightVec, pixelNormal);
 	//[flatten]
 	if(diffuseFactor > 0){
-		diffuse = diffuseFactor * light.diffuseColor * color;
+		diffuse = diffuseFactor * color * light.diffuseColor;
 
 		float3 v = reflect(-lightVec, pixelNormal);
 		float specFactor = max(0.0f, dot(v, toEyeW));
-		spec = specFactor * light.specularColor * color;
+		//specFactor = pow(specFactor, 1.0f);
+		spec = specFactor * color * light.specularColor;
 	}
 }
 
@@ -85,13 +86,12 @@ cbuffer cbPhong : register(b1){
 
 struct VS_INPUT{
 	float4 pos : POSITION;
-	float4 color : COLOR;
 	float2 tex : TEXCOORD0;
 	float4 normal: NORMAL;
 };
 
 struct PS_INPUT{
-	float4 posP : SV_POSITION;
+	float4 posH : SV_POSITION;
 	float4 posW : POSITION;
 	float2 tex : TEXCOORD0;
 	float4 normalW: NORMAL;
@@ -99,14 +99,14 @@ struct PS_INPUT{
 
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
-	output.posP = input.pos;
-	output.posP = mul(output.posP, view);
-	output.posP = mul(output.posP, perspective);
+	output.posH = input.pos;
+	output.posH = mul(output.posH, view);
+	output.posH = mul(output.posH, perspective);
 
 	output.posW = input.pos;
 	output.tex = input.tex;
 	output.normalW = input.normal;
-
+	output.normalW = normalize(output.normalW);
 	return output;
 }
 
@@ -127,12 +127,13 @@ float4 PS(PS_INPUT input) :SV_Target{
 	dc += D;
 	sc += S;
 
-	computePointLight(color, pointLight, posW, normalW, toEyeW, A, D, S);
-	ac += A;
-	dc += D;
-	sc += S;
+	//computePointLight(color, pointLight, posW, normalW, toEyeW, A, D, S);
+	//ac += A;
+	//dc += D;
+	//sc += S;
 
-	float4 lit = ac + dc + sc;
+	//float4 lit = ac + dc + sc;
+	float4 lit = dc;
 	lit.a = color.a;
 
 	return lit;
