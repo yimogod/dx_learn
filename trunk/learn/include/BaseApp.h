@@ -96,7 +96,13 @@ protected:
 	MouseState _mouseState;
 	void acquireInput();
 	bool isKeyDown(char keycode);
+	bool isLMouseDown();
+	bool isRMouseDown();
 	void UpdatePosByKeyboard(Camera* camera, float value);
-
+	void UpdatePosByMouse(Camera* camera, float value);
+	
 	Scene _scene;
+
+	float _mouseX, _mouseY;
+	bool _isRMouseDown = false;
 };

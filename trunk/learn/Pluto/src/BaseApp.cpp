@@ -5,7 +5,10 @@
 #include <DDSTextureLoader.h>
 #include "BaseApp.h"
 
+
 #pragma comment (lib, "libfbxsdk.lib")
+//#pragma comment(lib, "dinput8.lib")
+//#pragma comment(lib, "dxguid.lib")
 
 #define DIRECTINPUT_VERSION 0x0800
 
@@ -197,7 +200,7 @@ void BaseApp::acquireInput(){
 		/*按下鼠标*/
 		hr = _mouse->Acquire();
 		if(SUCCEEDED(hr)){
-			hr = _mouse->GetDeviceState(sizeof(MouseState), &_mouseState);
+			hr = _mouse->GetDeviceState(sizeof(MouseState), (LPVOID)&_mouseState);
 			if(SUCCEEDED(hr)){
 				//i want a simple ui
 			}
@@ -452,6 +455,18 @@ bool BaseApp::isKeyDown(char keycode){
 	return a & 0x80;
 }
 
+bool BaseApp::isLMouseDown(){
+	char a = _mouseState.abButtons[0];
+	return a & 0x80;
+}
+
+bool BaseApp::isRMouseDown(){
+	char a = _mouseState.abButtons[1];
+	return a & 0x80;
+}
+
+
+/*根据欧拉空间进行操作相机*/
 void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
 	acquireInput();
 
@@ -459,13 +474,13 @@ void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
 		camera->position.x -= value;
 	}else if(isKeyDown(DIK_D)){
 		camera->position.x += value;
-	}else if(isKeyDown(DIK_W)){
-		camera->position.y += value;
-	}else if(isKeyDown(DIK_S)){
-		camera->position.y -= value;
 	}else if(isKeyDown(DIK_Q)){
-		camera->position.z += value;
+		camera->position.y += value;
 	}else if(isKeyDown(DIK_E)){
+		camera->position.y -= value;
+	}else if(isKeyDown(DIK_W)){
+		camera->position.z += value;
+	}else if(isKeyDown(DIK_S)){
 		camera->position.z -= value;
 	}else if(isKeyDown(DIK_J)){
 		camera->rotateY -= value;
@@ -479,5 +494,70 @@ void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
 		camera->rotateZ -= value;
 	}else if(isKeyDown(DIK_O)){
 		camera->rotateZ += value;
+	}
+
+	if(isRMouseDown()){
+		if(_isRMouseDown){
+			float nx = (float)_mouseState.lAxisX;
+			float ny = (float)_mouseState.lAxisY;
+			float dx = nx - _mouseX;
+			float dy = ny - _mouseY;
+
+			camera->rotateY -= 2.0f * dx * value;
+
+			camera->rotateX -= 2.0f * dy * value;
+
+			_mouseX = nx;
+			_mouseY = ny;
+		}else{
+			_isRMouseDown = true;
+			_mouseX = (float)_mouseState.lAxisX;
+			_mouseY = (float)_mouseState.lAxisY;
+		}
+
+		
+	}else{
+		_isRMouseDown = false;
+	}
+}
+
+/*根据相机姿态调整, pitch, ylow, head*/
+void BaseApp::UpdatePosByMouse(Camera* camera, float value){
+	acquireInput();
+
+	if(isKeyDown(DIK_A)){
+		camera->position.x -= value;
+	}else if(isKeyDown(DIK_D)){
+		camera->position.x += value;
+	}else if(isKeyDown(DIK_W)){
+		camera->position.z += value;
+	}else if(isKeyDown(DIK_S)){
+		camera->position.z -= value;
+	}
+
+	if(isRMouseDown()){
+		if(_isRMouseDown){
+			float nx = (float)_mouseState.lAxisX;
+			float ny = (float)_mouseState.lAxisY;
+			float dx = nx - _mouseX;
+			float dy = ny - _mouseY;
+
+			camera->rotateY -= 2.0f * dx * value;
+
+			camera->rotateX -= 2.0f * dy * value;
+
+			_mouseX = nx;
+			_mouseY = ny;
+		}
+		else{
+			_isRMouseDown = true;
+			_mouseX = (float)_mouseState.lAxisX;
+			_mouseY = (float)_mouseState.lAxisY;
+		}
+
+
+	}
+	else{
+		_isRMouseDown = false;
 	}
 }
