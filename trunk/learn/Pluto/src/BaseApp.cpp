@@ -496,28 +496,22 @@ void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
 		camera->rotateZ += value;
 	}
 
-	if(isRMouseDown()){
-		if(_isRMouseDown){
-			float nx = (float)_mouseState.lAxisX;
-			float ny = (float)_mouseState.lAxisY;
-			float dx = nx - _mouseX;
-			float dy = ny - _mouseY;
+	_isRMouseDown = isRMouseDown();
 
-			camera->rotateY -= 2.0f * dx * value;
+	if(_isRMouseDown){
+		float nx = (float)_mouseState.lAxisX;
+		float ny = (float)_mouseState.lAxisY;
+		float dx = nx - _mouseX;
+		float dy = ny - _mouseY;
 
-			camera->rotateX -= 2.0f * dy * value;
+		camera->rotateY -= 2.0f * dx * value;
+		camera->rotateX -= 2.0f * dy * value;
 
-			_mouseX = nx;
-			_mouseY = ny;
-		}else{
-			_isRMouseDown = true;
-			_mouseX = (float)_mouseState.lAxisX;
-			_mouseY = (float)_mouseState.lAxisY;
-		}
-
-		
+		_mouseX = nx;
+		_mouseY = ny;
 	}else{
-		_isRMouseDown = false;
+		_mouseX = (float)_mouseState.lAxisX;
+		_mouseY = (float)_mouseState.lAxisY;
 	}
 }
 

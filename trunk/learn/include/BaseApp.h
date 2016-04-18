@@ -70,11 +70,6 @@ protected:
 	ID3D11ShaderResourceView* _resView;
 	ID3D11SamplerState* _sampleState;
 
-
-	/* mvp */
-	Matrix4x4 world_to_camera = Matrix4x4();
-	Matrix4x4 camera_to_perspective = Matrix4x4();
-
 	bool createDevice();
 	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
 	bool createVertexBuffer(Vertex *vertices, int indexNum);

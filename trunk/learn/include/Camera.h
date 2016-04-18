@@ -12,7 +12,7 @@ public:
     float rotateY;
     float rotateZ;
     
-	/* rotate y, base on self-coordinate, 不知道如何做坐标转换, 所以放这里, 找到相关资料 */
+	/* rotate y, base on self-coordinate */
 	float heading;
 	/* rotate x */
 	float pitch;
@@ -20,14 +20,14 @@ public:
 	float bank;
 
     /* 视距，视点到投影面的距离 */
-    float dis;
+    float dis = 1.0f;
     
     /* 宽高比 */
     float aspect;
     
     /* 远近裁剪面 */
-    float nearClipZ;
-    float farClipZ;
+    float nearClipZ = 1.0f;
+    float farClipZ = 1000.0f;
     
     /* 四周裁剪面 */
     /* 正方向朝左 */
@@ -40,7 +40,7 @@ public:
     Plane3D bottomClipPlane;
     
     /* in degree, field of view, 1-180 */
-    float fov;
+    float fov = 45.0f;
     
     /* 视口尺寸 */
     float viewportWidth;
@@ -55,4 +55,9 @@ public:
                      float pviewportWidth, float pviewportHeight);
 
 	Matrix4x4 getWorldToCameraMatrix();
+	Matrix4x4 getCameraToProjMatrix();
+	Matrix4x4 getWorldToProjMatrix();
+
+	void strafe(float d);
+	void walk(float d);
 };

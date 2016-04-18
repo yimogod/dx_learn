@@ -97,13 +97,6 @@ bool T03ADSSphere::loadContent(){
 	createTexture(path);
 	
 	delete(vertices);
-
-	float aspect = _scene.camera->aspect;
-	camera_to_perspective = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, aspect, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 1.0f,
-		0.0f, 0.0f, 0.0f, 0.0f);
-
 	return true;
 }
 
@@ -115,11 +108,9 @@ void T03ADSSphere::update(){
 	UpdatePosByKeyboard(_scene.camera, 0.001f);
 
 	/*根据相机重新计算各个矩阵*/
-	world_to_camera = _scene.camera->getWorldToCameraMatrix();
-
 	ConstantBuffer cb;
-	cb.view = world_to_camera.transpose();
-	cb.perspective = camera_to_perspective.transpose();
+	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
+	cb.perspective = _scene.camera->getCameraToProjMatrix().transpose();
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
 
 	Light* light = _scene.lightList[0];

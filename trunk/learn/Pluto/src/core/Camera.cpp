@@ -38,3 +38,19 @@ Matrix4x4 Camera::getWorldToCameraMatrix(){
 
 	return m;
 }
+
+Matrix4x4 Camera::getCameraToProjMatrix(){
+	Matrix4x4 mat = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, aspect, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 1.0f,
+		0.0f, 0.0f, 0.0f, 0.0f);
+
+	return mat;
+}
+
+Matrix4x4 Camera::getWorldToProjMatrix(){
+	Matrix4x4 a = getWorldToCameraMatrix();
+	Matrix4x4 b = getCameraToProjMatrix();
+	return a.mul(b);
+
+}
