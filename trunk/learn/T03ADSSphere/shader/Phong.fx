@@ -16,6 +16,39 @@ struct PointLight{
 	float3 attenuate;
 };
 
+/*贴图*/
+Texture2D txDiffuse : register(t0);
+SamplerState samLinear : register(s0);
+
+/*空间转换*/
+cbuffer cbTransform : register(b0){
+	matrix view;
+	matrix perspective;
+}
+
+/*ads信息*/
+cbuffer cbPhong : register(b1){
+	float4 eyePosW;
+
+	DirectionLight directionLight;
+	PointLight pointLight;
+}
+
+/*顶点输入*/
+struct VS_INPUT{
+	float4 pos : POSITION;
+	float2 tex : TEXCOORD0;
+	float4 normal: NORMAL;
+};
+
+/*像素输入*/
+struct PS_INPUT{
+	float4 posH : SV_POSITION;
+	float4 posW : POSITION;
+	float2 tex : TEXCOORD0;
+	float4 normalW: NORMAL;
+};
+
 void computeDirectionLight(float4 color, DirectionLight light,
 	float3 pixelNormal, float3 toEyeW,
 	out float4 ambient, out float4 diffuse, out float4 spec){
@@ -28,12 +61,12 @@ void computeDirectionLight(float4 color, DirectionLight light,
 	float3 lightVec = -light.direction.xyz;
 	float diffuseFactor = dot(lightVec, pixelNormal);
 	//[flatten]
-	if(diffuseFactor > 0){
+	if(diffuseFactor < 0){
 		diffuse = diffuseFactor * color * light.diffuseColor;
 
 		float3 v = reflect(-lightVec, pixelNormal);
 		float specFactor = max(0.0f, dot(v, toEyeW));
-		//specFactor = pow(specFactor, 1.0f);
+		specFactor = pow(specFactor, 1.0f);
 		spec = specFactor * color * light.specularColor;
 	}
 }
@@ -69,33 +102,6 @@ void computePointLight(float4 color, PointLight light,
 	spec *= att;
 }
 
-Texture2D txDiffuse : register(t0);
-SamplerState samLinear : register(s0);
-
-cbuffer cbTransform : register(b0){
-	matrix view;
-	matrix perspective;
-}
-
-cbuffer cbPhong : register(b1){
-	float4 eyePosW;
-
-	DirectionLight directionLight;
-	PointLight pointLight;
-}
-
-struct VS_INPUT{
-	float4 pos : POSITION;
-	float2 tex : TEXCOORD0;
-	float4 normal: NORMAL;
-};
-
-struct PS_INPUT{
-	float4 posH : SV_POSITION;
-	float4 posW : POSITION;
-	float2 tex : TEXCOORD0;
-	float4 normalW: NORMAL;
-};
 
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
@@ -117,9 +123,9 @@ float4 PS(PS_INPUT input) :SV_Target{
 
 	float4 color = txDiffuse.Sample(samLinear, input.tex);
 
-	float4 ac = float4(0.0f, 0.0f, 0.0f, 0.0f);
-	float4 dc = float4(0.0f, 0.0f, 0.0f, 0.0f);
-	float sc = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	float4 ac = float4(0.0f, 0.0f, 0.0f, 1.0f);
+	float4 dc = float4(0.0f, 0.0f, 0.0f, 1.0f);
+	float sc = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	float4 A, D, S;
 	computeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
@@ -134,7 +140,8 @@ float4 PS(PS_INPUT input) :SV_Target{
 
 	//float4 lit = ac + dc + sc;
 	float4 lit = dc;
-	lit.a = color.a;
+	//lit.a = color.a;
+	lit.a = 1.0f;
 
 	return lit;
 }

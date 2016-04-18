@@ -49,6 +49,7 @@ void Mesh::getVertexListV2(Vertex list[]){
 	}
 }
 
+/*∂•µ„À≥–Ú, ƒÊ ±’Î≈≈¡–*/
 void Mesh::calVertexNormal(){
 	int triNum = (int)(indexNum / 3);
 	for(int i = 0; i < triNum; i++){
@@ -63,10 +64,11 @@ void Mesh::calVertexNormal(){
 		Vector3D e0 = v1.sub(v0);
 		Vector3D e1 = v2.sub(v0);
 		Vector3D faceNormal = e0.cross(e1);
+		faceNormal.normalize();
 
-		vertexNormalList[i0].add(faceNormal);
-		vertexNormalList[i1].add(faceNormal);
-		vertexNormalList[i2].add(faceNormal);
+		vertexNormalList[i0] = vertexNormalList[i0].add(faceNormal);
+		vertexNormalList[i1] = vertexNormalList[i1].add(faceNormal);
+		vertexNormalList[i2] = vertexNormalList[i2].add(faceNormal);
 	}
 
 	for(int i = 0; i < vertexNum; i++){
