@@ -49,36 +49,35 @@ struct PS_INPUT{
 	float4 normalW: NORMAL;
 };
 
-void computeDirectionLight(float4 color, DirectionLight light,
+void computeDirectionLight(float4 textColor, DirectionLight light,
 	float3 pixelNormal, float3 toEyeW,
 	out float4 ambient, out float4 diffuse, out float4 spec){
 	ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	ambient = color * light.ambientColor;
+	ambient = textColor * light.ambientColor;
 
-	float3 lightVec = -light.direction.xyz;
-	float diffuseFactor = dot(lightVec, pixelNormal);
-	//[flatten]
-	if(diffuseFactor < 0){
-		diffuse = diffuseFactor * color * light.diffuseColor;
+	float3 lightVec = light.direction;
+	float diffuseFactor = saturate(dot(lightVec, pixelNormal));
+	if(diffuseFactor > 0){
+		diffuse = diffuseFactor * textColor * light.diffuseColor;
 
 		float3 v = reflect(-lightVec, pixelNormal);
 		float specFactor = max(0.0f, dot(v, toEyeW));
 		specFactor = pow(specFactor, 1.0f);
-		spec = specFactor * color * light.specularColor;
+		spec = specFactor * textColor * light.specularColor;
 	}
 }
 
-void computePointLight(float4 color, PointLight light,
+void computePointLight(float4 textColor, PointLight light,
 	float3 pixelPos, float3 pixelNormal, float3 toEyeW,
 	out float4 ambient, out float4 diffuse, out float4 spec){
 	ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	ambient = color * light.ambientColor;
+	ambient = textColor * light.ambientColor;
 
 	float3 lightVec = light.worldPos.xyz - pixelPos;
 	float d = length(lightVec);
@@ -87,13 +86,13 @@ void computePointLight(float4 color, PointLight light,
 	lightVec /= d;
 
 	float diffuseFactor = dot(lightVec, pixelNormal);
-	//[flatten]
 	if(diffuseFactor > 0){
-		diffuse = diffuseFactor * light.diffuseColor * color;
+		diffuse = diffuseFactor * light.diffuseColor * textColor;
+		diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
 		float3 v = reflect(-lightVec, pixelNormal);
 		float specFactor = max(0.0f, dot(v, toEyeW));
-		spec = specFactor * light.specularColor * color;
+		spec = specFactor * light.specularColor * textColor;
 	}
 
 	float att = 1.0f / dot(light.attenuate, float3(1.0f, d, d * d));

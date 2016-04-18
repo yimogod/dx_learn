@@ -21,12 +21,12 @@ bool T03ADSSphere::loadContent(){
 		L"E:/learn/dx_learn/trunk/learn/T03ADSSphere/assets/seafloor.dds";
 
 
-	char* sInputFile = "assets/sphere.obj";
+	char* sInputFile = "assets/simple_scene.obj";
 	ObjParser reader;
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
-	_scene.camera = new Camera(0, -1.0f, -2.0f, 0, 0, 0);
+	_scene.camera = new Camera(0, 0, -2.0f, 0, 0, 0);
 	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 100.0f, _width, _height);
 
 
