@@ -20,8 +20,10 @@ bool ColorHillApp::loadContent(){
 	createGrid(64.0f, 64.0f, 8.0f, (*mesh));
 	mesh->setWorldPos(-32.0f, 0.0f, -32.0f);
 
-	_scene.camera = new Camera(0, -1.0f, -60.0f, 0, 0, 0);
-	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 1000.0f, _width, _height);
+	_scene.camera = new Camera();
+	_scene.camera->setPos(0, 0, -2.0f);
+	_scene.camera->setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
+	_scene.camera->setAspect(_width, _height);
 
 	/*准备顶点缓冲数据*/
 	Vertex *vertices = new Vertex[mesh->indexNum];
@@ -61,20 +63,11 @@ void ColorHillApp::unloadContent(){
 }
 
 void ColorHillApp::update(){
-	UpdatePosByKeyboard(_scene.camera, 0.01f);
-
-	/*根据相机重新计算各个矩阵*/
-	world_to_camera = _scene.camera->getWorldToCameraMatrix();
-
-	float aspect = _scene.camera->aspect;
-	camera_to_perspective = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, aspect, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 1.0f,
-		0.0f, 0.0f, 0.0f, 0.0f);
+	UpdatePosByKeyboard(_scene.camera, 0.001f);
 
 	ConstantBuffer cb;
-	cb.view = world_to_camera.transpose();
-	cb.perspective = camera_to_perspective.transpose();
+	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
+	cb.perspective = _scene.camera->getWorldToProjMatrix().transpose();
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
 }
 

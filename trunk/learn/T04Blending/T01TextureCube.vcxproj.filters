@@ -10,7 +10,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shader\Sprite.fx">
+    <FxCompile Include="shader\Triangle.fx">
       <Filter>shader</Filter>
     </FxCompile>
   </ItemGroup>
@@ -20,7 +20,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="T04Sprite.rc">
+    <ResourceCompile Include="Tutorial01.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -28,9 +28,9 @@
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="T04Sprite.h" />
+    <ClInclude Include="DemoApp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="T04Sprite.cpp" />
+    <ClCompile Include="DemoApp.cpp" />
   </ItemGroup>
 </Project>

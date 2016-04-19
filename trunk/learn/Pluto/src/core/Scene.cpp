@@ -1,6 +1,8 @@
 #include "Scene.h"
 
-Scene::Scene(){}
+Scene::Scene(){
+	meshNum = 0;
+}
 
 Scene::~Scene(){}
 

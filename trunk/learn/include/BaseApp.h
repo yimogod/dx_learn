@@ -56,6 +56,7 @@ protected:
 
 	ID3D11RasterizerState* _wireframeRS;
 	ID3D11RasterizerState* _solidRS;
+	ID3D11BlendState* _blendState;
 
 	HRESULT compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
 		LPCSTR szShaderModel, ID3DBlob** ppBlobOut);
@@ -76,6 +77,8 @@ protected:
 	bool createIndexBuffer(unsigned short* indexList, int indexNum);
 	bool createConstBuffer(ID3D11Buffer** constBuff, int byteWidth);
 	bool createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs);
+	bool createBlendState();
+	bool createSamplerState();
 	bool createTexture(const wchar_t* path);
 	bool createDXInput();
 

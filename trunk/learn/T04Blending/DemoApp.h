@@ -11,10 +11,10 @@
 
 using namespace DirectX;
 
-class T04Sprite : public BaseApp{
+class DemoApp : public BaseApp{
 public:
-	T04Sprite();
-	virtual ~T04Sprite();
+	DemoApp();
+	virtual ~DemoApp();
 
 	bool loadContent();
 	void unloadContent();
@@ -28,11 +28,11 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR lpCmdLine,
 	_In_ int nCmdShow){
 	MainInfo info;
-	info.app = new T04Sprite();
+	info.app = new DemoApp();
 	info.icon = (LPCWSTR)IDI_TUTORIAL1;
 	info.title = L"TextureCube";
-	info.width = 800;
-	info.height = 600;
+	info.width = 1200;
+	info.height = 960;
 
 	return MainBody(hInstance, hPrevInstance, lpCmdLine, nCmdShow, info);
 }

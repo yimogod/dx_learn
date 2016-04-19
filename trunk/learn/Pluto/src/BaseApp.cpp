@@ -375,11 +375,34 @@ bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerSt
 	return true;
 }
 
+bool BaseApp::createBlendState(){
+	D3D11_BLEND_DESC bsr;
+	ZeroMemory(&bsr, sizeof(D3D11_BLEND_DESC));
+
+	// 创建一个alpha blend状态.
+	bsr.RenderTarget[0].BlendEnable = TRUE;
+	bsr.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	bsr.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	bsr.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	bsr.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	bsr.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	bsr.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	bsr.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;//0x0f;
+
+	HRESULT hr = _device->CreateBlendState(&bsr, &_blendState);
+	if(FAILED(hr))return false;
+
+	return true;
+}
+
 bool BaseApp::createTexture(const wchar_t* path){
 	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView, 2048U);
 	if(FAILED(hr))return false;
+	return true;
+}
 
-	// Create the sample state
+// Create the sample state
+bool BaseApp::createSamplerState(){
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
 	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -389,7 +412,7 @@ bool BaseApp::createTexture(const wchar_t* path){
 	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-	hr = _device->CreateSamplerState(&sampDesc, &_sampleState);
+	HRESULT hr = _device->CreateSamplerState(&sampDesc, &_sampleState);
 	if(FAILED(hr))return false;
 
 	return true;
@@ -472,11 +495,14 @@ void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
 
 	if(isKeyDown(DIK_A)){
 		camera->strafe(-value);
-	}else if(isKeyDown(DIK_D)){
+	}
+	if(isKeyDown(DIK_D)){
 		camera->strafe(value);
-	}else if(isKeyDown(DIK_W)){
+	}
+	if(isKeyDown(DIK_W)){
 		camera->walk(value);
-	}else if(isKeyDown(DIK_S)){
+	}
+	if(isKeyDown(DIK_S)){
 		camera->walk(-value);
 	}
 

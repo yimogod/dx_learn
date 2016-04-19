@@ -95,7 +95,7 @@ void Camera::headingRotate(float radian){
 }
 
 void Camera::pitchRotate(float radian){
-
+	pitch += radian;
 }
 
 void Camera::rotateY(float radian){

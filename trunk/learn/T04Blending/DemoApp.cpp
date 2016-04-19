@@ -4,41 +4,29 @@
 #include <ObjParser.h>
 
 #include <Mesh.h>
-#include "DemoApp1.h"
+#include "DemoApp.h"
 
 using namespace DirectX;
 
-DemoApp1::DemoApp1(){}
+DemoApp::DemoApp(){}
 
-DemoApp1::~DemoApp1(){}
+DemoApp::~DemoApp(){}
 
-static bool use_index = false;
-
-bool DemoApp1::loadContent(){
-	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T01TextureCube/assets/seafloor.dds";
-
-
+bool DemoApp::loadContent(){
+	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 	char* sInputFile = "assets/simple_scene.obj";
 	ObjParser reader;
 	reader.read(sInputFile, &_scene);
-	_scene.renderType = Scene::RENDER_TYPE_FRAME;
+	sInputFile = "assets/sphere.obj";
+	reader.read(sInputFile, &_scene);
+
+	_scene.getMesh(0)->setWorldPos(0, 10.0f, 10.0f);
+	_scene.getMesh(0)->setWorldPos(1.0f, 2.0f, 2.0f);
 
 	_scene.camera = new Camera();
 	_scene.camera->setPos(0, 0, -2.0f);
 	_scene.camera->setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
 	_scene.camera->setAspect(_width, _height);
-	
-	/*准备顶点缓冲数据*/
-	Mesh* mesh = _scene.getMesh(0);
-	Vertex *vertices = 0;
-	if(use_index){
-		vertices = new Vertex[mesh->vertexNum];
-		mesh->getVertexListV2(vertices);
-	}else{
-		vertices = new Vertex[mesh->indexNum];
-		mesh->getVertexList(vertices);
-	}
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
@@ -64,25 +52,21 @@ bool DemoApp1::loadContent(){
 	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
 
 	createShader(vs, ps, layout, numElements);
-	if(use_index){
-		createVertexBuffer(vertices, mesh->vertexNum);
-		createIndexBuffer(mesh->indexList, mesh->indexNum);
-	}else{
-		createVertexBuffer(vertices, mesh->indexNum);
-	}
+	
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createTexture(path);
 
-	delete(vertices);
-
+	//const wchar_t* path =
+	//	L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_2.dds";
+	//createTexture(path);
+	createSamplerState();
 	return true;
 }
 
-void DemoApp1::unloadContent(){
+void DemoApp::unloadContent(){
 	BaseApp::unloadContent();
 }
 
-void DemoApp1::update(){
+void DemoApp::update(){
 	UpdatePosByKeyboard(_scene.camera, 0.001f);
 
 	ConstantBuffer cb;
@@ -91,22 +75,41 @@ void DemoApp1::update(){
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
 }
 
-void DemoApp1::render(){
+void DemoApp::render(){
 	if(_context == NULL)return;
 	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
-
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
 	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetShaderResources(0, 1, &_resView);
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
-	Mesh *m = _scene.getMesh(0);
-	if(use_index){
-		_context->DrawIndexed(m->indexNum, 0, 0);
-	}else{
-		_context->Draw(m->indexNum, 0);
-	}
+	/*处理第一个mesh*/
+	const wchar_t* path =
+		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_1.dds";
+	createTexture(path);
+	_context->PSSetShaderResources(0, 1, &_resView);
+	Mesh* mesh = _scene.getMesh(0);
+	Vertex *vertices = new Vertex[mesh->indexNum];
+	mesh->getVertexList(vertices);
+
+	createVertexBuffer(vertices, mesh->indexNum);
+	_context->Draw(mesh->indexNum, 0);
+	delete(vertices);
+
+
+	const wchar_t* path1 =
+		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_2.dds";
+	createTexture(path1);
+	_context->PSSetShaderResources(0, 1, &_resView);
+
+	/*处理第二个mesh*/
+	mesh = _scene.getMesh(1);
+	vertices = new Vertex[mesh->indexNum];
+	mesh->getVertexList(vertices);
+
+	createVertexBuffer(vertices, mesh->indexNum);
+	_context->Draw(mesh->indexNum, 0);
+	delete(vertices);
 
 	_chain->Present(0, 0);
 }
