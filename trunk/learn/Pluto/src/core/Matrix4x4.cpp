@@ -248,6 +248,7 @@ Matrix4x4 Matrix4x4::rotateX(float v){
 
 	return mul(m);
 }
+
 Matrix4x4 Matrix4x4::rotateY(float v){
 	float c = cosf(v);
 	float s = sinf(v);
@@ -258,6 +259,7 @@ Matrix4x4 Matrix4x4::rotateY(float v){
 
 	return mul(m);
 }
+
 Matrix4x4 Matrix4x4::rotateZ(float v){
 	float c = cosf(v);
 	float s = sinf(v);

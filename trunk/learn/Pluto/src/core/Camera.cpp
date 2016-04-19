@@ -1,30 +1,37 @@
-#include "Camera.h"
+#include <Camera.h>
+#include <Matrix1x4.h>
 
 Camera::Camera(){
-}
-
-Camera::Camera(float px, float py, float pz, float rx, float ry, float rz){
-    position.x = px;
-    position.y = py;
-    position.z = pz;
-    
-    rotateX = rx;
-    rotateY = ry;
-    rotateZ = rz;
+	position = Vector3D();
+	heading = pitch = bank = 0;
 }
 
 Camera::~Camera(){
 }
 
-void Camera::setProperty(float viewDis, float pfov, float nz, float fz,
-                         float pviewportWidth, float pviewportHeight){
-    dis = viewDis;
-    fov = pfov;
-    nearClipZ = nz;
-    farClipZ = fz;
-    viewportWidth = pviewportWidth;
-    viewportHeight = pviewportHeight;
-    aspect = pviewportWidth / pviewportHeight;
+void Camera::setPos(float px, float py, float pz){
+	position.x = px;
+	position.y = py;
+	position.z = pz;
+}
+
+void Camera::setEulerAngle(float pheading, float ppitch, float pbank){
+	heading = heading;
+	pitch = ppitch;
+	bank = pbank;
+}
+
+void Camera::setFrustum(float viewDis, float pfov, float nz, float fz){
+	dis = viewDis;
+	fov = pfov;
+	nearClipZ = nz;
+	farClipZ = fz;
+}
+
+void Camera::setAspect(float pviewportWidth, float pviewportHeight){
+	viewportWidth = pviewportWidth;
+	viewportHeight = pviewportHeight;
+	aspect = pviewportWidth / pviewportHeight;
 }
 
 Matrix4x4 Camera::getWorldToCameraMatrix(){
@@ -32,9 +39,9 @@ Matrix4x4 Camera::getWorldToCameraMatrix(){
 				0.0f, 1.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 1.0f, 0.0f,
 				-position.x, -position.y, -position.z, 1.0f);
-	Matrix4x4 m = move.rotateY(rotateY);
-	m = m.rotateZ(rotateZ);
-	m = m.rotateX(rotateX);
+	Matrix4x4 m = move.rotateY(heading);
+	m = m.rotateX(pitch);
+	m = m.rotateZ(bank);
 
 	return m;
 }
@@ -53,4 +60,44 @@ Matrix4x4 Camera::getWorldToProjMatrix(){
 	Matrix4x4 b = getCameraToProjMatrix();
 	return a.mul(b);
 
+}
+
+void Camera::strafe(float d){
+	Matrix1x4 worldPos = Matrix1x4(position.x, position.y, position.z, 1.0f);
+	Matrix4x4 wvMat = getWorldToCameraMatrix();
+	Matrix1x4 viewPos = worldPos.mul(wvMat);
+	viewPos.m00 += d;
+
+	Matrix4x4 vwMat = wvMat.reverse();
+	worldPos = viewPos.mul(vwMat);
+
+	position.x = worldPos.m00;
+	position.y = worldPos.m01;
+	position.z = worldPos.m02;
+}
+
+void Camera::walk(float d){
+	Matrix1x4 worldPos = Matrix1x4(position.x, position.y, position.z, 1.0f);
+	Matrix4x4 wvMat = getWorldToCameraMatrix();
+	Matrix1x4 viewPos = worldPos.mul(wvMat);
+	viewPos.m02 += d;
+
+	Matrix4x4 vwMat = wvMat.reverse();
+	worldPos = viewPos.mul(vwMat);
+
+	position.x = worldPos.m00;
+	position.y = worldPos.m01;
+	position.z = worldPos.m02;
+}
+
+void Camera::headingRotate(float radian){
+
+}
+
+void Camera::pitchRotate(float radian){
+
+}
+
+void Camera::rotateY(float radian){
+	heading += radian;
 }

@@ -39,7 +39,7 @@ public:
 	/*逆矩阵~~如果矩阵式正交(选择和镜像)的, 则转置矩阵就是逆矩阵*/
 	Matrix4x4 reverse();
 
-	/*v是弧度*/
+	/*v是弧度, 基于世界坐标系*/
 	Matrix4x4 rotateX(float v);
 	Matrix4x4 rotateY(float v);
 	Matrix4x4 rotateZ(float v);

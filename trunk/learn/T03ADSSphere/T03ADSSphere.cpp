@@ -26,8 +26,10 @@ bool T03ADSSphere::loadContent(){
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
-	_scene.camera = new Camera(0, 0, -2.0f, 0, 0, 0);
-	_scene.camera->setProperty(1.0f, 45.0f, 1.0f, 100.0f, _width, _height);
+	_scene.camera = new Camera();
+	_scene.camera->setPos(0, 0, -2.0f);
+	_scene.camera->setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
+	_scene.camera->setAspect(_width, _height);
 
 
 	_scene.lightList[0] = new Light();

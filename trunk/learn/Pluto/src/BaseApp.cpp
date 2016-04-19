@@ -466,34 +466,18 @@ bool BaseApp::isRMouseDown(){
 }
 
 
-/*根据欧拉空间进行操作相机*/
+/*根据相机姿态调整, pitch, ylow, head*/
 void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
 	acquireInput();
 
 	if(isKeyDown(DIK_A)){
-		camera->position.x -= value;
+		camera->strafe(-value);
 	}else if(isKeyDown(DIK_D)){
-		camera->position.x += value;
-	}else if(isKeyDown(DIK_Q)){
-		camera->position.y += value;
-	}else if(isKeyDown(DIK_E)){
-		camera->position.y -= value;
+		camera->strafe(value);
 	}else if(isKeyDown(DIK_W)){
-		camera->position.z += value;
+		camera->walk(value);
 	}else if(isKeyDown(DIK_S)){
-		camera->position.z -= value;
-	}else if(isKeyDown(DIK_J)){
-		camera->rotateY -= value;
-	}else if(isKeyDown(DIK_L)){
-		camera->rotateY += value;
-	}else if(isKeyDown(DIK_I)){
-		camera->rotateX -= value;
-	}else if(isKeyDown(DIK_K)){
-		camera->rotateX += value;
-	}else if(isKeyDown(DIK_U)){
-		camera->rotateZ -= value;
-	}else if(isKeyDown(DIK_O)){
-		camera->rotateZ += value;
+		camera->walk(-value);
 	}
 
 	_isRMouseDown = isRMouseDown();
@@ -504,54 +488,13 @@ void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
 		float dx = nx - _mouseX;
 		float dy = ny - _mouseY;
 
-		camera->rotateY -= 2.0f * dx * value;
-		camera->rotateX -= 2.0f * dy * value;
+		camera->rotateY(-2.0f * dx * value);
+		camera->pitchRotate(-2.0f * dy * value);
 
 		_mouseX = nx;
 		_mouseY = ny;
 	}else{
 		_mouseX = (float)_mouseState.lAxisX;
 		_mouseY = (float)_mouseState.lAxisY;
-	}
-}
-
-/*根据相机姿态调整, pitch, ylow, head*/
-void BaseApp::UpdatePosByMouse(Camera* camera, float value){
-	acquireInput();
-
-	if(isKeyDown(DIK_A)){
-		camera->position.x -= value;
-	}else if(isKeyDown(DIK_D)){
-		camera->position.x += value;
-	}else if(isKeyDown(DIK_W)){
-		camera->position.z += value;
-	}else if(isKeyDown(DIK_S)){
-		camera->position.z -= value;
-	}
-
-	if(isRMouseDown()){
-		if(_isRMouseDown){
-			float nx = (float)_mouseState.lAxisX;
-			float ny = (float)_mouseState.lAxisY;
-			float dx = nx - _mouseX;
-			float dy = ny - _mouseY;
-
-			camera->rotateY -= 2.0f * dx * value;
-
-			camera->rotateX -= 2.0f * dy * value;
-
-			_mouseX = nx;
-			_mouseY = ny;
-		}
-		else{
-			_isRMouseDown = true;
-			_mouseX = (float)_mouseState.lAxisX;
-			_mouseY = (float)_mouseState.lAxisY;
-		}
-
-
-	}
-	else{
-		_isRMouseDown = false;
 	}
 }

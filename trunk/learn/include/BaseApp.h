@@ -94,7 +94,6 @@ protected:
 	bool isLMouseDown();
 	bool isRMouseDown();
 	void UpdatePosByKeyboard(Camera* camera, float value);
-	void UpdatePosByMouse(Camera* camera, float value);
 	
 	Scene _scene;
 

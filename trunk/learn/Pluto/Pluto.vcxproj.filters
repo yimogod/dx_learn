@@ -78,6 +78,15 @@
     <ClInclude Include="..\include\ObjParser.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\EulerAngles.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Quaternion.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Matrix1x4.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -128,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="src\util\ObjParser.cpp">
       <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\EulerAngles.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Quternion.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Matrix1x4.cpp">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
