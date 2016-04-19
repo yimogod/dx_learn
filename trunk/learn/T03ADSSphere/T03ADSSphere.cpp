@@ -96,6 +96,7 @@ bool T03ADSSphere::loadContent(){
 
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
+	createSamplerState();
 	createTexture(path);
 	
 	delete(vertices);
@@ -150,7 +151,7 @@ void T03ADSSphere::update(){
 
 void T03ADSSphere::render(){
 	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
+	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
 	
 
 	_context->VSSetShader(_vs, nullptr, 0);

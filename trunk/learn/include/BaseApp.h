@@ -49,7 +49,9 @@ protected:
 	ID3D11Device* _device;
 	ID3D11DeviceContext* _context;
 	IDXGISwapChain* _chain;
-	ID3D11RenderTargetView* _backBuffTarget;
+
+	/*缓存视图*/
+	ID3D11RenderTargetView* _backBuffView;
 
 	ID3D11Texture2D* _depthStencilBuffer;
 	ID3D11DepthStencilView* _depthStencilView;
@@ -57,6 +59,7 @@ protected:
 	ID3D11RasterizerState* _wireframeRS;
 	ID3D11RasterizerState* _solidRS;
 	ID3D11BlendState* _blendState;
+	ID3D11SamplerState* _sampleState;
 
 	HRESULT compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
 		LPCSTR szShaderModel, ID3DBlob** ppBlobOut);
@@ -68,8 +71,8 @@ protected:
 	ID3D11Buffer* _vertexBuff = nullptr;
 	ID3D11Buffer* _indexBuff = nullptr;
 	ID3D11Buffer* _constBuff = nullptr;
+	/*对贴图资源引用的resource view, 如果一个面需要多张图, 那么我们的_resView就会是个数组*/
 	ID3D11ShaderResourceView* _resView;
-	ID3D11SamplerState* _sampleState;
 
 	bool createDevice();
 	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);

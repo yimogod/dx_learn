@@ -19,8 +19,7 @@ BaseApp::BaseApp():_driverType(D3D_DRIVER_TYPE_NULL),
 				_device(NULL),
 				_context(NULL),
 				_chain(NULL),
-				_backBuffTarget(NULL)
-{}
+				_backBuffView(NULL){}
 
 BaseApp::~BaseApp(){
 	destroy();
@@ -113,12 +112,13 @@ bool BaseApp::createDevice(){
 	if(FAILED(hr))return false;
 
 	/*创建render target*/
-	hr = _device->CreateRenderTargetView(pBackBuffer, nullptr, &_backBuffTarget);
+	hr = _device->CreateRenderTargetView(pBackBuffer, nullptr, &_backBuffView);
 	pBackBuffer->Release();
 	if(FAILED(hr))return hr;
 
 	/*声明深度模板描述数据*/
 	D3D11_TEXTURE2D_DESC td;
+	ZeroMemory(&td, sizeof(td));
 	td.Width = _width;
 	td.Height = _height;
 	td.MipLevels = 1;
@@ -134,11 +134,18 @@ bool BaseApp::createDevice(){
 	/*创建深度/模板缓存*/
 	hr = _device->CreateTexture2D(&td, 0, &_depthStencilBuffer);
 	if(FAILED(hr))return hr;
-	hr = _device->CreateDepthStencilView(_depthStencilBuffer, 0, &_depthStencilView);
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
+	ZeroMemory(&dsvd, sizeof(dsvd));
+	dsvd.Format = td.Format;
+	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	dsvd.Texture2D.MipSlice = 0;
+
+	hr = _device->CreateDepthStencilView(_depthStencilBuffer, &dsvd, &_depthStencilView);
 	if(FAILED(hr))return hr;
 
-	//_context->OMSetRenderTargets(1, &_backBuffTarget, _depthStencilView);
-	_context->OMSetRenderTargets(1, &_backBuffTarget, __nullptr);
+	//_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
+	_context->OMSetRenderTargets(1, &_backBuffView, __nullptr);
 
 	/*设置viewport*/
 	D3D11_VIEWPORT vp;
@@ -211,12 +218,12 @@ void BaseApp::acquireInput(){
 void BaseApp::destroy(){
 	unloadContent();
 
-	if(_backBuffTarget)_backBuffTarget->Release();
+	if(_backBuffView)_backBuffView->Release();
 	if(_chain)_chain->Release();
 	if(_context)_context->Release();
 	if(_device)_device->Release();
 
-	_backBuffTarget = NULL;
+	_backBuffView = NULL;
 	_chain = NULL;
 	_context = NULL;
 	_device = NULL;
@@ -363,9 +370,10 @@ bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerSt
 	ZeroMemory(&rsd, sizeof(D3D11_RASTERIZER_DESC));
 
 	rsd.FillMode = fillmode;
-	rsd.CullMode = D3D11_CULL_BACK;
-	//rsd.CullMode = D3D11_CULL_NONE;
-	rsd.FrontCounterClockwise = false;
+	//rsd.CullMode = D3D11_CULL_BACK;
+	//rsd.CullMode = D3D11_CULL_FRONT;
+	rsd.CullMode = D3D11_CULL_NONE;
+	rsd.FrontCounterClockwise = true;
 	rsd.DepthClipEnable = true;
 
 	HRESULT hr = _device->CreateRasterizerState(&rsd, &rs);
@@ -392,6 +400,12 @@ bool BaseApp::createBlendState(){
 	HRESULT hr = _device->CreateBlendState(&bsr, &_blendState);
 	if(FAILED(hr))return false;
 
+	float blendFactor[4];
+	blendFactor[0] = 0.0f;
+	blendFactor[1] = 0.0f;
+	blendFactor[2] = 0.0f;
+	blendFactor[3] = 0.0f;
+	_context->OMSetBlendState(_blendState, blendFactor, D3D11_DEFAULT_SAMPLE_MASK);
 	return true;
 }
 

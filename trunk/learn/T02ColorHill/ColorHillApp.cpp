@@ -73,7 +73,7 @@ void ColorHillApp::update(){
 
 void ColorHillApp::render(){
 	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
+	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
 
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);

@@ -55,6 +55,7 @@ bool DemoApp::loadContent(){
 	
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 
+	createBlendState();
 	//const wchar_t* path =
 	//	L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_2.dds";
 	//createTexture(path);
@@ -75,9 +76,12 @@ void DemoApp::update(){
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
 }
 
+/*这里面有严重的内存泄漏*/
 void DemoApp::render(){
 	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_backBuffTarget, Colors::MidnightBlue);
+	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
+	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH, 1.0f, 0);
+
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
 	_context->PSSetShader(_ps, nullptr, 0);
@@ -85,20 +89,21 @@ void DemoApp::render(){
 
 	/*处理第一个mesh*/
 	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_1.dds";
+		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_2.dds";
 	createTexture(path);
+
+	/*给shader传送贴图资源, 可以传多张贴图*/
 	_context->PSSetShaderResources(0, 1, &_resView);
 	Mesh* mesh = _scene.getMesh(0);
 	Vertex *vertices = new Vertex[mesh->indexNum];
 	mesh->getVertexList(vertices);
 
 	createVertexBuffer(vertices, mesh->indexNum);
-	_context->Draw(mesh->indexNum, 0);
 	delete(vertices);
-
+	_context->Draw(mesh->indexNum, 0);
 
 	const wchar_t* path1 =
-		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_2.dds";
+		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_1.dds";
 	createTexture(path1);
 	_context->PSSetShaderResources(0, 1, &_resView);
 
@@ -108,8 +113,8 @@ void DemoApp::render(){
 	mesh->getVertexList(vertices);
 
 	createVertexBuffer(vertices, mesh->indexNum);
-	_context->Draw(mesh->indexNum, 0);
 	delete(vertices);
+	_context->Draw(mesh->indexNum, 0);
 
 	_chain->Present(0, 0);
 }

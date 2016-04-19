@@ -4,25 +4,51 @@
 #include <ObjParser.h>
 
 #include <Mesh.h>
-#include "DemoApp1.h"
+#include "DemoApp.h"
 
 using namespace DirectX;
 
-DemoApp1::DemoApp1(){}
+DemoApp::DemoApp(){}
 
-DemoApp1::~DemoApp1(){}
+DemoApp::~DemoApp(){}
 
 static bool use_index = false;
 
-bool DemoApp1::loadContent(){
+bool DemoApp::loadContent(){
 	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T01TextureCube/assets/seafloor.dds";
+		L"E:/learn/dx_learn/trunk/learn/T05Sprite/assets/t_1.dds";
 
+	Mesh *m = new Mesh();
+	m->setWorldPos(0, 0, 0.0f);
+	m->vertexNum = 4;
+	m->vertexList[0] = Vector3D(-1.0f, 1.0f, 0.0f);
+	m->vertexList[1] = Vector3D(-1.0f, -1.0f, 0.0f);
+	m->vertexList[2] = Vector3D(1.0f, -1.0f, 0.0f);
+	m->vertexList[3] = Vector3D(1.0f, 1.0f, 0.0f);
 
-	char* sInputFile = "assets/simple_scene.obj";
-	ObjParser reader;
-	reader.read(sInputFile, &_scene);
-	_scene.renderType = Scene::RENDER_TYPE_FRAME;
+	m->uvNum = 4;
+	m->uvList[0] = Vector2D(0, 0);
+	m->uvList[1] = Vector2D(0, 1.0f);
+	m->uvList[2] = Vector2D(1.0f, 1.0f);
+	m->uvList[3] = Vector2D(1.0f, 0);
+
+	m->indexNum = 6;
+	m->indexList[0] = 1;
+	m->indexList[1] = 0;
+	m->indexList[2] = 2;
+	m->indexList[3] = 2;
+	m->indexList[4] = 0;
+	m->indexList[5] = 3;
+
+	m->uvIndexList[0] = 1;
+	m->uvIndexList[1] = 0;
+	m->uvIndexList[2] = 2;
+	m->uvIndexList[3] = 2;
+	m->uvIndexList[4] = 0;
+	m->uvIndexList[5] = 3;
+
+	_scene.meshList[0] = m;
+	_scene.meshNum = 1;
 
 	_scene.camera = new Camera();
 	_scene.camera->setPos(0, 0, -2.0f);
@@ -72,17 +98,18 @@ bool DemoApp1::loadContent(){
 	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createTexture(path);
+	createSamplerState();
 
 	delete(vertices);
 
 	return true;
 }
 
-void DemoApp1::unloadContent(){
+void DemoApp::unloadContent(){
 	BaseApp::unloadContent();
 }
 
-void DemoApp1::update(){
+void DemoApp::update(){
 	UpdatePosByKeyboard(_scene.camera, 0.001f);
 
 	ConstantBuffer cb;
@@ -91,7 +118,7 @@ void DemoApp1::update(){
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
 }
 
-void DemoApp1::render(){
+void DemoApp::render(){
 	if(_context == NULL)return;
 	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
 
