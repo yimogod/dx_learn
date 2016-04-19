@@ -23,14 +23,14 @@
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="T03ADSSphere.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="T03ADSSphere.cpp" />
+    <ClInclude Include="DemoApp.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\Phong.fx">
       <Filter>shader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DemoApp.cpp" />
   </ItemGroup>
 </Project>

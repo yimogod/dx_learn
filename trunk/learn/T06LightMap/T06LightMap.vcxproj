@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}</ProjectGuid>
-    <RootNamespace>T03ADSSphere</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
-    <ProjectName>T03ADSSphere</ProjectName>
+    <ProjectGuid>{E4BF0517-2E8C-407D-8BA9-8C4BC46E73B7}</ProjectGuid>
+    <RootNamespace>T01TextureCube</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
+    <ProjectName>T06LightMap</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -132,7 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <FxCompile Include="shader\Phong.fx">
+    <FxCompile Include="shader\Triangle.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
@@ -141,7 +141,7 @@
     <Image Include="directx.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="T03ADSSphere.rc" />
+    <ResourceCompile Include="Tutorial01.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DemoApp.h" />

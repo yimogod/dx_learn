@@ -11,10 +11,10 @@
 
 using namespace DirectX;
 
-class DemoApp1 : public BaseApp{
+class DemoApp : public BaseApp{
 public:
-	DemoApp1();
-	virtual ~DemoApp1();
+	DemoApp();
+	virtual ~DemoApp();
 
 	bool loadContent();
 	void unloadContent();
@@ -28,7 +28,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR lpCmdLine,
 	_In_ int nCmdShow){
 	MainInfo info;
-	info.app = new DemoApp1();
+	info.app = new DemoApp();
 	info.icon = (LPCWSTR)IDI_TUTORIAL1;
 	info.title = L"TextureCube";
 	info.width = 1200;

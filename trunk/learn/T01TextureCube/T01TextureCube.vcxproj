@@ -144,11 +144,11 @@
     <ResourceCompile Include="Tutorial01.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DemoApp1.h" />
+    <ClInclude Include="DemoApp.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DemoApp1.cpp" />
+    <ClCompile Include="DemoApp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

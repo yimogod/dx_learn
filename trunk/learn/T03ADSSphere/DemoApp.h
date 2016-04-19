@@ -8,26 +8,44 @@
 #include <Scene.h>
 #include <Matrix4x4.h>
 #include <BaseApp.h>
-#include <Color.h>
+#include <BaseDataStruct.h>
 
-using namespace DirectX;
+/*方向光*/
+struct DirectionLight{
+	Float4A ambientColor;
+	Float4A diffuseColor;
+	Float4A specularColor;
+	Float4 direction;
+};
 
-class ColorHillApp : public BaseApp{
+/*点光源*/
+struct PointLight{
+	Float4A ambientColor;
+	Float4A diffuseColor;
+	Float4A specularColor;
+	Float4 worldPos;
+	float range;
+	Float3 attenuate;
+};
+
+struct PhongBuffer{
+	Float4 eyeWorldPos;
+	DirectionLight directionLight;
+	PointLight pointLight;
+};
+
+class DemoApp : public BaseApp{
 public:
-	ColorHillApp();
-	virtual ~ColorHillApp();
+	DemoApp();
+	virtual ~DemoApp();
 
 	bool loadContent();
 	void unloadContent();
 
 	void update();
 	void render();
-
 protected:
-	/* all parm size is base on meter */
-	void createGrid(float width, float depth, float unitSize, Mesh &mesh);
-	float getVertexHeight(float x, float z);
-	Color getColorFromHeight(float y);
+	ID3D11Buffer* _phongBuff = nullptr;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
@@ -35,9 +53,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR lpCmdLine,
 	_In_ int nCmdShow){
 	MainInfo info;
-	info.app = new ColorHillApp();
+	info.app = new DemoApp();
 	info.icon = (LPCWSTR)IDI_TUTORIAL1;
-	info.title = L"TextureCube";
+	info.title = L"ADS Sphere";
 	info.width = 800;
 	info.height = 600;
 

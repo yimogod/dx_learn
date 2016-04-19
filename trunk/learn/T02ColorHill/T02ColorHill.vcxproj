@@ -352,10 +352,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ColorHillApp.cpp" />
+    <ClCompile Include="DemoApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ColorHillApp.h" />
+    <ClInclude Include="DemoApp.h" />
     <CLInclude Include="resource.h" />
     <ResourceCompile Include="Tutorial02.rc" />
   </ItemGroup>

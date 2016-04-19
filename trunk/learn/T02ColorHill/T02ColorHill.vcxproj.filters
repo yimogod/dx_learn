@@ -11,16 +11,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ColorHillApp.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <CLInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </CLInclude>
     <ResourceCompile Include="Tutorial02.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-    <ClInclude Include="ColorHillApp.h" />
+    <ClInclude Include="DemoApp.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\ColorVertex.fx">
@@ -32,5 +29,8 @@
     <FxCompile Include="shader\ColorVertex_VS.hlsl">
       <Filter>shader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DemoApp.cpp" />
   </ItemGroup>
 </Project>

@@ -4,17 +4,17 @@
 #include <ObjParser.h>
 
 #include <Mesh.h>
-#include "T03ADSSphere.h"
+#include "DemoApp.h"
 
 using namespace DirectX;
 
-T03ADSSphere::T03ADSSphere(){}
+DemoApp::DemoApp(){}
 
-T03ADSSphere::~T03ADSSphere(){}
+DemoApp::~DemoApp(){}
 
 static bool use_index = false;
 
-bool T03ADSSphere::loadContent(){
+bool DemoApp::loadContent(){
 	createDXInput();
 
 	const wchar_t* path =
@@ -103,11 +103,11 @@ bool T03ADSSphere::loadContent(){
 	return true;
 }
 
-void T03ADSSphere::unloadContent(){
+void DemoApp::unloadContent(){
 	BaseApp::unloadContent();
 }
 
-void T03ADSSphere::update(){
+void DemoApp::update(){
 	UpdatePosByKeyboard(_scene.camera, 0.001f);
 
 	/*根据相机重新计算各个矩阵*/
@@ -149,7 +149,7 @@ void T03ADSSphere::update(){
 	_context->UpdateSubresource(_phongBuff, 0, nullptr, &pb, 0, 0);
 }
 
-void T03ADSSphere::render(){
+void DemoApp::render(){
 	if(_context == NULL)return;
 	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
 	
