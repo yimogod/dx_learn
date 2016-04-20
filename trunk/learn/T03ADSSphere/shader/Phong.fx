@@ -23,6 +23,7 @@ struct PointLight{
 /*¶¥µãÊäÈë*/
 struct VS_INPUT{
 	float4 pos : POSITION;
+	float4 color : COLOR;
 	float2 tex : TEXCOORD0;
 	float4 normal: NORMAL;
 };
@@ -58,7 +59,7 @@ void computeDirectionLight(float4 textColor, DirectionLight light,
 
 	ambient = textColor * light.ambientColor;
 
-	float3 lightVec = -1.0f * normalize(light.direction).xyz;
+	float3 lightVec = -light.direction;
 	float diffuseFactor = dot(lightVec, pixelNormal);
 	if(diffuseFactor > 0){
 		diffuse = diffuseFactor * textColor * light.diffuseColor;
@@ -67,9 +68,6 @@ void computeDirectionLight(float4 textColor, DirectionLight light,
 		//float specFactor = max(0.0f, dot(v, toEyeW));
 		//specFactor = pow(specFactor, 1.0f);
 		//spec = specFactor * textColor * light.specularColor;
-	}
-	else{
-		diffuse = textColor;
 	}
 }
 
@@ -130,9 +128,9 @@ float4 PS(PS_INPUT input) :SV_Target{
 	float sc = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	float4 A, D, S;
-	//computeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
+	computeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
 	ac += A;
-	dc = D;
+	dc += D;
 	sc += S;
 
 	//computePointLight(color, pointLight, posW, normalW, toEyeW, A, D, S);
@@ -142,8 +140,7 @@ float4 PS(PS_INPUT input) :SV_Target{
 
 	//float4 lit = ac + dc + sc;
 	float4 lit = dc;
-	//lit.a = color.a;
 	lit.a = 1.0f;
 
-	return color;
+	return lit;
 }
