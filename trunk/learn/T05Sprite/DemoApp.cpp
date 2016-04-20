@@ -68,11 +68,11 @@ bool DemoApp::loadContent(){
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
-	vs.fileName = L"shader/Triangle.fx";
+	vs.fileName = L"shader/sprite.fx";
 	vs.entryPoint = "VS";
 	vs.shaderModel = "vs_4_0";
 	CreateShaderInfo ps;
-	ps.fileName = L"shader/Triangle.fx";
+	ps.fileName = L"shader/sprite.fx";
 	ps.entryPoint = "PS";
 	ps.shaderModel = "ps_4_0";
 
@@ -125,7 +125,7 @@ void DemoApp::render(){
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
 	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetShaderResources(0, 1, &_resView);
+	_context->PSSetShaderResources(0, _resViewNum, _resView);
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);

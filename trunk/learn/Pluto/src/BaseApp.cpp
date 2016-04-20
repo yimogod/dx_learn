@@ -34,6 +34,8 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 	_width = rect.right - rect.left;
 	_height = rect.bottom - rect.top;
 
+	_resViewNum = 0;
+
 	return loadContent();
 }
 
@@ -234,10 +236,10 @@ HRESULT BaseApp::compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
 	HRESULT hr = S_OK;
 
 	DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	dwShaderFlags |= D3DCOMPILE_DEBUG;
 	dwShaderFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
-#endif
+//#endif
 
 	ID3DBlob* pErrorBlob = nullptr;
 	hr = D3DCompileFromFile(szFileName, nullptr, nullptr, szEntryPoint, szShaderModel,
@@ -410,8 +412,9 @@ bool BaseApp::createBlendState(){
 }
 
 bool BaseApp::createTexture(const wchar_t* path){
-	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView, 2048U);
+	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView[_resViewNum], 2048U);
 	if(FAILED(hr))return false;
+	_resViewNum++;
 	return true;
 }
 

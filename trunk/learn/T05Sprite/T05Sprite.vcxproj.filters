@@ -28,7 +28,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shader\Triangle.fx">
+    <FxCompile Include="shader\sprite.fx">
       <Filter>shader</Filter>
     </FxCompile>
   </ItemGroup>

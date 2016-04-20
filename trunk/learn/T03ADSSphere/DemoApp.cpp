@@ -158,7 +158,7 @@ void DemoApp::render(){
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
 	_context->PSSetShader(_ps, nullptr, 0);
 	_context->PSSetConstantBuffers(1, 1, &_phongBuff);
-	_context->PSSetShaderResources(0, 1, &_resView);
+	_context->PSSetShaderResources(0, _resViewNum, _resView);
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);

@@ -72,7 +72,8 @@ protected:
 	ID3D11Buffer* _indexBuff = nullptr;
 	ID3D11Buffer* _constBuff = nullptr;
 	/*对贴图资源引用的resource view, 如果一个面需要多张图, 那么我们的_resView就会是个数组*/
-	ID3D11ShaderResourceView* _resView;
+	int _resViewNum = 0;
+	ID3D11ShaderResourceView* _resView[8];
 
 	bool createDevice();
 	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);

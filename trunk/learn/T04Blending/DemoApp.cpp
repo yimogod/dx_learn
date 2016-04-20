@@ -56,10 +56,24 @@ bool DemoApp::loadContent(){
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 
 	createBlendState();
-	//const wchar_t* path =
-	//	L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_2.dds";
-	//createTexture(path);
+	const wchar_t* path =
+		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_2.dds";
+	createTexture(path);
+	const wchar_t* path1 =
+		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_1.dds";
+	createTexture(path1);
+
 	createSamplerState();
+
+
+	Mesh* mesh = _scene.getMesh(0);
+	_vertices_1 = new Vertex[mesh->indexNum];
+	mesh->getVertexList(_vertices_1);
+	
+	mesh = _scene.getMesh(1);
+	_vertices_2 = new Vertex[mesh->indexNum];
+	mesh->getVertexList(_vertices_2);
+
 	return true;
 }
 
@@ -88,32 +102,16 @@ void DemoApp::render(){
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	/*处理第一个mesh*/
-	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_2.dds";
-	createTexture(path);
-
-	/*给shader传送贴图资源, 可以传多张贴图*/
-	_context->PSSetShaderResources(0, 1, &_resView);
 	Mesh* mesh = _scene.getMesh(0);
-	Vertex *vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexList(vertices);
-
-	createVertexBuffer(vertices, mesh->indexNum);
-	delete(vertices);
+	_context->PSSetShaderResources(0, 1, &_resView[0]);
+	createVertexBuffer(_vertices_1, mesh->indexNum);
 	_context->Draw(mesh->indexNum, 0);
 
-	const wchar_t* path1 =
-		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_1.dds";
-	createTexture(path1);
-	_context->PSSetShaderResources(0, 1, &_resView);
 
 	/*处理第二个mesh*/
 	mesh = _scene.getMesh(1);
-	vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexList(vertices);
-
-	createVertexBuffer(vertices, mesh->indexNum);
-	delete(vertices);
+	_context->PSSetShaderResources(0, 1, &_resView[1]);
+	createVertexBuffer(_vertices_2, mesh->indexNum);
 	_context->Draw(mesh->indexNum, 0);
 
 	_chain->Present(0, 0);

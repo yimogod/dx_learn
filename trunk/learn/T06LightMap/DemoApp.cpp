@@ -15,9 +15,6 @@ DemoApp::~DemoApp(){}
 static bool use_index = false;
 
 bool DemoApp::loadContent(){
-	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T05Sprite/assets/t_1.dds";
-
 	Mesh *m = new Mesh();
 	m->setWorldPos(0, 0, 0.0f);
 	m->vertexNum = 4;
@@ -68,11 +65,11 @@ bool DemoApp::loadContent(){
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
-	vs.fileName = L"shader/Triangle.fx";
+	vs.fileName = L"shader/light_map.fx";
 	vs.entryPoint = "VS";
 	vs.shaderModel = "vs_4_0";
 	CreateShaderInfo ps;
-	ps.fileName = L"shader/Triangle.fx";
+	ps.fileName = L"shader/light_map.fx";
 	ps.entryPoint = "PS";
 	ps.shaderModel = "ps_4_0";
 
@@ -97,8 +94,15 @@ bool DemoApp::loadContent(){
 		createVertexBuffer(vertices, mesh->indexNum);
 	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createTexture(path);
 	createSamplerState();
+
+	const wchar_t* path =
+		L"E:/learn/dx_learn/trunk/learn/T05Sprite/assets/t_1.dds";
+	createTexture(path);
+
+	const wchar_t* path1 =
+		L"E:/learn/dx_learn/trunk/learn/T05Sprite/assets/t_2.dds";
+	createTexture(path1);
 
 	delete(vertices);
 
@@ -125,7 +129,7 @@ void DemoApp::render(){
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
 	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetShaderResources(0, 1, &_resView);
+	_context->PSSetShaderResources(0, _resViewNum, _resView);
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);

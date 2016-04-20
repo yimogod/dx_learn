@@ -72,6 +72,7 @@ bool DemoApp::loadContent(){
 	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createTexture(path);
+	createSamplerState();
 
 	delete(vertices);
 
@@ -98,7 +99,7 @@ void DemoApp::render(){
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
 	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetShaderResources(0, 1, &_resView);
+	_context->PSSetShaderResources(0, _resViewNum, _resView);
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);

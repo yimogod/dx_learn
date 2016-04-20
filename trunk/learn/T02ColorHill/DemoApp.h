@@ -35,7 +35,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR lpCmdLine,
 	_In_ int nCmdShow){
 	MainInfo info;
-	info.app = new ColorHillApp();
+	info.app = new DemoApp();
 	info.icon = (LPCWSTR)IDI_TUTORIAL1;
 	info.title = L"TextureCube";
 	info.width = 800;

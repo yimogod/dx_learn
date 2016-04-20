@@ -1,4 +1,4 @@
-Texture2D txDiffuse : register(t0);
+Texture2D txDiffuse[2] : register(t0);
 SamplerState samLinear : register(s0);
 
 cbuffer ConstantBuffer : register(b0){
@@ -32,9 +32,12 @@ PS_INPUT VS(VS_INPUT input){
 
 
 float4 PS(PS_INPUT input):SV_Target{
-	float4 col = txDiffuse.Sample(samLinear, input.tex);
-	clip(col.a - 0.2f);
+	float4 col = txDiffuse[0].Sample(samLinear, input.tex);
+	float4 lightCol = txDiffuse[1].Sample(samLinear, input.tex);
+	float4 finalColor = col * lightCol;
 
-	return col;
+	//clip(finalColor.a - 0.2f);
+
+	return finalColor;
 }
 

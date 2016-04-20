@@ -21,6 +21,10 @@ public:
 
 	void update();
 	void render();
+
+public:
+	Vertex* _vertices_1;
+	Vertex* _vertices_2;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
