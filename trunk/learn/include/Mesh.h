@@ -25,8 +25,8 @@ public:
 	Vector3D vertexList[128];
 	/* vertex color, each vertex has its color */
 	Color vertexColorList[128];
-	/*顶点法线*/
-	Vector3D vertexNormalList[128];
+	/*顶点法线, 在第二个版本, 法线数等于索引数量*/
+	Vector3D vertexNormalList[512];
 
 	/*S, T, S, T, S, T, 贴图数据列表*/
 	unsigned short uvNum = 0;
@@ -45,7 +45,7 @@ public:
 	/*length is index num*/
 	void getVertexList(Vertex list[]);
 	/*length is vertex num*/
-	void getVertexListV2(Vertex list[]);
+	void getVertexList_v2(Vertex list[]);
 
 	void calVertexNormal();
 };

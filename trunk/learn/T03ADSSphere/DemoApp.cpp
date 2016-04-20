@@ -12,8 +12,6 @@ DemoApp::DemoApp(){}
 
 DemoApp::~DemoApp(){}
 
-static bool use_index = false;
-
 bool DemoApp::loadContent(){
 	createDXInput();
 
@@ -55,13 +53,8 @@ bool DemoApp::loadContent(){
 	/*准备顶点缓冲数据*/
 	Mesh* mesh = _scene.getMesh(0);
 	Vertex *vertices = 0;
-	if(use_index){
-		vertices = new Vertex[mesh->vertexNum];
-		mesh->getVertexListV2(vertices);
-	}else{
-		vertices = new Vertex[mesh->indexNum];
-		mesh->getVertexList(vertices);
-	}
+	vertices = new Vertex[mesh->indexNum];
+	mesh->getVertexList(vertices);
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
@@ -75,9 +68,9 @@ bool DemoApp::loadContent(){
 
 	/*创建 layout*/
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	int numElements = ARRAYSIZE(layout);
 
@@ -87,12 +80,7 @@ bool DemoApp::loadContent(){
 	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
 
 	createShader(vs, ps, layout, numElements);
-	if(use_index){
-		createVertexBuffer(vertices, mesh->vertexNum);
-		createIndexBuffer(mesh->indexList, mesh->indexNum);
-	}else{
-		createVertexBuffer(vertices, mesh->indexNum);
-	}
+	createVertexBuffer(vertices, mesh->indexNum);
 
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
@@ -152,7 +140,6 @@ void DemoApp::update(){
 void DemoApp::render(){
 	if(_context == NULL)return;
 	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
-	
 
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);

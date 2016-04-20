@@ -34,7 +34,7 @@ bool DemoApp::loadContent(){
 	Vertex *vertices = 0;
 	if(use_index){
 		vertices = new Vertex[mesh->vertexNum];
-		mesh->getVertexListV2(vertices);
+		mesh->getVertexList_v2(vertices);
 	}else{
 		vertices = new Vertex[mesh->indexNum];
 		mesh->getVertexList(vertices);

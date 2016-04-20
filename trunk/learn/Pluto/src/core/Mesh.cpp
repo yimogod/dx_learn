@@ -19,10 +19,10 @@ void Mesh::getVertexList(Vertex list[]){
 	Vector2D uv;
 	for(int i = 0; i < indexNum; i++){
 		int index = indexList[i];
+		normal = vertexNormalList[i];
 		int uvIndex = uvIndexList[i];
 		vec = vertexList[index].add(position);
 		color = vertexColorList[index];
-		normal = vertexNormalList[index].add(position);
 		uv = uvList[uvIndex];
 
 		list[i].pos = Float4{vec.x, vec.y, vec.z, 1.0f};
@@ -33,7 +33,7 @@ void Mesh::getVertexList(Vertex list[]){
 
 }
 
-void Mesh::getVertexListV2(Vertex list[]){
+void Mesh::getVertexList_v2(Vertex list[]){
 	Vector3D vec;
 	Color color;
 	Vector3D normal;
@@ -49,7 +49,11 @@ void Mesh::getVertexListV2(Vertex list[]){
 	}
 }
 
-/*顶点顺序, 逆时针排列*/
+/* 这个版本的法线是基于index的. 及36个index会有36个点
+ * 这是之前的版本的问题--顶点顺序, 逆时针排列, 这里法线的个数跟定点数相等,
+ * 意味着顶点法线是连接面法线的平均值. 这样在平面内进行插值的话会有错误.
+ * 因为实际上, 插值的应该是在顶点本平面内的法线进行插值
+ */
 void Mesh::calVertexNormal(){
 	int triNum = (int)(indexNum / 3);
 	for(int i = 0; i < triNum; i++){
@@ -66,12 +70,8 @@ void Mesh::calVertexNormal(){
 		Vector3D faceNormal = e0.cross(e1);
 		faceNormal.normalize();
 
-		vertexNormalList[i0] = vertexNormalList[i0].add(faceNormal);
-		vertexNormalList[i1] = vertexNormalList[i1].add(faceNormal);
-		vertexNormalList[i2] = vertexNormalList[i2].add(faceNormal);
-	}
-
-	for(int i = 0; i < vertexNum; i++){
-		vertexNormalList[i].normalize();
+		vertexNormalList[i * 3 + 0] = faceNormal;
+		vertexNormalList[i * 3 + 1] = faceNormal;
+		vertexNormalList[i * 3 + 2] = faceNormal;
 	}
 }

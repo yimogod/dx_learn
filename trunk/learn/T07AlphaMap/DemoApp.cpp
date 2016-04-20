@@ -65,11 +65,11 @@ bool DemoApp::loadContent(){
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
-	vs.fileName = L"shader/light_map.fx";
+	vs.fileName = L"shader/alpha_map.fx";
 	vs.entryPoint = "VS";
 	vs.shaderModel = "vs_4_0";
 	CreateShaderInfo ps;
-	ps.fileName = L"shader/light_map.fx";
+	ps.fileName = L"shader/alpha_map.fx";
 	ps.entryPoint = "PS";
 	ps.shaderModel = "ps_4_0";
 
@@ -97,12 +97,16 @@ bool DemoApp::loadContent(){
 	createSamplerState();
 
 	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T06LightMap/assets/t_01.dds";
+		L"E:/learn/dx_learn/trunk/learn/T07AlphaMap/assets/t_01.dds";
 	createTexture(path);
 
 	const wchar_t* path1 =
-		L"E:/learn/dx_learn/trunk/learn/T06LightMap/assets/a_02.dds";
+		L"E:/learn/dx_learn/trunk/learn/T07AlphaMap/assets/t_02.dds";
 	createTexture(path1);
+
+	const wchar_t* path2 =
+		L"E:/learn/dx_learn/trunk/learn/T07AlphaMap/assets/a_01.dds";
+	createTexture(path2);
 
 	delete(vertices);
 

@@ -1,3 +1,7 @@
+/*贴图*/
+Texture2D txDiffuse : register(t0);
+SamplerState samLinear : register(s0);
+
 /*方向光*/
 struct DirectionLight{
 	float4 ambientColor;
@@ -16,24 +20,6 @@ struct PointLight{
 	float3 attenuate;
 };
 
-/*贴图*/
-Texture2D txDiffuse : register(t0);
-SamplerState samLinear : register(s0);
-
-/*空间转换*/
-cbuffer cbTransform : register(b0){
-	matrix view;
-	matrix perspective;
-}
-
-/*ads信息*/
-cbuffer cbPhong : register(b1){
-	float4 eyePosW;
-
-	DirectionLight directionLight;
-	PointLight pointLight;
-}
-
 /*顶点输入*/
 struct VS_INPUT{
 	float4 pos : POSITION;
@@ -49,6 +35,20 @@ struct PS_INPUT{
 	float4 normalW: NORMAL;
 };
 
+/*空间转换*/
+cbuffer cbTransform : register(b0){
+	matrix view;
+	matrix perspective;
+}
+
+/*ads信息*/
+cbuffer cbPhong : register(b1){
+	float4 eyePosW;
+
+	DirectionLight directionLight;
+	PointLight pointLight;
+}
+
 void computeDirectionLight(float4 textColor, DirectionLight light,
 	float3 pixelNormal, float3 toEyeW,
 	out float4 ambient, out float4 diffuse, out float4 spec){
@@ -58,15 +58,18 @@ void computeDirectionLight(float4 textColor, DirectionLight light,
 
 	ambient = textColor * light.ambientColor;
 
-	float3 lightVec = light.direction;
-	float diffuseFactor = saturate(dot(lightVec, pixelNormal));
+	float3 lightVec = -1.0f * normalize(light.direction).xyz;
+	float diffuseFactor = dot(lightVec, pixelNormal);
 	if(diffuseFactor > 0){
 		diffuse = diffuseFactor * textColor * light.diffuseColor;
 
-		float3 v = reflect(-lightVec, pixelNormal);
-		float specFactor = max(0.0f, dot(v, toEyeW));
-		specFactor = pow(specFactor, 1.0f);
-		spec = specFactor * textColor * light.specularColor;
+		//float3 v = reflect(-lightVec, pixelNormal);
+		//float specFactor = max(0.0f, dot(v, toEyeW));
+		//specFactor = pow(specFactor, 1.0f);
+		//spec = specFactor * textColor * light.specularColor;
+	}
+	else{
+		diffuse = textColor;
 	}
 }
 
@@ -110,8 +113,8 @@ PS_INPUT VS(VS_INPUT input){
 
 	output.posW = input.pos;
 	output.tex = input.tex;
-	output.normalW = input.normal;
-	output.normalW = normalize(output.normalW);
+
+	output.normalW = normalize(input.normal);
 	return output;
 }
 
@@ -127,9 +130,9 @@ float4 PS(PS_INPUT input) :SV_Target{
 	float sc = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	float4 A, D, S;
-	computeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
+	//computeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
 	ac += A;
-	dc += D;
+	dc = D;
 	sc += S;
 
 	//computePointLight(color, pointLight, posW, normalW, toEyeW, A, D, S);
@@ -142,5 +145,5 @@ float4 PS(PS_INPUT input) :SV_Target{
 	//lit.a = color.a;
 	lit.a = 1.0f;
 
-	return lit;
+	return color;
 }
