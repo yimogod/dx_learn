@@ -57,17 +57,17 @@ void computeDirectionLight(float4 textColor, DirectionLight light,
 	diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	ambient = textColor * light.ambientColor;
+	ambient = textColor * light.ambientColor * light.ambientColor.a;
 
 	float3 lightVec = -light.direction;
 	float diffuseFactor = dot(lightVec, pixelNormal);
 	if(diffuseFactor > 0){
 		diffuse = diffuseFactor * textColor * light.diffuseColor;
 
-		//float3 v = reflect(-lightVec, pixelNormal);
-		//float specFactor = max(0.0f, dot(v, toEyeW));
-		//specFactor = pow(specFactor, 1.0f);
-		//spec = specFactor * textColor * light.specularColor;
+		float3 v = reflect(-lightVec, pixelNormal);
+		float specFactor = max(0.0f, dot(v, toEyeW));
+		specFactor = pow(specFactor, 1.0f);
+		spec = specFactor * textColor * light.specularColor;
 	}
 }
 
@@ -78,7 +78,7 @@ void computePointLight(float4 textColor, PointLight light,
 	diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	ambient = textColor * light.ambientColor;
+	ambient = textColor * light.ambientColor * light.ambientColor.a;
 
 	float3 lightVec = light.worldPos.xyz - pixelPos;
 	float d = length(lightVec);
@@ -138,9 +138,6 @@ float4 PS(PS_INPUT input) :SV_Target{
 	//dc += D;
 	//sc += S;
 
-	//float4 lit = ac + dc + sc;
-	float4 lit = dc;
-	lit.a = 1.0f;
-
-	return lit;
+	float4 lit = ac + dc + sc;
+	return sc;
 }
