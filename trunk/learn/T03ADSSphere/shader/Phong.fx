@@ -56,12 +56,11 @@ void computeDirectionLight(float4 textColor, DirectionLight light,
 	ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
-
 	ambient = textColor * light.ambientColor * light.ambientColor.a;
 
 	float3 lightVec = -light.direction;
 	float diffuseFactor = dot(lightVec, pixelNormal);
-	if(diffuseFactor > 0){
+	if(diffuseFactor > 0.0f){
 		diffuse = diffuseFactor * textColor * light.diffuseColor;
 
 		float3 v = reflect(-lightVec, pixelNormal);
@@ -77,7 +76,6 @@ void computePointLight(float4 textColor, PointLight light,
 	ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
-
 	ambient = textColor * light.ambientColor * light.ambientColor.a;
 
 	float3 lightVec = light.worldPos.xyz - pixelPos;
@@ -89,7 +87,6 @@ void computePointLight(float4 textColor, PointLight light,
 	float diffuseFactor = dot(lightVec, pixelNormal);
 	if(diffuseFactor > 0){
 		diffuse = diffuseFactor * light.diffuseColor * textColor;
-		diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
 		float3 v = reflect(-lightVec, pixelNormal);
 		float specFactor = max(0.0f, dot(v, toEyeW));
@@ -125,7 +122,7 @@ float4 PS(PS_INPUT input) :SV_Target{
 
 	float4 ac = float4(0.0f, 0.0f, 0.0f, 1.0f);
 	float4 dc = float4(0.0f, 0.0f, 0.0f, 1.0f);
-	float sc = float4(0.0f, 0.0f, 0.0f, 1.0f);
+	float4 sc = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	float4 A, D, S;
 	computeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
@@ -133,11 +130,11 @@ float4 PS(PS_INPUT input) :SV_Target{
 	dc += D;
 	sc += S;
 
-	//computePointLight(color, pointLight, posW, normalW, toEyeW, A, D, S);
-	//ac += A;
-	//dc += D;
-	//sc += S;
+	computePointLight(color, pointLight, posW, normalW, toEyeW, A, D, S);
+	ac += A;
+	dc += D;
+	sc += S;
 
 	float4 lit = ac + dc + sc;
-	return sc;
+	return lit;
 }

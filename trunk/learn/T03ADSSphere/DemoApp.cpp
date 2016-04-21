@@ -19,7 +19,7 @@ bool DemoApp::loadContent(){
 		L"E:/learn/dx_learn/trunk/learn/T03ADSSphere/assets/seafloor.dds";
 
 
-	char* sInputFile = "assets/simple_scene.obj";
+	char* sInputFile = "assets/sphere.obj";
 	ObjParser reader;
 	reader.read(sInputFile, &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
@@ -33,16 +33,16 @@ bool DemoApp::loadContent(){
 	_scene.lightList[0] = new Light();
 	_scene.lightList[0]->type = Light::TYPE_DIRECTION;
 	_scene.lightList[0]->ambientColor = Color{ 0.0f, 0.0f, 0.0f, 0.3f };
-	_scene.lightList[0]->diffuseColor = Color{ 0.0f, 0.0f, 0.0f, 1.0f };
-	_scene.lightList[0]->specularColor = Color{ 0.0f, 1.0f, 0.0f, 1.0f };
-	_scene.lightList[0]->dir = Vector3D(0.0f, 0.0f, 1.0f);
+	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 0.0f, 0.0f, 1.0f };
+	_scene.lightList[0]->specularColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+	_scene.lightList[0]->dir = Vector3D(1.0f, 0.0f, 1.0f);
 	
 	_scene.lightList[1] = new Light();
 	_scene.lightList[1]->type = Light::TYPE_POINT;
 	_scene.lightList[1]->ambientColor = Color{ 0.0f, 0.0f, 0.0f, 1.0f };
-	_scene.lightList[1]->diffuseColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+	_scene.lightList[1]->diffuseColor = Color{ 1.0f, 0.0f, 1.0f, 1.0f };
 	_scene.lightList[1]->specularColor = Color{ 0.0f, 0.0f, 0.0f, 1.0f };
-	_scene.lightList[1]->pos = Vector3D(0.8f, 0.0f, 0.0f);
+	_scene.lightList[1]->pos = Vector3D(2.0f, 0.0f, 0.0f);
 	_scene.lightList[1]->range = 200.0f;
 	_scene.lightList[1]->kc = 0.0f;
 	_scene.lightList[1]->kl = 1.0f;
@@ -112,7 +112,7 @@ void DemoApp::update(){
 	Vector3D d = light->dir;
 
 	PhongBuffer pb;
-	pb.eyeWorldPos = Float4{ 0.0f, 0.0f, -2.0f, 1.0f };
+	pb.eyeWorldPos = Float4{ 0.0f, 0.0f, -1.0f, 1.0f };
 
 	DirectionLight dl = DirectionLight{
 		Float4A{ ac.r, ac.g, ac.b, ac.a },
