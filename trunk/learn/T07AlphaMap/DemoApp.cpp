@@ -93,21 +93,11 @@ bool DemoApp::loadContent(){
 	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createSamplerState();
-
-	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T07AlphaMap/assets/t_01.dds";
-	createTexture(path);
-
-	const wchar_t* path1 =
-		L"E:/learn/dx_learn/trunk/learn/T07AlphaMap/assets/t_02.dds";
-	createTexture(path1);
-
-	const wchar_t* path2 =
-		L"E:/learn/dx_learn/trunk/learn/T07AlphaMap/assets/a_01.dds";
-	createTexture(path2);
+	createTexture(getFullPathW("assets/t_01.dds").c_str());
+	createTexture(getFullPathW("assets/t_02.dds").c_str());
+	createTexture(getFullPathW("assets/a_01.dds").c_str());
 
 	delete(vertices);
-
 	return true;
 }
 

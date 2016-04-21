@@ -93,14 +93,8 @@ bool DemoApp::loadContent(){
 	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createSamplerState();
-
-	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T06LightMap/assets/t_01.dds";
-	createTexture(path);
-
-	const wchar_t* path1 =
-		L"E:/learn/dx_learn/trunk/learn/T06LightMap/assets/a_02.dds";
-	createTexture(path1);
+	createTexture(getFullPathW("assets/t_01.dds").c_str());
+	createTexture(getFullPathW("assets/a_02.dds").c_str());
 
 	delete(vertices);
 

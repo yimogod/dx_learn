@@ -1,5 +1,8 @@
 #include <sstream>
 #include <util/CUtil.h>
+#include <Windows.h>
+#include <stringapiset.h>
+
 using namespace::std;
 
 void print_pwd(){
@@ -45,4 +48,14 @@ int str_2_int(string& str){
 
 int char_2_int(char c){
 	return c - 48;
+}
+
+void str_2_wstr(string& src, wstring& dest){
+	string temp = src;
+	int len = MultiByteToWideChar(CP_ACP, 0, (LPCSTR)temp.c_str(), -1, NULL, 0);
+	wchar_t * wszUtf8 = new wchar_t[len + 1];
+	memset(wszUtf8, 0, len * 2 + 2);
+	MultiByteToWideChar(CP_ACP, 0, (LPCSTR)temp.c_str(), -1, (LPWSTR)wszUtf8, len);
+	dest = wszUtf8;
+	delete[] wszUtf8;
 }

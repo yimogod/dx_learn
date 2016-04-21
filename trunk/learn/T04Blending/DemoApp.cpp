@@ -13,11 +13,9 @@ DemoApp::~DemoApp(){}
 
 bool DemoApp::loadContent(){
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
-	char* sInputFile = "assets/simple_scene.obj";
 	ObjParser reader;
-	reader.read(sInputFile, &_scene);
-	sInputFile = "assets/sphere.obj";
-	reader.read(sInputFile, &_scene);
+	reader.read(getFullPath("assets/cube.obj").c_str(), &_scene);
+	reader.read(getFullPath("assets/sphere.obj").c_str(), &_scene);
 
 	_scene.getMesh(0)->setWorldPos(0, 10.0f, 10.0f);
 	_scene.getMesh(0)->setWorldPos(1.0f, 2.0f, 2.0f);
@@ -49,21 +47,14 @@ bool DemoApp::loadContent(){
 	createDXInput();
 	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
-
 	createShader(vs, ps, layout, numElements);
-	
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 
 	createBlendState();
-	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_2.dds";
-	createTexture(path);
-	const wchar_t* path1 =
-		L"E:/learn/dx_learn/trunk/learn/T04Blending/assets/t_1.dds";
-	createTexture(path1);
-
 	createSamplerState();
 
+	createTexture(getFullPathW("assets/t_01.dds").c_str());
+	createTexture(getFullPathW("assets/t_02.dds").c_str());
 
 	Mesh* mesh = _scene.getMesh(0);
 	_vertices_1 = new Vertex[mesh->indexNum];

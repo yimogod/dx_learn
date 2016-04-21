@@ -3,8 +3,8 @@
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <util/DDSTextureLoader.h>
+#include <util/CUtil.h>
 #include "BaseApp.h"
-
 
 #pragma comment (lib, "libfbxsdk.lib")
 //#pragma comment(lib, "dinput8.lib")
@@ -540,4 +540,19 @@ void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
 		_mouseX = (float)_mouseState.lAxisX;
 		_mouseY = (float)_mouseState.lAxisY;
 	}
+}
+
+string BaseApp::getAppRoot(){
+	return _env.getVariable("PLU_ROOT");
+}
+
+string BaseApp::getFullPath(char* path){
+	return _env.getVariable("PLU_ROOT") + path;
+}
+
+wstring BaseApp::getFullPathW(char* path){
+	string pstr = _env.getVariable("PLU_ROOT") + path;
+	wstring wst;
+	str_2_wstr(pstr, wst);
+	return wst;
 }

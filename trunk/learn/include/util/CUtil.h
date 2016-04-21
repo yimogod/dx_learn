@@ -17,3 +17,5 @@ void swap_int(int* f1, int* f2);
 int str_2_int(string& str);
 
 int char_2_int(char c);
+
+void str_2_wstr(string& src, wstring& dest);

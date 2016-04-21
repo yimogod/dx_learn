@@ -11,7 +11,7 @@ using namespace std;
 
 ObjParser::ObjParser(){}
 
-void ObjParser::read(char* name, Scene* pscene){
+void ObjParser::read(const char* name, Scene* pscene){
 	_scene = pscene;
 
 	ifstream fs(name);

@@ -1,9 +1,13 @@
 #pragma once
+#include <string>
 #include <d3d11_1.h>
 #include <dinput.h>
 #include <math/algebra/Matrix4x4.h>
 #include <graphics/Vertex.h>
+#include <sys/SysEnv.h>
 #include <graphics/Scene.h>
+
+using namespace std;
 
 struct ConstantBuffer{
 	Matrix4x4 view;
@@ -106,4 +110,11 @@ protected:
 
 	float _mouseX, _mouseY;
 	bool _isRMouseDown = false;
+
+protected:
+	SysEnv _env;
+
+	string getAppRoot();
+	string getFullPath(char* path);
+	wstring getFullPathW(char* path);
 };

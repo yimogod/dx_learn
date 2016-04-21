@@ -14,13 +14,8 @@ DemoApp::~DemoApp(){}
 bool DemoApp::loadContent(){
 	createDXInput();
 
-	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T03ADSSphere/assets/seafloor.dds";
-
-
-	char* sInputFile = "assets/sphere.obj";
 	ObjParser reader;
-	reader.read(sInputFile, &_scene);
+	reader.read(getFullPath("assets/sphere.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
 	_scene.camera = new Camera();
@@ -85,7 +80,8 @@ bool DemoApp::loadContent(){
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
 	createSamplerState();
-	createTexture(path);
+
+	createTexture(getFullPathW("assets/t_02.dds").c_str());
 	
 	delete(vertices);
 	return true;

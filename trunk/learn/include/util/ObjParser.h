@@ -8,7 +8,7 @@ class ObjParser{
 public:
 	ObjParser();
     
-	void read(char* name, Scene* scene);
+	void read(const char* name, Scene* scene);
 
 private:
 	Scene* _scene;

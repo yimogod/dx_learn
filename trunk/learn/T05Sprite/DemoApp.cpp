@@ -13,9 +13,6 @@ DemoApp::~DemoApp(){}
 static bool use_index = false;
 
 bool DemoApp::loadContent(){
-	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T05Sprite/assets/t_1.dds";
-
 	Mesh *m = new Mesh();
 	m->setWorldPos(0, 0, 0.0f);
 	m->vertexNum = 4;
@@ -95,11 +92,10 @@ bool DemoApp::loadContent(){
 		createVertexBuffer(vertices, mesh->indexNum);
 	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createTexture(path);
 	createSamplerState();
+	createTexture(getFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);
-
 	return true;
 }
 
