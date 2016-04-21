@@ -3,7 +3,6 @@
 #include <dinput.h>
 #include <math.h>
 
-#include <Mesh.h>
 #include "DemoApp.h"
 
 using namespace DirectX;

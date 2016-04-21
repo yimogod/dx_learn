@@ -1,9 +1,8 @@
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 #include <dinput.h>
-#include <ObjParser.h>
+#include <util/ObjParser.h>
 
-#include <Mesh.h>
 #include "DemoApp.h"
 
 using namespace DirectX;
