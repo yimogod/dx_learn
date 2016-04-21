@@ -23,12 +23,6 @@
     <FxCompile Include="shader\ColorVertex.fx">
       <Filter>shader</Filter>
     </FxCompile>
-    <FxCompile Include="shader\ColorVertex_PS.hlsl">
-      <Filter>shader</Filter>
-    </FxCompile>
-    <FxCompile Include="shader\ColorVertex_VS.hlsl">
-      <Filter>shader</Filter>
-    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DemoApp.cpp" />

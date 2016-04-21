@@ -150,6 +150,11 @@
   <ItemGroup>
     <ClCompile Include="DemoApp.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pluto\Pluto.vcxproj">
+      <Project>{06edc280-1187-4614-a248-e640c095fa6b}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

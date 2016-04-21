@@ -17,17 +17,21 @@ bool DemoApp::loadContent(){
 	_scene.meshList[0] = new Mesh();
 	Mesh* mesh = _scene.getMesh(0);
 
-	createGrid(64.0f, 64.0f, 8.0f, (*mesh));
-	mesh->setWorldPos(-32.0f, 0.0f, -32.0f);
+	//创建鼠标键盘放在前面, 是防止debug时老报错
+	createDXInput();
+
+	createGrid(128.0f, 128.0f, 8.0f, (*mesh));
+	mesh->setWorldPos(-64.0f, 0.0f, -64.0f);
 
 	_scene.camera = new Camera();
-	_scene.camera->setPos(0, 0, -2.0f);
+	_scene.camera->setPos(0, 50.0f, -50.0f);
 	_scene.camera->setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
+	_scene.camera->setEulerAngle(0.0f, -0.5f, 0.0f);
 	_scene.camera->setAspect(_width, _height);
 
 	/*准备顶点缓冲数据*/
 	Vertex *vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexListV2(vertices);
+	mesh->getVertexPosList(vertices);
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
@@ -47,11 +51,11 @@ bool DemoApp::loadContent(){
 	int numElements = ARRAYSIZE(layout);
 
 	createDevice();
-	createDXInput();
+	
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->vertexNum);
-	createIndexBuffer(mesh->indexList, mesh->indexNum);
+	createVertexBuffer(vertices, mesh->indexNum);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
+	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 
 	delete(vertices);
 
@@ -80,24 +84,25 @@ void DemoApp::render(){
 	_context->PSSetShader(_ps, nullptr, 0);
 
 	Mesh *m = _scene.getMesh(0);
-	_context->DrawIndexed(m->indexNum, 0, 0);
+	_context->Draw(m->indexNum, 0);
 
 	_chain->Present(0, 0);
 }
 
 void DemoApp::createGrid(float width, float depth, float unitSize, Mesh &mesh){
-	int row = (int)(depth / unitSize) + 1;
-	int col = (int)(width / unitSize) + 1;
+	int rowVertex = (int)(depth / unitSize) + 1;
+	int colVertex = (int)(width / unitSize) + 1;
 
-	mesh.vertexNum = (short)(row * col);
+	mesh.vertexNum = (short)(rowVertex * colVertex);
 
 	int index = 0;
 	float pz, px, py;
-	for(int r = 0; r < row; ++r){
-		for(int c = 0; c < col; ++c){
-			index = r * row + c;
-			pz = r * unitSize;
+	for(int r = 0; r < rowVertex; ++r){
+		pz = r * unitSize;
+		for(int c = 0; c < colVertex; ++c){
+			index = r * colVertex + c;
 			px = c * unitSize;
+			py = 0.0f;
 			py = getVertexHeight(px, pz);
 			mesh.vertexList[index].z = pz;
 			mesh.vertexList[index].x = px;
@@ -108,33 +113,37 @@ void DemoApp::createGrid(float width, float depth, float unitSize, Mesh &mesh){
 	}
 
 	/*each rectange have 6 vertex*/
-	mesh.indexNum = (short)((row - 1) * (col - 1) * 6);
+	mesh.indexNum = (short)((rowVertex - 1) * (colVertex - 1) * 6);
 
-	int index1 = 0;
-	int index2 = 0;
-	for(int r = 0; r < row; ++r){
-		for(int c = 0; c < col; ++c){
-			index = (r * row + c) * 6;
+	//正方形底下那条边的左侧点的索引
+	int lowIndex = 0;
+	//正方形上面那条边的左侧点的索引
+	int highIndex = 0;
+	int top = rowVertex - 1;
+	int right = colVertex - 1;
+	for(int r = 0; r < top; ++r){
+		for(int c = 0; c < right; ++c){
+			index = (r * right + c) * 6;
 
-			index1 = r * row + c;
-			index2 = index1 + row;
+			lowIndex = r * colVertex + c;
+			highIndex = lowIndex + colVertex;
 			
-			mesh.indexList[index + 0] = index1;
-			mesh.indexList[index + 1] = index1 + 1;
-			mesh.indexList[index + 2] = index2;
-			mesh.indexList[index + 3] = index2;
-			mesh.indexList[index + 4] = index1 + 1;
-			mesh.indexList[index + 5] = index2 + 1;
+			mesh.indexList[index + 0] = lowIndex;
+			mesh.indexList[index + 1] = highIndex;
+			mesh.indexList[index + 2] = lowIndex + 1;
+			mesh.indexList[index + 3] = lowIndex + 1;
+			mesh.indexList[index + 4] = highIndex;
+			mesh.indexList[index + 5] = highIndex + 1;
 		}
 	}
 }
 
 float DemoApp::getVertexHeight(float x, float z){
-	return 0.3f * (z * sinf(0.1f * x) + x * cosf(0.1f * z));
+	return 0.1f * (z * sinf(0.1f * x) + x * cosf(0.1f * z));
 }
 
 Color DemoApp::getColorFromHeight(float y){
-	if(y < -10.0f)return Color(1.0f, 0.96f, 0.62f);
+	if(y < -20.0f)return Color(1.0f, 0.96f, 0.62f);
 	if(y < 5.0f)return Color(0.48f, 0.77f, 0.46f);
 	if(y < 12.0f)return Color(0.1f, 0.48f, 0.19f);
 	if(y < 20.0f)return Color(0.45f, 0.39f, 0.34f);

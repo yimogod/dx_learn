@@ -12,6 +12,7 @@ void Mesh::setWorldPos(float x, float y, float z){
 	position = Vector3D(x, y, z);
 }
 
+
 void Mesh::getVertexList(Vertex list[]){
 	Vector3D vec;
 	Color color;
@@ -30,7 +31,37 @@ void Mesh::getVertexList(Vertex list[]){
 		list[i].uv = Float2A{uv.x, uv.y};
 		list[i].normal = Float4{normal.x, normal.y, normal.z, 1.0f};
 	}
+}
 
+void Mesh::getVertexPosList(Vertex list[]){
+	Vector3D vec;
+	Color color;
+	for(int i = 0; i < indexNum; i++){
+		int index = indexList[i];
+		vec = vertexList[index].add(position);
+		color = vertexColorList[index];
+
+		list[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
+		list[i].color = Float4A{ color.r, color.g, color.b, 1.0f };
+	}
+}
+
+void Mesh::getVertexUVList(Vertex list[]){
+	Vector2D uv;
+	for(int i = 0; i < indexNum; i++){
+		int uvIndex = uvIndexList[i];
+		uv = uvList[uvIndex];
+
+		list[i].uv = Float2A{ uv.x, uv.y };
+	}
+}
+
+void Mesh::getVertexNormalList(Vertex list[]){
+	Vector3D normal;
+	for(int i = 0; i < indexNum; i++){
+		normal = vertexNormalList[i];
+		list[i].normal = Float4{ normal.x, normal.y, normal.z, 1.0f };
+	}
 }
 
 void Mesh::getVertexList_v2(Vertex list[]){
