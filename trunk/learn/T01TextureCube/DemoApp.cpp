@@ -14,13 +14,8 @@ DemoApp::~DemoApp(){}
 static bool use_index = false;
 
 bool DemoApp::loadContent(){
-	const wchar_t* path =
-		L"E:/learn/dx_learn/trunk/learn/T01TextureCube/assets/seafloor.dds";
-
-
-	char* sInputFile = "assets/simple_scene.obj";
 	ObjParser reader;
-	reader.read(sInputFile, &_scene);
+	reader.read(getFullPath("assets/cube.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
 	_scene.camera = new Camera();
@@ -70,11 +65,10 @@ bool DemoApp::loadContent(){
 		createVertexBuffer(vertices, mesh->indexNum);
 	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createTexture(path);
 	createSamplerState();
+	createTexture(getFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);
-
 	return true;
 }
 
