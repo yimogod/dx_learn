@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include <iostream>
-#include "Matrix4x4.h"
-#include "Plane3D.h"
+#include <math/algebra/Matrix4x4.h>
+#include <graphics/Plane3D.h>
 
 class Camera{
 public:

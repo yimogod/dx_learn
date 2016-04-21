@@ -1,5 +1,5 @@
 #include <math.h>
-#include <Matrix1x4.h>
+#include <math/algebra/Matrix1x4.h>
 
 /*构造标准矩阵*/
 Matrix1x4::Matrix1x4(){

@@ -1,5 +1,5 @@
 #pragma once
-#include <Matrix4x4.h>
+#include <math/algebra/Matrix4x4.h>
 
 /* 行优先矩阵, 1行4列 */
 class Matrix1x4{

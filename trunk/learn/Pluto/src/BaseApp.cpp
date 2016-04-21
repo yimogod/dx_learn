@@ -1,8 +1,8 @@
 #include <d3dcompiler.h>
+#include <dinput.h>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
-#include <dinput.h>
-#include <DDSTextureLoader.h>
+#include <util/DDSTextureLoader.h>
 #include "BaseApp.h"
 
 

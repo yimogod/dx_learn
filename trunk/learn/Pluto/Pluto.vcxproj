@@ -356,53 +356,54 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Application.h" />
-    <ClInclude Include="..\include\BaseApp.h" />
-    <ClInclude Include="..\include\BaseDataStruct.h" />
-    <ClInclude Include="..\include\Camera.h" />
-    <ClInclude Include="..\include\Color.h" />
-    <ClInclude Include="..\include\CUtil.h" />
-    <ClInclude Include="..\include\DDSTextureLoader.h" />
-    <ClInclude Include="..\include\DLog.h" />
-    <ClInclude Include="..\include\EulerAngles.h" />
-    <ClInclude Include="..\include\FBXParser.h" />
-    <ClInclude Include="..\include\FBXUtil.h" />
-    <ClInclude Include="..\include\Light.h" />
-    <ClInclude Include="..\include\Main.h" />
-    <ClInclude Include="..\include\Matrix1x4.h" />
-    <ClInclude Include="..\include\Matrix3x3.h" />
-    <ClInclude Include="..\include\Matrix4x4.h" />
-    <ClInclude Include="..\include\Mesh.h" />
-    <ClInclude Include="..\include\ObjParser.h" />
-    <ClInclude Include="..\include\Plane3D.h" />
-    <ClInclude Include="..\include\Quaternion.h" />
-    <ClInclude Include="..\include\Scene.h" />
-    <ClInclude Include="..\include\SteadyLine.h" />
-    <ClInclude Include="..\include\Vector2D.h" />
-    <ClInclude Include="..\include\Vector3D.h" />
-    <ClInclude Include="..\include\Vertex.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="src\BaseApp.cpp" />
-    <ClCompile Include="src\core\Application.cpp" />
-    <ClCompile Include="src\core\Camera.cpp" />
-    <ClCompile Include="src\core\DLog.cpp" />
-    <ClCompile Include="src\core\EulerAngles.cpp" />
-    <ClCompile Include="src\core\Light.cpp" />
-    <ClCompile Include="src\core\Matrix1x4.cpp" />
-    <ClCompile Include="src\core\Matrix3x3.cpp" />
-    <ClCompile Include="src\core\Matrix4x4.cpp" />
-    <ClCompile Include="src\core\Mesh.cpp" />
-    <ClCompile Include="src\core\Plane3D.cpp" />
-    <ClCompile Include="src\core\Quternion.cpp" />
-    <ClCompile Include="src\core\Scene.cpp" />
-    <ClCompile Include="src\core\Vector2D.cpp" />
-    <ClCompile Include="src\core\Vector3D.cpp" />
+    <ClCompile Include="src\graphics\Camera.cpp" />
+    <ClCompile Include="src\graphics\Light.cpp" />
+    <ClCompile Include="src\graphics\Mesh.cpp" />
+    <ClCompile Include="src\graphics\Scene.cpp" />
+    <ClCompile Include="src\math\algebra\EulerAngles.cpp" />
+    <ClCompile Include="src\math\algebra\Matrix1x4.cpp" />
+    <ClCompile Include="src\math\algebra\Matrix3x3.cpp" />
+    <ClCompile Include="src\math\algebra\Matrix4x4.cpp" />
+    <ClCompile Include="src\math\algebra\Plane3D.cpp" />
+    <ClCompile Include="src\math\algebra\Quternion.cpp" />
+    <ClCompile Include="src\math\algebra\Vector2D.cpp" />
+    <ClCompile Include="src\math\algebra\Vector3D.cpp" />
+    <ClCompile Include="src\sys\Application.cpp" />
+    <ClCompile Include="src\sys\DLog.cpp" />
+    <ClCompile Include="src\sys\SysEnv.cpp" />
     <ClCompile Include="src\util\CUtil.cpp" />
     <ClCompile Include="src\util\DDSTextureLoader.cpp" />
     <ClCompile Include="src\util\FBXParser.cpp" />
     <ClCompile Include="src\util\FBXUtil.cpp" />
     <ClCompile Include="src\util\ObjParser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\BaseApp.h" />
+    <ClInclude Include="..\include\BaseDataStruct.h" />
+    <ClInclude Include="..\include\graphics\Camera.h" />
+    <ClInclude Include="..\include\graphics\Color.h" />
+    <ClInclude Include="..\include\graphics\Light.h" />
+    <ClInclude Include="..\include\graphics\Mesh.h" />
+    <ClInclude Include="..\include\graphics\Plane3D.h" />
+    <ClInclude Include="..\include\graphics\Scene.h" />
+    <ClInclude Include="..\include\graphics\Vertex.h" />
+    <ClInclude Include="..\include\Main.h" />
+    <ClInclude Include="..\include\math\algebra\EulerAngles.h" />
+    <ClInclude Include="..\include\math\algebra\Matrix1x4.h" />
+    <ClInclude Include="..\include\math\algebra\Matrix3x3.h" />
+    <ClInclude Include="..\include\math\algebra\Matrix4x4.h" />
+    <ClInclude Include="..\include\math\algebra\Quaternion.h" />
+    <ClInclude Include="..\include\math\algebra\Vector2D.h" />
+    <ClInclude Include="..\include\math\algebra\Vector3D.h" />
+    <ClInclude Include="..\include\sys\Application.h" />
+    <ClInclude Include="..\include\sys\DLog.h" />
+    <ClInclude Include="..\include\sys\SysEnv.h" />
+    <ClInclude Include="..\include\util\CUtil.h" />
+    <ClInclude Include="..\include\util\DDSTextureLoader.h" />
+    <ClInclude Include="..\include\util\FBXParser.h" />
+    <ClInclude Include="..\include\util\FBXUtil.h" />
+    <ClInclude Include="..\include\util\ObjParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

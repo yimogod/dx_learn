@@ -1,6 +1,6 @@
-#include "Mesh.h"
-#include "Vector3D.h"
-#include "Vertex.h"
+#include <math/algebra/Vector3D.h>
+#include <graphics/Mesh.h>
+#include <graphics/Vertex.h>
 
 Mesh::Mesh(){
 	state = Mesh::STATE_ACTIVE;

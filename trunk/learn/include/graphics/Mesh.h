@@ -1,10 +1,10 @@
 #pragma once
 
 #include <iostream>
-#include "Vector3D.h"
-#include "Vector2D.h"
-#include "Color.h"
-#include "Vertex.h"
+#include <math/algebra/Vector3D.h>
+#include <math/algebra/Vector2D.h>
+#include <graphics/Color.h>
+#include <graphics/Vertex.h>
 
 /* 很多个三角形组成的三角网 */
 class Mesh{

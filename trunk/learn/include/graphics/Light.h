@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include <iostream>
-#include "Color.h"
-#include "Vector3D.h"
+#include <graphics/Color.h>
+#include <math/algebra/Vector3D.h>
 
 class Light{
 public:

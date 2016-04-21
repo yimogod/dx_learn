@@ -1,5 +1,5 @@
 #include <fbxsdk.h>
-#include "FBXUtil.h"
+#include <util/FBXUtil.h>
 
 void InitializeSdkObjects(FbxManager*& pManager, FbxScene*& pScene){
     //The first thing to do is to create the FBX Manager which is the object allocator for almost all the classes in the SDK

@@ -1,6 +1,6 @@
-#include <ObjParser.h>
-#include <Scene.h>
-#include <CUtil.h>
+#include <util/CUtil.h>
+#include <util/ObjParser.h>
+#include <graphics/Scene.h>
 
 #include <iostream>
 #include <fstream>

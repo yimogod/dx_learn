@@ -4,114 +4,22 @@
     <Filter Include="util">
       <UniqueIdentifier>{f885f0fa-7599-4d9c-9811-918044d15d21}</UniqueIdentifier>
     </Filter>
-    <Filter Include="core">
+    <Filter Include="math">
+      <UniqueIdentifier>{71ec9526-3243-4eb2-be92-1412d411b33c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sys">
+      <UniqueIdentifier>{98e0af7e-0042-4ee7-a76a-6ed8957f5b11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math\algebra">
+      <UniqueIdentifier>{60c2625e-d77a-4587-923a-d5fd61d487ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics">
       <UniqueIdentifier>{5c12c1b6-5494-4626-a517-1f803b474573}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include">
-      <UniqueIdentifier>{140385ab-05d0-458b-9c98-706bbbfb4e2c}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\include\Application.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\BaseDataStruct.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Camera.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Color.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\DLog.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Light.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Matrix4x4.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Mesh.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Plane3D.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Scene.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\SteadyLine.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Vector3D.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Vertex.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\BaseApp.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\CUtil.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\DDSTextureLoader.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\FBXUtil.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Vector2D.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Matrix3x3.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Main.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\FBXParser.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ObjParser.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\EulerAngles.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Quaternion.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Matrix1x4.h">
-      <Filter>include</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
       <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Application.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\DLog.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Camera.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Light.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Mesh.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Plane3D.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Scene.cpp">
-      <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="src\util\CUtil.cpp">
       <Filter>util</Filter>
@@ -119,33 +27,128 @@
     <ClCompile Include="src\util\FBXUtil.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Vector3D.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Matrix4x4.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
     <ClCompile Include="src\BaseApp.cpp" />
-    <ClCompile Include="src\core\Vector2D.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Matrix3x3.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
     <ClCompile Include="src\util\FBXParser.cpp">
       <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="src\util\ObjParser.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\EulerAngles.cpp">
-      <Filter>core</Filter>
+    <ClCompile Include="src\graphics\Camera.cpp">
+      <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Quternion.cpp">
-      <Filter>core</Filter>
+    <ClCompile Include="src\graphics\Light.cpp">
+      <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Matrix1x4.cpp">
-      <Filter>core</Filter>
+    <ClCompile Include="src\graphics\Mesh.cpp">
+      <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Scene.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sys\Application.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sys\DLog.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sys\SysEnv.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\EulerAngles.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Matrix1x4.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Matrix3x3.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Matrix4x4.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Plane3D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Quternion.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Vector2D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Vector3D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\util\CUtil.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\util\DDSTextureLoader.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\util\FBXParser.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\util\FBXUtil.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\util\ObjParser.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BaseApp.h" />
+    <ClInclude Include="..\include\BaseDataStruct.h" />
+    <ClInclude Include="..\include\Main.h" />
+    <ClInclude Include="..\include\sys\Application.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sys\DLog.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sys\SysEnv.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\EulerAngles.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Matrix1x4.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Matrix3x3.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Matrix4x4.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Quaternion.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Vector2D.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Vector3D.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Camera.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Color.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Light.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Mesh.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Plane3D.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Scene.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Vertex.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

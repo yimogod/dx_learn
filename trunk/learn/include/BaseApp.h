@@ -1,9 +1,9 @@
 #pragma once
 #include <d3d11_1.h>
 #include <dinput.h>
-#include <Matrix4x4.h>
-#include <Vertex.h>
-#include <Scene.h>
+#include <math/algebra/Matrix4x4.h>
+#include <graphics/Vertex.h>
+#include <graphics/Scene.h>
 
 struct ConstantBuffer{
 	Matrix4x4 view;

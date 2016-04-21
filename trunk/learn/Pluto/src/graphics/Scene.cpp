@@ -1,4 +1,4 @@
-#include "Scene.h"
+#include <graphics/Scene.h>
 
 Scene::Scene(){
 	meshNum = 0;

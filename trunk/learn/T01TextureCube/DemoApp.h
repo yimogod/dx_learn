@@ -3,10 +3,10 @@
 #include <Main.h>
 #include "resource.h"
 
-#include <DirectXMath.h>
 #include <dinput.h>
-#include <Scene.h>
-#include <Matrix4x4.h>
+#include <DirectXMath.h>
+#include <graphics/Scene.h>
+#include <math/algebra/Matrix4x4.h>
 #include <BaseApp.h>
 
 using namespace DirectX;

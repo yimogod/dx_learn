@@ -1,6 +1,6 @@
 #include <math.h>
-#include "Matrix4x4.h"
-#include "Matrix3x3.h"
+#include <math/algebra/Matrix4x4.h>
+#include <math/algebra/Matrix3x3.h>
 
 /*构造标准矩阵*/
 Matrix4x4::Matrix4x4(){

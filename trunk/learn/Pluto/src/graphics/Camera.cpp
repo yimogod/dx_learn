@@ -1,5 +1,5 @@
-#include <Camera.h>
-#include <Matrix1x4.h>
+#include <graphics/Camera.h>
+#include <math/algebra/Matrix1x4.h>
 
 Camera::Camera(){
 	position = Vector3D();

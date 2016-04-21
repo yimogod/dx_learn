@@ -1,7 +1,7 @@
 #pragma once
-#include "Mesh.h"
-#include "Camera.h"
-#include "Light.h"
+#include <graphics/Mesh.h>
+#include <graphics/Camera.h>
+#include <graphics/Light.h>
 
 class Scene{
 public:

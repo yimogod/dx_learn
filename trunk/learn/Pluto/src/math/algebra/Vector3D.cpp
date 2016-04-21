@@ -1,5 +1,5 @@
 #include <math.h>
-#include "Vector3D.h"
+#include <math/algebra/Vector3D.h>
 
 Vector3D::Vector3D(){
     x = 0;

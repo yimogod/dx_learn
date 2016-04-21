@@ -1,4 +1,4 @@
-#include "Matrix3x3.h"
+#include <math/algebra/Matrix3x3.h>
 
 /*构造标准矩阵*/
 Matrix3x3::Matrix3x3(){

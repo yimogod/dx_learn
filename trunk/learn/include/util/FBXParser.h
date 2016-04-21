@@ -1,6 +1,6 @@
 #pragma once
 #include <fbxsdk.h>
-#include <Scene.h>
+#include <graphics/Scene.h>
 
 class FBXParser{
 public:

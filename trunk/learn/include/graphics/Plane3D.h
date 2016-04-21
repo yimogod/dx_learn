@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include "Vertex.h"
-#include "Vector3D.h"
+#include <graphics/Vertex.h>
+#include <math/algebra/Vector3D.h>
 
 class Plane3D{
 public:

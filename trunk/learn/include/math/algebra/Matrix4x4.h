@@ -1,5 +1,5 @@
 #pragma once
-#include "Matrix3x3.h"
+#include <math/algebra/Matrix3x3.h>
 
 /* 行优先矩阵, 0123是第一行 */
 class Matrix4x4{
