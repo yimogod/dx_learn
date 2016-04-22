@@ -66,7 +66,7 @@ void DemoApp::unloadContent(){
 }
 
 void DemoApp::update(){
-	UpdatePosByKeyboard(_scene.camera, 0.001f);
+	UpdatePosByRMouse(_scene.camera, 0.001f);
 
 	ConstantBuffer cb;
 	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();

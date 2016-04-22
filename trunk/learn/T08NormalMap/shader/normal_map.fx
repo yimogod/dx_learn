@@ -31,6 +31,7 @@ struct PS_INPUT{
 
 /*¿Õ¼ä×ª»»*/
 cbuffer cbTransform : register(b0){
+	matrix model;
 	matrix view;
 	matrix perspective;
 }
@@ -64,15 +65,14 @@ void computeDirectionLight(float4 textColor, DirectionLight light,
 
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
-	output.posH = input.pos;
-	output.posH = mul(output.posH, view);
+	output.posW = mul(input.pos, model);
+	output.posH = mul(output.posW, view);
 	output.posH = mul(output.posH, perspective);
 
-	output.posW = input.pos;
 	output.tex = input.tex;
 
-	output.normalW = normalize(input.normal).xyz;
-	output.tangentW = normalize(input.tangent).xyz;
+	output.normalW = normalize(mul(input.normal, model)).xyz;
+	output.tangentW = normalize(mul(input.tangent, model)).xyz;
 	output.binormalW = normalize(cross(output.normalW, output.tangentW));
 	return output;
 }

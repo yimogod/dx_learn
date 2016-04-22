@@ -14,7 +14,7 @@ public:
 	~Scene();
 
 	Mesh* getMesh(int i);
-
+	Mesh* currMesh(){ return getMesh(0); }
 public:
 	int renderType;
 	

@@ -507,7 +507,7 @@ bool BaseApp::isRMouseDown(){
 
 
 /*根据相机姿态调整, pitch, ylow, head*/
-void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
+void BaseApp::UpdatePosByRMouse(Camera* camera, float value){
 	acquireInput();
 
 	if(isKeyDown(DIK_A)){
@@ -536,7 +536,31 @@ void BaseApp::UpdatePosByKeyboard(Camera* camera, float value){
 
 		_mouseX = nx;
 		_mouseY = ny;
-	}else{
+	}else if(!_isLMouseDown){
+		_mouseX = (float)_mouseState.lAxisX;
+		_mouseY = (float)_mouseState.lAxisY;
+	}
+}
+
+void BaseApp::UpdatePosByLMouse(Mesh* mesh, float value){
+	acquireInput();
+
+	_isLMouseDown = isLMouseDown();
+
+	if(_isLMouseDown){
+		float nx = (float)_mouseState.lAxisX;
+		float ny = (float)_mouseState.lAxisY;
+		float dx = nx - _mouseX;
+		float dy = ny - _mouseY;
+		if(abs(dx) > abs(dy)){
+			mesh->rotateY(2.0f * dx * value);
+		}else{
+			mesh->rotateX(2.0f * dy * value);
+		}
+
+		_mouseX = nx;
+		_mouseY = ny;
+	}else if(!_isRMouseDown){
 		_mouseX = (float)_mouseState.lAxisX;
 		_mouseY = (float)_mouseState.lAxisY;
 	}

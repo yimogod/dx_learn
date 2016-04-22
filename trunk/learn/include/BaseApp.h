@@ -10,6 +10,7 @@
 using namespace std;
 
 struct ConstantBuffer{
+	Matrix4x4 model;
 	Matrix4x4 view;
 	Matrix4x4 perspective;
 };
@@ -104,12 +105,14 @@ protected:
 	bool isKeyDown(char keycode);
 	bool isLMouseDown();
 	bool isRMouseDown();
-	void UpdatePosByKeyboard(Camera* camera, float value);
+	void UpdatePosByRMouse(Camera* camera, float value);
+	void UpdatePosByLMouse(Mesh* mesh, float value);
 	
 	Scene _scene;
 
 	float _mouseX, _mouseY;
 	bool _isRMouseDown = false;
+	bool _isLMouseDown = false;
 
 protected:
 	SysEnv _env;

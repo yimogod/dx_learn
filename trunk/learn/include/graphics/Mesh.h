@@ -3,6 +3,7 @@
 #include <iostream>
 #include <math/algebra/Vector3D.h>
 #include <math/algebra/Vector2D.h>
+#include <math/algebra/Matrix4x4.h>
 #include <graphics/Color.h>
 #include <graphics/Vertex.h>
 
@@ -39,11 +40,7 @@ public:
 	/*顶点法线, 切线数等于索引数量*/
 	Vector3D tangentList[512];
 public:
-	/* mesh在世界中的坐标 */
-	Vector3D position;
-	void setWorldPos(float x, float y, float z);
-
-	/*格式化数据准备传入vertext buff, 我们使用vbo*/
+		/*格式化数据准备传入vertext buff, 我们使用vbo*/
 	/*length is index num*/
 	void getVertexList(Vertex list[]);
 	/*length is vertex num*/
@@ -58,4 +55,15 @@ public:
 
 	/*计算法线数据*/
 	void calVertexNormal();
+
+public:
+	/* mesh在世界中的坐标 */
+	Vector3D position;
+	void setWorldPos(float x, float y, float z);
+	/* mesh在世界中的旋转, 旋转值是弧度 */
+	Vector3D eulerAngle;
+	void rotateX(float x);
+	void rotateY(float y);
+
+	Matrix4x4 localToWorldMatrix();
 };
