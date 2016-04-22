@@ -25,7 +25,6 @@ public:
 	Vector3D vertexList[128];
 	/* vertex color, each vertex has its color */
 	Color vertexColorList[128];
-	
 
 	/*S, T, S, T, S, T, 贴图数据列表*/
 	unsigned short uvNum = 0;
@@ -35,8 +34,10 @@ public:
 	unsigned short indexNum = 0;
 	unsigned short indexList[512];
 	unsigned short uvIndexList[512];
-	/*顶点法线, 法线数等于索引数量*/
-	Vector3D vertexNormalList[512];
+	/*顶点面法线, 法线数等于索引数量, 或者顶点法线, 数量等于定点数*/
+	Vector3D normalList[512];
+	/*顶点法线, 切线数等于索引数量*/
+	Vector3D tangentList[512];
 public:
 	/* mesh在世界中的坐标 */
 	Vector3D position;
@@ -55,5 +56,6 @@ public:
 	void getVertexUVList(Vertex list[]);
 	void getVertexNormalList(Vertex list[]);
 
+	/*计算法线数据*/
 	void calVertexNormal();
 };

@@ -19,12 +19,12 @@ float Vector2D::getLengthSQ(){
     return x * x + y * y;
 }
 
-Vector2D Vector2D::add(const Vector2D* v){
-    return Vector2D(x + v->x, y + v->y);
+Vector2D Vector2D::add(const Vector2D& v){
+    return Vector2D(x + v.x, y + v.y);
 }
 
-Vector2D Vector2D::sub(const Vector2D* v){
-    return Vector2D(x - v->x, y - v->y);
+Vector2D Vector2D::sub(const Vector2D& v){
+    return Vector2D(x - v.x, y - v.y);
 }
 
 Vector2D Vector2D::mul(float k){

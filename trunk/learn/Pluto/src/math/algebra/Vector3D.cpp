@@ -33,6 +33,16 @@ Vector3D Vector3D::mul(float k){
     return Vector3D(k * x, k * y, k * z);
 }
 
+Vector3D Vector3D::div(float k){
+	if(k > 0 && k < 0.00001f)
+		return Vector3D();
+	if(k < 0 && k > -0.00001f)
+		return Vector3D();
+
+	k = 1 / k;
+	return Vector3D(k * x, k * y, k * z);
+}
+
 float Vector3D::dot(const Vector3D &v){
     return x * v.x + y * v.y + z * v.z;
 }

@@ -19,6 +19,8 @@ public:
     Vector3D sub(const Vector3D &v);
     /* 矢量于标量相乘 */
     Vector3D mul(float k);
+	/* 矢量于标量相除 */
+	Vector3D div(float k);
 
     /* 点乘 */
     float dot(const Vector3D &v);

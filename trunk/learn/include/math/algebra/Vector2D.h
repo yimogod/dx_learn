@@ -13,9 +13,9 @@ public:
     float getLengthSQ();
     
     /* 矢量相加 */
-    Vector2D add(const Vector2D* v);
+    Vector2D add(const Vector2D& v);
     /* 矢量相减 */
-    Vector2D sub(const Vector2D* v);
+    Vector2D sub(const Vector2D& v);
     /* 矢量于标量相乘 */
     Vector2D mul(float k);
     /* 点乘 */

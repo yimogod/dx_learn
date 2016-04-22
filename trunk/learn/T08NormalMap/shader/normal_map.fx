@@ -1,5 +1,5 @@
 /*贴图*/
-Texture2D txDiffuse : register(t0);
+Texture2D txDiffuse[2] : register(t0);
 SamplerState samLinear : register(s0);
 
 /*方向光*/
@@ -16,6 +16,7 @@ struct VS_INPUT{
 	float4 color : COLOR;
 	float2 tex : TEXCOORD0;
 	float4 normal: NORMAL;
+	float4 tangent: TANGENT;
 };
 
 /*像素输入*/
@@ -23,7 +24,9 @@ struct PS_INPUT{
 	float4 posH : SV_POSITION;
 	float4 posW : POSITION;
 	float2 tex : TEXCOORD0;
-	float4 normalW: NORMAL;
+	float3 normalW: NORMAL;
+	float3 tangentW: TANGENT;
+	float3 binormalW: BINORMAL;
 };
 
 /*空间转换*/
@@ -68,23 +71,29 @@ PS_INPUT VS(VS_INPUT input){
 	output.posW = input.pos;
 	output.tex = input.tex;
 
-	output.normalW = normalize(input.normal);
+	output.normalW = normalize(input.normal).xyz;
+	output.tangentW = normalize(input.tangent).xyz;
+	output.binormalW = normalize(cross(output.normalW, output.tangentW));
 	return output;
 }
 
 float4 PS(PS_INPUT input) :SV_Target{
-	float3 normalW = normalize(input.normalW).xyz;
 	float3 toEyeW = normalize(eyePosW - input.posW).xyz;
 	float3 posW = input.posW.xyz;
 
-	float4 color = txDiffuse.Sample(samLinear, input.tex);
+	float4 color = txDiffuse[0].Sample(samLinear, input.tex);
+	float4 ncolor = txDiffuse[1].Sample(samLinear, input.tex);
+	ncolor = (ncolor * 2.0f) - 1.0f;
+	float3 bumpNormal = ncolor.x * input.tangentW +
+						ncolor.y * input.binormalW +
+						ncolor.z * input.normalW;
 
 	float4 ac = float4(0.0f, 0.0f, 0.0f, 1.0f);
 	float4 dc = float4(0.0f, 0.0f, 0.0f, 1.0f);
 	float4 sc = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	float4 A, D, S;
-	computeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
+	computeDirectionLight(color, directionLight, bumpNormal, toEyeW, A, D, S);
 	ac += A;
 	dc += D;
 	sc += S;
