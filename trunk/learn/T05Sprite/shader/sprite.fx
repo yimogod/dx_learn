@@ -2,6 +2,7 @@ Texture2D txDiffuse : register(t0);
 SamplerState samLinear : register(s0);
 
 cbuffer ConstantBuffer : register(b0){
+	matrix model;
 	matrix view;
 	matrix perspective;
 }
@@ -20,7 +21,7 @@ struct PS_INPUT{
 
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
-	output.pos = input.pos;
+	output.pos = mul(input.pos, model);
 	output.pos = mul(output.pos, view);
 	output.pos = mul(output.pos, perspective);
 

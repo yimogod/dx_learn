@@ -73,8 +73,10 @@ void DemoApp::unloadContent(){
 
 void DemoApp::update(){
 	UpdatePosByRMouse(_scene.camera, 0.001f);
+	UpdatePosByLMouse(_scene.currMesh(), 0.001f);
 
 	ConstantBuffer cb;
+	cb.model = _scene.currMesh()->localToWorldMatrix().transpose();
 	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
 	cb.perspective = _scene.camera->getCameraToProjMatrix().transpose();
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);

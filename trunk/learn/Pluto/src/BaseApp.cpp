@@ -553,9 +553,9 @@ void BaseApp::UpdatePosByLMouse(Mesh* mesh, float value){
 		float dx = nx - _mouseX;
 		float dy = ny - _mouseY;
 		if(abs(dx) > abs(dy)){
-			mesh->rotateY(2.0f * dx * value);
+			mesh->rotateY(-2.0f * dx * value);
 		}else{
-			mesh->rotateX(2.0f * dy * value);
+			mesh->rotateX(-2.0f * dy * value);
 		}
 
 		_mouseX = nx;
