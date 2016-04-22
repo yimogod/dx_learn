@@ -28,7 +28,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shader\alpha_map.fx">
+    <FxCompile Include="shader\normal_map.fx">
       <Filter>shader</Filter>
     </FxCompile>
   </ItemGroup>

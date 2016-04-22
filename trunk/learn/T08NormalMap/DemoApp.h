@@ -6,8 +6,20 @@
 #include <DirectXMath.h>
 #include <dinput.h>
 #include <BaseApp.h>
+#include <BaseDataStruct.h>
 
-using namespace DirectX;
+/*·½Ïò¹â*/
+struct DirectionLight{
+	Float4A ambientColor;
+	Float4A diffuseColor;
+	Float4A specularColor;
+	Float4 direction;
+};
+
+struct PhongBuffer{
+	Float4 eyeWorldPos;
+	DirectionLight directionLight;
+};
 
 class DemoApp : public BaseApp{
 public:
@@ -19,6 +31,8 @@ public:
 
 	void update();
 	void render();
+protected:
+	ID3D11Buffer* _phongBuff = nullptr;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
@@ -28,9 +42,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new DemoApp();
 	info.icon = (LPCWSTR)IDI_TUTORIAL1;
-	info.title = L"TextureCube";
-	info.width = 1200;
-	info.height = 960;
+	info.title = L"Normal map";
+	info.width = 800;
+	info.height = 600;
 
 	return MainBody(hInstance, hPrevInstance, lpCmdLine, nCmdShow, info);
 }
