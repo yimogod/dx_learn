@@ -108,10 +108,10 @@ bool BaseApp::createDevice(){
 	//dxgiFactory->Release();
 
 	/*这里可以启动多重采样*/
-	UINT m4xMsaaQuality;
-	_device->CheckMultisampleQualityLevels(
-		DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m4xMsaaQuality);
-	assert(m4xMsaaQuality > 0);
+	//UINT m4xMsaaQuality;
+	//_device->CheckMultisampleQualityLevels(
+	//	DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m4xMsaaQuality);
+	//assert(m4xMsaaQuality > 0);
 
 	/*创建back buff*/
 	_backBuffer = nullptr;

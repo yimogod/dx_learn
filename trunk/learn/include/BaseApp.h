@@ -60,12 +60,16 @@ protected:
 	ID3D11RenderTargetView* _backBuffView;
 	ID3D11ShaderResourceView* _backBuffResView;
 
+	/*模板视图*/
 	ID3D11Texture2D* _depthStencilBuffer;
 	ID3D11DepthStencilView* _depthStencilView;
 
+	/*光栅化状态*/
 	ID3D11RasterizerState* _wireframeRS;
 	ID3D11RasterizerState* _solidRS;
+	/*混合状态*/
 	ID3D11BlendState* _blendState;
+	/*采样状态*/
 	ID3D11SamplerState* _sampleState;
 
 	HRESULT compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
@@ -113,13 +117,12 @@ protected:
 	void UpdatePosByRMouse(Camera* camera, float value);
 	void UpdatePosByLMouse(Mesh* mesh, float value);
 	
-	Scene _scene;
-
 	float _mouseX, _mouseY;
 	bool _isRMouseDown = false;
 	bool _isLMouseDown = false;
 
 protected:
+	Scene _scene;
 	SysEnv _env;
 
 	string getAppRoot();
