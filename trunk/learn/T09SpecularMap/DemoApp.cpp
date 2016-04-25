@@ -44,11 +44,11 @@ bool DemoApp::loadContent(){
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
-	vs.fileName = L"shader/normal_map.fx";
+	vs.fileName = L"shader/specular_map.fx";
 	vs.entryPoint = "VS";
 	vs.shaderModel = "vs_4_0";
 	CreateShaderInfo ps;
-	ps.fileName = L"shader/normal_map.fx";
+	ps.fileName = L"shader/specular_map.fx";
 	ps.entryPoint = "PS";
 	ps.shaderModel = "ps_4_0";
 
@@ -74,8 +74,9 @@ bool DemoApp::loadContent(){
 	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
 	createSamplerState();
 
-	createTexture(getFullPathW("assets/t_01.dds").c_str());
-	createTexture(getFullPathW("assets/n_01.dds").c_str());
+	createTexture(getFullPathW("assets/t_03.dds").c_str());
+	createTexture(getFullPathW("assets/n_03.dds").c_str());
+	createTexture(getFullPathW("assets/s_03.dds").c_str());
 
 	delete(vertices);
 	return true;
