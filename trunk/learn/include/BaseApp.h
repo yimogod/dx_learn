@@ -56,7 +56,9 @@ protected:
 	IDXGISwapChain* _chain;
 
 	/*缓存视图*/
+	ID3D11Texture2D* _backBuffer;
 	ID3D11RenderTargetView* _backBuffView;
+	ID3D11ShaderResourceView* _backBuffResView;
 
 	ID3D11Texture2D* _depthStencilBuffer;
 	ID3D11DepthStencilView* _depthStencilView;
@@ -90,6 +92,9 @@ protected:
 	bool createSamplerState();
 	bool createTexture(const wchar_t* path);
 	bool createDXInput();
+
+	/*创建shader使用的texture2d*/
+	bool createShaderResView();
 
 protected:
 	/*dx input*/

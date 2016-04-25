@@ -51,19 +51,15 @@ bool BaseApp::createDevice(){
 	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_1 };
 	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
-	hr = D3D11CreateDevice(nullptr, _driverType, nullptr,
+	/*hr = D3D11CreateDevice(nullptr, _driverType, nullptr,
 		createDeviceFlags, featureLevels, numFeatureLevels,
 		D3D11_SDK_VERSION, &_device, &_featureLevel, &_context);
-	if(FAILED(hr))return false;
+	if(FAILED(hr))return false;*/
 
-	/*这里可以启动多重采样*/
-	UINT m4xMsaaQuality;
-	_device->CheckMultisampleQualityLevels(
-		DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m4xMsaaQuality);
-	assert(m4xMsaaQuality > 0);
+	
 
 	/*开始创建swap chain需要的factory*/
-	IDXGIDevice* dxgiDevice = nullptr;
+	/*IDXGIDevice* dxgiDevice = nullptr;
 	hr = _device->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&dxgiDevice));
 	if(FAILED(hr)){
 		dxgiDevice->Release();
@@ -82,7 +78,8 @@ bool BaseApp::createDevice(){
 	hr = adapter->GetParent(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(&dxgiFactory));
 	adapter->Release();
 	dxgiDevice->Release();
-	if(FAILED(hr))return false;
+	if(FAILED(hr))return false;*/
+
 
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
@@ -102,20 +99,27 @@ bool BaseApp::createDevice(){
 	//sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
 
-	hr = dxgiFactory->CreateSwapChain(_device, &sd, &_chain);
-	dxgiFactory->MakeWindowAssociation(_hwnd, DXGI_MWA_NO_ALT_ENTER);
-	dxgiFactory->Release();
-
+	hr = D3D11CreateDeviceAndSwapChain(nullptr, _driverType, nullptr, createDeviceFlags, featureLevels, numFeatureLevels,
+		D3D11_SDK_VERSION, &sd, &_chain, &_device, &_featureLevel, &_context);
 	if(FAILED(hr))return false;
 
+	//hr = dxgiFactory->CreateSwapChain(_device, &sd, &_chain);
+	//dxgiFactory->MakeWindowAssociation(_hwnd, DXGI_MWA_NO_ALT_ENTER);
+	//dxgiFactory->Release();
+
+	/*这里可以启动多重采样*/
+	UINT m4xMsaaQuality;
+	_device->CheckMultisampleQualityLevels(
+		DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m4xMsaaQuality);
+	assert(m4xMsaaQuality > 0);
+
 	/*创建back buff*/
-	ID3D11Texture2D* pBackBuffer = nullptr;
-	hr = _chain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&pBackBuffer));
+	_backBuffer = nullptr;
+	hr = _chain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&_backBuffer));
 	if(FAILED(hr))return false;
 
 	/*创建render target*/
-	hr = _device->CreateRenderTargetView(pBackBuffer, nullptr, &_backBuffView);
-	pBackBuffer->Release();
+	hr = _device->CreateRenderTargetView(_backBuffer, nullptr, &_backBuffView);
 	if(FAILED(hr))return hr;
 
 	/*声明深度模板描述数据*/
@@ -134,7 +138,7 @@ bool BaseApp::createDevice(){
 	td.MiscFlags = 0;
 
 	/*创建深度/模板缓存*/
-	hr = _device->CreateTexture2D(&td, 0, &_depthStencilBuffer);
+	hr = _device->CreateTexture2D(&td, nullptr, &_depthStencilBuffer);
 	if(FAILED(hr))return hr;
 
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
@@ -142,12 +146,11 @@ bool BaseApp::createDevice(){
 	dsvd.Format = td.Format;
 	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	dsvd.Texture2D.MipSlice = 0;
-
 	hr = _device->CreateDepthStencilView(_depthStencilBuffer, &dsvd, &_depthStencilView);
 	if(FAILED(hr))return hr;
 
-	//_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
-	_context->OMSetRenderTargets(1, &_backBuffView, __nullptr);
+	_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
+	//_context->OMSetRenderTargets(1, &_backBuffView, __nullptr);
 
 	/*设置viewport*/
 	D3D11_VIEWPORT vp;
@@ -220,11 +223,17 @@ void BaseApp::acquireInput(){
 void BaseApp::destroy(){
 	unloadContent();
 
+	if(_depthStencilBuffer)_depthStencilBuffer->Release();
+	if(_depthStencilView)_depthStencilView->Release();
+	if(_backBuffer)_backBuffer->Release();
 	if(_backBuffView)_backBuffView->Release();
 	if(_chain)_chain->Release();
 	if(_context)_context->Release();
 	if(_device)_device->Release();
 
+	_depthStencilBuffer = NULL;
+	_depthStencilView = NULL;
+	_backBuffer = NULL;
 	_backBuffView = NULL;
 	_chain = NULL;
 	_context = NULL;
@@ -372,9 +381,9 @@ bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerSt
 	ZeroMemory(&rsd, sizeof(D3D11_RASTERIZER_DESC));
 
 	rsd.FillMode = fillmode;
-	//rsd.CullMode = D3D11_CULL_BACK;
+	rsd.CullMode = D3D11_CULL_BACK;
 	//rsd.CullMode = D3D11_CULL_FRONT;
-	rsd.CullMode = D3D11_CULL_NONE;
+	//rsd.CullMode = D3D11_CULL_NONE;
 	rsd.FrontCounterClockwise = true;
 	rsd.DepthClipEnable = true;
 
@@ -415,6 +424,50 @@ bool BaseApp::createTexture(const wchar_t* path){
 	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView[_resViewNum], 2048U);
 	if(FAILED(hr))return false;
 	_resViewNum++;
+	return true;
+}
+
+bool BaseApp::createShaderResView(){
+	HRESULT hr;
+	
+	D3D11_TEXTURE2D_DESC textureDesc;
+	ZeroMemory(&textureDesc, sizeof(textureDesc));
+
+	textureDesc.Width = _width;
+	textureDesc.Height = _height;
+	textureDesc.MipLevels = 1;
+	textureDesc.ArraySize = 1;
+	textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	textureDesc.SampleDesc.Count = 1;
+	textureDesc.Usage = D3D11_USAGE_DEFAULT;
+	textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+	textureDesc.CPUAccessFlags = 0;
+	textureDesc.MiscFlags = 0;
+
+	/*创建后缓存视图用到的texture2d buff*/
+	hr = _device->CreateTexture2D(&textureDesc, NULL, &_backBuffer);
+	if(FAILED(hr))return false;
+
+	/*创建render target view*/
+	D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
+	renderTargetViewDesc.Format = textureDesc.Format;
+	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+	renderTargetViewDesc.Texture2D.MipSlice = 0;
+
+	// Create the render target view.
+	hr = _device->CreateRenderTargetView(_backBuffer, &renderTargetViewDesc, &_backBuffView);
+	if(FAILED(hr))return false;
+
+	/*创建于shader关联的贴图资源, 跟render target 的缓存关联*/
+	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResViewDesc;
+	shaderResViewDesc.Format = textureDesc.Format;
+	shaderResViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	shaderResViewDesc.Texture2D.MostDetailedMip = 0;
+	shaderResViewDesc.Texture2D.MipLevels = 1;
+
+	hr = _device->CreateShaderResourceView(_backBuffer, &shaderResViewDesc, &_backBuffResView);
+	if(FAILED(hr))return false;
+
 	return true;
 }
 

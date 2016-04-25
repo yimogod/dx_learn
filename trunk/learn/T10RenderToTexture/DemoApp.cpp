@@ -7,9 +7,11 @@
 
 using namespace DirectX;
 
-DemoApp::DemoApp(){}
+DemoApp::DemoApp(){
+}
 
-DemoApp::~DemoApp(){}
+DemoApp::~DemoApp(){
+}
 
 static bool use_index = false;
 
