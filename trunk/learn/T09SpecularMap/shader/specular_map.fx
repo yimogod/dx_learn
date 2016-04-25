@@ -1,5 +1,5 @@
 /*贴图*/
-Texture2D txDiffuse[2] : register(t0);
+Texture2D txDiffuse[3] : register(t0);
 SamplerState samLinear : register(s0);
 
 /*方向光*/
@@ -27,6 +27,7 @@ struct PS_INPUT{
 	float3 normalW: NORMAL;
 	float3 tangentW: TANGENT;
 	float3 binormalW: BINORMAL;
+	float3 viewDirection : TEXCOORD1;
 };
 
 /*空间转换*/
@@ -43,7 +44,7 @@ cbuffer cbPhong : register(b1){
 	DirectionLight directionLight;
 }
 
-void computeDirectionLight(float4 textColor, DirectionLight light,
+void computeDirectionLight(float4 textColor, float4 specColor, DirectionLight light,
 	float3 pixelNormal, float3 toEyeW,
 	out float4 ambient, out float4 diffuse, out float4 spec){
 	ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -59,7 +60,8 @@ void computeDirectionLight(float4 textColor, DirectionLight light,
 		float3 v = reflect(-lightVec, pixelNormal);
 		float specFactor = max(0.0f, dot(v, toEyeW));
 		specFactor = pow(specFactor, 1.0f);
-		spec = specFactor * textColor * light.specularColor;
+
+		spec = specFactor * specColor * textColor;
 	}
 }
 
@@ -74,16 +76,17 @@ PS_INPUT VS(VS_INPUT input){
 	output.normalW = normalize(mul(input.normal, model)).xyz;
 	output.tangentW = normalize(mul(input.tangent, model)).xyz;
 	output.binormalW = normalize(cross(output.normalW, output.tangentW));
+
+	output.viewDirection = normalize(eyePosW.xyz - output.posW.xyz);
 	return output;
 }
 
 float4 PS(PS_INPUT input) :SV_Target{
-	float3 toEyeW = normalize(eyePosW - input.posW).xyz;
-	float3 posW = input.posW.xyz;
-
 	float4 color = txDiffuse[0].Sample(samLinear, input.tex);
 	float4 ncolor = txDiffuse[1].Sample(samLinear, input.tex);
 	ncolor = (ncolor * 2.0f) - 1.0f;
+	float4 scolor = txDiffuse[2].Sample(samLinear, input.tex);
+
 	float3 bumpNormal = ncolor.x * input.tangentW +
 						ncolor.y * input.binormalW +
 						ncolor.z * input.normalW;
@@ -93,7 +96,7 @@ float4 PS(PS_INPUT input) :SV_Target{
 	float4 sc = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	float4 A, D, S;
-	computeDirectionLight(color, directionLight, bumpNormal, toEyeW, A, D, S);
+	computeDirectionLight(color, scolor, directionLight, bumpNormal, input.viewDirection, A, D, S);
 	ac += A;
 	dc += D;
 	sc += S;
