@@ -49,8 +49,6 @@ bool DemoApp::loadContent(){
 
 	createDevice();
 	createDXInput();
-	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
-	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
 
 	createShader(vs, ps, layout, numElements);
 	createVertexBuffer(vertices, mesh->indexNum);

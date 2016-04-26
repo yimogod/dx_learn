@@ -100,7 +100,7 @@ protected:
 	bool createDXInput();
 
 	/*创建shader使用的texture2d*/
-	bool createShaderResView();
+	bool createRenderTargetWithShaderResView();
 
 protected:
 	/*dx input*/

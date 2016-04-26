@@ -73,14 +73,7 @@ bool BaseApp::createDevice(){
 		D3D11_SDK_VERSION, &sd, &_chain, &_device, &_featureLevel, &_context);
 	if(FAILED(hr))return false;
 
-	/*创建back buff*/
-	_backBuffer = nullptr;
-	hr = _chain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&_backBuffer));
-	if(FAILED(hr))return false;
 
-	/*创建render target*/
-	hr = _device->CreateRenderTargetView(_backBuffer, nullptr, &_backBuffView);
-	if(FAILED(hr))return hr;
 
 	/*声明深度模板描述数据*/
 	D3D11_TEXTURE2D_DESC td;
@@ -109,8 +102,16 @@ bool BaseApp::createDevice(){
 	hr = _device->CreateDepthStencilView(_depthStencilBuffer, &dsvd, &_depthStencilView);
 	if(FAILED(hr))return hr;
 
-	//_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
-	_context->OMSetRenderTargets(1, &_backBuffView, __nullptr);
+	/*创建back buff*/
+	_backBuffer = nullptr;
+	hr = _chain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&_backBuffer));
+	if(FAILED(hr))return false;
+
+	/*创建render target*/
+	hr = _device->CreateRenderTargetView(_backBuffer, nullptr, &_backBuffView);
+	if(FAILED(hr))return hr;
+
+	_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
 
 	/*设置viewport*/
 	D3D11_VIEWPORT vp;
@@ -392,7 +393,7 @@ bool BaseApp::createTexture(const wchar_t* path){
 	return true;
 }
 
-bool BaseApp::createShaderResView(){
+bool BaseApp::createRenderTargetWithShaderResView(){
 	HRESULT hr;
 	
 	D3D11_TEXTURE2D_DESC textureDesc;
