@@ -46,7 +46,7 @@ bool DemoApp::loadContent(){
 	createDevice();
 	createDXInput();
 	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
-	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
+	createRasterizerState(D3D11_FILL_SOLID, _solidRS);
 	createShader(vs, ps, layout, numElements);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 
@@ -87,6 +87,7 @@ void DemoApp::render(){
 	if(_context == NULL)return;
 	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH, 1.0f, 0);
+	bindVertexBuff();
 
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);

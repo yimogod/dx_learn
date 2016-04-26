@@ -89,7 +89,9 @@ protected:
 	bool createDevice();
 	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
 	bool createVertexBuffer(Vertex *vertices, int indexNum);
+	void bindVertexBuff();
 	bool createIndexBuffer(unsigned short* indexList, int indexNum);
+	void bindIndexBuff();
 	bool createConstBuffer(ID3D11Buffer** constBuff, int byteWidth);
 	bool createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs);
 	bool createBlendState();

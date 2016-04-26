@@ -246,6 +246,10 @@ bool BaseApp::createVertexBuffer(Vertex *vertices, int vertNum){
 	HRESULT hr = _device->CreateBuffer(&bd, &InitData, &_vertexBuff);
 	if(FAILED(hr))return false;
 
+	return true;
+}
+
+void BaseApp::bindVertexBuff(){
 	/*设置当前vertex buff*/
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
@@ -253,8 +257,6 @@ bool BaseApp::createVertexBuffer(Vertex *vertices, int vertNum){
 
 	/*设置三角形排列方式, 即顶点拓扑方式*/
 	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	return true;
 }
 
 /*设置index buff*/
@@ -272,10 +274,11 @@ bool BaseApp::createIndexBuffer(unsigned short* indexList, int indexNum){
 	InitData.pSysMem = indexList;
 	HRESULT hr = _device->CreateBuffer(&bd, &InitData, &_indexBuff);
 	if(FAILED(hr))return false;
-
-	_context->IASetIndexBuffer(_indexBuff, DXGI_FORMAT_R16_UINT, 0);
-
 	return true;
+}
+
+void BaseApp::bindIndexBuff(){
+	_context->IASetIndexBuffer(_indexBuff, DXGI_FORMAT_R16_UINT, 0);
 }
 
 bool BaseApp::createConstBuffer(ID3D11Buffer** constBuff, int byteWidth){
