@@ -51,36 +51,6 @@ bool BaseApp::createDevice(){
 	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_1 };
 	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
-	/*hr = D3D11CreateDevice(nullptr, _driverType, nullptr,
-		createDeviceFlags, featureLevels, numFeatureLevels,
-		D3D11_SDK_VERSION, &_device, &_featureLevel, &_context);
-	if(FAILED(hr))return false;*/
-
-	
-
-	/*开始创建swap chain需要的factory*/
-	/*IDXGIDevice* dxgiDevice = nullptr;
-	hr = _device->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&dxgiDevice));
-	if(FAILED(hr)){
-		dxgiDevice->Release();
-		return false;
-	}
-
-	IDXGIAdapter* adapter = nullptr;
-	hr = dxgiDevice->GetAdapter(&adapter);
-	if(FAILED(hr)){
-		adapter->Release();
-		dxgiDevice->Release();
-		return false;
-	}
-
-	IDXGIFactory1* dxgiFactory = nullptr;
-	hr = adapter->GetParent(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(&dxgiFactory));
-	adapter->Release();
-	dxgiDevice->Release();
-	if(FAILED(hr))return false;*/
-
-
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
 	sd.BufferCount = 1;
@@ -102,16 +72,6 @@ bool BaseApp::createDevice(){
 	hr = D3D11CreateDeviceAndSwapChain(nullptr, _driverType, nullptr, createDeviceFlags, featureLevels, numFeatureLevels,
 		D3D11_SDK_VERSION, &sd, &_chain, &_device, &_featureLevel, &_context);
 	if(FAILED(hr))return false;
-
-	//hr = dxgiFactory->CreateSwapChain(_device, &sd, &_chain);
-	//dxgiFactory->MakeWindowAssociation(_hwnd, DXGI_MWA_NO_ALT_ENTER);
-	//dxgiFactory->Release();
-
-	/*这里可以启动多重采样*/
-	//UINT m4xMsaaQuality;
-	//_device->CheckMultisampleQualityLevels(
-	//	DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m4xMsaaQuality);
-	//assert(m4xMsaaQuality > 0);
 
 	/*创建back buff*/
 	_backBuffer = nullptr;
@@ -149,8 +109,8 @@ bool BaseApp::createDevice(){
 	hr = _device->CreateDepthStencilView(_depthStencilBuffer, &dsvd, &_depthStencilView);
 	if(FAILED(hr))return hr;
 
-	_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
-	//_context->OMSetRenderTargets(1, &_backBuffView, __nullptr);
+	//_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
+	_context->OMSetRenderTargets(1, &_backBuffView, __nullptr);
 
 	/*设置viewport*/
 	D3D11_VIEWPORT vp;
@@ -384,8 +344,10 @@ bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerSt
 	rsd.CullMode = D3D11_CULL_BACK;
 	//rsd.CullMode = D3D11_CULL_FRONT;
 	//rsd.CullMode = D3D11_CULL_NONE;
-	rsd.FrontCounterClockwise = true;
+	rsd.FrontCounterClockwise = false;
 	rsd.DepthClipEnable = true;
+	rsd.DepthBias = 0;
+	rsd.DepthBiasClamp = 0.0f;
 
 	HRESULT hr = _device->CreateRasterizerState(&rsd, &rs);
 	if(FAILED(hr))return false;
