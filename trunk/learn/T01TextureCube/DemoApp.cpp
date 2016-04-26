@@ -11,8 +11,6 @@ DemoApp::DemoApp(){}
 
 DemoApp::~DemoApp(){}
 
-static bool use_index = false;
-
 bool DemoApp::loadContent(){
 	ObjParser reader;
 	reader.read(getFullPath("assets/cube.obj").c_str(), &_scene);
@@ -26,13 +24,8 @@ bool DemoApp::loadContent(){
 	/*准备顶点缓冲数据*/
 	Mesh* mesh = _scene.getMesh(0);
 	Vertex *vertices = 0;
-	if(use_index){
-		vertices = new Vertex[mesh->vertexNum];
-		mesh->getVertexList_v2(vertices);
-	}else{
-		vertices = new Vertex[mesh->indexNum];
-		mesh->getVertexList(vertices);
-	}
+	vertices = new Vertex[mesh->indexNum];
+	mesh->getVertexList(vertices);
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
@@ -53,20 +46,13 @@ bool DemoApp::loadContent(){
 	int numElements = ARRAYSIZE(layout);
 
 	createDevice();
-	bindVertexBuff();
 	createDXInput();
-	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
-	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
+	createSamplerState();
+	createDepthState();
 
 	createShader(vs, ps, layout, numElements);
-	if(use_index){
-		createVertexBuffer(vertices, mesh->vertexNum);
-		createIndexBuffer(mesh->indexList, mesh->indexNum);
-	}else{
-		createVertexBuffer(vertices, mesh->indexNum);
-	}
+	createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createSamplerState();
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);
@@ -102,11 +88,7 @@ void DemoApp::render(){
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);
-	if(use_index){
-		_context->DrawIndexed(m->indexNum, 0, 0);
-	}else{
-		_context->Draw(m->indexNum, 0);
-	}
+	_context->Draw(m->indexNum, 0);
 
 	_chain->Present(0, 0);
 }

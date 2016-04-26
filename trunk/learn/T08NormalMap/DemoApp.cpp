@@ -68,11 +68,12 @@ bool DemoApp::loadContent(){
 	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
 
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum);
+	createVertexBuffer(vertices, mesh->indexNum, 72 * 4);
 
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
 	createSamplerState();
+	createDepthState();
 
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 	createTexture(getFullPathW("assets/n_01.dds").c_str());

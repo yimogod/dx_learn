@@ -80,6 +80,7 @@ bool DemoApp::loadContent(){
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
 	createSamplerState();
+	createDepthState();
 
 	createTexture(getFullPathW("assets/t_02.dds").c_str());
 	

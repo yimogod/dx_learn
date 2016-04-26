@@ -78,10 +78,11 @@ bool DemoApp::loadContent(){
 	createDXInput();
 
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum, 40* 4);
+	createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_scrollBuff, sizeof(ScrollBuffer));
 	createSamplerState();
+	createDepthState();
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);

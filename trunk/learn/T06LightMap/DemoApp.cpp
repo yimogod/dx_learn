@@ -84,13 +84,14 @@ bool DemoApp::loadContent(){
 
 	createShader(vs, ps, layout, numElements);
 	if(use_index){
-		createVertexBuffer(vertices, mesh->vertexNum);
+		createVertexBuffer(vertices, mesh->vertexNum, 40 * 4);
 		createIndexBuffer(mesh->indexList, mesh->indexNum);
 	}else{
-		createVertexBuffer(vertices, mesh->indexNum);
+		createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
 	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createSamplerState();
+	createDepthState();
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 	createTexture(getFullPathW("assets/a_02.dds").c_str());
 

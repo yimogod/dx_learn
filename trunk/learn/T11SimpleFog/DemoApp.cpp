@@ -55,6 +55,7 @@ bool DemoApp::loadContent(){
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_fogBuff, sizeof(FogBuffer));
 	createSamplerState();
+	createDepthState();
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);

@@ -110,8 +110,7 @@ bool BaseApp::createDevice(){
 	hr = _device->CreateRenderTargetView(_backBuffer, nullptr, &_backBuffView);
 	if(FAILED(hr))return false;
 
-	//_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
-	_context->OMSetRenderTargets(1, &_backBuffView, 0);
+	_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
 
 	/*ÉèÖÃviewport*/
 	D3D11_VIEWPORT vp;
@@ -342,14 +341,38 @@ bool BaseApp::createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT
 	return true;
 }
 
+bool BaseApp::createDepthState(){
+	D3D11_DEPTH_STENCIL_DESC dsd;
+	ZeroMemory(&dsd, sizeof(dsd));
+	dsd.DepthEnable = true;
+	dsd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	dsd.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+	
+	dsd.StencilEnable = false;
+	dsd.StencilReadMask = D3D11_DEFAULT_STENCIL_READ_MASK;
+	dsd.StencilWriteMask = D3D11_DEFAULT_STENCIL_WRITE_MASK;
+
+	dsd.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	dsd.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	dsd.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	dsd.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+	dsd.BackFace = dsd.FrontFace;
+
+	HRESULT hr = _device->CreateDepthStencilState(&dsd, &_depthStencilState);
+	if(FAILED(hr))return false;
+
+	_context->OMSetDepthStencilState(_depthStencilState, 0);
+	return true;
+}
+
 bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs){
 	D3D11_RASTERIZER_DESC rsd;
 	ZeroMemory(&rsd, sizeof(D3D11_RASTERIZER_DESC));
 
 	rsd.FillMode = fillmode;
-	rsd.CullMode = D3D11_CULL_BACK;
+	//rsd.CullMode = D3D11_CULL_BACK;
 	//rsd.CullMode = D3D11_CULL_FRONT;
-	//rsd.CullMode = D3D11_CULL_NONE;
+	rsd.CullMode = D3D11_CULL_NONE;
 	rsd.FrontCounterClockwise = true;
 	rsd.DepthClipEnable = true;
 	rsd.DepthBias = 0;
@@ -447,7 +470,7 @@ bool BaseApp::createSamplerState(){
 	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	HRESULT hr = _device->CreateSamplerState(&sampDesc, &_sampleState);

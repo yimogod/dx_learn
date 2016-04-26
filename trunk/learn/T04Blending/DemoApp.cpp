@@ -45,13 +45,13 @@ bool DemoApp::loadContent(){
 
 	createDevice();
 	createDXInput();
-	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 	createRasterizerState(D3D11_FILL_SOLID, _solidRS);
 	createShader(vs, ps, layout, numElements);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 
 	createBlendState();
 	createSamplerState();
+	createDepthState();
 
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 	createTexture(getFullPathW("assets/t_02.dds").c_str());
@@ -97,14 +97,14 @@ void DemoApp::render(){
 	/*处理第一个mesh*/
 	Mesh* mesh = _scene.getMesh(0);
 	_context->PSSetShaderResources(0, 1, &_resView[0]);
-	createVertexBuffer(_vertices_1, mesh->indexNum);
+	createVertexBuffer(_vertices_1, mesh->indexNum, 40 * 4);
 	_context->Draw(mesh->indexNum, 0);
 
 
 	/*处理第二个mesh*/
 	mesh = _scene.getMesh(1);
 	_context->PSSetShaderResources(0, 1, &_resView[1]);
-	createVertexBuffer(_vertices_2, mesh->indexNum);
+	createVertexBuffer(_vertices_2, mesh->indexNum, 40 * 4);
 	_context->Draw(mesh->indexNum, 0);
 
 	_chain->Present(0, 0);

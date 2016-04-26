@@ -52,8 +52,9 @@ bool DemoApp::loadContent(){
 	createDevice();
 	
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum);
+	createVertexBuffer(vertices, mesh->indexNum, 32 * 4);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
+	createDepthState();
 	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 
 	delete(vertices);

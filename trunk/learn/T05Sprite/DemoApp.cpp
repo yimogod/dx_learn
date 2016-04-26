@@ -79,6 +79,7 @@ bool DemoApp::loadContent(){
 	createVertexBuffer(vertices, mesh->indexNum, 40* 4);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createSamplerState();
+	createDepthState();
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);

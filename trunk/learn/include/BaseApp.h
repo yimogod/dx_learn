@@ -63,6 +63,7 @@ protected:
 	/*模板视图*/
 	ID3D11Texture2D* _depthStencilBuffer;
 	ID3D11DepthStencilView* _depthStencilView;
+	ID3D11DepthStencilState* _depthStencilState;
 
 	/*光栅化状态*/
 	ID3D11RasterizerState* _wireframeRS;
@@ -93,6 +94,7 @@ protected:
 	bool createIndexBuffer(unsigned short* indexList, int indexNum);
 	void bindIndexBuff();
 	bool createConstBuffer(ID3D11Buffer** constBuff, int byteWidth);
+	bool createDepthState();
 	bool createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs);
 	bool createBlendState();
 	bool createSamplerState();
