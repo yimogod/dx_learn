@@ -88,7 +88,7 @@ protected:
 
 	bool createDevice();
 	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
-	bool createVertexBuffer(Vertex *vertices, int indexNum);
+	bool createVertexBuffer(Vertex *vertices, int vertNum, int vertSize);
 	void bindVertexBuff();
 	bool createIndexBuffer(unsigned short* indexList, int indexNum);
 	void bindIndexBuff();

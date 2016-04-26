@@ -1,47 +1,22 @@
-#include <DirectXMath.h>
-#include <DirectXColors.h>
 #include <dinput.h>
-
+#include <DirectXMath.h>
+#include <util/ObjParser.h>
+#include <DirectXColors.h>
+#include <graphics/Mesh.h>
 #include "DemoApp.h"
 
 using namespace DirectX;
 
-DemoApp::DemoApp(){}
+DemoApp::DemoApp(){
+}
 
-DemoApp::~DemoApp(){}
+DemoApp::~DemoApp(){
+}
 
 bool DemoApp::loadContent(){
-	Mesh *m = new Mesh();
-	m->setWorldPos(0, 0, 0.0f);
-	m->vertexNum = 4;
-	m->vertexList[0] = Vector3D(-1.0f, 1.0f, 0.0f);
-	m->vertexList[1] = Vector3D(-1.0f, -1.0f, 0.0f);
-	m->vertexList[2] = Vector3D(1.0f, -1.0f, 0.0f);
-	m->vertexList[3] = Vector3D(1.0f, 1.0f, 0.0f);
-
-	m->uvNum = 4;
-	m->uvList[0] = Vector2D(0, 0);
-	m->uvList[1] = Vector2D(0, 1.0f);
-	m->uvList[2] = Vector2D(1.0f, 1.0f);
-	m->uvList[3] = Vector2D(1.0f, 0);
-
-	m->indexNum = 6;
-	m->indexList[0] = 1;
-	m->indexList[1] = 0;
-	m->indexList[2] = 2;
-	m->indexList[3] = 2;
-	m->indexList[4] = 0;
-	m->indexList[5] = 3;
-
-	m->uvIndexList[0] = 1;
-	m->uvIndexList[1] = 0;
-	m->uvIndexList[2] = 2;
-	m->uvIndexList[3] = 2;
-	m->uvIndexList[4] = 0;
-	m->uvIndexList[5] = 3;
-
-	_scene.meshList[0] = m;
-	_scene.meshNum = 1;
+	ObjParser reader;
+	reader.read(getFullPath("assets/cube.obj").c_str(), &_scene);
+	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
 	_scene.camera = new Camera();
 	_scene.camera->setPos(0, 0, -2.0f);
@@ -56,11 +31,11 @@ bool DemoApp::loadContent(){
 
 	/*准备shader数据*/
 	CreateShaderInfo vs;
-	vs.fileName = L"shader/sprite.fx";
+	vs.fileName = L"shader/linear_fog.fx";
 	vs.entryPoint = "VS";
 	vs.shaderModel = "vs_4_0";
 	CreateShaderInfo ps;
-	ps.fileName = L"shader/sprite.fx";
+	ps.fileName = L"shader/linear_fog.fx";
 	ps.entryPoint = "PS";
 	ps.shaderModel = "ps_4_0";
 
@@ -76,8 +51,9 @@ bool DemoApp::loadContent(){
 	createDXInput();
 
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum, 40* 4);
+	createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
+	createConstBuffer(&_fogBuff, sizeof(FogBuffer));
 	createSamplerState();
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 
@@ -98,21 +74,25 @@ void DemoApp::update(){
 	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
 	cb.perspective = _scene.camera->getCameraToProjMatrix().transpose();
 	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+
+	FogBuffer fb;
+	fb.fogMaxDis = 8.0f;
+	fb.fogMinDis = 2.0f;
+	_context->UpdateSubresource(_fogBuff, 0, nullptr, &fb, 0, 0);
 }
 
 void DemoApp::render(){
 	if(_context == NULL)return;
 	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-
 	bindVertexBuff();
 
 	_context->VSSetShader(_vs, nullptr, 0);
-	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetSamplers(0, 1, &_sampleState);
-
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
+	_context->VSSetConstantBuffers(1, 1, &_fogBuff);
+	_context->PSSetShader(_ps, nullptr, 0);
 	_context->PSSetShaderResources(0, _resViewNum, _resView);
+	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	Mesh *m = _scene.getMesh(0);
 	_context->Draw(m->indexNum, 0);

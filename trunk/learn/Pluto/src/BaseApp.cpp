@@ -110,7 +110,7 @@ bool BaseApp::createDevice(){
 	hr = _device->CreateRenderTargetView(_backBuffer, nullptr, &_backBuffView);
 	if(FAILED(hr))return false;
 
-	_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
+	_context->OMSetRenderTargets(1, &_backBuffView, 0);
 
 	/*设置viewport*/
 	D3D11_VIEWPORT vp;
@@ -230,12 +230,12 @@ HRESULT BaseApp::compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
 	return S_OK;
 }
 
-bool BaseApp::createVertexBuffer(Vertex *vertices, int vertNum){
+bool BaseApp::createVertexBuffer(Vertex *vertices, int vertNum, int vertSize){
 	/*设置buff desc*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(Vertex) * vertNum;//数据总长度
+	bd.ByteWidth = vertSize * vertNum;//数据总长度
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = NULL;
 

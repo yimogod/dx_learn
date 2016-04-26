@@ -75,7 +75,7 @@ bool DemoApp::loadContent(){
 	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
 
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum);
+	createVertexBuffer(vertices, mesh->indexNum, 56 * 4);
 
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
