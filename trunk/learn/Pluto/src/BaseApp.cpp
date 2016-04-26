@@ -9,8 +9,7 @@
 #pragma comment (lib, "libfbxsdk.lib")
 //#pragma comment(lib, "dinput8.lib")
 //#pragma comment(lib, "dxguid.lib")
-
-#define DIRECTINPUT_VERSION 0x0800
+//#define DIRECTINPUT_VERSION 0x0800
 
 using namespace DirectX;
 
@@ -92,7 +91,7 @@ bool BaseApp::createDevice(){
 
 	/*创建深度/模板缓存*/
 	hr = _device->CreateTexture2D(&td, nullptr, &_depthStencilBuffer);
-	if(FAILED(hr))return hr;
+	if(FAILED(hr))return false;
 
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
 	ZeroMemory(&dsvd, sizeof(dsvd));
@@ -100,7 +99,7 @@ bool BaseApp::createDevice(){
 	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	dsvd.Texture2D.MipSlice = 0;
 	hr = _device->CreateDepthStencilView(_depthStencilBuffer, &dsvd, &_depthStencilView);
-	if(FAILED(hr))return hr;
+	if(FAILED(hr))return false;
 
 	/*创建back buff*/
 	_backBuffer = nullptr;
@@ -109,7 +108,7 @@ bool BaseApp::createDevice(){
 
 	/*创建render target*/
 	hr = _device->CreateRenderTargetView(_backBuffer, nullptr, &_backBuffView);
-	if(FAILED(hr))return hr;
+	if(FAILED(hr))return false;
 
 	_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
 
@@ -122,6 +121,8 @@ bool BaseApp::createDevice(){
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
 	_context->RSSetViewports(1, &vp);
+
+	return true;
 }
 
 bool BaseApp::loadContent(){
@@ -251,6 +252,9 @@ bool BaseApp::createVertexBuffer(Vertex *vertices, int vertNum){
 }
 
 void BaseApp::bindVertexBuff(){
+	/*设置 layout*/
+	_context->IASetInputLayout(_vertexLayout);
+
 	/*设置当前vertex buff*/
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
@@ -320,9 +324,6 @@ bool BaseApp::createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT
 	pVSBlob->Release();
 	if(FAILED(hr))return false;
 
-	/*设置 layout*/
-	_context->IASetInputLayout(_vertexLayout);
-
 	/*编译shader*/
 	ID3DBlob* pPSBlob = nullptr;
 	hr = compileShaderFromFile(ps.fileName, ps.entryPoint, ps.shaderModel, &pPSBlob);
@@ -348,7 +349,7 @@ bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerSt
 	rsd.CullMode = D3D11_CULL_BACK;
 	//rsd.CullMode = D3D11_CULL_FRONT;
 	//rsd.CullMode = D3D11_CULL_NONE;
-	rsd.FrontCounterClockwise = false;
+	rsd.FrontCounterClockwise = true;
 	rsd.DepthClipEnable = true;
 	rsd.DepthBias = 0;
 	rsd.DepthBiasClamp = 0.0f;
@@ -511,17 +512,17 @@ bool BaseApp::createDXInput(){
 
 bool BaseApp::isKeyDown(char keycode){
 	char a = _keyboardBuff[keycode];
-	return a & 0x80;
+	return (a & 0x80) != 0;
 }
 
 bool BaseApp::isLMouseDown(){
 	char a = _mouseState.abButtons[0];
-	return a & 0x80;
+	return (a & 0x80) != 0;
 }
 
 bool BaseApp::isRMouseDown(){
 	char a = _mouseState.abButtons[1];
-	return a & 0x80;
+	return (a & 0x80) != 0;
 }
 
 
