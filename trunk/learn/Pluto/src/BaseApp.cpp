@@ -110,6 +110,7 @@ bool BaseApp::createDevice(){
 	hr = _device->CreateRenderTargetView(_backBuffer, nullptr, &_backBuffView);
 	if(FAILED(hr))return false;
 
+	//_context->OMSetRenderTargets(1, &_backBuffView, _depthStencilView);
 	_context->OMSetRenderTargets(1, &_backBuffView, 0);
 
 	/*ÉèÖÃviewport*/
@@ -446,7 +447,7 @@ bool BaseApp::createSamplerState(){
 	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	HRESULT hr = _device->CreateSamplerState(&sampDesc, &_sampleState);
