@@ -56,9 +56,9 @@ protected:
 	IDXGISwapChain* _chain;
 
 	/*缓存视图*/
-	ID3D11Texture2D* _backBuffer;
-	ID3D11RenderTargetView* _backBuffView;
-	ID3D11ShaderResourceView* _backBuffResView;
+	ID3D11Texture2D* _renderTargetBuffer;
+	ID3D11RenderTargetView* _renderTargetView;
+	ID3D11ShaderResourceView* _renderTargetResView;
 
 	/*模板视图*/
 	ID3D11Texture2D* _depthStencilBuffer;
@@ -69,7 +69,8 @@ protected:
 	ID3D11RasterizerState* _wireframeRS;
 	ID3D11RasterizerState* _solidRS;
 	/*混合状态*/
-	ID3D11BlendState* _blendState;
+	ID3D11BlendState* _blendEnableState;
+	ID3D11BlendState* _blendDisableState;
 	/*采样状态*/
 	ID3D11SamplerState* _sampleState;
 
@@ -87,22 +88,43 @@ protected:
 	int _resViewNum = 0;
 	ID3D11ShaderResourceView* _resView[8];
 
+	void initDevice();
+	void initDevice_v2();
+
 	bool createDevice();
+	
+	/*创建输入设备*/
+	bool createDXInput();
+	
+	/*创建深度缓存*/
+	bool createDepthStencilView();
+	
+	/*创建渲染视图*/
+	bool createRenderTargetlView();
+
+	/*创建视口*/
+	void createViewPort();
+
+	/*创建shader使用的texture2d*/
+	bool createRenderTargetViewByShaderRes();
+
 	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
 	bool createVertexBuffer(Vertex *vertices, int vertNum, int vertSize);
 	void bindVertexBuff();
 	bool createIndexBuffer(unsigned short* indexList, int indexNum);
 	void bindIndexBuff();
 	bool createConstBuffer(ID3D11Buffer** constBuff, int byteWidth);
+
 	bool createDepthState();
 	bool createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs);
-	bool createBlendState();
+	
+	/*默认创建开启和关闭的blendstate*/
+	void createAlphaBlendState();
+	void enableAlphaBlend();
+	void disableAlphaBlend();
+	
 	bool createSamplerState();
 	bool createTexture(const wchar_t* path);
-	bool createDXInput();
-
-	/*创建shader使用的texture2d*/
-	bool createRenderTargetWithShaderResView();
 
 protected:
 	/*dx input*/

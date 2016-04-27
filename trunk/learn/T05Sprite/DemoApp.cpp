@@ -11,6 +11,8 @@ DemoApp::DemoApp(){}
 DemoApp::~DemoApp(){}
 
 bool DemoApp::loadContent(){
+	initDevice();
+
 	Mesh *m = new Mesh();
 	m->setWorldPos(0, 0, 0.0f);
 	m->vertexNum = 4;
@@ -71,15 +73,10 @@ bool DemoApp::loadContent(){
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	int numElements = ARRAYSIZE(layout);
-
-	createDevice();
-	createDXInput();
-
 	createShader(vs, ps, layout, numElements);
 	createVertexBuffer(vertices, mesh->indexNum, 40* 4);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createSamplerState();
-	createDepthState();
+	
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);
@@ -103,7 +100,7 @@ void DemoApp::update(){
 
 void DemoApp::render(){
 	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
+	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 	bindVertexBuff();

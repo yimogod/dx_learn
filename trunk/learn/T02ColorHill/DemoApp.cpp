@@ -49,12 +49,11 @@ bool DemoApp::loadContent(){
 	};
 	int numElements = ARRAYSIZE(layout);
 
-	createDevice();
+	initDevice();
 	
 	createShader(vs, ps, layout, numElements);
 	createVertexBuffer(vertices, mesh->indexNum, 32 * 4);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createDepthState();
 	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 
 	delete(vertices);
@@ -79,7 +78,7 @@ void DemoApp::update(){
 
 void DemoApp::render(){
 	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
+	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	bindVertexBuff();
 

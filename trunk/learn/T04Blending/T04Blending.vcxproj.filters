@@ -10,11 +10,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shader\Triangle.fx">
-      <Filter>shader</Filter>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="directx.ico">
       <Filter>Resource Files</Filter>
     </Image>
@@ -32,5 +27,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DemoApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader\blending.fx">
+      <Filter>shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

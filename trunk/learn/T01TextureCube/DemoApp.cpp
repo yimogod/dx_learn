@@ -45,10 +45,7 @@ bool DemoApp::loadContent(){
 	};
 	int numElements = ARRAYSIZE(layout);
 
-	createDevice();
-	createDXInput();
-	createSamplerState();
-	createDepthState();
+	initDevice();
 
 	createShader(vs, ps, layout, numElements);
 	createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
@@ -77,7 +74,7 @@ void DemoApp::update(){
 void DemoApp::render(){
 	if(_context == NULL)return;
 
-	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
+	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	bindVertexBuff();
 

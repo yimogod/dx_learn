@@ -13,6 +13,8 @@ DemoApp::~DemoApp(){}
 static bool use_index = false;
 
 bool DemoApp::loadContent(){
+	initDevice();
+
 	Mesh *m = new Mesh();
 	m->setWorldPos(0, 0, 0.0f);
 	m->vertexNum = 4;
@@ -79,9 +81,6 @@ bool DemoApp::loadContent(){
 	};
 	int numElements = ARRAYSIZE(layout);
 
-	createDevice();
-	createDXInput();
-
 	createShader(vs, ps, layout, numElements);
 	if(use_index){
 		createVertexBuffer(vertices, mesh->vertexNum, 40 * 4);
@@ -90,8 +89,6 @@ bool DemoApp::loadContent(){
 		createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
 	}
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createSamplerState();
-	createDepthState();
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 	createTexture(getFullPathW("assets/a_02.dds").c_str());
 
@@ -117,7 +114,7 @@ void DemoApp::update(){
 
 void DemoApp::render(){
 	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
+	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	bindVertexBuff();
 

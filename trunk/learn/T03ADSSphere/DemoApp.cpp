@@ -12,7 +12,7 @@ DemoApp::DemoApp(){}
 DemoApp::~DemoApp(){}
 
 bool DemoApp::loadContent(){
-	createDXInput();
+	initDevice();
 
 	ObjParser reader;
 	reader.read(getFullPath("assets/cube.obj").c_str(), &_scene);
@@ -67,20 +67,13 @@ bool DemoApp::loadContent(){
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 40, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
+
 	int numElements = ARRAYSIZE(layout);
-
-	createDevice();
-	
-	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
-	//createRasterizerState(D3D11_FILL_SOLID, _wireframeRS);
-
 	createShader(vs, ps, layout, numElements);
 	createVertexBuffer(vertices, mesh->indexNum, 56 * 4);
 
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
-	createSamplerState();
-	createDepthState();
 
 	createTexture(getFullPathW("assets/t_02.dds").c_str());
 	
@@ -138,7 +131,7 @@ void DemoApp::update(){
 
 void DemoApp::render(){
 	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_backBuffView, Colors::MidnightBlue);
+	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	bindVertexBuff();
