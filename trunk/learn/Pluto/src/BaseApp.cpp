@@ -56,6 +56,10 @@ void BaseApp::initDevice_v2(){
 	createRenderTargetViewByShaderRes();
 	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
 	createViewPort();
+	createDXInput();
+
+	createSamplerState();
+	createDepthState();
 }
 
 

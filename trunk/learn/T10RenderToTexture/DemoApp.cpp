@@ -14,6 +14,8 @@ DemoApp::~DemoApp(){
 }
 
 bool DemoApp::loadContent(){
+	initDevice_v2();
+
 	ObjParser reader;
 	reader.read(getFullPath("assets/cube.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
@@ -46,15 +48,11 @@ bool DemoApp::loadContent(){
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	int numElements = ARRAYSIZE(layout);
-
-	createDevice();
-	createDXInput();
-
+	bindVertexBuff();
 	createShader(vs, ps, layout, numElements);
 	createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createSamplerState();
-	createDepthState();
+
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);
@@ -78,9 +76,12 @@ void DemoApp::update(){
 
 void DemoApp::render(){
 	if(_context == NULL)return;
+	
+	//render to texture
+	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
 	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	bindVertexBuff();
+	
 
 	_context->VSSetShader(_vs, nullptr, 0);
 	_context->VSSetConstantBuffers(0, 1, &_constBuff);
@@ -91,5 +92,14 @@ void DemoApp::render(){
 	Mesh *m = _scene.getMesh(0);
 	_context->Draw(m->indexNum, 0);
 
+	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
+	_context->Draw(m->indexNum, 0);
+
+	//¹Ø±Õz-buff
+	_context->OMSetDepthStencilState(_depthStencilState, 1);
+
+
+
+	_context->OMSetDepthStencilState(_depthStencilState, 1);
 	_chain->Present(0, 0);
 }
