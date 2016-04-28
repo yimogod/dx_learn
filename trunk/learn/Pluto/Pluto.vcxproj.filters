@@ -79,6 +79,9 @@
     <ClCompile Include="src\math\algebra\Vector3D.cpp">
       <Filter>math\algebra</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\GeoCreater.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -148,6 +151,9 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics\Vertex.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\GeoCreater.h">
       <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>

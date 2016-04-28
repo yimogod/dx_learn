@@ -475,8 +475,8 @@ void BaseApp::createAlphaBlendState(){
 	bsr.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 	bsr.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 
-	bsr.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_SRC_ALPHA;
-	bsr.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
+	bsr.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	bsr.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 	bsr.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 
 	bsr.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;//0x0f;
@@ -488,20 +488,12 @@ void BaseApp::createAlphaBlendState(){
 }
 
 void BaseApp::enableAlphaBlend(){
-	float blendFactor[4];
-	blendFactor[0] = 0.0f;
-	blendFactor[1] = 0.0f;
-	blendFactor[2] = 0.0f;
-	blendFactor[3] = 0.0f;
+	float blendFactor[4] = {0, 0, 0, 0};
 	_context->OMSetBlendState(_blendEnableState, blendFactor, D3D11_DEFAULT_SAMPLE_MASK);
 }
 
 void BaseApp::disableAlphaBlend(){
-	float blendFactor[4];
-	blendFactor[0] = 0.0f;
-	blendFactor[1] = 0.0f;
-	blendFactor[2] = 0.0f;
-	blendFactor[3] = 0.0f;
+	float blendFactor[4] = { 0, 0, 0, 0 };
 	_context->OMSetBlendState(_blendDisableState, blendFactor, D3D11_DEFAULT_SAMPLE_MASK);
 }
 
