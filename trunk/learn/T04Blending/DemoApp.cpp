@@ -69,7 +69,7 @@ bool DemoApp::loadContent(){
 	mesh = _scene.getMesh(1);
 	_vertices_2 = new Vertex[mesh->indexNum];
 	mesh->getVertexList(_vertices_2);
-	//createVertexBuffer(_vertices_2, mesh->indexNum * 40 * 4, _vertBuff_2);
+	createVertexBuffer(_vertices_2, mesh->indexNum * 40 * 4, &_vertBuff_2);
 
 	return true;
 }
@@ -100,20 +100,22 @@ void DemoApp::render(){
 	_context->PSSetShader(_ps, nullptr, 0);
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
-	/*处理第一个mesh*/
-	//enableAlphaBlend();
-	Mesh* mesh = _scene.getMesh(0);
+	Mesh* mesh;
+
+	/*处理第二个mesh, 先画远处的, 不透明的, 这个不透明的就是透明的dest*/
+	disableAlphaBlend();
+	mesh = _scene.getMesh(1);
+	_context->PSSetShaderResources(0, 1, &_resView[1]);
+	bindVertexBuff(_vertBuff_2);
+	_context->Draw(mesh->indexNum, 0);
+
+
+	/*处理第一个mesh, 再修正为透明模式, 绘制透明的, 透明的就是src*/
+	enableAlphaBlend();
+	mesh = _scene.getMesh(0);
 	_context->PSSetShaderResources(0, 1, &_resView[0]);
 	bindVertexBuff();
 	_context->Draw(mesh->indexNum, 0);
-
-	/*处理第二个mesh*/
-	//mesh = _scene.getMesh(1);
-	//_context->PSSetShaderResources(0, 1, &_resView[0]);
-	//createVertexBuffer(_vertices_2, mesh->indexNum, 40 * 4);
-	//bindVertexBuff();
-	//_context->Draw(mesh->indexNum, 0);
-	//disableAlphaBlend();
 
 	_chain->Present(0, 0);
 }
