@@ -308,11 +308,15 @@ HRESULT BaseApp::compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
 }
 
 bool BaseApp::createVertexBuffer(Vertex *vertices, int vertNum, int vertSize){
+	return createVertexBuffer(vertices, vertNum * vertSize, &_vertexBuff);
+}
+
+bool BaseApp::createVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff){
 	/*设置buff desc*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = vertSize * vertNum;//数据总长度
+	bd.ByteWidth = byteWidth;//数据总长度
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = NULL;
 
@@ -322,20 +326,24 @@ bool BaseApp::createVertexBuffer(Vertex *vertices, int vertNum, int vertSize){
 	InitData.pSysMem = vertices;
 
 	/*创建vertex buff*/
-	HRESULT hr = _device->CreateBuffer(&bd, &InitData, &_vertexBuff);
+	HRESULT hr = _device->CreateBuffer(&bd, &InitData, vertexBuff);
 	if(FAILED(hr))return false;
 
 	return true;
 }
 
 void BaseApp::bindVertexBuff(){
+	bindVertexBuff(_vertexBuff);
+}
+
+void BaseApp::bindVertexBuff(ID3D11Buffer* vertexBuff){
 	/*设置 layout*/
 	_context->IASetInputLayout(_vertexLayout);
 
 	/*设置当前vertex buff*/
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
-	_context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
+	_context->IASetVertexBuffers(0, 1, &vertexBuff, &stride, &offset);
 
 	/*设置三角形排列方式, 即顶点拓扑方式*/
 	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

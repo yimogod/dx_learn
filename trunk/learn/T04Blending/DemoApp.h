@@ -20,9 +20,10 @@ public:
 	void update();
 	void render();
 
-public:
+private:
 	Vertex* _vertices_1;
 	Vertex* _vertices_2;
+	ID3D11Buffer* _vertBuff_2;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,

@@ -22,19 +22,19 @@ public:
 	int state;
 
 	/*顶点个数*/
-	unsigned short vertexNum = 0;
+	int vertexNum = 0;
 	Vector3D vertexList[128];
 	/* vertex color, each vertex has its color */
 	Color vertexColorList[128];
 
 	/*S, T, S, T, S, T, 贴图数据列表*/
-	unsigned short uvNum = 0;
+	int uvNum = 0;
 	Vector2D uvList[256];
 
 	/* 顶点索引和uv坐标索引 */
-	unsigned short indexNum = 0;
-	unsigned short indexList[512];
-	unsigned short uvIndexList[512];
+	int indexNum = 0;
+	int indexList[512];
+	int uvIndexList[512];
 	/*顶点面法线, 法线数等于索引数量, 或者顶点法线, 数量等于定点数*/
 	Vector3D normalList[512];
 	/*顶点法线, 切线数等于索引数量*/

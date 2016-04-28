@@ -110,7 +110,9 @@ protected:
 
 	bool createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
 	bool createVertexBuffer(Vertex *vertices, int vertNum, int vertSize);
+	bool createVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff);
 	void bindVertexBuff();
+	void bindVertexBuff(ID3D11Buffer* vertexBuff);
 	bool createIndexBuffer(unsigned short* indexList, int indexNum);
 	void bindIndexBuff();
 	bool createConstBuffer(ID3D11Buffer** constBuff, int byteWidth);

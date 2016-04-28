@@ -2,6 +2,7 @@
 #include <DirectXColors.h>
 #include <dinput.h>
 #include <util/ObjParser.h>
+#include <graphics/GeoCreater.h>
 
 #include "DemoApp.h"
 
@@ -15,12 +16,18 @@ bool DemoApp::loadContent(){
 	initDevice();
 
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
-	ObjParser reader;
-	reader.read(getFullPath("assets/cube.obj").c_str(), &_scene);
-	reader.read(getFullPath("assets/sphere.obj").c_str(), &_scene);
 
-	_scene.getMesh(0)->setWorldPos(0.0, 0.0f, 2.0f);
-	_scene.getMesh(1)->setWorldPos(1.0f, 0.0f, 10.0f);
+	Mesh *m = new Mesh();
+	m->setWorldPos(0, 0, 2.0f);
+	GeoCreater::createSprite(m);
+	_scene.meshList[0] = m;
+
+	m = new Mesh();
+	m->setWorldPos(1.0f, 0, 10.0f);
+	GeoCreater::createSprite(m);
+	_scene.meshList[1] = m;
+
+	_scene.meshNum = 2;
 
 	_scene.camera = new Camera();
 	_scene.camera->setPos(0, 0, -10.0f);
@@ -57,10 +64,12 @@ bool DemoApp::loadContent(){
 	Mesh* mesh = _scene.getMesh(0);
 	_vertices_1 = new Vertex[mesh->indexNum];
 	mesh->getVertexList(_vertices_1);
-	
+	createVertexBuffer(_vertices_1, mesh->indexNum, 40 * 4);
+
 	mesh = _scene.getMesh(1);
 	_vertices_2 = new Vertex[mesh->indexNum];
 	mesh->getVertexList(_vertices_2);
+	//createVertexBuffer(_vertices_2, mesh->indexNum * 40 * 4, _vertBuff_2);
 
 	return true;
 }
@@ -92,20 +101,19 @@ void DemoApp::render(){
 	_context->PSSetSamplers(0, 1, &_sampleState);
 
 	/*处理第一个mesh*/
+	//enableAlphaBlend();
 	Mesh* mesh = _scene.getMesh(0);
 	_context->PSSetShaderResources(0, 1, &_resView[0]);
-	createVertexBuffer(_vertices_1, mesh->indexNum, 40 * 4);
 	bindVertexBuff();
 	_context->Draw(mesh->indexNum, 0);
-	enableAlphaBlend();
 
 	/*处理第二个mesh*/
-	mesh = _scene.getMesh(1);
-	_context->PSSetShaderResources(0, 1, &_resView[1]);
-	createVertexBuffer(_vertices_2, mesh->indexNum, 40 * 4);
-	bindVertexBuff();
-	_context->Draw(mesh->indexNum, 0);
-	disableAlphaBlend();
+	//mesh = _scene.getMesh(1);
+	//_context->PSSetShaderResources(0, 1, &_resView[0]);
+	//createVertexBuffer(_vertices_2, mesh->indexNum, 40 * 4);
+	//bindVertexBuff();
+	//_context->Draw(mesh->indexNum, 0);
+	//disableAlphaBlend();
 
 	_chain->Present(0, 0);
 }

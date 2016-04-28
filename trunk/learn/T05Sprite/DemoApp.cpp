@@ -50,7 +50,7 @@ bool DemoApp::loadContent(){
 	};
 	int numElements = ARRAYSIZE(layout);
 	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum, 40* 4);
+	createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
 	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	
 	createTexture(getFullPathW("assets/t_01.dds").c_str());
