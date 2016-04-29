@@ -2,18 +2,26 @@
 #include <windows.h>
 #include <BaseApp.h>
 #include <sys/Window.h>
+#include <sys/App.h>
+
+using namespace plu;
 
 struct MainInfo{
-	BaseApp* app;
+	Window* app;
 	LPCWSTR title;
 	LPCWSTR icon;
 	int width;
 	int height;
 };
 
+/*全局变量声明*/
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
+Window* _window;
 
+/*函数声明*/
+void Extract(LPARAM lParam, int& x, int& y);
+void Extract(WPARAM wParam, int& x, int& y);
 
 HRESULT InitWindow(HINSTANCE, int, LPCWSTR, LPCWSTR, int, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -22,7 +30,7 @@ int MainBody(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR lpCmdLine,
 	_In_ int nCmdShow, MainInfo info);
 
-
+/*函数定义*/
 int MainBody(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPWSTR lpCmdLine,
@@ -35,13 +43,13 @@ int MainBody(_In_ HINSTANCE hInstance,
 	hr = InitWindow(hInstance, nCmdShow, info.title, info.icon, info.width, info.height);
 	if(FAILED(hr))return NULL;
 
-	BaseApp* app = info.app;
+	_window = info.app;
 
 	/*初始化d3d设备*/
-	hr = app->init(hInstance, g_hWnd);
+	hr = _window->init(hInstance, g_hWnd);
 
 	if(FAILED(hr)){
-		app->destroy();
+		_window->destroy();
 		return NULL;
 	}
 
@@ -52,11 +60,10 @@ int MainBody(_In_ HINSTANCE hInstance,
 			DispatchMessage(&msg);
 		}
 
-		app->update();
-		app->render();
+		_window->update();
 	}
 
-	app->destroy();
+	_window->destroy();
 
 	return (int)msg.wParam;
 }
@@ -110,7 +117,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	case WM_KEYDOWN:{
+	case WM_KEYDOWN:
 		// Get the virtual key code.
 		int key = (int)wParam;
 
@@ -120,110 +127,78 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 			return 0;
 		}
 
-		// Get the cursor position in client coordinates.
-		POINT point;
-		GetCursorPos(&point);
-		ScreenToClient(handle, &point);
-		int x = (int)point.x;
-		int y = (int)point.y;
+		_window->OnKeyDown(key);
+		break;
 
-		window.OnKeyDown(key, x, y);
-		return 0;
-	}
-	case WM_KEYUP:{
+	case WM_KEYUP:
 		// Get the virtual key code.
 		int key = (int)wParam;
+		_window->OnKeyUp(key);
+		break;
 
-		// Get the cursor position in client coordinates.
-		POINT point;
-		GetCursorPos(&point);
-		ScreenToClient(handle, &point);
-		int x = (int)point.x;
-		int y = (int)point.y;
-
-		window.OnKeyUp(key, x, y);
-		return 0;
-	}
-	case WM_LBUTTONDOWN:{
+	case WM_LBUTTONDOWN:
 		// Get the modifier flags.
 		unsigned int modifiers = (unsigned int)wParam;
 
 		// Get the cursor position in client coordinates.
 		int x, y;
 		Extract(lParam, x, y);
-
-		window.OnMouseClick(Window::MOUSE_LEFT, Window::MOUSE_DOWN,
-			x, y, modifiers);
-		return 0;
-	}
-	case WM_LBUTTONUP:{
-		// Get the modifier flags.
+		_window->OnMouseClick(App::MOUSE_LEFT, App::MOUSE_DOWN,	x, y, modifiers);
+		break;
+	
+	case WM_LBUTTONUP:
 		unsigned int modifiers = (unsigned int)wParam;
 
-		// Get the cursor position in client coordinates.
+		int x, y;
+		Extract(lParam, x, y);
+		_window->OnMouseClick(App::MOUSE_LEFT, App::MOUSE_UP, x, y, modifiers);
+		break;
+	
+	case WM_RBUTTONDOWN:
+		unsigned int modifiers = (unsigned int)wParam;
+
+		int x, y;
+		Extract(lParam, x, y);
+		_window->OnMouseClick(App::MOUSE_RIGHT, App::MOUSE_DOWN, x, y, modifiers);
+		break;
+	
+	case WM_RBUTTONUP:
+		unsigned int modifiers = (unsigned int)wParam;
+
 		int x, y;
 		Extract(lParam, x, y);
 
-		window.OnMouseClick(Window::MOUSE_LEFT, Window::MOUSE_UP,
-			x, y, modifiers);
-		return 0;
-	}
-	case WM_RBUTTONDOWN:{
-		// Get the modifier flags.
+		_window->OnMouseClick(App::MOUSE_RIGHT, App::MOUSE_UP, x, y, modifiers);
+		break;
+	
+	case WM_MOUSEMOVE:
 		unsigned int modifiers = (unsigned int)wParam;
 
-		// Get the cursor position in client coordinates.
 		int x, y;
 		Extract(lParam, x, y);
 
-		window.OnMouseClick(Window::MOUSE_RIGHT, Window::MOUSE_DOWN,
-			x, y, modifiers);
-		return 0;
-	}
-	case WM_RBUTTONUP:{
-		// Get the modifier flags.
-		unsigned int modifiers = (unsigned int)wParam;
+		App::MouseButton button;
 
-		// Get the cursor position in client coordinates.
-		int x, y;
-		Extract(lParam, x, y);
+		if(wParam & MK_LBUTTON)button = App::MOUSE_LEFT;
+		else if(wParam & MK_RBUTTON)button = App::MOUSE_RIGHT;
+		else button = App::MOUSE_NONE;
 
-		window.OnMouseClick(Window::MOUSE_RIGHT, Window::MOUSE_UP,
-			x, y, modifiers);
-		return 0;
-	}
-	case WM_MOUSEMOVE:{
-		// Get the modifier flags.
-		unsigned int modifiers = (unsigned int)wParam;
-
-		// Get the cursor position in client coordinates.
-		int x, y;
-		Extract(lParam, x, y);
-
-		Window::MouseButton button;
-		if(wParam & MK_LBUTTON)
-		{
-			button = Window::MOUSE_LEFT;
-		}
-		else if(wParam & MK_MBUTTON)
-		{
-			button = Window::MOUSE_MIDDLE;
-		}
-		else if(wParam & MK_RBUTTON)
-		{
-			button = Window::MOUSE_RIGHT;
-		}
-		else
-		{
-			button = Window::MOUSE_NONE;
-		}
-
-		window.OnMouseMotion(button, x, y, modifiers);
-		return 0;
-	}
+		_window->OnMouseMotion(button, x, y, modifiers);
+		break;
+	
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 
 	return 0;
+}
+
+void Extract(LPARAM lParam, int& x, int& y){
+	x = (int)(short)(lParam & 0xFFFF);
+	y = (int)(short)((lParam & 0xFFFF0000) >> 16);
+}
+
+void Extract(WPARAM wParam, int& x, int& y){
+	x = (int)(short)(wParam & 0xFFFF);
+	y = (int)(short)((wParam & 0xFFFF0000) >> 16);
 }
