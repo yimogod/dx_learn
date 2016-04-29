@@ -11,7 +11,7 @@
 
 using namespace DirectX;
 
-class DemoApp : public BaseApp{
+class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();

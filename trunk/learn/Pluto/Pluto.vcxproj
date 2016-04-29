@@ -370,7 +370,6 @@
     <ClCompile Include="src\math\algebra\Quternion.cpp" />
     <ClCompile Include="src\math\algebra\Vector2D.cpp" />
     <ClCompile Include="src\math\algebra\Vector3D.cpp" />
-    <ClCompile Include="src\sys\Application.cpp" />
     <ClCompile Include="src\sys\DLog.cpp" />
     <ClCompile Include="src\sys\SysEnv.cpp" />
     <ClCompile Include="src\sys\Window.cpp" />
@@ -399,7 +398,7 @@
     <ClInclude Include="..\include\math\algebra\Quaternion.h" />
     <ClInclude Include="..\include\math\algebra\Vector2D.h" />
     <ClInclude Include="..\include\math\algebra\Vector3D.h" />
-    <ClInclude Include="..\include\sys\Application.h" />
+    <ClInclude Include="..\include\sys\App.h" />
     <ClInclude Include="..\include\sys\DLog.h" />
     <ClInclude Include="..\include\sys\SysEnv.h" />
     <ClInclude Include="..\include\sys\Window.h" />

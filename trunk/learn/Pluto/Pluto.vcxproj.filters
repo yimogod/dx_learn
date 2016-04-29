@@ -46,9 +46,6 @@
     <ClCompile Include="src\graphics\Scene.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\sys\Application.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
     <ClCompile Include="src\sys\DLog.cpp">
       <Filter>sys</Filter>
     </ClCompile>
@@ -105,9 +102,6 @@
     <ClInclude Include="..\include\BaseApp.h" />
     <ClInclude Include="..\include\BaseDataStruct.h" />
     <ClInclude Include="..\include\Main.h" />
-    <ClInclude Include="..\include\sys\Application.h">
-      <Filter>sys</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\sys\DLog.h">
       <Filter>sys</Filter>
     </ClInclude>
@@ -160,6 +154,9 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\include\sys\Window.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sys\App.h">
       <Filter>sys</Filter>
     </ClInclude>
   </ItemGroup>
