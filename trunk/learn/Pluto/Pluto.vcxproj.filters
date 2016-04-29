@@ -82,6 +82,9 @@
     <ClCompile Include="src\graphics\GeoCreater.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\sys\Window.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -155,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="..\include\graphics\GeoCreater.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sys\Window.h">
+      <Filter>sys</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

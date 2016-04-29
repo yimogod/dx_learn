@@ -373,6 +373,7 @@
     <ClCompile Include="src\sys\Application.cpp" />
     <ClCompile Include="src\sys\DLog.cpp" />
     <ClCompile Include="src\sys\SysEnv.cpp" />
+    <ClCompile Include="src\sys\Window.cpp" />
     <ClCompile Include="src\util\CUtil.cpp" />
     <ClCompile Include="src\util\DDSTextureLoader.cpp" />
     <ClCompile Include="src\util\FBXParser.cpp" />
@@ -401,6 +402,7 @@
     <ClInclude Include="..\include\sys\Application.h" />
     <ClInclude Include="..\include\sys\DLog.h" />
     <ClInclude Include="..\include\sys\SysEnv.h" />
+    <ClInclude Include="..\include\sys\Window.h" />
     <ClInclude Include="..\include\util\CUtil.h" />
     <ClInclude Include="..\include\util\DDSTextureLoader.h" />
     <ClInclude Include="..\include\util\FBXParser.h" />
