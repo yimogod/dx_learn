@@ -4,7 +4,6 @@ using namespace plu;
 BlendState::BlendState(){
 	enableAlphaToCoverage = false;
 	enableIndependentBlend = false;
-	blendColor = Vector4D(0, 0, 0, 0);
 	sampleMask = 0xFFFFFFFFu;
 
 	_graphType = GT_BLEND_STATE;
