@@ -84,8 +84,7 @@ HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow, LPCWSTR title, LPCWSTR ico
 	wcex.lpszMenuName = nullptr;
 	wcex.lpszClassName = L"TutorialWindowClass";
 	wcex.hIconSm = LoadIcon(wcex.hInstance, icon);
-	if(!RegisterClassEx(&wcex))
-		return E_FAIL;
+	if(!RegisterClassEx(&wcex))return E_FAIL;
 
 	// Create window
 	g_hInst = hInstance;

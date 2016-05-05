@@ -357,8 +357,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseApp.cpp" />
+    <ClCompile Include="src\graphics\BlendState.cpp" />
     <ClCompile Include="src\graphics\Camera.cpp" />
+    <ClCompile Include="src\graphics\DrawingState.cpp" />
+    <ClCompile Include="src\graphics\dx11\DX11BlendState.cpp" />
+    <ClCompile Include="src\graphics\dx11\DX11DrawingState.cpp" />
+    <ClCompile Include="src\graphics\dx11\DX11Engine.cpp" />
+    <ClCompile Include="src\graphics\dx11\DX11GraphicsObject.cpp" />
     <ClCompile Include="src\graphics\GeoCreater.cpp" />
+    <ClCompile Include="src\graphics\GraphicsObject.cpp" />
     <ClCompile Include="src\graphics\Light.cpp" />
     <ClCompile Include="src\graphics\Mesh.cpp" />
     <ClCompile Include="src\graphics\Scene.cpp" />
@@ -370,6 +377,7 @@
     <ClCompile Include="src\math\algebra\Quternion.cpp" />
     <ClCompile Include="src\math\algebra\Vector2D.cpp" />
     <ClCompile Include="src\math\algebra\Vector3D.cpp" />
+    <ClCompile Include="src\math\algebra\Vector4D.cpp" />
     <ClCompile Include="src\sys\DLog.cpp" />
     <ClCompile Include="src\sys\SysEnv.cpp" />
     <ClCompile Include="src\sys\Window.cpp" />
@@ -382,9 +390,16 @@
   <ItemGroup>
     <ClInclude Include="..\include\BaseApp.h" />
     <ClInclude Include="..\include\BaseDataStruct.h" />
+    <ClInclude Include="..\include\graphics\BlendState.h" />
     <ClInclude Include="..\include\graphics\Camera.h" />
     <ClInclude Include="..\include\graphics\Color.h" />
+    <ClInclude Include="..\include\graphics\DrawingState.h" />
+    <ClInclude Include="..\include\graphics\dx11\DX11BlendState.h" />
+    <ClInclude Include="..\include\graphics\dx11\DX11DrawingState.h" />
+    <ClInclude Include="..\include\graphics\dx11\DX11Engine.h" />
+    <ClInclude Include="..\include\graphics\dx11\DX11GraphicsObject.h" />
     <ClInclude Include="..\include\graphics\GeoCreater.h" />
+    <ClInclude Include="..\include\graphics\GraphicsObject.h" />
     <ClInclude Include="..\include\graphics\Light.h" />
     <ClInclude Include="..\include\graphics\Mesh.h" />
     <ClInclude Include="..\include\graphics\Plane3D.h" />
@@ -398,6 +413,7 @@
     <ClInclude Include="..\include\math\algebra\Quaternion.h" />
     <ClInclude Include="..\include\math\algebra\Vector2D.h" />
     <ClInclude Include="..\include\math\algebra\Vector3D.h" />
+    <ClInclude Include="..\include\math\algebra\Vector4D.h" />
     <ClInclude Include="..\include\sys\App.h" />
     <ClInclude Include="..\include\sys\DLog.h" />
     <ClInclude Include="..\include\sys\SysEnv.h" />

@@ -33,6 +33,16 @@ void Window::update(){
 
 }
 
+bool Window::OnMouseClick(App::MouseButton button, App::MouseState state,
+	int x, int y, unsigned int modifiers){
+	return false;
+}
+
+bool Window::OnMouseMotion(App::MouseButton button, int x, int y,
+	unsigned int modifiers){
+	return false;
+}
+
 void Window::destroy(){
 	unloadContent();
 }
