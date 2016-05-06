@@ -115,7 +115,27 @@
     <ClCompile Include="src\math\algebra\Vector4D.cpp">
       <Filter>math\algebra</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11BlendState.cpp" />
+    <ClCompile Include="src\graphics\dx11\DX11BlendState.cpp">
+      <Filter>graphics\dx11\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DepthStencilState.cpp">
+      <Filter>graphics\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11DepthStencilState.cpp">
+      <Filter>graphics\dx11\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\RasterizerState.cpp">
+      <Filter>graphics\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\SamplerState.cpp">
+      <Filter>graphics\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11RasterizerState.cpp">
+      <Filter>graphics\dx11\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11SamplerState.cpp">
+      <Filter>graphics\dx11\state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -214,6 +234,26 @@
     <ClInclude Include="..\include\math\algebra\Vector4D.h">
       <Filter>math\algebra</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11BlendState.h" />
+    <ClInclude Include="..\include\graphics\dx11\DX11BlendState.h">
+      <Filter>graphics\dx11\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DepthStencilState.h">
+      <Filter>graphics\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11DepthStencilState.h">
+      <Filter>graphics\dx11\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\RasterizerState.h">
+      <Filter>graphics\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\SamplerState.h">
+      <Filter>graphics\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11RasterizerState.h">
+      <Filter>graphics\dx11\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11SamplerState.h">
+      <Filter>graphics\dx11\state</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

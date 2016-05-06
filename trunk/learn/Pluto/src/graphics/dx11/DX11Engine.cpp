@@ -77,7 +77,6 @@ void DX11Engine::initDevice(){
 	createRenderTargetlView();
 	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
 	createViewPort();
-	createDXInput();
 
 	createSamplerState();
 	createDepthState();

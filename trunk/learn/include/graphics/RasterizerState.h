@@ -1,28 +1,16 @@
-// Geometric Tools LLC, Redmond WA 98052
-// Copyright (c) 1998-2015
-// Distributed under the Boost Software License, Version 1.0.
-// http://www.boost.org/LICENSE_1_0.txt
-// http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
-// File Version: 2.0.0 (2015/09/23)
-
 #pragma once
+#include <graphics/DrawingState.h>
 
-#include <Graphics/GteDrawingState.h>
+namespace plu{
 
-namespace gte
-{
-
-class GTE_IMPEXP RasterizerState : public DrawingState
-{
+class RasterizerState : public DrawingState{
 public:
-    enum GTE_IMPEXP FillMode
-    {
+    enum FillMode{
         FILL_SOLID,
         FILL_WIREFRAME
     };
 
-    enum GTE_IMPEXP CullMode
-    {
+    enum CullMode{
         CULL_NONE,
         CULL_FRONT,
         CULL_BACK

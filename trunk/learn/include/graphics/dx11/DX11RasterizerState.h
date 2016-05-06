@@ -1,34 +1,23 @@
-// Geometric Tools LLC, Redmond WA 98052
-// Copyright (c) 1998-2015
-// Distributed under the Boost Software License, Version 1.0.
-// http://www.boost.org/LICENSE_1_0.txt
-// http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
-// File Version: 2.0.0 (2015/09/23)
-
 #pragma once
 
-#include <Graphics/GteRasterizerState.h>
-#include <Graphics/DX11/GteDX11DrawingState.h>
+#include <graphics/RasterizerState.h>
+#include <graphics/dx11/DX11DrawingState.h>
 
-namespace gte
-{
+namespace plu{
 
-class GTE_IMPEXP DX11RasterizerState : public DX11DrawingState
-{
+class DX11RasterizerState : public DX11DrawingState{
 public:
     // Construction and destruction.
     virtual ~DX11RasterizerState();
-    DX11RasterizerState(ID3D11Device* device,
-        RasterizerState const* rasterizerState);
-    static DX11GraphicsObject* Create(ID3D11Device* device,
-        GraphicsObject const* object);
+    DX11RasterizerState(ID3D11Device* device, RasterizerState* rasterizerState);
+    static DX11RasterizerState* create(ID3D11Device* device, GraphicsObject* object);
 
     // Member access.
-    RasterizerState* GetRasterizerState();
-    ID3D11RasterizerState* GetDXRasterizerState();
+    RasterizerState* getRasterizerState();
+    ID3D11RasterizerState* getDXRasterizerState();
 
     // Enable the rasterizer state.
-    void Enable(ID3D11DeviceContext* context);
+    void enable(ID3D11DeviceContext* context);
 
 private:
     // Conversions from GTEngine values to DX11 values.

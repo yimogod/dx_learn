@@ -1,24 +1,11 @@
-// Geometric Tools LLC, Redmond WA 98052
-// Copyright (c) 1998-2015
-// Distributed under the Boost Software License, Version 1.0.
-// http://www.boost.org/LICENSE_1_0.txt
-// http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
-// File Version: 2.0.0 (2015/09/23)
+#include <graphics/dx11/DX11RasterizerState.h>
+using namespace plu;
 
-#include <GTEnginePCH.h>
-#include <Graphics/DX11/GteDX11RasterizerState.h>
-using namespace gte;
-
-
-DX11RasterizerState::~DX11RasterizerState()
-{
+DX11RasterizerState::~DX11RasterizerState(){
 }
 
-DX11RasterizerState::DX11RasterizerState(ID3D11Device* device,
-    RasterizerState const* rasterizerState)
-    :
-    DX11DrawingState(rasterizerState)
-{
+DX11RasterizerState::DX11RasterizerState(ID3D11Device* device, RasterizerState* rasterizerState)
+    :DX11DrawingState(rasterizerState){
     // Specify the rasterizer state description.
     D3D11_RASTERIZER_DESC desc;
     desc.FillMode = msFillMode[rasterizerState->fillMode];
@@ -36,48 +23,38 @@ DX11RasterizerState::DX11RasterizerState(ID3D11Device* device,
 
     // Create the rasterizer state.
     ID3D11RasterizerState* state = nullptr;
-    HRESULT hr = device->CreateRasterizerState(&desc, &state);
-    CHECK_HR_RETURN_NONE("Failed to create rasterizer state");
-    mDXObject = state;
+    device->CreateRasterizerState(&desc, &state);
+    _dxObj = state;
 }
 
-DX11GraphicsObject* DX11RasterizerState::Create(ID3D11Device* device,
-    GraphicsObject const* object)
-{
-    if (object->GetType() == GT_RASTERIZER_STATE)
-    {
-        return new DX11RasterizerState(device,
-            static_cast<RasterizerState const*>(object));
+DX11RasterizerState* DX11RasterizerState::create(ID3D11Device* device, GraphicsObject* object){
+    if (object->getType() != GT_RASTERIZER_STATE){
+		return nullptr;
     }
 
-    LogError("Invalid object type.");
-    return nullptr;
+    return new DX11RasterizerState(device, static_cast<RasterizerState*>(object));
+
 }
 
-RasterizerState* DX11RasterizerState::GetRasterizerState()
-{
-    return static_cast<RasterizerState*>(mGTObject);
+RasterizerState* DX11RasterizerState::getRasterizerState(){
+    return static_cast<RasterizerState*>(_pluObj);
 }
 
-ID3D11RasterizerState* DX11RasterizerState::GetDXRasterizerState()
-{
-    return static_cast<ID3D11RasterizerState*>(mDXObject);
+ID3D11RasterizerState* DX11RasterizerState::getDXRasterizerState(){
+    return static_cast<ID3D11RasterizerState*>(_dxObj);
 }
 
-void DX11RasterizerState::Enable(ID3D11DeviceContext* context)
-{
-    context->RSSetState(GetDXRasterizerState());
+void DX11RasterizerState::enable(ID3D11DeviceContext* context){
+    context->RSSetState(getDXRasterizerState());
 }
 
 
-D3D11_FILL_MODE const DX11RasterizerState::msFillMode[] =
-{
+D3D11_FILL_MODE const DX11RasterizerState::msFillMode[] = {
     D3D11_FILL_SOLID,
     D3D11_FILL_WIREFRAME
 };
 
-D3D11_CULL_MODE const DX11RasterizerState::msCullMode[] =
-{
+D3D11_CULL_MODE const DX11RasterizerState::msCullMode[] = {
     D3D11_CULL_NONE,
     D3D11_CULL_FRONT,
     D3D11_CULL_BACK
