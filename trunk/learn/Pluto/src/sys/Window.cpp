@@ -13,6 +13,8 @@ bool Window::init(HINSTANCE ins, HWND hwnd){
 	_ins = ins;
 	_hwnd = hwnd;
 
+	engine = new DX11Engine(hwnd);
+
 	RECT rect;
 	GetClientRect(_hwnd, &rect);
 	_width = rect.right - rect.left;

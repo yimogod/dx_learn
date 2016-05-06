@@ -2,6 +2,7 @@
 #include <string>
 #include <windows.h>
 
+#include <graphics/dx11/DX11Engine.h>
 #include <sys/SysEnv.h>
 #include <sys/App.h>
 
@@ -9,6 +10,8 @@ using namespace std;
 
 namespace plu{
 	class Window{
+	public:
+		DX11Engine* engine;
 	public:
 		Window();
 		~Window();

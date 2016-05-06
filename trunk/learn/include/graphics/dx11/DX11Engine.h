@@ -1,6 +1,7 @@
 #pragma once
-#include <windows.h>
+#include <memory>
 #include <string>
+#include <windows.h>
 #include <d3d11_1.h>
 #include <dinput.h>
 #include <math/algebra/Matrix4x4.h>
@@ -10,6 +11,10 @@
 
 namespace plu{
 	using namespace std;
+	class BlendState;
+	class RasterizerState;
+	class DepthStencilState;
+
 
 	struct ConstantBuffer{
 		Matrix4x4 model;
@@ -35,15 +40,27 @@ namespace plu{
 		DX11Engine(HWND hwnd);
 		~DX11Engine();
 
+		/*获取成员变量的get方法*/
+		ID3D11Device* getDevice();
+		ID3D11DeviceContext* getContext();
+
+	public:
+		/*各个状态的get/set方法*/
+		void setBlendState(shared_ptr<BlendState>& state);
+		shared_ptr<BlendState>& getBlendState();
+		void setDepthStencilState(shared_ptr<DepthStencilState>& state);
+		shared_ptr<DepthStencilState>& getDepthStencilState();
+		void setRasterizerState(shared_ptr<RasterizerState>& state);
+		shared_ptr<RasterizerState>& getRasterizerState();
+
 	protected:
 		HINSTANCE _ins;
 		HWND _hwnd;
-
 		int _width, _height;
 
+		/*初始化dx需要的各种数据*/
 		D3D_DRIVER_TYPE _driverType;
 		D3D_FEATURE_LEVEL _featureLevel;
-
 		ID3D11Device* _device;
 		ID3D11DeviceContext* _context;
 		IDXGISwapChain* _chain;
@@ -56,17 +73,26 @@ namespace plu{
 		ID3D11Texture2D* _depthStencilBuffer;
 		ID3D11DepthStencilView* _depthStencilView;
 
-		/*渲染管道的各种状态*/
+	/*渲染管道的各种状态, 存储的是自定义的值, 分别指默认的各个状态和当前的状态*/
+	protected:
 		/*光栅化状态*/
-		ID3D11RasterizerState* _wireframeRS;
-		ID3D11RasterizerState* _solidRS;
+		shared_ptr<RasterizerState> _defaultRasterState;
+		shared_ptr<RasterizerState> _activeRasterState;
 		/*混合状态*/
-		ID3D11BlendState* _blendEnableState;
-		ID3D11BlendState* _blendDisableState;
+		shared_ptr<BlendState> _defaultBlendState;
+		shared_ptr<BlendState> _activeBlendState;
 		/*采样状态*/
-		ID3D11SamplerState* _sampleState;
+		//ID3D11SamplerState* _sampleState;
 		/*深度缓存状态*/
-		ID3D11DepthStencilState* _depthStencilState;
+		shared_ptr<DepthStencilState> _defaultDepthStencilState;
+		shared_ptr<DepthStencilState> _activeDepthStencilState;
+
+
+
+
+
+
+
 
 
 		HRESULT compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
@@ -83,21 +109,27 @@ namespace plu{
 		ID3D11ShaderResourceView* _resView[8];
 
 	protected:
+		/*初始化各个变量到默认值*/
 		void init();
 		void destroy();
 
-		void initDevice();
-
+		/*创建设备*/
 		bool createDevice();
-
 		/*创建深度缓存*/
 		bool createDepthStencilView();
-
 		/*创建渲染视图*/
 		bool createRenderTargetlView();
-
 		/*创建视口*/
 		void createViewPort();
+		/*创建默认的对象, 包含默认的渲染过程中的各个状态*/
+		void createDefaultObjects();
+
+
+
+
+
+
+
 
 		bool createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
 		bool createVertexBuffer(Vertex *vertices, int vertNum, int vertSize);

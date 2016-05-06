@@ -1,10 +1,10 @@
 #include <d3dcompiler.h>
-#include <dinput.h>
-#include <DirectXMath.h>
-#include <DirectXColors.h>
 #include <util/DDSTextureLoader.h>
 #include <util/CUtil.h>
 
+#include <graphics/dx11/DX11BlendState.h>
+#include <graphics/dx11/DX11DepthStencilState.h>
+#include <graphics/dx11/DX11RasterizerState.h>
 #include <graphics/dx11/DX11Engine.h>
 
 using namespace DirectX;
@@ -13,6 +13,10 @@ using namespace plu;
 DX11Engine::DX11Engine(HWND hwnd){
 	_hwnd = hwnd;
 	init();
+	createDevice();
+	createRenderTargetlView();
+	createDepthStencilView();
+	createViewPort();
 }
 
 DX11Engine::~DX11Engine(){}
@@ -34,13 +38,14 @@ void DX11Engine::init(){
 
 	_depthStencilBuffer = nullptr;
 	_depthStencilView = nullptr;
-	_depthStencilState = nullptr;
 
-	_wireframeRS = nullptr;
-	_solidRS = nullptr;
-	_blendEnableState = nullptr;
-	_blendDisableState = nullptr;
-	_sampleState = nullptr;
+
+	_defaultRasterState = nullptr;
+	_activeRasterState = nullptr;
+	_defaultBlendState = nullptr;
+	_activeBlendState = nullptr;
+	_defaultDepthStencilState = nullptr;
+	_activeDepthStencilState = nullptr;
 }
 
 void DX11Engine::destroy(){
@@ -69,17 +74,6 @@ void DX11Engine::destroy(){
 	_chain = NULL;
 	_context = NULL;
 	_device = NULL;
-}
-
-void DX11Engine::initDevice(){
-	createDevice();
-	createDepthStencilView();
-	createRenderTargetlView();
-	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
-	createViewPort();
-
-	createSamplerState();
-	createDepthState();
 }
 
 bool DX11Engine::createDevice(){
@@ -146,6 +140,8 @@ bool DX11Engine::createDepthStencilView(){
 	dsvd.Texture2D.MipSlice = 0;
 	hr = _device->CreateDepthStencilView(_depthStencilBuffer, &dsvd, &_depthStencilView);
 	if(FAILED(hr))return false;
+	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
+
 	return true;
 }
 
@@ -171,6 +167,61 @@ void DX11Engine::createViewPort(){
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
 	_context->RSSetViewports(1, &vp);
+}
+
+void DX11Engine::createDefaultObjects(){
+	_defaultBlendState = make_shared<BlendState>();
+	_defaultDepthStencilState = make_shared<DepthStencilState>();
+	_defaultRasterState = make_shared<RasterizerState>();
+
+	setBlendState(_defaultBlendState);
+	setDepthStencilState(_defaultDepthStencilState);
+	setRasterizerState(_defaultRasterState);
+}
+
+void DX11Engine::setBlendState(shared_ptr<BlendState>& state){
+	if(state == _activeBlendState)return;
+
+	BlendState* bs = state.get();
+	DX11BlendState* dx = DX11BlendState::create(_device, bs);
+	if(dx){
+		dx->enable(_context);
+		_activeBlendState = state;
+	}
+}
+
+shared_ptr<BlendState>& DX11Engine::getBlendState(){
+	return _activeBlendState;
+}
+
+void DX11Engine::setDepthStencilState(shared_ptr<DepthStencilState>& state){
+	if(state == _activeDepthStencilState)return;
+
+	DepthStencilState* dss = state.get();
+	DX11DepthStencilState* dx = DX11DepthStencilState::create(_device, dss);
+	if(dx){
+		dx->enable(_context);
+		_activeDepthStencilState = state;
+	}
+}
+
+shared_ptr<DepthStencilState>& DX11Engine::getDepthStencilState(){
+	return _activeDepthStencilState;
+}
+
+void DX11Engine::setRasterizerState(shared_ptr<RasterizerState>& state){
+	if(state == _activeDepthStencilState)return;
+
+	RasterizerState* rs = state.get();
+	DX11RasterizerState* dx = DX11RasterizerState::create(_device, rs);
+	if(dx){
+		dx->enable(_context);
+		_activeRasterState = state;
+	}
+}
+
+shared_ptr<RasterizerState>& DX11Engine::getRasterizerState(){
+	return _activeRasterState;
 }
 
 HRESULT DX11Engine::compileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint,
