@@ -28,6 +28,9 @@
     <Filter Include="graphics\state">
       <UniqueIdentifier>{be5d9579-d69a-4056-918f-f3a0ac4e9281}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics\res\buffer">
+      <UniqueIdentifier>{68c1113a-6007-4fb7-9fa4-07754dca80ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -135,6 +138,19 @@
     </ClCompile>
     <ClCompile Include="src\graphics\dx11\DX11SamplerState.cpp">
       <Filter>graphics\dx11\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\VertexBuffer.cpp">
+      <Filter>graphics\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\GraphicsResource.cpp">
+      <Filter>graphics\res</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Buffer.cpp">
+      <Filter>graphics\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\VertexFormat.cpp" />
+    <ClCompile Include="src\graphics\DataFormat.cpp">
+      <Filter>graphics\res</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +270,19 @@
     </ClInclude>
     <ClInclude Include="..\include\graphics\dx11\DX11SamplerState.h">
       <Filter>graphics\dx11\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\VertexBuffer.h">
+      <Filter>graphics\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\GraphicsResource.h">
+      <Filter>graphics\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Buffer.h">
+      <Filter>graphics\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\VertexFormat.h" />
+    <ClInclude Include="..\include\graphics\DataFormat.h">
+      <Filter>graphics\res</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
