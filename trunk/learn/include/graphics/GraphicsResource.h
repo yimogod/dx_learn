@@ -31,6 +31,7 @@ namespace plu{
 		int _offset;
 
 		Usage _usage;
+		char* _rawData;
 	};
 
 }
