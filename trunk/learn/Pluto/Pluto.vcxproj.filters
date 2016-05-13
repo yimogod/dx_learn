@@ -148,9 +148,17 @@
     <ClCompile Include="src\graphics\Buffer.cpp">
       <Filter>graphics\res\buffer</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\VertexFormat.cpp" />
     <ClCompile Include="src\graphics\DataFormat.cpp">
       <Filter>graphics\res</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\VertexFormat.cpp">
+      <Filter>graphics\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\IndexBuffer.cpp">
+      <Filter>graphics\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\ConstantBuffer.cpp">
+      <Filter>graphics\res\buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,9 +288,20 @@
     <ClInclude Include="..\include\graphics\Buffer.h">
       <Filter>graphics\res\buffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\VertexFormat.h" />
     <ClInclude Include="..\include\graphics\DataFormat.h">
       <Filter>graphics\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\VertexFormat.h">
+      <Filter>graphics\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\ConstantBuffer.h">
+      <Filter>graphics\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\IndexBuffer.h">
+      <Filter>graphics\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\IndexFormat.h">
+      <Filter>graphics\res\buffer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
