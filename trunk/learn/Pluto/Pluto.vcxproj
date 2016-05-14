@@ -380,6 +380,9 @@
     <ClCompile Include="src\graphics\RasterizerState.cpp" />
     <ClCompile Include="src\graphics\SamplerState.cpp" />
     <ClCompile Include="src\graphics\Scene.cpp" />
+    <ClCompile Include="src\graphics\Texture.cpp" />
+    <ClCompile Include="src\graphics\Texture2.cpp" />
+    <ClCompile Include="src\graphics\TextureSingle.cpp" />
     <ClCompile Include="src\graphics\VertexBuffer.cpp" />
     <ClCompile Include="src\graphics\VertexFormat.cpp" />
     <ClCompile Include="src\math\algebra\EulerAngles.cpp" />
@@ -424,11 +427,15 @@
     <ClInclude Include="..\include\graphics\IndexBuffer.h" />
     <ClInclude Include="..\include\graphics\IndexFormat.h" />
     <ClInclude Include="..\include\graphics\Light.h" />
+    <ClInclude Include="..\include\graphics\MemberLayout.h" />
     <ClInclude Include="..\include\graphics\Mesh.h" />
     <ClInclude Include="..\include\graphics\Plane3D.h" />
     <ClInclude Include="..\include\graphics\RasterizerState.h" />
     <ClInclude Include="..\include\graphics\SamplerState.h" />
     <ClInclude Include="..\include\graphics\Scene.h" />
+    <ClInclude Include="..\include\graphics\Texture.h" />
+    <ClInclude Include="..\include\graphics\Texture2.h" />
+    <ClInclude Include="..\include\graphics\TextureSingle.h" />
     <ClInclude Include="..\include\graphics\Vertex.h" />
     <ClInclude Include="..\include\graphics\VertexBuffer.h" />
     <ClInclude Include="..\include\graphics\VertexFormat.h" />

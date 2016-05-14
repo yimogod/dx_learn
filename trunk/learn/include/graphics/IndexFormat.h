@@ -8,8 +8,8 @@ namespace plu{
 		IP_POLYPOINT                = 0x00000001,
 		IP_POLYSEGMENT_DISJOINT     = 0x00000002,
 		IP_POLYSEGMENT_CONTIGUOUS   = 0x00000004,
-		IP_TRIMESH                  = 0x00000008,
-		IP_TRISTRIP                 = 0x00000010, //三角形组成的网格
+		IP_TRIMESH                  = 0x00000008, //三角形组成的网格
+		IP_TRISTRIP                 = 0x00000010, //三角形组成的网格, 但是扇状的
 
 		IP_HAS_POINTS    = IP_POLYPOINT,
 		IP_HAS_SEGMENTS  = IP_POLYSEGMENT_DISJOINT | IP_POLYSEGMENT_CONTIGUOUS,

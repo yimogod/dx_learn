@@ -1,15 +1,15 @@
 #include <graphics/DataFormat.h>
 using namespace plu;
 
-std::string const& DataFormat::getName(DFType type){
+std::string const& DataFormat::GetName(DFType type){
 	return _msName[type];
 }
 
-int DataFormat::getNumBytesPerStruct(DFType type){
+int DataFormat::GetNumBytesPerStruct(DFType type){
 	return _msNumBytesPerStruct[type];
 }
 
-int DataFormat::getNumChannels(DFType type){
+int DataFormat::GetNumChannels(DFType type){
 	return _msNumChannels[type];
 }
 
@@ -485,127 +485,6 @@ bool const DataFormat::_msConvertChannel[DF_NUM_FORMATS] = {
     true,   // DF_BC7_UNORM
     true,   // DF_BC7_UNORM_SRGB
     // DX11.1 formats (TODO: Determine the appropriate bool value)
-    false,  // DF_AYUV
-    false,  // DF_Y410
-    false,  // DF_Y416
-    false,  // DF_NV12
-    false,  // DF_P010
-    false,  // DF_P016
-    false,  // DF_420_OPAQUE
-    false,  // DF_YUY2
-    false,  // DF_Y210
-    false,  // DF_Y216
-    false,  // DF_NV11
-    false,  // DF_AI44
-    false,  // DF_IA44
-    false,  // DF_P8
-    false,  // DF_A8P8
-    false   // DF_B4G4R4A4_UNORM
-};
-
-bool const DataFormat::msSupported[DF_NUM_FORMATS] =
-{
-    false,  // DF_UNKNOWN
-    true,   // DF_R32G32B32A32_TYPELESS
-    true,   // DF_R32G32B32A32_FLOAT
-    true,   // DF_R32G32B32A32_UINT
-    true,   // DF_R32G32B32A32_SINT
-    true,   // DF_R32G32B32_TYPELESS
-    true,   // DF_R32G32B32_FLOAT
-    true,   // DF_R32G32B32_UINT
-    true,   // DF_R32G32B32_SINT
-    true,   // DF_R16G16B16A16_TYPELESS
-    true,   // DF_R16G16B16A16_FLOAT
-    true,   // DF_R16G16B16A16_UNORM
-    true,   // DF_R16G16B16A16_UINT
-    true,   // DF_R16G16B16A16_SNORM
-    true,   // DF_R16G16B16A16_SINT
-    true,   // DF_R32G32_TYPELESS
-    true,   // DF_R32G32_FLOAT
-    true,   // DF_R32G32_UINT
-    true,   // DF_R32G32_SINT
-    true,   // DF_R32G8X24_TYPELESS
-    true,   // DF_D32_FLOAT_S8X24_UINT
-    true,   // DF_R32_FLOAT_X8X24_TYPELESS
-    true,   // DF_X32_TYPELESS_G8X24_UINT
-    true,   // DF_R10G10B10A2_TYPELESS
-    true,   // DF_R10G10B10A2_UNORM
-    true,   // DF_R10G10B10A2_UINT
-    true,   // DF_R11G11B10_FLOAT
-    true,   // DF_R8G8B8A8_TYPELESS
-    true,   // DF_R8G8B8A8_UNORM
-    true,   // DF_R8G8B8A8_UNORM_SRGB
-    true,   // DF_R8G8B8A8_UINT
-    true,   // DF_R8G8B8A8_SNORM
-    true,   // DF_R8G8B8A8_SINT
-    true,   // DF_R16G16_TYPELESS
-    true,   // DF_R16G16_FLOAT
-    true,   // DF_R16G16_UNORM
-    true,   // DF_R16G16_UINT
-    true,   // DF_R16G16_SNORM
-    true,   // DF_R16G16_SINT
-    true,   // DF_R32_TYPELESS
-    true,   // DF_D32_FLOAT
-    true,   // DF_R32_FLOAT
-    true,   // DF_R32_UINT
-    true,   // DF_R32_SINT
-    true,   // DF_R24G8_TYPELESS
-    true,   // DF_D24_UNORM_S8_UINT
-    true,   // DF_R24_UNORM_X8_TYPELESS
-    true,   // DF_X24_TYPELESS_G8_UINT
-    true,   // DF_R8G8_TYPELESS
-    true,   // DF_R8G8_UNORM
-    true,   // DF_R8G8_UINT
-    true,   // DF_R8G8_SNORM
-    true,   // DF_R8G8_SINT
-    true,   // DF_R16_TYPELESS
-    true,   // DF_R16_FLOAT
-    true,   // DF_D16_UNORM
-    true,   // DF_R16_UNORM
-    true,   // DF_R16_UINT
-    true,   // DF_R16_SNORM
-    true,   // DF_R16_SINT
-    true,   // DF_R8_TYPELESS
-    true,   // DF_R8_UNORM
-    true,   // DF_R8_UINT
-    true,   // DF_R8_SNORM
-    true,   // DF_R8_SINT
-    true,   // DF_A8_UNORM
-    false,  // DF_R1_UNORM
-    true,   // DF_R9G9B9E5_SHAREDEXP
-    true,   // DF_R8G8_B8G8_UNORM
-    true,   // DF_G8R8_G8B8_UNORM
-    false,  // DF_BC1_TYPELESS
-    false,  // DF_BC1_UNORM
-    false,  // DF_BC1_UNORM_SRGB
-    false,  // DF_BC2_TYPELESS
-    false,  // DF_BC2_UNORM
-    false,  // DF_BC2_UNORM_SRGB
-    false,  // DF_BC3_TYPELESS
-    false,  // DF_BC3_UNORM
-    false,  // DF_BC3_UNORM_SRGB
-    false,  // DF_BC4_TYPELESS
-    false,  // DF_BC4_UNORM
-    false,  // DF_BC4_SNORM
-    false,  // DF_BC5_TYPELESS
-    false,  // DF_BC5_UNORM
-    false,  // DF_BC5_SNORM
-    true,   // DF_B5G6R5_UNORM
-    true,   // DF_B5G5R5A1_UNORM
-    true,   // DF_B8G8R8A8_UNORM
-    true,   // DF_B8G8R8X8_UNORM
-    true,   // DF_R10G10B10_XR_BIAS_A2_UNORM
-    true,   // DF_B8G8R8A8_TYPELESS
-    true,   // DF_B8G8R8A8_UNORM_SRGB
-    true,   // DF_B8G8R8X8_TYPELESS
-    true,   // DF_B8G8R8X8_UNORM_SRGB
-    false,  // DF_BC6H_TYPELESS
-    false,  // DF_BC6H_UF16
-    false,  // DF_BC6H_SF16
-    false,  // DF_BC7_TYPELESS
-    false,  // DF_BC7_UNORM
-    false,  // DF_BC7_UNORM_SRGB
-    // DX11.1 formats (TODO: Determine whether we will support these)
     false,  // DF_AYUV
     false,  // DF_Y410
     false,  // DF_Y416

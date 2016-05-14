@@ -128,13 +128,13 @@ namespace plu{
 
 	class DataFormat{
 	public:
-		static std::string const& getName(DFType type);
+		static std::string const& GetName(DFType type);
 
 		//type的字节长度
-		static int getNumBytesPerStruct(DFType type);
+		static int GetNumBytesPerStruct(DFType type);
 
 		//type会有几个通道
-		static int getNumChannels(DFType type);
+		static int GetNumChannels(DFType type);
 
 		// The conversion semantics for the channel.  When true, signed integers
 		// are converted to floats in [-1,1] and unsigned integers are converted

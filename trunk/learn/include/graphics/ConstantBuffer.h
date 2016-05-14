@@ -1,51 +1,36 @@
 #pragma once
 #include <vector>
 #include <graphics/Buffer.h>
-//#include <Graphics/GteMemberLayout.h>
+#include <graphics/MemberLayout.h>
 
 namespace plu{
 	class ConstantBuffer : public Buffer{
 	public:
 		//基本上就是gl的uniform, 对于整个shader而言, 是个静态变量
-		ConstantBuffer(size_t numBytes, bool allowDynamicUpdate);
+		ConstantBuffer(int numBytes, bool allowDynamicUpdate);
 
-		// Access to constant buffer members using the layout of a shader
-		// program itself is allowed as long as you have attached the constant
-		// buffer to a shader first.
-		//   std::shared_ptr<VertexShader> vshader = <some shader>;
-		//   std::shared_ptr<ConstantBuffer> cbuffer = <buffer for the shader>;
-		//   vshader->Set("MyCBuffer", cbuffer);
-		// Now you can use SetMember/GetMember calls successfully.  In these
-		// calls, you are required to specify the correct type T for the member.
-		// No checking is performed for the size of the input; i.e., too large a
-		// 'value' will cause a memory overwrite within the buffer.  The code
-		// does test to ensure that no overwrite occurs outside the buffer.
+		std::vector<MemberLayout>& GetLayout();
 
-		inline std::vector<MemberLayout> const& GetLayout() const;
-
-		// Test for existence of a member with the specified name.
-		bool HasMember(std::string const& name) const;
+		//是否有变量name这个属性
+		bool HasMember(std::string& name);
 
 		// Set or get a non-array member.
 		template <typename T>
-		bool SetMember(std::string const& name, T const& value);
+		bool SetMember(std::string& name, T& value);
 
 		template <typename T>
-		bool GetMember(std::string const& name, T& value) const;
+		bool GetMember(std::string& name, T& value);
 
 		// Set or get an array member.
 		template <typename T>
-		bool SetMember(std::string const& name, unsigned int index,
-			T const& value);
+		bool SetMember(std::string& name, int index, T& value);
 
 		template <typename T>
-		bool GetMember(std::string const& name, unsigned int index,
-			T& value) const;
+		bool GetMember(std::string& name, int index, T& value);
 
 	protected:
-		// For rounding up to nearest 16-byte multiple when allocating
-		// buffer memory (HLSL register uses 16-bytes).
-		static size_t GetRoundedNumBytes(size_t numBytes);
+		//补齐到16字节的倍数, HLSL需要
+		static int GetRoundedNumBytes(int numBytes);
 
 		// Allow the Shader class to set the data to avoid having to expose
 		// setting the lookup table via a public interface.  The 'const' is
@@ -58,139 +43,4 @@ namespace plu{
 		static int const shaderDataLookup = 0;
 	};
 
-
-	inline std::vector<MemberLayout> const& ConstantBuffer::GetLayout() const
-	{
-		return mLayout;
-	}
-
-	template <typename T>
-	bool ConstantBuffer::SetMember(std::string const& name, T const& value)
-	{
-		auto iter = std::find_if(mLayout.begin(), mLayout.end(),
-			[&name](MemberLayout const& item){ return name == item.name; });
-
-		if (iter == mLayout.end())
-		{
-			LogError("Failed to find member name " + name + ".");
-			return false;
-		}
-
-		if (iter->numElements > 0)
-		{
-			LogError("Member is an array, use SetMember(name,index,value).");
-			return false;
-		}
-
-		if (iter->offset + sizeof(T) > mNumBytes)
-		{
-			LogError("Writing will access memory outside the buffer.");
-			return false;
-		}
-
-		T* target = reinterpret_cast<T*>(mData + iter->offset);
-		*target = value;
-		return true;
-	}
-
-	template <typename T>
-	bool ConstantBuffer::GetMember(std::string const& name, T& value) const
-	{
-		auto iter = std::find_if(mLayout.begin(), mLayout.end(),
-			[&name](MemberLayout const& item){ return name == item.name; });
-
-		if (iter == mLayout.end())
-		{
-			LogError("Failed to find member name " + name + ".");
-			return false;
-		}
-
-		if (iter->numElements > 0)
-		{
-			LogError("Member is an array, use GetMember(name,index,value).");
-			return false;
-		}
-
-		if (iter->offset + sizeof(T) > mNumBytes)
-		{
-			LogError("Reading will access memory outside the buffer.");
-			return false;
-		}
-
-		T* target = reinterpret_cast<T*>(mData + iter->offset);
-		value = *target;
-		return true;
-	}
-
-	template <typename T>
-	bool ConstantBuffer::SetMember(std::string const& name, unsigned int index,
-		T const& value)
-	{
-		auto iter = std::find_if(mLayout.begin(), mLayout.end(),
-			[&name](MemberLayout const& item){ return name == item.name; });
-
-		if (iter == mLayout.end())
-		{
-			LogError("Failed to find member name " + name + ".");
-			return false;
-		}
-
-		if (iter->numElements == 0)
-		{
-			LogError("Member is a singleton, use SetMember(name,value).");
-			return false;
-		}
-
-		if (index >= iter->numElements)
-		{
-			LogError("Index is out of range for the member array.");
-			return false;
-		}
-
-		if (iter->offset + (index + 1)*sizeof(T) > mNumBytes)
-		{
-			LogError("Writing will access memory outside the buffer.");
-			return false;
-		}
-
-		T* target = reinterpret_cast<T*>(mData + iter->offset + index*sizeof(T));
-		*target = value;
-		return true;
-	}
-
-	template <typename T>
-	bool ConstantBuffer::GetMember(std::string const& name, unsigned int index,
-		T& value) const
-	{
-		auto iter = std::find_if(mLayout.begin(), mLayout.end(),
-			[&name](MemberLayout const& item){ return name == item.name; });
-
-		if (iter == mLayout.end())
-		{
-			LogError("Failed to find member name " + name + ".");
-			return false;
-		}
-
-		if (iter->numElements == 0)
-		{
-			LogError("Member is a singleton, use GetMember(name,value).");
-			return false;
-		}
-
-		if (index >= iter->numElements)
-		{
-			LogError("Index is out of range for the member array.");
-			return false;
-		}
-
-		if (iter->offset + (index + 1)*sizeof(T) > mNumBytes)
-		{
-			LogError("Reading will access memory outside the buffer.");
-			return false;
-		}
-
-		T* target = reinterpret_cast<T*>(mData + iter->offset + index*sizeof(T));
-		value = *target;
-		return true;
-	}
 }

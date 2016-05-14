@@ -31,6 +31,9 @@
     <Filter Include="graphics\res\buffer">
       <UniqueIdentifier>{68c1113a-6007-4fb7-9fa4-07754dca80ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics\res\texture">
+      <UniqueIdentifier>{bd8aa827-ec01-43b6-9fb7-72f5b14408f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -159,6 +162,15 @@
     </ClCompile>
     <ClCompile Include="src\graphics\ConstantBuffer.cpp">
       <Filter>graphics\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Texture.cpp">
+      <Filter>graphics\res\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Texture2.cpp">
+      <Filter>graphics\res\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\TextureSingle.cpp">
+      <Filter>graphics\res\texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +314,18 @@
     </ClInclude>
     <ClInclude Include="..\include\graphics\IndexFormat.h">
       <Filter>graphics\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\MemberLayout.h">
+      <Filter>graphics\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Texture.h">
+      <Filter>graphics\res\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Texture2.h">
+      <Filter>graphics\res\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\TextureSingle.h">
+      <Filter>graphics\res\texture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
