@@ -20,7 +20,7 @@ namespace plu{
 		int GetNumDimensions();
 		int GetDimension(int i);
 
-		// Subresource information.
+		//子资源, 指的是每个单的贴图数据, 跟图片数和level数相关
 		struct Subresource{
 			int item;
 			int level;
@@ -42,7 +42,7 @@ namespace plu{
 		template <typename T>
 		T* GetFor(int item, int level);
 
-		// Subresource indexing:  index = numLevels*item + level
+		// 子资源的个数  index = numLevels*item + level
 		int GetNumSubresources();
 		int GetIndex(int item, int level);
 		Subresource GetSubresource(int index);
@@ -55,19 +55,24 @@ namespace plu{
 		bool WantAutogenerateMipmaps();
 
 	protected:
-		// Support for computing the numElements parameter for the Resource
-		// constructor.  This is necessary when mipmaps are requested.
+		//计算有多少像素总共
 		static int GetTotalElements(int numItems,
 			int dim0, int dim1, int dim2,
 			bool hasMipmaps);
 
+		//本texture用到了几张图片
 		int mNumItems;
+		//texture导入格式, 用于传给显卡. 跟DX的格式一一对应
 		DFType mFormat;
+		//texture维度, 比如单张图片就是2
 		int mNumDimensions;
+		//mip level个数, 是三维中最大的level数
 		int mNumLevels;
-		std::array<std::array<unsigned int, 3>, MAX_MIPMAP_LEVELS> mLDimension;
-		std::array<unsigned int, MAX_MIPMAP_LEVELS> mLNumBytes;
-		//所有的item(单张图片)的所有的mipmap的内存偏移数据
+		//第一个index是miplevel, 第二个索引是维度, 存储的是所有mip level下的维度信息
+		std::array<std::array<int, 3>, MAX_MIPMAP_LEVELS> mLDimension;
+		//存储每个mip level所占有的内存
+		std::array<int, MAX_MIPMAP_LEVELS> mLNumBytes;
+		//所有的item(单张图片)的所有的mip level的内存偏移数据
 		std::vector<std::array<int, MAX_MIPMAP_LEVELS>> mLOffset;
 		bool mHasMipmaps;
 		bool mAutogenerateMipmaps;

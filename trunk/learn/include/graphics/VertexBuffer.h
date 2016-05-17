@@ -10,10 +10,10 @@ namespace plu{
 		VertexBuffer(int vertNum);
 		~VertexBuffer();
 
-		VertexFormat& getFormat();
+		VertexFormat& GetFormat();
 
 		//获取相关参数找到对应通道在原始数据中的指针
-		char* getChannel(VASemantic semantic, int unit, std::set<DFType>& requiredTypes);
+		char* GetChannel(VASemantic semantic, int unit, std::set<DFType>& requiredTypes);
 
 	protected:
 		VertexFormat _format;

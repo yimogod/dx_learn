@@ -26,7 +26,7 @@ bool VertexFormat::bind(VASemantic semantic, DFType type, int unit){
 		++_attrNum;
 
 		// 重新计算顶点字节
-		_vertexSize += DataFormat::getNumBytesPerStruct(type);
+		_vertexSize += DataFormat::GetNumBytesPerStruct(type);
 		return true;
 	}
 

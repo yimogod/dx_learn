@@ -34,6 +34,21 @@
     <Filter Include="graphics\res\texture">
       <UniqueIdentifier>{bd8aa827-ec01-43b6-9fb7-72f5b14408f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="math\arithmetic">
+      <UniqueIdentifier>{2ecbf856-c509-47e4-81e8-ae8f88e64b5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\dx11\res">
+      <UniqueIdentifier>{c2132e65-345f-4bbc-9b9f-c34ab1039aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\dx11\res\buffer">
+      <UniqueIdentifier>{5545cada-e840-4079-8fe6-d2581fd932e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\dx11\res\texture">
+      <UniqueIdentifier>{d6c4b652-dd8d-4934-aca5-930ecf688211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\dx11\res\inputLayerout">
+      <UniqueIdentifier>{a6953f48-b684-497d-9347-dfb5c3bb8ebc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -70,30 +85,6 @@
     <ClCompile Include="src\sys\SysEnv.cpp">
       <Filter>sys</Filter>
     </ClCompile>
-    <ClCompile Include="src\math\algebra\EulerAngles.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\algebra\Matrix1x4.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\algebra\Matrix3x3.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\algebra\Matrix4x4.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\algebra\Plane3D.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\algebra\Quternion.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\algebra\Vector2D.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\algebra\Vector3D.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\GeoCreater.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
@@ -117,9 +108,6 @@
     </ClCompile>
     <ClCompile Include="src\graphics\BlendState.cpp">
       <Filter>graphics\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\algebra\Vector4D.cpp">
-      <Filter>math\algebra</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\dx11\DX11BlendState.cpp">
       <Filter>graphics\dx11\state</Filter>
@@ -172,6 +160,72 @@
     <ClCompile Include="src\graphics\TextureSingle.cpp">
       <Filter>graphics\res\texture</Filter>
     </ClCompile>
+    <ClCompile Include="src\math\EulerAngles.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Matrix1x4.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Matrix3x3.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Matrix4x4.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Plane3D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Quternion.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Vector2D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Vector3D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Vector4D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\BitHacks.cpp">
+      <Filter>math\arithmetic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11Resource.cpp">
+      <Filter>graphics\dx11\res</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11Buffer.cpp">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11ConstantBuffer.cpp">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11IndexBuffer.cpp">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11TextureBuffer.cpp">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11VertexBuffer.cpp">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11Texture.cpp">
+      <Filter>graphics\dx11\res\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11Texture2.cpp">
+      <Filter>graphics\dx11\res\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11TextureSingle.cpp">
+      <Filter>graphics\dx11\res\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\TextureBuffer.cpp">
+      <Filter>graphics\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11InputLayout.cpp">
+      <Filter>graphics\dx11\res\inputLayerout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11InputLayoutManager.cpp">
+      <Filter>graphics\dx11\res\inputLayerout</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -197,27 +251,6 @@
     </ClInclude>
     <ClInclude Include="..\include\sys\SysEnv.h">
       <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\algebra\EulerAngles.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\algebra\Matrix1x4.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\algebra\Matrix3x3.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\algebra\Matrix4x4.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\algebra\Quaternion.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\algebra\Vector2D.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\algebra\Vector3D.h">
-      <Filter>math\algebra</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics\Camera.h">
       <Filter>graphics</Filter>
@@ -266,9 +299,6 @@
     </ClInclude>
     <ClInclude Include="..\include\graphics\BlendState.h">
       <Filter>graphics\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\algebra\Vector4D.h">
-      <Filter>math\algebra</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics\dx11\DX11BlendState.h">
       <Filter>graphics\dx11\state</Filter>
@@ -326,6 +356,69 @@
     </ClInclude>
     <ClInclude Include="..\include\graphics\TextureSingle.h">
       <Filter>graphics\res\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\EulerAngles.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\Matrix1x4.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\Matrix3x3.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\Matrix4x4.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\Quaternion.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\Vector2D.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\Vector3D.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\Vector4D.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\BitHacks.h">
+      <Filter>math\arithmetic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11Resource.h">
+      <Filter>graphics\dx11\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11Buffer.h">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11ConstantBuffer.h">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11IndexBuffer.h">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11TextureBuffer.h">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11VertexBuffer.h">
+      <Filter>graphics\dx11\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11Texture.h">
+      <Filter>graphics\dx11\res\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11Texture2.h">
+      <Filter>graphics\dx11\res\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11TextureSingle.h">
+      <Filter>graphics\dx11\res\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\TextureBuffer.h">
+      <Filter>graphics\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11InputLayout.h">
+      <Filter>graphics\dx11\res\inputLayerout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11InputLayoutManager.h">
+      <Filter>graphics\dx11\res\inputLayerout</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

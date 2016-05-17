@@ -15,3 +15,23 @@ GraphicsResource::GraphicsResource(int itemNum, int itemSize){
 
 GraphicsResource::~GraphicsResource(){
 }
+
+void GraphicsResource::SetCopyType(CopyType copyType){
+	mCopyType = copyType;
+}
+
+GraphicsResource::CopyType GraphicsResource::GetCopyType(){
+	return mCopyType;
+}
+
+void GraphicsResource::ResetData(){
+	_rawData = nullptr;
+}
+
+void GraphicsResource::SetData(char* data){
+	_rawData = data;
+}
+
+char* GraphicsResource::GetData(){
+	return _rawData;
+}

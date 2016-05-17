@@ -1,4 +1,6 @@
 #include <graphics/Texture.h>
+#include <math/BitHacks.h>
+
 using namespace plu;
 
 Texture::Texture(int itemNum, DFType format, int numDimensions,
@@ -41,14 +43,17 @@ Texture::Texture(int itemNum, DFType format, int numDimensions,
 	//item size在这里是每个像素占用的内存,所以mLNumBytes[0]原始图占用的内存
     mLNumBytes[0] = dim0 * dim1 * dim2 * _itemSize;
 
-	//有mipmap
+	//有mipmap, 则所有的内存偏移位置都需要计算
+	//这边我们人工保证分辨率是2的次幂
     if (mHasMipmaps)
 	{
-        unsigned int log0 = Log2OfPowerOfTwo(RoundDownToPowerOfTwo(dim0));
-        unsigned int log1 = Log2OfPowerOfTwo(RoundDownToPowerOfTwo(dim1));
-        unsigned int log2 = Log2OfPowerOfTwo(RoundDownToPowerOfTwo(dim2));
+		//计算是2的几次幂, 就有几张mipmap
+        int log0 = Log2OfPowerOfTwo(dim0);
+        int log1 = Log2OfPowerOfTwo(dim1);
+        int log2 = Log2OfPowerOfTwo(dim2);
         mNumLevels = 1 + std::max(log0, std::max(log1, log2));
         for (int level = 1; level < mNumLevels; ++level){
+			//dim0 / 2, 就是计算下一层的尺寸
             if (dim0 > 1) { dim0 >>= 1; }
             if (dim1 > 1) { dim1 >>= 1; }
             if (dim2 > 1) { dim2 >>= 1; }
@@ -61,15 +66,14 @@ Texture::Texture(int itemNum, DFType format, int numDimensions,
 
         int numBytes = 0;
         for (int item = 0; item < mNumItems; ++item){
-            for (int L0 = 0, L1 = 1; L1 < mNumLevels; ++L0, ++L1)
-            {
+            for (int L0 = 0, L1 = 1; L1 < mNumLevels; ++L0, ++L1){
                 numBytes += mLNumBytes[L0];
                 mLOffset[item][L1] = numBytes;
             }
         }
     }
-	else
-	{//没有mipmap, 则所有图片的内存偏移的都是图片本身的index * 整张图片的内存占用
+	else//没有mipmap, 则所有图片的内存偏移的都是图片本身的index * 整张图片的内存占用
+	{
         for (int item = 1; item < mNumItems; ++item){
             mLOffset[item][0] = item * mLNumBytes[0];
         }
@@ -83,18 +87,15 @@ int Texture::GetIndex(int item, int level){
     return 0;
 }
 
-Texture::Subresource Texture::GetSubresource(unsigned int index) const{
+Texture::Subresource Texture::GetSubresource(int index){
     Subresource sr;
-    if (index < GetNumSubresources())
-    {
+    if (index < GetNumSubresources()){
         sr.item = index / mNumLevels;
         sr.level = index % mNumLevels;
         sr.data = const_cast<char*>(GetDataFor(sr.item, sr.level));
-        sr.rowPitch = mLDimension[sr.level][0] * mElementSize;
+        sr.rowPitch = mLDimension[sr.level][0] * _itemSize;
         sr.slicePitch = mLDimension[sr.level][1] * sr.rowPitch;
-    }
-    else
-    {
+    }else{
         //LogError("Invalid input.");
         sr.item = 0;
         sr.level = 0;
@@ -115,20 +116,19 @@ void Texture::AutogenerateMipmaps(){
 int Texture::GetTotalElements(int numItems, int dim0, int dim1, int dim2, bool hasMipmaps){
     int numElementsPerItem = dim0 * dim1 * dim2;
     if (hasMipmaps){
-        unsigned int log0 = Log2OfPowerOfTwo(RoundDownToPowerOfTwo(dim0));
-        unsigned int log1 = Log2OfPowerOfTwo(RoundDownToPowerOfTwo(dim1));
-        unsigned int log2 = Log2OfPowerOfTwo(RoundDownToPowerOfTwo(dim2));
-        unsigned int numLevels = 1 + std::max(log0, std::max(log1, log2));
-        for (unsigned int level = 1; level < numLevels; ++level)
-        {
+        int log0 = Log2OfPowerOfTwo(dim0);
+        int log1 = Log2OfPowerOfTwo(dim1);
+        int log2 = Log2OfPowerOfTwo(dim2);
+        int numLevels = 1 + std::max(log0, std::max(log1, log2));
+        for (int level = 1; level < numLevels; ++level){
             if (dim0 > 1) { dim0 >>= 1; }
             if (dim1 > 1) { dim1 >>= 1; }
             if (dim2 > 1) { dim2 >>= 1; }
 
-            numElementsPerItem += dim0*dim1*dim2;
+            numElementsPerItem += dim0 * dim1 * dim2;
         }
     }
-    return numItems*numElementsPerItem;
+    return numItems * numElementsPerItem;
 }
 
 

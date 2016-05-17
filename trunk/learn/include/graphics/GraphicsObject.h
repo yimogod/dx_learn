@@ -49,7 +49,7 @@ namespace plu{
 		bool isShader();
 		bool isDrawingState();
 
-		GraphicsObjectType getType();
+		GraphicsObjectType GetType();
 
 	protected:
 		GraphicsObjectType _graphType;

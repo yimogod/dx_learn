@@ -8,7 +8,7 @@ GraphicsObject::GraphicsObject(){
 GraphicsObject::~GraphicsObject(){
 }
 
-GraphicsObjectType GraphicsObject::getType(){
+GraphicsObjectType GraphicsObject::GetType(){
 	return _graphType;
 }
 
