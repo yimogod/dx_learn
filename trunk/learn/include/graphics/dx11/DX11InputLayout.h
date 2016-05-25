@@ -1,7 +1,7 @@
 #pragma once
 #include <d3d11.h>
 
-#include <graphics/GteShader.h>
+#include <graphics/Shader.h>
 #include <graphics/VertexBuffer.h>
 
 namespace plu{

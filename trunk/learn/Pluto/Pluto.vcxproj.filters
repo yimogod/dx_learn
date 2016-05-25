@@ -49,6 +49,12 @@
     <Filter Include="graphics\dx11\res\inputLayerout">
       <UniqueIdentifier>{a6953f48-b684-497d-9347-dfb5c3bb8ebc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics\hlsl">
+      <UniqueIdentifier>{12b8c917-c90c-4361-9681-3e5bc8bbc4f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\dx11\shader">
+      <UniqueIdentifier>{19354a81-6dee-411e-9f4e-a7e3d861d6f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -225,6 +231,81 @@
     </ClCompile>
     <ClCompile Include="src\graphics\dx11\DX11InputLayoutManager.cpp">
       <Filter>graphics\dx11\res\inputLayerout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Shader.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\RawBuffer.cpp">
+      <Filter>graphics\res\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLShader.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11GeometryShader.cpp">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11PixelShader.cpp">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11Shader.cpp">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11VertexShader.cpp">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\DX11ComputeShader.cpp">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLBaseBuffer.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLByteAddressBuffer.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLComputeProgram.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLConstantBuffer.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLParameter.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLProgramFactory.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLResource.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLResourceBindInfo.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLSamplerState.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLShaderFactory.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLShaderType.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLShaderVariable.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLStructuredBuffer.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLTexture.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLTextureArray.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLTextureBuffer.cpp">
+      <Filter>graphics\hlsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\dx11\HLSLVisualProgram.cpp">
+      <Filter>graphics\hlsl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -419,6 +500,84 @@
     </ClInclude>
     <ClInclude Include="..\include\graphics\dx11\DX11InputLayoutManager.h">
       <Filter>graphics\dx11\res\inputLayerout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Shader.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\RawBuffer.h">
+      <Filter>graphics\res\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11GeometryShader.h">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11PixelShader.h">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11Shader.h">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11VertexShader.h">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\DX11ComputeShader.h">
+      <Filter>graphics\dx11\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLBaseBuffer.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLByteAddressBuffer.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLComputeProgram.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLConstantBuffer.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLFactory.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLParameter.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLProgramFactory.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLResource.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLResourceBindInfo.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLSamplerState.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLShader.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLShaderFactory.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLShaderType.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLShaderVariable.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLStructuredBuffer.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLTexture.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLTextureArray.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLTextureBuffer.h">
+      <Filter>graphics\hlsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\dx11\HLSLVisualProgram.h">
+      <Filter>graphics\hlsl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
