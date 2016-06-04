@@ -16,45 +16,6 @@
     <Filter Include="graphics">
       <UniqueIdentifier>{5c12c1b6-5494-4626-a517-1f803b474573}</UniqueIdentifier>
     </Filter>
-    <Filter Include="graphics\dx11">
-      <UniqueIdentifier>{702bbcb6-d60a-4983-bf93-2f5af4dca043}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\res">
-      <UniqueIdentifier>{36045f3a-7a92-41f3-9f4b-ac68aed21336}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\dx11\state">
-      <UniqueIdentifier>{36783bc1-19c9-4ba0-b9e4-06493f7d3c19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\state">
-      <UniqueIdentifier>{be5d9579-d69a-4056-918f-f3a0ac4e9281}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\res\buffer">
-      <UniqueIdentifier>{68c1113a-6007-4fb7-9fa4-07754dca80ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\res\texture">
-      <UniqueIdentifier>{bd8aa827-ec01-43b6-9fb7-72f5b14408f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="math\arithmetic">
-      <UniqueIdentifier>{2ecbf856-c509-47e4-81e8-ae8f88e64b5d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\dx11\res">
-      <UniqueIdentifier>{c2132e65-345f-4bbc-9b9f-c34ab1039aeb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\dx11\res\buffer">
-      <UniqueIdentifier>{5545cada-e840-4079-8fe6-d2581fd932e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\dx11\res\texture">
-      <UniqueIdentifier>{d6c4b652-dd8d-4934-aca5-930ecf688211}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\dx11\res\inputLayerout">
-      <UniqueIdentifier>{a6953f48-b684-497d-9347-dfb5c3bb8ebc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\hlsl">
-      <UniqueIdentifier>{12b8c917-c90c-4361-9681-3e5bc8bbc4f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\dx11\shader">
-      <UniqueIdentifier>{19354a81-6dee-411e-9f4e-a7e3d861d6f2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -85,227 +46,41 @@
     <ClCompile Include="src\graphics\Scene.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\sys\Application.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
     <ClCompile Include="src\sys\DLog.cpp">
       <Filter>sys</Filter>
     </ClCompile>
     <ClCompile Include="src\sys\SysEnv.cpp">
       <Filter>sys</Filter>
     </ClCompile>
+    <ClCompile Include="src\math\algebra\EulerAngles.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Matrix1x4.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Matrix3x3.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Matrix4x4.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Plane3D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Quternion.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Vector2D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\algebra\Vector3D.cpp">
+      <Filter>math\algebra</Filter>
+    </ClCompile>
     <ClCompile Include="src\graphics\GeoCreater.cpp">
       <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sys\Window.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11Engine.cpp">
-      <Filter>graphics\dx11</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\GraphicsObject.cpp">
-      <Filter>graphics\res</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11DrawingState.cpp">
-      <Filter>graphics\dx11\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11GraphicsObject.cpp">
-      <Filter>graphics\dx11</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\DrawingState.cpp">
-      <Filter>graphics\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\BlendState.cpp">
-      <Filter>graphics\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11BlendState.cpp">
-      <Filter>graphics\dx11\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\DepthStencilState.cpp">
-      <Filter>graphics\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11DepthStencilState.cpp">
-      <Filter>graphics\dx11\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\RasterizerState.cpp">
-      <Filter>graphics\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\SamplerState.cpp">
-      <Filter>graphics\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11RasterizerState.cpp">
-      <Filter>graphics\dx11\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11SamplerState.cpp">
-      <Filter>graphics\dx11\state</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\VertexBuffer.cpp">
-      <Filter>graphics\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\GraphicsResource.cpp">
-      <Filter>graphics\res</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Buffer.cpp">
-      <Filter>graphics\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\DataFormat.cpp">
-      <Filter>graphics\res</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\VertexFormat.cpp">
-      <Filter>graphics\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\IndexBuffer.cpp">
-      <Filter>graphics\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\ConstantBuffer.cpp">
-      <Filter>graphics\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Texture.cpp">
-      <Filter>graphics\res\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Texture2.cpp">
-      <Filter>graphics\res\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\TextureSingle.cpp">
-      <Filter>graphics\res\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\EulerAngles.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\Matrix1x4.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\Matrix3x3.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\Matrix4x4.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\Plane3D.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\Quternion.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\Vector2D.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\Vector3D.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\Vector4D.cpp">
-      <Filter>math\algebra</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\BitHacks.cpp">
-      <Filter>math\arithmetic</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11Resource.cpp">
-      <Filter>graphics\dx11\res</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11Buffer.cpp">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11ConstantBuffer.cpp">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11IndexBuffer.cpp">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11TextureBuffer.cpp">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11VertexBuffer.cpp">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11Texture.cpp">
-      <Filter>graphics\dx11\res\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11Texture2.cpp">
-      <Filter>graphics\dx11\res\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11TextureSingle.cpp">
-      <Filter>graphics\dx11\res\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\TextureBuffer.cpp">
-      <Filter>graphics\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11InputLayout.cpp">
-      <Filter>graphics\dx11\res\inputLayerout</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11InputLayoutManager.cpp">
-      <Filter>graphics\dx11\res\inputLayerout</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Shader.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\RawBuffer.cpp">
-      <Filter>graphics\res\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLShader.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11GeometryShader.cpp">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11PixelShader.cpp">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11Shader.cpp">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11VertexShader.cpp">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\DX11ComputeShader.cpp">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLBaseBuffer.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLByteAddressBuffer.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLComputeProgram.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLConstantBuffer.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLParameter.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLProgramFactory.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLResource.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLResourceBindInfo.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLSamplerState.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLShaderFactory.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLShaderType.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLShaderVariable.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLStructuredBuffer.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLTexture.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLTextureArray.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLTextureBuffer.cpp">
-      <Filter>graphics\hlsl</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\dx11\HLSLVisualProgram.cpp">
-      <Filter>graphics\hlsl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -327,11 +102,35 @@
     <ClInclude Include="..\include\BaseApp.h" />
     <ClInclude Include="..\include\BaseDataStruct.h" />
     <ClInclude Include="..\include\Main.h" />
+    <ClInclude Include="..\include\sys\Application.h">
+      <Filter>sys</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\sys\DLog.h">
       <Filter>sys</Filter>
     </ClInclude>
     <ClInclude Include="..\include\sys\SysEnv.h">
       <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\EulerAngles.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Matrix1x4.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Matrix3x3.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Matrix4x4.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Quaternion.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Vector2D.h">
+      <Filter>math\algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\math\algebra\Vector3D.h">
+      <Filter>math\algebra</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics\Camera.h">
       <Filter>graphics</Filter>
@@ -356,228 +155,6 @@
     </ClInclude>
     <ClInclude Include="..\include\graphics\GeoCreater.h">
       <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\sys\Window.h">
-      <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\sys\App.h">
-      <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11Engine.h">
-      <Filter>graphics\dx11</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\GraphicsObject.h">
-      <Filter>graphics\res</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11DrawingState.h">
-      <Filter>graphics\dx11\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11GraphicsObject.h">
-      <Filter>graphics\dx11</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\DrawingState.h">
-      <Filter>graphics\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\BlendState.h">
-      <Filter>graphics\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11BlendState.h">
-      <Filter>graphics\dx11\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\DepthStencilState.h">
-      <Filter>graphics\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11DepthStencilState.h">
-      <Filter>graphics\dx11\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\RasterizerState.h">
-      <Filter>graphics\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\SamplerState.h">
-      <Filter>graphics\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11RasterizerState.h">
-      <Filter>graphics\dx11\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11SamplerState.h">
-      <Filter>graphics\dx11\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\VertexBuffer.h">
-      <Filter>graphics\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\GraphicsResource.h">
-      <Filter>graphics\res</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\Buffer.h">
-      <Filter>graphics\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\DataFormat.h">
-      <Filter>graphics\res</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\VertexFormat.h">
-      <Filter>graphics\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\ConstantBuffer.h">
-      <Filter>graphics\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\IndexBuffer.h">
-      <Filter>graphics\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\IndexFormat.h">
-      <Filter>graphics\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\MemberLayout.h">
-      <Filter>graphics\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\Texture.h">
-      <Filter>graphics\res\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\Texture2.h">
-      <Filter>graphics\res\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\TextureSingle.h">
-      <Filter>graphics\res\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\EulerAngles.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Matrix1x4.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Matrix3x3.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Matrix4x4.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Quaternion.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Vector2D.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Vector3D.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Vector4D.h">
-      <Filter>math\algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\BitHacks.h">
-      <Filter>math\arithmetic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11Resource.h">
-      <Filter>graphics\dx11\res</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11Buffer.h">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11ConstantBuffer.h">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11IndexBuffer.h">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11TextureBuffer.h">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11VertexBuffer.h">
-      <Filter>graphics\dx11\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11Texture.h">
-      <Filter>graphics\dx11\res\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11Texture2.h">
-      <Filter>graphics\dx11\res\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11TextureSingle.h">
-      <Filter>graphics\dx11\res\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\TextureBuffer.h">
-      <Filter>graphics\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11InputLayout.h">
-      <Filter>graphics\dx11\res\inputLayerout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11InputLayoutManager.h">
-      <Filter>graphics\dx11\res\inputLayerout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\Shader.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\RawBuffer.h">
-      <Filter>graphics\res\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11GeometryShader.h">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11PixelShader.h">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11Shader.h">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11VertexShader.h">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\DX11ComputeShader.h">
-      <Filter>graphics\dx11\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLBaseBuffer.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLByteAddressBuffer.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLComputeProgram.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLConstantBuffer.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLFactory.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLParameter.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLProgramFactory.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLResource.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLResourceBindInfo.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLSamplerState.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLShader.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLShaderFactory.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLShaderType.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLShaderVariable.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLStructuredBuffer.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLTexture.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLTextureArray.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLTextureBuffer.h">
-      <Filter>graphics\hlsl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\dx11\HLSLVisualProgram.h">
-      <Filter>graphics\hlsl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
