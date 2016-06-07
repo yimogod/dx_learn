@@ -390,6 +390,7 @@
     <ClInclude Include="..\include\graphics\Camera.h" />
     <ClInclude Include="..\include\graphics\Color.h" />
     <ClInclude Include="..\include\graphics\DXEngine.h" />
+    <ClInclude Include="..\include\graphics\DXInclude.h" />
     <ClInclude Include="..\include\graphics\GeoCreater.h" />
     <ClInclude Include="..\include\graphics\InputLayout.h" />
     <ClInclude Include="..\include\graphics\Light.h" />
