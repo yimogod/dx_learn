@@ -3,6 +3,7 @@
 #include <util/ObjParser.h>
 #include <DirectXColors.h>
 #include <graphics/Mesh.h>
+#include <graphics/Shader.h>
 #include "DemoApp.h"
 
 using namespace DirectX;
@@ -28,11 +29,11 @@ bool DemoApp::loadContent(){
 	mesh->getVertexList(vertices);
 
 	/*准备shader数据*/
-	CreateShaderInfo vs;
+	Shader vs;
 	vs.fileName = L"shader/Triangle.fx";
 	vs.entryPoint = "VS";
 	vs.shaderModel = "vs_4_0";
-	CreateShaderInfo ps;
+	Shader ps;
 	ps.fileName = L"shader/Triangle.fx";
 	ps.entryPoint = "PS";
 	ps.shaderModel = "ps_4_0";

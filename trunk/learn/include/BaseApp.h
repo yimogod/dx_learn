@@ -22,11 +22,7 @@ struct MouseState{
 	char bPadding;       // Structure must be DWORD multiple in size.
 };
 
-struct CreateShaderInfo{
-	WCHAR* fileName;
-	LPCSTR entryPoint;
-	LPCSTR shaderModel;
-};
+
 
 class BaseApp{
 public:

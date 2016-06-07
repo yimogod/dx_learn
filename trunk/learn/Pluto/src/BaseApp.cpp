@@ -4,6 +4,7 @@
 #include <DirectXColors.h>
 #include <util/DDSTextureLoader.h>
 #include <util/CUtil.h>
+#include <graphics/Shader.h>
 #include "BaseApp.h"
 
 #pragma comment (lib, "libfbxsdk.lib")
@@ -386,7 +387,7 @@ bool BaseApp::createConstBuffer(ID3D11Buffer** constBuff, int byteWidth){
 	return true;
 }
 
-bool BaseApp::createShader(CreateShaderInfo vs, CreateShaderInfo ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){
+bool BaseApp::createShader(Shader vs, Shader ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){
 	/*±‡“Îshader*/
 	ID3DBlob* pVSBlob = nullptr;
 	HRESULT hr = compileShaderFromFile(vs.fileName, vs.entryPoint, vs.shaderModel, &pVSBlob);

@@ -16,6 +16,9 @@
     <Filter Include="graphics">
       <UniqueIdentifier>{5c12c1b6-5494-4626-a517-1f803b474573}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics\dx">
+      <UniqueIdentifier>{0ada6729-1ef6-4fd7-86b9-af00b6d7576d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -81,6 +84,21 @@
     </ClCompile>
     <ClCompile Include="src\graphics\GeoCreater.cpp">
       <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXEngine.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Shader.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\VertexShader.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\InputLayout.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\PixelShader.cpp">
+      <Filter>graphics\dx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +173,21 @@
     </ClInclude>
     <ClInclude Include="..\include\graphics\GeoCreater.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXEngine.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\Shader.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\VertexShader.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\InputLayout.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\PixelShader.h">
+      <Filter>graphics\dx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
