@@ -1,7 +1,6 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
-#include "resource.h"
 
 #include <dinput.h>
 #include <DirectXMath.h>
@@ -29,7 +28,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int nCmdShow){
 	MainInfo info;
 	info.app = new DemoApp();
-	info.icon = (LPCWSTR)IDI_TUTORIAL1;
+	info.icon = nullptr;
 	info.title = L"TextureCube";
 	info.width = 1200;
 	info.height = 960;

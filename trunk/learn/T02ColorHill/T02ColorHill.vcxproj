@@ -31,7 +31,7 @@
     <ProjectGuid>{28877253-3120-4098-86B8-BAAC1C0AF240}</ProjectGuid>
     <RootNamespace>T02ColorHill</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -356,14 +356,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DemoApp.h" />
-    <CLInclude Include="resource.h" />
-    <ResourceCompile Include="Tutorial02.rc" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\ColorVertex.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pluto\Pluto.vcxproj">
+      <Project>{06edc280-1187-4614-a248-e640c095fa6b}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

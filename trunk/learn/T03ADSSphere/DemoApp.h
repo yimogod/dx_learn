@@ -1,7 +1,6 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
-#include "resource.h"
 
 #include <DirectXMath.h>
 #include <dinput.h>
@@ -52,7 +51,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int nCmdShow){
 	MainInfo info;
 	info.app = new DemoApp();
-	info.icon = (LPCWSTR)IDI_TUTORIAL1;
+	info.icon = nullptr;
 	info.title = L"ADS Sphere";
 	info.width = 800;
 	info.height = 600;

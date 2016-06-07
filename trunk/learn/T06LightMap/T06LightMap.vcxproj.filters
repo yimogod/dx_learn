@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="DemoApp.h" />
-    <ClInclude Include="resource.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DemoApp.cpp" />
@@ -13,19 +10,6 @@
     <Filter Include="shader">
       <UniqueIdentifier>{dfc1a562-e6ea-49de-a44f-e6429ec6be3a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{15783a53-604f-4676-bf1a-84c8550149bd}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="directx.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Tutorial01.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\light_map.fx">

@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CB0C93D5-DD09-499C-A9E9-DD3AF68457E1}</ProjectGuid>
     <RootNamespace>T03ADSSphere</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
     <ProjectName>T03ADSSphere</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -138,14 +138,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="directx.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="T03ADSSphere.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="DemoApp.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DemoApp.cpp" />

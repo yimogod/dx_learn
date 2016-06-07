@@ -139,14 +139,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="directx.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Tutorial01.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="DemoApp.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DemoApp.cpp" />
