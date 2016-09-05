@@ -43,22 +43,47 @@ bool Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut){
 	return true;
 }
 
-bool Shader::CreateVertexShader(ID3D11Device* device, ID3DBlob* blob, ID3D11VertexShader* vs){
+bool Shader::CreateVertexShader(ID3D11Device* device, ID3D11VertexShader** vs,
+	D3D11_INPUT_ELEMENT_DESC desc[], int num, ID3D11InputLayout** layout){
+	ID3DBlob* blob = nullptr;
+
 	bool result = CompileShaderFromFile(&blob);
-	if(!result)return false;
+	if(!result){
+		blob->Release();
+		return false;
+	}
 
-	HRESULT hr = device->CreateVertexShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &vs);
+	HRESULT hr = device->CreateVertexShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, vs);
+	if(FAILED(hr)){
+		blob->Release();
+		return false;
+	}
 
-	if(FAILED(hr))return false;
+	hr = device->CreateInputLayout(desc, num, blob->GetBufferPointer(), blob->GetBufferSize(), layout);
+	if(FAILED(hr)){
+		blob->Release();
+		return false;
+	}
+
+	blob->Release();
 	return true;
 }
 
-bool Shader::CreatePixelShader(ID3D11Device* device, ID3DBlob* blob, ID3D11PixelShader* ps){
+bool Shader::CreatePixelShader(ID3D11Device* device, ID3D11PixelShader** ps){
+	ID3DBlob* blob = nullptr;
+
 	bool result = CompileShaderFromFile(&blob);
-	if(!result)return false;
+	if(!result){
+		blob->Release();
+		return false;
+	}
 
-	HRESULT hr = device->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &ps);
+	HRESULT hr = device->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, ps);
+	if(FAILED(hr)){
+		blob->Release();
+		return false;
+	}
 
-	if(FAILED(hr))return false;
+	blob->Release();
 	return true;
 }

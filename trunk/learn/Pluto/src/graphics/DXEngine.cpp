@@ -278,24 +278,13 @@ bool DXEngine::CreateConstBuffer(int byteWidth){
 }
 
 bool DXEngine::CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){
-	ID3DBlob* pVSBlob = nullptr;
+	
 	/*创建 vertex shader*/
-	bool result = vs.CreateVertexShader(_device, pVSBlob, _vs);
-	if(!result){
-		pVSBlob->Release();
-		return false;
-	}
-
-	HRESULT hr = _device->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(),
-		pVSBlob->GetBufferSize(), &_vertexLayout);
-	pVSBlob->Release();
-	if(FAILED(hr))return false;
+	bool result = vs.CreateVertexShader(_device, &_vs, layout, numElements, &_vertexLayout);
+	if(!result)return false;
 
 	/*创建 pixel shader*/
-	ID3DBlob* pPSBlob = nullptr;
-	result = ps.CreatePixelShader(_device, pPSBlob, _ps);
-	pPSBlob->Release();
-	
+	result = ps.CreatePixelShader(_device, &_ps);
 	return result;
 }
 
