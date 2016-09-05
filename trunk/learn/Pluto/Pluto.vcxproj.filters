@@ -91,12 +91,6 @@
     <ClCompile Include="src\graphics\Shader.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\VertexShader.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\PixelShader.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\InputLayout.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
@@ -183,13 +177,7 @@
     <ClInclude Include="..\include\graphics\Shader.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\VertexShader.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\graphics\InputLayout.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\PixelShader.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics\DXInclude.h">

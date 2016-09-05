@@ -40,13 +40,13 @@ bool DXEngine::CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight)
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	
 	sd.SampleDesc.Count = 4;
-	sd.SampleDesc.Quality = 1;
+	sd.SampleDesc.Quality = 0;//9600设置为1的话出错
 
 	sd.BufferCount = 1; //多少个后缓冲区, 如果双缓冲的话, 设置为1
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.Windowed = TRUE;
 	sd.OutputWindow = _hwnd;
-	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	//sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
 
 	hr = D3D11CreateDeviceAndSwapChain(nullptr, _driverType, nullptr, createDeviceFlags, featureLevels, numFeatureLevels, D3D11_SDK_VERSION, &sd, &_chain, &_device, &_featureLevel, &_context);
@@ -74,9 +74,11 @@ bool DXEngine::CreateDepthStencilView(){
 	td.MipLevels = 1; //深度缓存不需要mip level
 	td.ArraySize = 1; //texture array中texture的个数, 如果深度缓存, 1个
 	td.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	td.SampleDesc.Count = 4;
-	td.SampleDesc.Quality = 1;
 	td.Usage = D3D11_USAGE_DEFAULT;
+
+	td.SampleDesc.Count = 1;
+	td.SampleDesc.Quality = 0;
+
 	td.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	td.CPUAccessFlags = 0;
 	td.MiscFlags = 0;
@@ -269,43 +271,25 @@ bool DXEngine::CreateConstBuffer(ID3D11Buffer** constBuff, int byteWidth){
 }
 
 bool DXEngine::CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){
-	/*编译shader*/
 	ID3DBlob* pVSBlob = nullptr;
-	HRESULT hr = vs.CompileShaderFromFile(&pVSBlob);
-	if(FAILED(hr)){
-		pVSBlob->Release();
-		return false;
-	}
-
 	/*创建 vertex shader*/
-	hr = _device->CreateVertexShader(pVSBlob->GetBufferPointer(),
-		pVSBlob->GetBufferSize(), nullptr, &_vs);
-
-	if(FAILED(hr)){
+	bool result = vs.CreateVertexShader(_device, pVSBlob, _vs);
+	if(!result){
 		pVSBlob->Release();
 		return false;
 	}
 
-	hr = _device->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(),
+	HRESULT hr = _device->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(),
 		pVSBlob->GetBufferSize(), &_vertexLayout);
 	pVSBlob->Release();
 	if(FAILED(hr))return false;
 
-	/*编译shader*/
-	ID3DBlob* pPSBlob = nullptr;
-	hr = ps.CompileShaderFromFile(&pPSBlob);
-	if(FAILED(hr)){
-		pPSBlob->Release();
-		return false;
-	}
-
 	/*创建 pixel shader*/
-	hr = _device->CreatePixelShader(pPSBlob->GetBufferPointer(),
-		pPSBlob->GetBufferSize(), nullptr, &_ps);
+	ID3DBlob* pPSBlob = nullptr;
+	result = ps.CreatePixelShader(_device, pPSBlob, _ps);
 	pPSBlob->Release();
-
-	if(FAILED(hr))return false;
-	return true;
+	
+	return result;
 }
 
 bool DXEngine::CreateDepthState(){

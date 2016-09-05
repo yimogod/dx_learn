@@ -10,7 +10,10 @@ public:
 
 public:
 	//±‡“Îshader
-	int Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut);
+	bool CompileShaderFromFile(ID3DBlob** ppBlobOut);
+
+	bool CreateVertexShader(ID3D11Device* device, ID3DBlob* blob, ID3D11VertexShader* vs);
+	bool CreatePixelShader(ID3D11Device* device, ID3DBlob* blob, ID3D11PixelShader* ps);
 
 private:
 	const wchar_t* _fileName;

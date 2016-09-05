@@ -16,7 +16,7 @@ Shader::~Shader()
 {
 }
 
-int Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut){
+bool Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut){
 	HRESULT hr = S_OK;
 
 	DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
@@ -34,11 +34,31 @@ int Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut){
 	}
 	if(pErrorBlob){
 		pErrorBlob->Release();
-		return S_FALSE;
+		return false;
 	}
 	if(FAILED(hr)){
-		return S_FALSE;
+		return false;
 	}
 
-	return S_OK;
+	return true;
+}
+
+bool Shader::CreateVertexShader(ID3D11Device* device, ID3DBlob* blob, ID3D11VertexShader* vs){
+	bool result = CompileShaderFromFile(&blob);
+	if(!result)return false;
+
+	HRESULT hr = device->CreateVertexShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &vs);
+
+	if(FAILED(hr))return false;
+	return true;
+}
+
+bool Shader::CreatePixelShader(ID3D11Device* device, ID3DBlob* blob, ID3D11PixelShader* ps){
+	bool result = CompileShaderFromFile(&blob);
+	if(!result)return false;
+
+	HRESULT hr = device->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &ps);
+
+	if(FAILED(hr))return false;
+	return true;
 }

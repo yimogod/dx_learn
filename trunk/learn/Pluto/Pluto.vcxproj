@@ -363,10 +363,8 @@
     <ClCompile Include="src\graphics\InputLayout.cpp" />
     <ClCompile Include="src\graphics\Light.cpp" />
     <ClCompile Include="src\graphics\Mesh.cpp" />
-    <ClCompile Include="src\graphics\PixelShader.cpp" />
     <ClCompile Include="src\graphics\Scene.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
-    <ClCompile Include="src\graphics\VertexShader.cpp" />
     <ClCompile Include="src\math\algebra\EulerAngles.cpp" />
     <ClCompile Include="src\math\algebra\Matrix1x4.cpp" />
     <ClCompile Include="src\math\algebra\Matrix3x3.cpp" />
@@ -396,12 +394,10 @@
     <ClInclude Include="..\include\graphics\InputLayout.h" />
     <ClInclude Include="..\include\graphics\Light.h" />
     <ClInclude Include="..\include\graphics\Mesh.h" />
-    <ClInclude Include="..\include\graphics\PixelShader.h" />
     <ClInclude Include="..\include\graphics\Plane3D.h" />
     <ClInclude Include="..\include\graphics\Scene.h" />
     <ClInclude Include="..\include\graphics\Shader.h" />
     <ClInclude Include="..\include\graphics\Vertex.h" />
-    <ClInclude Include="..\include\graphics\VertexShader.h" />
     <ClInclude Include="..\include\Main.h" />
     <ClInclude Include="..\include\math\algebra\EulerAngles.h" />
     <ClInclude Include="..\include\math\algebra\Matrix1x4.h" />
