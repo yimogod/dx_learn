@@ -63,6 +63,8 @@ void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 
 	CreateSamplerState();
 	CreateDepthState();
+
+	_ready = true;
 }
 
 bool DXEngine::CreateDepthStencilView(){
@@ -268,6 +270,11 @@ bool DXEngine::CreateConstBuffer(ID3D11Buffer** constBuff, int byteWidth){
 	if(FAILED(hr))return false;
 
 	return true;
+}
+
+bool DXEngine::CreateConstBuffer(int byteWidth){
+	bool result = CreateConstBuffer(&_constBuff, byteWidth);
+	return result;
 }
 
 bool DXEngine::CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){

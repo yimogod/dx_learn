@@ -40,12 +40,10 @@ bool DemoApp::LoadContent(){
 	};
 	int numElements = ARRAYSIZE(layout);
 
-	//initDevice();
-
-	//createShader(vs, ps, layout, numElements);
-	//createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
-	//createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	//createTexture(getFullPathW("assets/t_01.dds").c_str());
+	_dxEngine.CreateShader(vs, ps, layout, numElements);
+	_dxEngine.CreateVertexBuffer(vertices, mesh->indexNum, 40 * 4);
+	_dxEngine.CreateConstBuffer(sizeof(ConstantBuffer));
+	_dxEngine.CreateTexture(GetFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);
 	return true;
@@ -62,24 +60,24 @@ void DemoApp::Update(){
 	cb.model = _scene.currMesh()->localToWorldMatrix().transpose();
 	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
 	cb.perspective = _scene.camera->getCameraToProjMatrix().transpose();
-	//_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+	_dxEngine.GetContext()->UpdateSubresource(_dxEngine.GetConstBuff(), 0, nullptr, &cb, 0, 0);
 }
 
 void DemoApp::Render(){
-	//if(_context == NULL)return;
+	if(!_dxEngine.GetReady())return;
 
-	//_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
-	//_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	//bindVertexBuff();
+	_dxEngine.ClearRenderTargetView(Colors::MidnightBlue);
+	_dxEngine.ClearDepthStencilView(D3D11_CLEAR_DEPTH, 1.0f, 0);
+	_dxEngine.BindVertexBuff();
 
-	//_context->VSSetShader(_vs, nullptr, 0);
-	//_context->VSSetConstantBuffers(0, 1, &_constBuff);
-	//_context->PSSetShader(_ps, nullptr, 0);
-	//_context->PSSetShaderResources(0, _resViewNum, _resView);
-	//_context->PSSetSamplers(0, 1, &_sampleState);
+	_dxEngine.VSSetShader();
+	_dxEngine.VSSetConstantBuffers(0, 1);
+	_dxEngine.PSSetShader();
+	_dxEngine.PSSetShaderResources(0);
+	_dxEngine.PSSetSamplers(0, 1);
 
-	//Mesh *m = _scene.getMesh(0);
-	//_context->Draw(m->indexNum, 0);
-
-	//_chain->Present(0, 0);
+	
+	Mesh *m = _scene.getMesh(0);
+	_dxEngine.GetContext()->Draw(m->indexNum, 0);
+	_dxEngine.GetChain()->Present(0, 0);
 }

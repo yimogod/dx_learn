@@ -9,9 +9,42 @@ public:
 	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 
+	//编译并创建shader
+	bool CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
+	//创建/绑定各种buff
+	bool CreateVertexBuffer(Vertex *vertices, int vertNum, int vertSize);
+	bool CreateVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff);
+	void BindVertexBuff();
+	void BindVertexBuff(ID3D11Buffer* vertexBuff);
+
+	bool CreateIndexBuffer(unsigned short* indexList, int indexNum);
+	void BindIndexBuff();
+	
+	bool CreateConstBuffer(ID3D11Buffer** constBuff, int byteWidth);
+	bool CreateConstBuffer(int byteWidth);
+
+	bool CreateTexture(const wchar_t* path);
+
+public:
+	inline bool GetReady();
+	inline ID3D11Device* GetDevice() const;
+	inline IDXGISwapChain* GetChain() const;
+	inline ID3D11DeviceContext* GetContext() const;
+	inline ID3D11Buffer* GetConstBuff() const;
+
+	//device或者context的一些代理方法
+	inline void ClearRenderTargetView(const FLOAT ColorRGBA[4]);
+	inline void ClearDepthStencilView(UINT ClearFlags, FLOAT Depth, UINT8 Stencil);
+	inline void VSSetShader();
+	inline void VSSetConstantBuffers(UINT StartSlot, UINT NumBuffer);
+	inline void PSSetShader();
+	inline void PSSetShaderResources(UINT StartSlot);
+	inline void PSSetSamplers(UINT StartSlot, UINT NumSampler);
+
 private:
 	HINSTANCE _ins;
 	HWND _hwnd;
+	bool _ready = false;
 
 	int _width, _height;
 
@@ -72,21 +105,60 @@ private:
 	void DisableAlphaBlend();
 
 	bool CreateSamplerState();
-	bool CreateTexture(const wchar_t* path);
-
 
 	/*创建shader使用的texture2d*/
 	bool CreateRenderTargetViewByShaderRes();
 
-	bool CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
-	bool CreateVertexBuffer(Vertex *vertices, int vertNum, int vertSize);
-	bool CreateVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff);
-	void BindVertexBuff();
-	void BindVertexBuff(ID3D11Buffer* vertexBuff);
-	bool CreateIndexBuffer(unsigned short* indexList, int indexNum);
-	void BindIndexBuff();
-	bool CreateConstBuffer(ID3D11Buffer** constBuff, int byteWidth);
-
 	bool CreateDepthState();
 	bool CreateRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs);
 };
+
+
+inline ID3D11Device* DXEngine::GetDevice() const{
+	return _device;
+}
+
+inline ID3D11DeviceContext* DXEngine::GetContext() const{
+	return _context;
+}
+
+inline IDXGISwapChain* DXEngine::GetChain() const{
+	return _chain;
+}
+
+inline ID3D11Buffer* DXEngine::GetConstBuff() const{
+	return _constBuff;
+}
+
+inline bool DXEngine::GetReady(){
+	return _ready;
+}
+
+
+inline void DXEngine::ClearRenderTargetView(const FLOAT ColorRGBA[4]){
+	_context->ClearRenderTargetView(_renderTargetView, ColorRGBA);
+}
+
+inline void DXEngine::ClearDepthStencilView(UINT ClearFlags, FLOAT Depth, UINT8 Stencil){
+	_context->ClearDepthStencilView(_depthStencilView, ClearFlags, Depth, Stencil);
+}
+
+inline void DXEngine::VSSetShader(){
+	_context->VSSetShader(_vs, nullptr, 0);
+}
+
+inline void DXEngine::VSSetConstantBuffers(UINT StartSlot, UINT NumBuffers){
+	_context->VSSetConstantBuffers(StartSlot, NumBuffers, &_constBuff);
+}
+
+inline void DXEngine::PSSetShader(){
+	_context->PSSetShader(_ps, nullptr, 0);
+}
+
+inline void DXEngine::PSSetShaderResources(UINT StartSlot){
+	_context->PSSetShaderResources(StartSlot, _resViewNum, _resView);
+}
+
+inline void DXEngine::PSSetSamplers(UINT StartSlot, UINT NumSamplers){
+	_context->PSSetSamplers(StartSlot, NumSamplers, &_sampleState);
+}
