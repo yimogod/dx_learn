@@ -100,6 +100,9 @@
     <ClCompile Include="src\graphics\InputLayout.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
+    <ClCompile Include="src\sys\InputEngine.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -191,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="..\include\graphics\DXInclude.h">
       <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sys\InputEngine.h">
+      <Filter>sys</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

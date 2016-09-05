@@ -1,14 +1,8 @@
 #pragma once
 #include <string>
 
-#include <math/algebra/Matrix4x4.h>
-#include <graphics/Vertex.h>
 #include <sys/SysEnv.h>
 #include <graphics/Scene.h>
-
-using namespace std;
-
-
 
 class BaseApp{
 public:
@@ -29,23 +23,11 @@ protected:
 	HWND _hwnd;
 
 	int _width, _height;
-
-protected:
-	bool isKeyDown(char keycode);
-	bool isLMouseDown();
-	bool isRMouseDown();
-	void UpdatePosByRMouse(Camera* camera, float value);
-	void UpdatePosByLMouse(Mesh* mesh, float value);
-	
-	float _mouseX, _mouseY;
-	bool _isRMouseDown = false;
-	bool _isLMouseDown = false;
-
 protected:
 	Scene _scene;
 	SysEnv _env;
 
-	string getAppRoot();
-	string getFullPath(char* path);
-	wstring getFullPathW(char* path);
+	std::string getAppRoot();
+	std::string getFullPath(char* path);
+	std::wstring getFullPathW(char* path);
 };
