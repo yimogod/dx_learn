@@ -36,10 +36,10 @@ int MainBody(_In_ HINSTANCE hInstance,
 	BaseApp* app = info.app;
 
 	/*初始化d3d设备*/
-	hr = app->init(hInstance, g_hWnd);
+	hr = app->Init(hInstance, g_hWnd);
 
 	if(FAILED(hr)){
-		app->destroy();
+		app->Destroy();
 		return NULL;
 	}
 
@@ -50,11 +50,11 @@ int MainBody(_In_ HINSTANCE hInstance,
 			DispatchMessage(&msg);
 		}
 
-		app->update();
-		app->render();
+		app->Update();
+		app->Render();
 	}
 
-	app->destroy();
+	app->Destroy();
 
 	return (int)msg.wParam;
 }

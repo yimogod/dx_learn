@@ -5,12 +5,8 @@
 using namespace DirectX;
 
 DXEngine::DXEngine():
-	_driverType(D3D_DRIVER_TYPE_NULL),
+	_driverType(D3D_DRIVER_TYPE_HARDWARE),
 	_featureLevel(D3D_FEATURE_LEVEL_11_1),
-	_device(NULL),
-	_context(NULL),
-	_chain(NULL),
-	_renderTargetView(NULL),
 	_resViewNum(0)
 {
 }
@@ -18,8 +14,7 @@ DXEngine::DXEngine():
 DXEngine::~DXEngine(){
 }
 
-bool DXEngine::CreateDevice(HWND hwnd, int screenWidth, int screenHeight)
-{
+bool DXEngine::CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	_hwnd = hwnd;
 	_width = screenWidth;
 	_height = screenHeight;
@@ -31,21 +26,24 @@ bool DXEngine::CreateDevice(HWND hwnd, int screenWidth, int screenHeight)
 #endif
 
 	HRESULT hr = S_OK;
-	/*创建device*/
+	//创建device, 学习代码, 只支持11.1. 另外在学习dx12的时候, 会加入dx12
 	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_1 };
 	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
-	sd.BufferCount = 1;
+
 	sd.BufferDesc.Width = _width;
 	sd.BufferDesc.Height = _height;
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
-	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	
 	sd.SampleDesc.Count = 4;
 	sd.SampleDesc.Quality = 1;
+
+	sd.BufferCount = 1; //多少个后缓冲区, 如果双缓冲的话, 设置为1
+	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.Windowed = TRUE;
 	sd.OutputWindow = _hwnd;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
@@ -56,27 +54,25 @@ bool DXEngine::CreateDevice(HWND hwnd, int screenWidth, int screenHeight)
 	return true;
 }
 
-void DXEngine::InitDevice(HWND hwnd, int screenWidth, int screenHeight){
+void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	CreateDevice(hwnd, screenWidth, screenHeight);
 	CreateDepthStencilView();
 	CreateRenderTargetlView();
 	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
 	CreateViewPort();
-	//CreateDXInput();
 
 	CreateSamplerState();
 	CreateDepthState();
 }
 
-
 bool DXEngine::CreateDepthStencilView(){
-	/*声明深度模板描述数据*/
+	//声明深度模板<数据>描述
 	D3D11_TEXTURE2D_DESC td;
 	ZeroMemory(&td, sizeof(td));
 	td.Width = _width;
 	td.Height = _height;
-	td.MipLevels = 1;
-	td.ArraySize = 1;
+	td.MipLevels = 1; //深度缓存不需要mip level
+	td.ArraySize = 1; //texture array中texture的个数, 如果深度缓存, 1个
 	td.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	td.SampleDesc.Count = 4;
 	td.SampleDesc.Quality = 1;
@@ -89,6 +85,7 @@ bool DXEngine::CreateDepthStencilView(){
 	HRESULT hr = _device->CreateTexture2D(&td, nullptr, &_depthStencilBuffer);
 	if(FAILED(hr))return false;
 
+	//深度缓存描述
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
 	ZeroMemory(&dsvd, sizeof(dsvd));
 	dsvd.Format = td.Format;
@@ -99,18 +96,17 @@ bool DXEngine::CreateDepthStencilView(){
 	return true;
 }
 
+//这里只是创建了render target view, 并没有设置到context中--OMSetRenderTargets
 bool DXEngine::CreateRenderTargetlView(){
-	/*创建back buff*/
+	//创建back buff
 	_renderTargetBuffer = nullptr;
 	HRESULT hr = _chain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&_renderTargetBuffer));
 	if(FAILED(hr))return false;
 
-	/*创建render target*/
+	//创建render target
 	hr = _device->CreateRenderTargetView(_renderTargetBuffer, nullptr, &_renderTargetView);
 	if(FAILED(hr))return false;
 
-	//如果用到深度缓存的话
-	//_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
 	return true;
 }
 
@@ -275,7 +271,7 @@ bool DXEngine::CreateConstBuffer(ID3D11Buffer** constBuff, int byteWidth){
 bool DXEngine::CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){
 	/*编译shader*/
 	ID3DBlob* pVSBlob = nullptr;
-	HRESULT hr = vs.CompileShaderFromFile(vs.fileName, vs.entryPoint, vs.shaderModel, &pVSBlob);
+	HRESULT hr = vs.CompileShaderFromFile(&pVSBlob);
 	if(FAILED(hr)){
 		pVSBlob->Release();
 		return false;
@@ -297,7 +293,7 @@ bool DXEngine::CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC lay
 
 	/*编译shader*/
 	ID3DBlob* pPSBlob = nullptr;
-	hr = ps.CompileShaderFromFile(ps.fileName, ps.entryPoint, ps.shaderModel, &pPSBlob);
+	hr = ps.CompileShaderFromFile(&pPSBlob);
 	if(FAILED(hr)){
 		pPSBlob->Release();
 		return false;

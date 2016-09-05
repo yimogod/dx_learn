@@ -1,18 +1,19 @@
 #pragma once
-#include <graphics/DXInclude.h>
+#include <d3d11_1.h>
 
-class Shader
-{
+class Shader{
 public:
 	Shader();
-	~Shader();
+	Shader(const wchar_t* fileName, const char* entrytPoint, const char* shaderModel);
 
-	wchar_t* fileName;
-	char* entryPoint;
-	char* shaderModel;
+	~Shader();
 
 public:
 	//±‡“Îshader
-	int Shader::CompileShaderFromFile(wchar_t* szFileName,
-		char* szEntryPoint, char* szShaderModel, ID3DBlob** ppBlobOut);
+	int Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut);
+
+private:
+	const wchar_t* _fileName;
+	const char* _entryPoint;
+	const char* _shaderModel;
 };

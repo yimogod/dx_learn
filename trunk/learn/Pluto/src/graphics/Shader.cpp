@@ -1,15 +1,22 @@
+#include <d3dcompiler.h>
 #include <graphics/Shader.h>
 
 Shader::Shader()
 {
 }
 
+Shader::Shader(const wchar_t* fileName, const char* entrytPoint, const char* shaderModel):
+	_fileName(fileName), _entryPoint(entrytPoint), _shaderModel(shaderModel)
+{
+
+}
+
+
 Shader::~Shader()
 {
 }
 
-int Shader::CompileShaderFromFile(wchar_t* szFileName, char* szEntryPoint,
-	char* szShaderModel, ID3DBlob** ppBlobOut){
+int Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut){
 	HRESULT hr = S_OK;
 
 	DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
@@ -19,7 +26,7 @@ int Shader::CompileShaderFromFile(wchar_t* szFileName, char* szEntryPoint,
 	//#endif
 
 	ID3DBlob* pErrorBlob = nullptr;
-	hr = D3DCompileFromFile(szFileName, nullptr, nullptr, szEntryPoint, szShaderModel,
+	hr = D3DCompileFromFile(_fileName, nullptr, nullptr, _entryPoint, _shaderModel,
 		dwShaderFlags, 0, ppBlobOut, &pErrorBlob);
 
 	if(FAILED(hr) && pErrorBlob){

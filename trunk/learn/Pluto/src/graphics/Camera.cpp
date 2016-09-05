@@ -28,10 +28,10 @@ void Camera::setFrustum(float viewDis, float pfov, float nz, float fz){
 	farClipZ = fz;
 }
 
-void Camera::setAspect(float pviewportWidth, float pviewportHeight){
+void Camera::setAspect(int pviewportWidth, int pviewportHeight){
 	viewportWidth = pviewportWidth;
 	viewportHeight = pviewportHeight;
-	aspect = pviewportWidth / pviewportHeight;
+	aspect = (float)pviewportWidth / (float)pviewportHeight;
 }
 
 Matrix4x4 Camera::getWorldToCameraMatrix(){

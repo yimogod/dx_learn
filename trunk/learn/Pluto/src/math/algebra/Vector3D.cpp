@@ -14,7 +14,7 @@ Vector3D::Vector3D(float px, float py, float pz){
 }
 
 float Vector3D::getLength(){
-    return sqrt(x * x + y * y + z * z);
+    return (float)sqrt(x * x + y * y + z * z);
 }
 
 float Vector3D::getLengthSQ(){
@@ -66,5 +66,5 @@ float distanceBetweenVector3D(const Vector3D &va, const Vector3D &vb){
     float dy = va.y - vb.y;
     float dz = va.z - va.z;
 
-    return sqrt(dx * dx + dy * dy + dz * dz);
+    return (float)sqrt(dx * dx + dy * dy + dz * dz);
 }

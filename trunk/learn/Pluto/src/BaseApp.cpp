@@ -1,20 +1,13 @@
 #include <d3dcompiler.h>
-#include <DirectXMath.h>
-#include <DirectXColors.h>
-#include <util/DDSTextureLoader.h>
 #include <util/CUtil.h>
-#include <graphics/Shader.h>
 #include "BaseApp.h"
-
-using namespace DirectX;
 
 BaseApp::BaseApp(){}
 
 BaseApp::~BaseApp(){
-	destroy();
 }
 
-bool BaseApp::init(HINSTANCE ins, HWND hwnd){
+bool BaseApp::Init(HINSTANCE const &ins, HWND const &hwnd){
 	_ins = ins;
 	_hwnd = hwnd;
 
@@ -23,18 +16,24 @@ bool BaseApp::init(HINSTANCE ins, HWND hwnd){
 	_width = rect.right - rect.left;
 	_height = rect.bottom - rect.top;
 
-	return loadContent();
+	_dxEngine.InitDevice(hwnd, _width, _height);
+
+	return LoadContent();
 }
 
-string BaseApp::getAppRoot(){
+void BaseApp::Destroy(){
+	UnloadContent();
+}
+
+string const BaseApp::GetAppRoot(){
 	return _env.getVariable("PLU_ROOT");
 }
 
-string BaseApp::getFullPath(char* path){
+string BaseApp::GetFullPath(char* path){
 	return _env.getVariable("PLU_ROOT") + path;
 }
 
-wstring BaseApp::getFullPathW(char* path){
+wstring BaseApp::GetFullPathW(char* path){
 	string pstr = _env.getVariable("PLU_ROOT") + path;
 	wstring wst;
 	str_2_wstr(pstr, wst);

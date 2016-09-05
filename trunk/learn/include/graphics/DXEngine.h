@@ -1,15 +1,13 @@
 #pragma once
 #include <graphics/DXInclude.h>
 
-class DXEngine
-{
+class DXEngine{
 public:
 	DXEngine();
 	~DXEngine();
 
-	void InitDevice(HWND hwnd, int screenWidth, int screenHeight);
-
-	bool CreateDevice(HWND hwnd, int screenWidth, int screenHeight);
+	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
+	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 
 private:
 	HINSTANCE _ins;

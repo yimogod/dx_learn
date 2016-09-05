@@ -3,31 +3,35 @@
 
 #include <sys/SysEnv.h>
 #include <graphics/Scene.h>
+#include <graphics/DXEngine.h>
 
 class BaseApp{
 public:
 	BaseApp();
 	virtual ~BaseApp();
 
-	bool init(HINSTANCE ins, HWND hwnd);
-	void destroy();
+	bool Init(HINSTANCE const &ins, HWND const &hwnd);
+	void Destroy();
 
-	virtual bool loadContent();
-	virtual void unloadContent();
+	virtual bool LoadContent() = 0;
+	virtual void UnloadContent() = 0;
 
-	virtual void render();
-	virtual void update();
+	virtual void Update() = 0;
+	virtual void Render() = 0;
 
 protected:
 	HINSTANCE _ins;
 	HWND _hwnd;
 
 	int _width, _height;
+
+	DXEngine _dxEngine;
+
 protected:
 	Scene _scene;
 	SysEnv _env;
 
-	std::string getAppRoot();
-	std::string getFullPath(char* path);
-	std::wstring getFullPathW(char* path);
+	std::string const GetAppRoot();
+	std::string GetFullPath(char* path);
+	std::wstring GetFullPathW(char* path);
 };

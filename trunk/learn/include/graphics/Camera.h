@@ -40,8 +40,8 @@ public:
     float fov = 45.0f;
     
     /* 视口尺寸 */
-    float viewportWidth;
-    float viewportHeight;
+    int viewportWidth;
+    int viewportHeight;
     
 public:
     Camera();
@@ -50,7 +50,7 @@ public:
 	void setPos(float px, float py, float pz);
 	void setEulerAngle(float pheading, float ppitch, float pbank);
 	void setFrustum(float viewDis, float pfov, float nz, float fz);
-    void setAspect(float pviewportWidth, float pviewportHeight);
+    void setAspect(int pviewportWidth, int pviewportHeight);
 
 	Matrix4x4 getWorldToCameraMatrix();
 	Matrix4x4 getCameraToProjMatrix();

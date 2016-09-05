@@ -12,9 +12,9 @@ DemoApp::DemoApp(){}
 
 DemoApp::~DemoApp(){}
 
-bool DemoApp::loadContent(){
+bool DemoApp::LoadContent(){
 	ObjParser reader;
-	reader.read(getFullPath("assets/cube.obj").c_str(), &_scene);
+	reader.read(GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
 	_scene.camera = new Camera();
@@ -29,14 +29,8 @@ bool DemoApp::loadContent(){
 	mesh->getVertexList(vertices);
 
 	/*准备shader数据*/
-	Shader vs;
-	vs.fileName = L"shader/Triangle.fx";
-	vs.entryPoint = "VS";
-	vs.shaderModel = "vs_4_0";
-	Shader ps;
-	ps.fileName = L"shader/Triangle.fx";
-	ps.entryPoint = "PS";
-	ps.shaderModel = "ps_4_0";
+	Shader vs(L"shader/Triangle.fx", "VS", "vs_4_0");
+	Shader ps(L"shader/Triangle.fx", "PS", "ps_4_0");
 
 	/*创建 layout*/
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
@@ -57,13 +51,12 @@ bool DemoApp::loadContent(){
 	return true;
 }
 
-void DemoApp::unloadContent(){
-	BaseApp::unloadContent();
+void DemoApp::UnloadContent(){
 }
 
-void DemoApp::update(){
-	UpdatePosByRMouse(_scene.camera, 0.001f);
-	UpdatePosByLMouse(_scene.currMesh(), 0.001f);
+void DemoApp::Update(){
+	//UpdatePosByRMouse(_scene.camera, 0.001f);
+	//UpdatePosByLMouse(_scene.currMesh(), 0.001f);
 
 	ConstantBuffer cb;
 	cb.model = _scene.currMesh()->localToWorldMatrix().transpose();
@@ -72,7 +65,7 @@ void DemoApp::update(){
 	//_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
 }
 
-void DemoApp::render(){
+void DemoApp::Render(){
 	//if(_context == NULL)return;
 
 	//_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
