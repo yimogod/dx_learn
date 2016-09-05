@@ -46,12 +46,12 @@ bool DemoApp::loadContent(){
 	};
 	int numElements = ARRAYSIZE(layout);
 
-	initDevice();
+	//initDevice();
 
-	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
-	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createTexture(getFullPathW("assets/t_01.dds").c_str());
+	//createShader(vs, ps, layout, numElements);
+	//createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
+	//createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
+	//createTexture(getFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);
 	return true;
@@ -69,24 +69,24 @@ void DemoApp::update(){
 	cb.model = _scene.currMesh()->localToWorldMatrix().transpose();
 	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
 	cb.perspective = _scene.camera->getCameraToProjMatrix().transpose();
-	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+	//_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
 }
 
 void DemoApp::render(){
-	if(_context == NULL)return;
+	//if(_context == NULL)return;
 
-	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
-	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	bindVertexBuff();
+	//_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
+	//_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	//bindVertexBuff();
 
-	_context->VSSetShader(_vs, nullptr, 0);
-	_context->VSSetConstantBuffers(0, 1, &_constBuff);
-	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetShaderResources(0, _resViewNum, _resView);
-	_context->PSSetSamplers(0, 1, &_sampleState);
+	//_context->VSSetShader(_vs, nullptr, 0);
+	//_context->VSSetConstantBuffers(0, 1, &_constBuff);
+	//_context->PSSetShader(_ps, nullptr, 0);
+	//_context->PSSetShaderResources(0, _resViewNum, _resView);
+	//_context->PSSetSamplers(0, 1, &_sampleState);
 
-	Mesh *m = _scene.getMesh(0);
-	_context->Draw(m->indexNum, 0);
+	//Mesh *m = _scene.getMesh(0);
+	//_context->Draw(m->indexNum, 0);
 
-	_chain->Present(0, 0);
+	//_chain->Present(0, 0);
 }

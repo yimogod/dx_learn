@@ -4,12 +4,11 @@ Shader::Shader()
 {
 }
 
-
 Shader::~Shader()
 {
 }
 
-int Shader::compileShaderFromFile(wchar_t* szFileName, char* szEntryPoint,
+int Shader::CompileShaderFromFile(wchar_t* szFileName, char* szEntryPoint,
 	char* szShaderModel, ID3DBlob** ppBlobOut){
 	HRESULT hr = S_OK;
 

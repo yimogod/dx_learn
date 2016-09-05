@@ -1,4 +1,6 @@
 #pragma once
+#include <math/algebra/Matrix4x4.h>
+
 struct Float2{
 	float x;
 	float y;
@@ -37,4 +39,10 @@ struct  Int2{
 struct Int2A{
 	int u;
 	int v;
+};
+
+struct ConstantBuffer{
+	Matrix4x4 model;
+	Matrix4x4 view;
+	Matrix4x4 perspective;
 };

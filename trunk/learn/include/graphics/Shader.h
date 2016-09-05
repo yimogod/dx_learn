@@ -11,8 +11,8 @@ public:
 	char* entryPoint;
 	char* shaderModel;
 
-protected:
+public:
 	//±‡“Îshader
-	int Shader::compileShaderFromFile(wchar_t* szFileName,
+	int Shader::CompileShaderFromFile(wchar_t* szFileName,
 		char* szEntryPoint, char* szShaderModel, ID3DBlob** ppBlobOut);
 };

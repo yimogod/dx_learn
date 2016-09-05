@@ -1,5 +1,8 @@
 #include <graphics/DXEngine.h>
+#include <util/DDSTextureLoader.h>
+#include <BaseDataStruct.h>
 
+using namespace DirectX;
 
 DXEngine::DXEngine():
 	_driverType(D3D_DRIVER_TYPE_NULL),
@@ -12,8 +15,7 @@ DXEngine::DXEngine():
 {
 }
 
-DXEngine::~DXEngine()
-{
+DXEngine::~DXEngine(){
 }
 
 bool DXEngine::CreateDevice(HWND hwnd, int screenWidth, int screenHeight)
@@ -42,40 +44,32 @@ bool DXEngine::CreateDevice(HWND hwnd, int screenWidth, int screenHeight)
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	sd.SampleDesc.Count = 1;
-	sd.SampleDesc.Quality = 0;
-	//sd.SampleDesc.Count = 4;
-	//sd.SampleDesc.Quality = m4xMsaaQuality - 1;
+	sd.SampleDesc.Count = 4;
+	sd.SampleDesc.Quality = 1;
 	sd.Windowed = TRUE;
 	sd.OutputWindow = _hwnd;
-	//sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
 
 	hr = D3D11CreateDeviceAndSwapChain(nullptr, _driverType, nullptr, createDeviceFlags, featureLevels, numFeatureLevels, D3D11_SDK_VERSION, &sd, &_chain, &_device, &_featureLevel, &_context);
 	if(FAILED(hr))return false;
-
 	return true;
 }
 
-void DXEngine::initDevice(){
-	createDevice();
-	createDepthStencilView();
-	createRenderTargetlView();
+void DXEngine::InitDevice(HWND hwnd, int screenWidth, int screenHeight){
+	CreateDevice(hwnd, screenWidth, screenHeight);
+	CreateDepthStencilView();
+	CreateRenderTargetlView();
 	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
-	createViewPort();
-	createDXInput();
+	CreateViewPort();
+	//CreateDXInput();
 
-	createSamplerState();
-	createDepthState();
+	CreateSamplerState();
+	CreateDepthState();
 }
 
 
-
-
-
-
-
-bool BaseApp::createDepthStencilView(){
+bool DXEngine::CreateDepthStencilView(){
 	/*声明深度模板描述数据*/
 	D3D11_TEXTURE2D_DESC td;
 	ZeroMemory(&td, sizeof(td));
@@ -84,8 +78,8 @@ bool BaseApp::createDepthStencilView(){
 	td.MipLevels = 1;
 	td.ArraySize = 1;
 	td.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	td.SampleDesc.Count = 1;
-	td.SampleDesc.Quality = 0;
+	td.SampleDesc.Count = 4;
+	td.SampleDesc.Quality = 1;
 	td.Usage = D3D11_USAGE_DEFAULT;
 	td.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	td.CPUAccessFlags = 0;
@@ -105,7 +99,7 @@ bool BaseApp::createDepthStencilView(){
 	return true;
 }
 
-bool BaseApp::createRenderTargetlView(){
+bool DXEngine::CreateRenderTargetlView(){
 	/*创建back buff*/
 	_renderTargetBuffer = nullptr;
 	HRESULT hr = _chain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&_renderTargetBuffer));
@@ -115,11 +109,12 @@ bool BaseApp::createRenderTargetlView(){
 	hr = _device->CreateRenderTargetView(_renderTargetBuffer, nullptr, &_renderTargetView);
 	if(FAILED(hr))return false;
 
-
+	//如果用到深度缓存的话
+	//_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
 	return true;
 }
 
-bool BaseApp::createRenderTargetViewByShaderRes(){
+bool DXEngine::CreateRenderTargetViewByShaderRes(){
 	HRESULT hr;
 
 	D3D11_TEXTURE2D_DESC textureDesc;
@@ -164,7 +159,7 @@ bool BaseApp::createRenderTargetViewByShaderRes(){
 }
 
 
-void BaseApp::createViewPort(){
+void DXEngine::CreateViewPort(){
 	/*设置viewport*/
 	D3D11_VIEWPORT vp;
 	vp.Width = _width;
@@ -176,43 +171,7 @@ void BaseApp::createViewPort(){
 	_context->RSSetViewports(1, &vp);
 }
 
-
-bool BaseApp::loadContent(){
-	return true;
-}
-
-void BaseApp::unloadContent(){
-	if(_mouse){
-		_mouse->Unacquire();
-		_mouse->Release();
-	}
-	if(_keyborad){
-		_keyborad->Unacquire();
-		_keyborad->Release();
-	}
-	if(_inputDevice)_inputDevice->Release();
-	if(_vs)_vs->Release();
-	if(_ps)_ps->Release();
-	if(_vertexLayout)_vertexLayout->Release();
-	if(_vertexBuff)_vertexBuff->Release();
-
-	_mouse = nullptr;
-	_keyborad = nullptr;
-	_inputDevice = nullptr;
-	_vs = nullptr;
-	_ps = nullptr;
-	_vertexLayout = nullptr;
-	_vertexBuff = nullptr;
-}
-
-void BaseApp::render(){
-}
-
-void BaseApp::update(){
-
-}
-
-void BaseApp::destroy(){
+/*void DXEngine::Destroy(){
 	unloadContent();
 
 	if(_depthStencilBuffer)_depthStencilBuffer->Release();
@@ -230,15 +189,15 @@ void BaseApp::destroy(){
 	_chain = NULL;
 	_context = NULL;
 	_device = NULL;
+}*/
+
+
+
+bool DXEngine::CreateVertexBuffer(Vertex *vertices, int vertNum, int vertSize){
+	return CreateVertexBuffer(vertices, vertNum * vertSize, &_vertexBuff);
 }
 
-
-
-bool BaseApp::createVertexBuffer(Vertex *vertices, int vertNum, int vertSize){
-	return createVertexBuffer(vertices, vertNum * vertSize, &_vertexBuff);
-}
-
-bool BaseApp::createVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff){
+bool DXEngine::CreateVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff){
 	/*设置buff desc*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
@@ -259,11 +218,11 @@ bool BaseApp::createVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer**
 	return true;
 }
 
-void BaseApp::bindVertexBuff(){
-	bindVertexBuff(_vertexBuff);
+void DXEngine::BindVertexBuff(){
+	BindVertexBuff(_vertexBuff);
 }
 
-void BaseApp::bindVertexBuff(ID3D11Buffer* vertexBuff){
+void DXEngine::BindVertexBuff(ID3D11Buffer* vertexBuff){
 	/*设置 layout*/
 	_context->IASetInputLayout(_vertexLayout);
 
@@ -277,7 +236,7 @@ void BaseApp::bindVertexBuff(ID3D11Buffer* vertexBuff){
 }
 
 /*设置index buff*/
-bool BaseApp::createIndexBuffer(unsigned short* indexList, int indexNum){
+bool DXEngine::CreateIndexBuffer(unsigned short* indexList, int indexNum){
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -294,11 +253,11 @@ bool BaseApp::createIndexBuffer(unsigned short* indexList, int indexNum){
 	return true;
 }
 
-void BaseApp::bindIndexBuff(){
+void DXEngine::BindIndexBuff(){
 	_context->IASetIndexBuffer(_indexBuff, DXGI_FORMAT_R16_UINT, 0);
 }
 
-bool BaseApp::createConstBuffer(ID3D11Buffer** constBuff, int byteWidth){
+bool DXEngine::CreateConstBuffer(ID3D11Buffer** constBuff, int byteWidth){
 	/*创建constant buff, 类似于uniform变量*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
@@ -313,10 +272,10 @@ bool BaseApp::createConstBuffer(ID3D11Buffer** constBuff, int byteWidth){
 	return true;
 }
 
-bool BaseApp::createShader(Shader vs, Shader ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){
+bool DXEngine::CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){
 	/*编译shader*/
 	ID3DBlob* pVSBlob = nullptr;
-	HRESULT hr = compileShaderFromFile(vs.fileName, vs.entryPoint, vs.shaderModel, &pVSBlob);
+	HRESULT hr = vs.CompileShaderFromFile(vs.fileName, vs.entryPoint, vs.shaderModel, &pVSBlob);
 	if(FAILED(hr)){
 		pVSBlob->Release();
 		return false;
@@ -338,7 +297,7 @@ bool BaseApp::createShader(Shader vs, Shader ps, D3D11_INPUT_ELEMENT_DESC layout
 
 	/*编译shader*/
 	ID3DBlob* pPSBlob = nullptr;
-	hr = compileShaderFromFile(ps.fileName, ps.entryPoint, ps.shaderModel, &pPSBlob);
+	hr = ps.CompileShaderFromFile(ps.fileName, ps.entryPoint, ps.shaderModel, &pPSBlob);
 	if(FAILED(hr)){
 		pPSBlob->Release();
 		return false;
@@ -353,7 +312,7 @@ bool BaseApp::createShader(Shader vs, Shader ps, D3D11_INPUT_ELEMENT_DESC layout
 	return true;
 }
 
-bool BaseApp::createDepthState(){
+bool DXEngine::CreateDepthState(){
 	D3D11_DEPTH_STENCIL_DESC dsd;
 	ZeroMemory(&dsd, sizeof(dsd));
 	dsd.DepthEnable = true;
@@ -377,17 +336,17 @@ bool BaseApp::createDepthState(){
 	return true;
 }
 
-bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs){
+bool DXEngine::CreateRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs){
 	D3D11_RASTERIZER_DESC rsd;
 	ZeroMemory(&rsd, sizeof(D3D11_RASTERIZER_DESC));
 
 	rsd.FillMode = fillmode;
-	rsd.CullMode = D3D11_CULL_BACK;
+	rsd.CullMode = D3D11_CULL_BACK;//开启背面剔除
 	//rsd.CullMode = D3D11_CULL_FRONT;
 	//rsd.CullMode = D3D11_CULL_NONE;
-	rsd.FrontCounterClockwise = false;
-	rsd.DepthClipEnable = true;
-	rsd.DepthBias = 0;
+	rsd.FrontCounterClockwise = false; //逆时针为false, 及三角形顺时针为正方向
+	rsd.DepthClipEnable = true; //深度剪切开启
+	rsd.DepthBias = 0; //
 	rsd.DepthBiasClamp = 0.0f;
 	rsd.ScissorEnable = false;
 
@@ -398,7 +357,7 @@ bool BaseApp::createRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerSt
 	return true;
 }
 
-void BaseApp::createAlphaBlendState(){
+void DXEngine::CreateAlphaBlendState(){
 	D3D11_BLEND_DESC bsr;
 	ZeroMemory(&bsr, sizeof(D3D11_BLEND_DESC));
 	//bsr.AlphaToCoverageEnable = false;
@@ -422,17 +381,17 @@ void BaseApp::createAlphaBlendState(){
 	_device->CreateBlendState(&bsr, &_blendDisableState);
 }
 
-void BaseApp::enableAlphaBlend(){
+void DXEngine::EnableAlphaBlend(){
 	float blendFactor[4] = { 0, 0, 0, 0 };
 	_context->OMSetBlendState(_blendEnableState, blendFactor, D3D11_DEFAULT_SAMPLE_MASK);
 }
 
-void BaseApp::disableAlphaBlend(){
+void DXEngine::DisableAlphaBlend(){
 	float blendFactor[4] = { 0, 0, 0, 0 };
 	_context->OMSetBlendState(_blendDisableState, blendFactor, D3D11_DEFAULT_SAMPLE_MASK);
 }
 
-bool BaseApp::createTexture(const wchar_t* path){
+bool DXEngine::CreateTexture(const wchar_t* path){
 	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView[_resViewNum], 2048U);
 	if(FAILED(hr))return false;
 	_resViewNum++;
@@ -440,7 +399,7 @@ bool BaseApp::createTexture(const wchar_t* path){
 }
 
 // Create the sample state
-bool BaseApp::createSamplerState(){
+bool DXEngine::CreateSamplerState(){
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
 	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;

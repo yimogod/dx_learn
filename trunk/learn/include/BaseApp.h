@@ -8,11 +8,7 @@
 
 using namespace std;
 
-struct ConstantBuffer{
-	Matrix4x4 model;
-	Matrix4x4 view;
-	Matrix4x4 perspective;
-};
+
 
 class BaseApp{
 public:
@@ -34,9 +30,6 @@ protected:
 
 	int _width, _height;
 
-protected:
-	void initDevice();
-	void initDevice_v2();
 protected:
 	bool isKeyDown(char keycode);
 	bool isLMouseDown();
