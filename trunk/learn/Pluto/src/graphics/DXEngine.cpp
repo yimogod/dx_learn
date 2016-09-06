@@ -39,14 +39,14 @@ bool DXEngine::CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight)
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	
-	sd.SampleDesc.Count = 4;
+	sd.SampleDesc.Count = 1;//这边需要设置的跟depth sample desc count一样, 否则渲染不出来!!!
 	sd.SampleDesc.Quality = 0;//9600设置为1的话出错
 
 	sd.BufferCount = 1; //多少个后缓冲区, 如果双缓冲的话, 设置为1
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.Windowed = TRUE;
 	sd.OutputWindow = _hwnd;
-	//sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
 
 	hr = D3D11CreateDeviceAndSwapChain(nullptr, _driverType, nullptr, createDeviceFlags, featureLevels, numFeatureLevels, D3D11_SDK_VERSION, &sd, &_chain, &_device, &_featureLevel, &_context);
@@ -78,7 +78,7 @@ bool DXEngine::CreateDepthStencilView(){
 	td.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	td.Usage = D3D11_USAGE_DEFAULT;
 
-	td.SampleDesc.Count = 1;
+	td.SampleDesc.Count = 1;//这边只能设置为1, 否则出错
 	td.SampleDesc.Quality = 0;
 
 	td.BindFlags = D3D11_BIND_DEPTH_STENCIL;

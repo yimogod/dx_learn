@@ -38,8 +38,8 @@ bool DemoApp::LoadContent(){
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
+	
 	int numElements = ARRAYSIZE(layout);
-
 	_dxEngine.CreateShader(vs, ps, layout, numElements);
 	_dxEngine.CreateVertexBuffer(vertices, mesh->indexNum, 40 * 4);
 	_dxEngine.CreateConstBuffer(sizeof(ConstantBuffer));
@@ -76,7 +76,6 @@ void DemoApp::Render(){
 	_dxEngine.PSSetShaderResources(0);
 	_dxEngine.PSSetSamplers(0, 1);
 
-	
 	Mesh *m = _scene.getMesh(0);
 	_dxEngine.GetContext()->Draw(m->indexNum, 0);
 	_dxEngine.GetChain()->Present(0, 0);

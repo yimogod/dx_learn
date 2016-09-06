@@ -12,9 +12,7 @@ DemoApp::DemoApp(){}
 
 DemoApp::~DemoApp(){}
 
-bool DemoApp::loadContent(){
-	initDevice();
-
+bool DemoApp::LoadContent(){
 	Mesh *m = new Mesh();
 	m->setWorldPos(0, 0, 0.0f);
 	GeoCreater::createSprite(m);
@@ -33,14 +31,8 @@ bool DemoApp::loadContent(){
 	mesh->getVertexList(vertices);
 
 	/*准备shader数据*/
-	CreateShaderInfo vs;
-	vs.fileName = L"shader/sprite.fx";
-	vs.entryPoint = "VS";
-	vs.shaderModel = "vs_4_0";
-	CreateShaderInfo ps;
-	ps.fileName = L"shader/sprite.fx";
-	ps.entryPoint = "PS";
-	ps.shaderModel = "ps_4_0";
+	Shader vs(L"shader/sprite.fx", "VS", "vs_4_0");
+	Shader ps(L"shader/sprite.fx", "PS", "ps_4_0");
 
 	/*创建 layout*/
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
@@ -48,48 +40,42 @@ bool DemoApp::loadContent(){
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
-	int numElements = ARRAYSIZE(layout);
-	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
-	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	
-	createTexture(getFullPathW("assets/t_01.dds").c_str());
+	int numElements = ARRAYSIZE(layout);
+	_dxEngine.CreateShader(vs, ps, layout, numElements);
+	_dxEngine.CreateVertexBuffer(vertices, mesh->indexNum, 40 * 4);
+	_dxEngine.CreateConstBuffer(sizeof(ConstantBuffer));
+	_dxEngine.CreateTexture(GetFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);
 	return true;
 }
 
-void DemoApp::unloadContent(){
-	BaseApp::unloadContent();
+void DemoApp::UnloadContent(){
 }
 
-void DemoApp::update(){
-	UpdatePosByRMouse(_scene.camera, 0.001f);
-	UpdatePosByLMouse(_scene.currMesh(), 0.001f);
-
+void DemoApp::Update(){
 	ConstantBuffer cb;
 	cb.model = _scene.currMesh()->localToWorldMatrix().transpose();
 	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
 	cb.perspective = _scene.camera->getCameraToProjMatrix().transpose();
-	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+	_dxEngine.GetContext()->UpdateSubresource(_dxEngine.GetConstBuff(), 0, nullptr, &cb, 0, 0);
 }
 
-void DemoApp::render(){
-	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
-	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+void DemoApp::Render(){
+	if(!_dxEngine.GetReady())return;
 
-	bindVertexBuff();
+	_dxEngine.ClearRenderTargetView(Colors::MidnightBlue);
+	_dxEngine.ClearDepthStencilView(D3D11_CLEAR_DEPTH, 1.0f, 0);
+	_dxEngine.BindVertexBuff();
 
-	_context->VSSetShader(_vs, nullptr, 0);
-	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetSamplers(0, 1, &_sampleState);
-
-	_context->VSSetConstantBuffers(0, 1, &_constBuff);
-	_context->PSSetShaderResources(0, _resViewNum, _resView);
+	_dxEngine.VSSetShader();
+	_dxEngine.VSSetConstantBuffers(0, 1);
+	_dxEngine.PSSetShader();
+	_dxEngine.PSSetShaderResources(0);
+	_dxEngine.PSSetSamplers(0, 1);
 
 	Mesh *m = _scene.getMesh(0);
-	_context->Draw(m->indexNum, 0);
-
-	_chain->Present(0, 0);
+	_dxEngine.GetContext()->Draw(m->indexNum, 0);
+	_dxEngine.GetChain()->Present(0, 0);
 }

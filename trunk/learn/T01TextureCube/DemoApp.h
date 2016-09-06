@@ -6,7 +6,7 @@
 class DemoApp : public BaseApp{
 public:
 	DemoApp();
-	~DemoApp();
+	virtual ~DemoApp();
 
 	virtual bool LoadContent();
 	virtual void UnloadContent();

@@ -40,7 +40,7 @@ public:
 	/*顶点法线, 切线数等于索引数量*/
 	Vector3D tangentList[512];
 public:
-		/*格式化数据准备传入vertext buff, 我们使用vbo*/
+	/*格式化数据准备传入vertext buff, 我们使用vbo*/
 	/*length is index num*/
 	void getVertexList(Vertex list[]);
 	/*length is vertex num*/
