@@ -5,20 +5,22 @@ Window::Window(){}
 Window::~Window(){}
 
 void Window::Update(){
+	if(!isLMouseDown() || !isRMouseDown()){
+		_lastMouseX = GetMouseX();
+		_lastMouseY = GetMouseY();
+	}
 
-
+	UpdateByKey(0.1f);
 	UpdateByLMouse(0.1f);
-
-	_lastMouseX = GetMouseX();
-	_lastMouseY = GetMouseY();
+	UpdateByRMouse(0.1f);
 }
 
 void Window::UpdateByLMouse(float value){
 	if(!isLMouseDown())return;
 	if(_crrMesh == nullptr)return;
 
-	float dx = _lastMouseX - GetMouseX();
-	float dy = _lastMouseY - GetMouseY();
+	int dx = _lastMouseX - GetMouseX();
+	int dy = _lastMouseY - GetMouseY();
 	if(abs(dx) > abs(dy)){
 		_crrMesh->rotateY(-2.0f * dx * value);
 	}
@@ -27,36 +29,27 @@ void Window::UpdateByLMouse(float value){
 	}
 }
 
+void Window::UpdateByKey(float value){
+	if(isKeyDown(97)){
+		_camera.strafe(-value);
+	}
+	if(isKeyDown(100)){
+		_camera.strafe(value);
+	}
+	if(isKeyDown(119)){
+		_camera.walk(value);
+	}
+	if(isKeyDown(115)){
+		_camera.walk(-value);
+	}
+}
+
 void Window::UpdateByRMouse(float value){
-	if(isKeyDown(DIK_A)){
-		camera->strafe(-value);
-	}
-	if(isKeyDown(DIK_D)){
-		camera->strafe(value);
-	}
-	if(isKeyDown(DIK_W)){
-		camera->walk(value);
-	}
-	if(isKeyDown(DIK_S)){
-		camera->walk(-value);
-	}
+	if(!isRMouseDown())return;
 
-	_isRMouseDown = isRMouseDown();
-
-	if(_isRMouseDown){
-		float nx = 0;//(float)_mouseState.lAxisX;
-		float ny = 0;//(float)_mouseState.lAxisY;
-		float dx = nx - _mouseX;
-		float dy = ny - _mouseY;
-
-		camera->rotateY(-2.0f * dx * value);
-		camera->pitchRotate(-2.0f * dy * value);
-
-		_mouseX = nx;
-		_mouseY = ny;
-	}
-	else if(!_isLMouseDown){
-		_mouseX = 0;
-		_mouseY = 0;
-	}
+	int dx = _lastMouseX - GetMouseX();
+	int dy = _lastMouseY - GetMouseY();
+	_camera.rotateY(-2.0f * dx * value);
+	_camera.pitchRotate(-2.0f * dy * value);
+	
 }

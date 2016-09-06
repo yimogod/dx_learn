@@ -19,6 +19,14 @@ public:
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 
+	void OnMove(int screenX, int screenY);
+	void OnKeyDown(int key, int screenX, int screenY);
+	void OnKeyUp(int key, int screenX, int screenY);
+	void OnMouseDown(int screenX, int screenY);
+	void OnMouseUp(int screenX, int screenY);
+	void OnRMouseDown(int screenX, int screenY);
+	void OnRMouseUp(int screenX, int screenY);
+
 protected:
 	inline bool isKeyDown(int keycode) const;
 	inline bool isLMouseDown() const;
@@ -29,15 +37,6 @@ protected:
 	std::string const GetAppRoot();
 	std::string GetFullPath(char* path);
 	std::wstring GetFullPathW(char* path);
-
-private:
-	void OnMove(int screenX, int screenY);
-	void OnKeyDown(int key, int screenX, int screenY);
-	void OnKeyUp(int key, int screenX, int screenY);
-	void OnMouseDown(int screenX, int screenY);
-	void OnMouseUp(int screenX, int screenY);
-	void OnRMouseDown(int screenX, int screenY);
-	void OnRMouseUp(int screenX, int screenY);
 
 protected:
 	HINSTANCE _ins;

@@ -2,8 +2,7 @@
 #include <sys/BaseApp.h>
 #include <graphics/Camera.h>
 
-class Window : public BaseApp
-{
+class Window : public BaseApp{
 public:
 	 Window();
 	~ Window();
@@ -12,7 +11,7 @@ public:
 protected:
 	void UpdateByRMouse(float value);
 	void UpdateByLMouse(float value);
-
+	void UpdateByKey(float value);
 protected:
 	Camera _camera;
 	Mesh* _crrMesh = nullptr;
@@ -20,7 +19,7 @@ protected:
 	Scene _scene;
 
 private:
-	private int _lastMouseX = 0;
-	private int _lastMouseY = 0;
+	int _lastMouseX = 0;
+	int _lastMouseY = 0;
 };
 

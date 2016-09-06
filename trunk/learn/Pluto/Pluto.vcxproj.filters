@@ -30,7 +30,6 @@
     <ClCompile Include="src\util\FBXUtil.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseApp.cpp" />
     <ClCompile Include="src\util\FBXParser.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -97,6 +96,12 @@
     <ClCompile Include="src\sys\InputEngine.cpp">
       <Filter>sys</Filter>
     </ClCompile>
+    <ClCompile Include="src\sys\BaseApp.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sys\Window.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -114,7 +119,6 @@
     <ClInclude Include="..\include\util\ObjParser.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\BaseApp.h" />
     <ClInclude Include="..\include\BaseDataStruct.h" />
     <ClInclude Include="..\include\Main.h" />
     <ClInclude Include="..\include\sys\Application.h">
@@ -184,6 +188,12 @@
       <Filter>graphics\dx</Filter>
     </ClInclude>
     <ClInclude Include="..\include\sys\InputEngine.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sys\BaseApp.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sys\Window.h">
       <Filter>sys</Filter>
     </ClInclude>
   </ItemGroup>

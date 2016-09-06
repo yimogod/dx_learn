@@ -1,9 +1,9 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
-#include <sys/BaseApp.h>
+#include <sys/Window.h>
 
-class DemoApp : public BaseApp{
+class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();

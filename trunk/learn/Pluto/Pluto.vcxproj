@@ -356,7 +356,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\BaseApp.cpp" />
     <ClCompile Include="src\graphics\Camera.cpp" />
     <ClCompile Include="src\graphics\DXEngine.cpp" />
     <ClCompile Include="src\graphics\GeoCreater.cpp" />
@@ -374,9 +373,11 @@
     <ClCompile Include="src\math\algebra\Vector2D.cpp" />
     <ClCompile Include="src\math\algebra\Vector3D.cpp" />
     <ClCompile Include="src\sys\Application.cpp" />
+    <ClCompile Include="src\sys\BaseApp.cpp" />
     <ClCompile Include="src\sys\DLog.cpp" />
     <ClCompile Include="src\sys\InputEngine.cpp" />
     <ClCompile Include="src\sys\SysEnv.cpp" />
+    <ClCompile Include="src\sys\Window.cpp" />
     <ClCompile Include="src\util\CUtil.cpp" />
     <ClCompile Include="src\util\DDSTextureLoader.cpp" />
     <ClCompile Include="src\util\FBXParser.cpp" />
@@ -384,7 +385,6 @@
     <ClCompile Include="src\util\ObjParser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\BaseApp.h" />
     <ClInclude Include="..\include\BaseDataStruct.h" />
     <ClInclude Include="..\include\graphics\Camera.h" />
     <ClInclude Include="..\include\graphics\Color.h" />
@@ -407,9 +407,11 @@
     <ClInclude Include="..\include\math\algebra\Vector2D.h" />
     <ClInclude Include="..\include\math\algebra\Vector3D.h" />
     <ClInclude Include="..\include\sys\Application.h" />
+    <ClInclude Include="..\include\sys\BaseApp.h" />
     <ClInclude Include="..\include\sys\DLog.h" />
     <ClInclude Include="..\include\sys\InputEngine.h" />
     <ClInclude Include="..\include\sys\SysEnv.h" />
+    <ClInclude Include="..\include\sys\Window.h" />
     <ClInclude Include="..\include\util\CUtil.h" />
     <ClInclude Include="..\include\util\DDSTextureLoader.h" />
     <ClInclude Include="..\include\util\FBXParser.h" />
