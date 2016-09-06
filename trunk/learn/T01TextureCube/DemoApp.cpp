@@ -1,4 +1,3 @@
-#include <dinput.h>
 #include <DirectXMath.h>
 #include <util/ObjParser.h>
 #include <DirectXColors.h>

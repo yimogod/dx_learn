@@ -12,9 +12,13 @@ struct MainInfo{
 
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
+BaseApp* g_app;
+
 
 HRESULT InitWindow(HINSTANCE, int, LPCWSTR, LPCWSTR, int, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+void Extract(LPARAM lParam, int& x, int& y);
+
 int MainBody(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPWSTR lpCmdLine,
@@ -33,13 +37,13 @@ int MainBody(_In_ HINSTANCE hInstance,
 	hr = InitWindow(hInstance, nCmdShow, info.title, info.icon, info.width, info.height);
 	if(FAILED(hr))return NULL;
 
-	BaseApp* app = info.app;
+	g_app = info.app;
 
 	/*初始化d3d设备*/
-	hr = app->Init(hInstance, g_hWnd);
+	hr = g_app->Init(hInstance, g_hWnd);
 
 	if(FAILED(hr)){
-		app->Destroy();
+		g_app->Destroy();
 		return NULL;
 	}
 
@@ -50,11 +54,11 @@ int MainBody(_In_ HINSTANCE hInstance,
 			DispatchMessage(&msg);
 		}
 
-		app->Update();
-		app->Render();
+		g_app->Update();
+		g_app->Render();
 	}
 
-	app->Destroy();
+	g_app->Destroy();
 
 	return (int)msg.wParam;
 }
@@ -108,9 +112,74 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+
+	case WM_KEYDOWN:
+	{
+		int key = (int)wParam;
+		POINT point;
+		GetCursorPos(&point);
+		ScreenToClient(hWnd, &point);
+		int x = (int)point.x;
+		int y = (int)point.y;
+
+		g_app->OnKeyDown(key, x, y);
+		break;
+	}
+	case WM_KEYUP:
+	{
+		int key = (int)wParam;
+		POINT point;
+		GetCursorPos(&point);
+		ScreenToClient(hWnd, &point);
+		int x = (int)point.x;
+		int y = (int)point.y;
+
+		g_app->OnKeyUp(key, x, y);
+		break;
+	}
+	case WM_LBUTTONDOWN:
+	{
+		int x, y;
+		Extract(lParam, x, y);
+		g_app->OnMouseDown(x, y);
+		break;
+	}
+	case WM_LBUTTONUP:
+	{
+		int x, y;
+		Extract(lParam, x, y);
+		g_app->OnMouseDown(x, y);
+		break;
+	}
+	case WM_RBUTTONDOWN:
+	{
+		int x, y;
+		Extract(lParam, x, y);
+		g_app->OnRMouseDown(x, y);
+		break;
+	}
+	case WM_RBUTTONUP:
+	{
+		int x, y;
+		Extract(lParam, x, y);
+		g_app->OnRMouseDown(x, y);
+		break;
+	}
+	case WM_MOUSEMOVE:
+	{
+		int x, y;
+		Extract(lParam, x, y);
+		g_app->OnMove(x, y);
+		break;
+	}
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 
 	return 0;
+}
+
+void Extract(LPARAM lParam, int& x, int& y){
+	x = (int)(short)(lParam & 0xFFFF);
+	y = (int)(short)((lParam & 0xFFFF0000) >> 16);
 }
