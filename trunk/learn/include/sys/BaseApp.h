@@ -21,6 +21,10 @@ public:
 
 protected:
 	inline bool isKeyDown(int keycode) const;
+	inline bool isLMouseDown() const;
+	inline bool isRMouseDown() const;
+	inline bool GetMouseX() const;
+	inline bool GetMouseY() const;
 
 	std::string const GetAppRoot();
 	std::string GetFullPath(char* path);
@@ -41,19 +45,34 @@ protected:
 
 	int _width = 0; //屏幕宽度
 	int _height = 0; //屏幕高度
-	int _mouseX = -1; //鼠标的位置
-	int _mouseY = -1; //鼠标的位置
-	
-	bool _isLMouseDown = false;
-	bool _isRMouseDown = false;
 
 	SysEnv _env;
+	DXEngine _dxEngine;
 
 private:
 	int _pressedKey = -1; //按下的按钮
-
+	int _mouseX = -1; //鼠标的位置
+	int _mouseY = -1; //鼠标的位置
+	bool _isLMouseDown = false;
+	bool _isRMouseDown = false;
 };
 
 inline bool BaseApp::isKeyDown(int keycode) const{
 	return keycode == _pressedKey;
+}
+
+inline bool BaseApp::GetMouseX() const{
+	return _mouseX;
+}
+
+inline bool BaseApp::GetMouseY() const{
+	return _mouseY;
+}
+
+inline bool BaseApp::isLMouseDown() const{
+	return _isLMouseDown;
+}
+
+inline bool BaseApp::isRMouseDown() const{
+	return _isRMouseDown;
 }

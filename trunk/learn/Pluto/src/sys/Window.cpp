@@ -5,31 +5,25 @@ Window::Window(){}
 Window::~Window(){}
 
 void Window::Update(){
+
+
 	UpdateByLMouse(0.1f);
+
+	_lastMouseX = GetMouseX();
+	_lastMouseY = GetMouseY();
 }
 
 void Window::UpdateByLMouse(float value){
-	_isLMouseDown = isLMouseDown();
+	if(!isLMouseDown())return;
+	if(_crrMesh == nullptr)return;
 
-	if(_isLMouseDown){
-		float nx = 0;
-		float ny = 0;
-
-		float dx = nx - _mouseX;
-		float dy = ny - _mouseY;
-		if(abs(dx) > abs(dy)){
-			mesh->rotateY(-2.0f * dx * value);
-		}
-		else{
-			mesh->rotateX(-2.0f * dy * value);
-		}
-
-		_mouseX = nx;
-		_mouseY = ny;
+	float dx = _lastMouseX - GetMouseX();
+	float dy = _lastMouseY - GetMouseY();
+	if(abs(dx) > abs(dy)){
+		_crrMesh->rotateY(-2.0f * dx * value);
 	}
-	else if(!_isRMouseDown){
-		_mouseX = 0;
-		_mouseY = 0;
+	else{
+		_crrMesh->rotateX(-2.0f * dy * value);
 	}
 }
 
