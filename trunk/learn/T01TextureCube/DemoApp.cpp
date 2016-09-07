@@ -20,8 +20,7 @@ bool DemoApp::LoadContent(){
 	
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.getMesh(0);
-	Vertex *vertices = 0;
-	vertices = new Vertex[_currMesh->indexNum];
+	Vertex *vertices = new Vertex[_currMesh->indexNum];
 	_currMesh->getVertexList(vertices);
 
 	/*准备shader数据*/

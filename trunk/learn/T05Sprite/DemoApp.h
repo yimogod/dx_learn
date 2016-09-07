@@ -1,9 +1,9 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
-#include <BaseApp.h>
+#include <sys/Window.h>
 
-class DemoApp : public BaseApp{
+class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();
@@ -22,7 +22,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new DemoApp();
 	info.icon = nullptr;
-	info.title = L"TextureCube";
+	info.title = L"Single Sprite";
 	info.width = 1200;
 	info.height = 960;
 
