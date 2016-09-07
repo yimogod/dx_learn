@@ -17,8 +17,8 @@ bool DemoApp::LoadContent(){
 	_currMesh->getVertexList(vertices);
 
 	/*准备shader数据*/
-	Shader vs(L"shader/Triangle.fx", "VS", "vs_4_0");
-	Shader ps(L"shader/Triangle.fx", "PS", "ps_4_0");
+	VertexShader vs(L"shader/Triangle.fx", "VS", "vs_4_0");
+	PixelShader ps(L"shader/Triangle.fx", "PS", "ps_4_0");
 	
 	/*创建 layout*/
 	InputLayout layout;

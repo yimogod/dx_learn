@@ -277,13 +277,13 @@ bool DXEngine::CreateConstBuffer(int byteWidth){
 	return result;
 }
 
-bool DXEngine::CreateShader(Shader &vs, Shader &ps, InputLayout& layout){
+bool DXEngine::CreateShader(VertexShader &vs, PixelShader &ps, InputLayout& layout){
 	/*创建 vertex shader*/
-	bool result = vs.CreateVertexShader(_device, &_vs, layout);
+	bool result = vs.CreateVertexShader(_device, layout);
 	if(!result)return false;
 
 	/*创建 pixel shader*/
-	result = ps.CreatePixelShader(_device, &_ps);
+	result = ps.CreatePixelShader(_device);
 	return result;
 }
 

@@ -3,7 +3,8 @@
 #include <d3dcompiler.h>
 #include <DirectXColors.h>
 #include <graphics/Vertex.h>
-#include <graphics/Shader.h>
+#include <graphics/VertexShader.h>
+#include <graphics/PixelShader.h>
 
 class DXEngine{
 public:
@@ -14,7 +15,7 @@ public:
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 
 	//编译并创建shader
-	bool CreateShader(Shader &vs, Shader &ps, InputLayout &layout);
+	bool CreateShader(VertexShader &vs, PixelShader &ps, InputLayout &layout);
 	//创建/绑定各种buff
 	bool CreateVertexBuffer(Vertex *vertices, int vertNum, int vertSize);
 	bool CreateVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff);
@@ -85,10 +86,6 @@ private:
 	/*对贴图资源引用的resource view, 如果一个面需要多张图, 那么我们的_resView就会是个数组*/
 	int _resViewNum = 0;
 	ID3D11ShaderResourceView* _resView[8];
-
-	ID3D11VertexShader* _vs;
-	ID3D11PixelShader* _ps;
-
 private:
 	/*创建深度缓存*/
 	bool CreateDepthStencilView();
