@@ -114,6 +114,15 @@
     <ClCompile Include="src\graphics\PixelShader.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\VertexBuffer.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\ConstBuffer.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\IndexBuffer.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -212,6 +221,15 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics\PixelShader.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\VertexBuffer.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\ConstBuffer.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\IndexBuffer.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
   </ItemGroup>

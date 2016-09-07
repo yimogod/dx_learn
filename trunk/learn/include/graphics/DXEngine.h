@@ -80,9 +80,6 @@ private:
 	/*默认采样状态*/
 	ID3D11SamplerState* _sampleState;
 
-	ID3D11Buffer* _vertexBuff = nullptr;
-	ID3D11Buffer* _indexBuff = nullptr;
-	ID3D11Buffer* _constBuff = nullptr;
 	/*对贴图资源引用的resource view, 如果一个面需要多张图, 那么我们的_resView就会是个数组*/
 	int _resViewNum = 0;
 	ID3D11ShaderResourceView* _resView[8];

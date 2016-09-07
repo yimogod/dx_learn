@@ -356,12 +356,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\ConstBuffer.cpp" />
     <ClCompile Include="src\graphics\DXEngine.cpp" />
     <ClCompile Include="src\graphics\DXVisual.cpp" />
     <ClCompile Include="src\graphics\GeoCreater.cpp" />
+    <ClCompile Include="src\graphics\IndexBuffer.cpp" />
     <ClCompile Include="src\graphics\InputLayout.cpp" />
     <ClCompile Include="src\graphics\PixelShader.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
+    <ClCompile Include="src\graphics\VertexBuffer.cpp" />
     <ClCompile Include="src\graphics\VertexShader.cpp" />
     <ClCompile Include="src\math\algebra\EulerAngles.cpp" />
     <ClCompile Include="src\math\algebra\Matrix1x4.cpp" />
@@ -390,14 +393,17 @@
   <ItemGroup>
     <ClInclude Include="..\include\BaseDataStruct.h" />
     <ClInclude Include="..\include\graphics\Color.h" />
+    <ClInclude Include="..\include\graphics\ConstBuffer.h" />
     <ClInclude Include="..\include\graphics\DXEngine.h" />
     <ClInclude Include="..\include\graphics\DXVisual.h" />
     <ClInclude Include="..\include\graphics\GeoCreater.h" />
+    <ClInclude Include="..\include\graphics\IndexBuffer.h" />
     <ClInclude Include="..\include\graphics\InputLayout.h" />
     <ClInclude Include="..\include\graphics\PixelShader.h" />
     <ClInclude Include="..\include\graphics\Plane3D.h" />
     <ClInclude Include="..\include\graphics\Shader.h" />
     <ClInclude Include="..\include\graphics\Vertex.h" />
+    <ClInclude Include="..\include\graphics\VertexBuffer.h" />
     <ClInclude Include="..\include\graphics\VertexShader.h" />
     <ClInclude Include="..\include\Main.h" />
     <ClInclude Include="..\include\math\algebra\EulerAngles.h" />
