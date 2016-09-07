@@ -43,8 +43,7 @@ bool Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut){
 	return true;
 }
 
-bool Shader::CreateVertexShader(ID3D11Device* device, ID3D11VertexShader** vs,
-	D3D11_INPUT_ELEMENT_DESC desc[], int num, ID3D11InputLayout** layout){
+bool Shader::CreateVertexShader(ID3D11Device* device, ID3D11VertexShader** vs, InputLayout &inputLayout){
 	ID3DBlob* blob = nullptr;
 
 	bool result = CompileShaderFromFile(&blob);
@@ -59,7 +58,7 @@ bool Shader::CreateVertexShader(ID3D11Device* device, ID3D11VertexShader** vs,
 		return false;
 	}
 
-	hr = device->CreateInputLayout(desc, num, blob->GetBufferPointer(), blob->GetBufferSize(), layout);
+	hr = inputLayout.CreateInputLayout(device, blob);
 	if(FAILED(hr)){
 		blob->Release();
 		return false;

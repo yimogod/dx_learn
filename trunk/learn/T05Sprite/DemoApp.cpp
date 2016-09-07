@@ -1,5 +1,4 @@
 #include <graphics/GeoCreater.h>
-#include <graphics/Shader.h>
 #include "DemoApp.h"
 
 using namespace DirectX;
@@ -41,28 +40,19 @@ bool DemoApp::LoadContent(){
 void DemoApp::UnloadContent(){
 }
 
-void DemoApp::Update(){
-	Window::Update();
-
-	ConstantBuffer cb;
-	cb.model = _currMesh->localToWorldMatrix().transpose();
-	cb.view = _camera.getWorldToCameraMatrix().transpose();
-	cb.perspective = _camera.getCameraToProjMatrix().transpose();
-	_dxEngine.GetContext()->UpdateSubresource(_dxEngine.GetConstBuff(), 0, nullptr, &cb, 0, 0);
-}
-
 void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
 	_dxEngine.ClearBuffers();
-	_dxEngine.BindVertexBuff();
 
+	_dxEngine.BindVertexBuff();
 	_dxEngine.VSSetShader();
 	_dxEngine.VSSetConstantBuffers(0, 1);
 	_dxEngine.PSSetShader();
 	_dxEngine.PSSetShaderResources(0);
 	_dxEngine.PSSetSamplers(0, 1);
 
+	
 	_dxEngine.GetContext()->Draw(_currMesh->indexNum, 0);
 	_dxEngine.Present();
 }

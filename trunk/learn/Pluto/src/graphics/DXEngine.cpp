@@ -224,7 +224,7 @@ void DXEngine::BindVertexBuff(){
 
 void DXEngine::BindVertexBuff(ID3D11Buffer* vertexBuff){
 	/*设置 layout*/
-	_context->IASetInputLayout(_vertexLayout);
+	//_context->IASetInputLayout(_vertexLayout);
 
 	/*设置当前vertex buff*/
 	UINT stride = sizeof(Vertex);
@@ -277,10 +277,9 @@ bool DXEngine::CreateConstBuffer(int byteWidth){
 	return result;
 }
 
-bool DXEngine::CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements){
-	
+bool DXEngine::CreateShader(Shader &vs, Shader &ps, InputLayout& layout){
 	/*创建 vertex shader*/
-	bool result = vs.CreateVertexShader(_device, &_vs, layout, numElements, &_vertexLayout);
+	bool result = vs.CreateVertexShader(_device, &_vs, layout);
 	if(!result)return false;
 
 	/*创建 pixel shader*/

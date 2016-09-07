@@ -11,7 +11,6 @@ public:
 	virtual bool LoadContent();
 	virtual void UnloadContent();
 
-	virtual void Update();
 	virtual void Render();
 };
 

@@ -14,7 +14,7 @@ public:
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 
 	//编译并创建shader
-	bool CreateShader(Shader &vs, Shader &ps, D3D11_INPUT_ELEMENT_DESC layout[], int numElements);
+	bool CreateShader(Shader &vs, Shader &ps, InputLayout &layout);
 	//创建/绑定各种buff
 	bool CreateVertexBuffer(Vertex *vertices, int vertNum, int vertSize);
 	bool CreateVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff);
@@ -57,9 +57,6 @@ private:
 	ID3D11Device* _device;
 	ID3D11DeviceContext* _context;
 	IDXGISwapChain* _chain;
-
-	//layout
-	ID3D11InputLayout* _vertexLayout;
 
 	/*默认缓存视图*/
 	ID3D11Texture2D* _renderTargetBuffer;

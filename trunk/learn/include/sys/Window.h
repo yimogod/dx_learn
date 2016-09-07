@@ -17,6 +17,7 @@ protected:
 	void UpdateByRMouse(float value);
 	void UpdateByLMouse(float value);
 	void UpdateByKey(float value);
+	void UpdateConstBuff();
 protected:
 	Mesh* _currMesh = nullptr;
 	Camera _camera;

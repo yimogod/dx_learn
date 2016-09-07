@@ -1,5 +1,6 @@
 #pragma once
 #include <d3d11_1.h>
+#include <graphics/InputLayout.h>
 
 class Shader{
 public:
@@ -12,8 +13,7 @@ public:
 	//±‡“Îshader
 	bool CompileShaderFromFile(ID3DBlob** ppBlobOut);
 
-	bool CreateVertexShader(ID3D11Device* device, ID3D11VertexShader** vs,
-		D3D11_INPUT_ELEMENT_DESC desc[], int num, ID3D11InputLayout** layout);
+	bool CreateVertexShader(ID3D11Device* device, ID3D11VertexShader** vs, InputLayout &inputLayout);
 	bool CreatePixelShader(ID3D11Device* device, ID3D11PixelShader** ps);
 
 private:

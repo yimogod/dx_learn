@@ -1,5 +1,4 @@
 #include <util/ObjParser.h>
-#include <graphics/Shader.h>
 #include "DemoApp.h"
 
 DemoApp::DemoApp(){}
@@ -20,16 +19,15 @@ bool DemoApp::LoadContent(){
 	/*准备shader数据*/
 	Shader vs(L"shader/Triangle.fx", "VS", "vs_4_0");
 	Shader ps(L"shader/Triangle.fx", "PS", "ps_4_0");
-
-	/*创建 layout*/
-	D3D11_INPUT_ELEMENT_DESC layout[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
 	
-	int numElements = ARRAYSIZE(layout);
-	_dxEngine.CreateShader(vs, ps, layout, numElements);
+	/*创建 layout*/
+	InputLayout layout;
+	layout.AddElement("POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
+	layout.AddElement("COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
+	layout.AddElement("TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
+
+	
+	_dxEngine.CreateShader(vs, ps, layout);
 	_dxEngine.CreateVertexBuffer(vertices, _currMesh->indexNum, 40 * 4);
 	_dxEngine.CreateConstBuffer(sizeof(ConstantBuffer));
 	_dxEngine.CreateTexture(GetFullPathW("assets/t_01.dds").c_str());
@@ -41,22 +39,12 @@ bool DemoApp::LoadContent(){
 void DemoApp::UnloadContent(){
 }
 
-void DemoApp::Update(){
-	Window::Update();
-
-	ConstantBuffer cb;
-	cb.model = _currMesh->localToWorldMatrix().transpose();
-	cb.view = _camera.getWorldToCameraMatrix().transpose();
-	cb.perspective = _camera.getCameraToProjMatrix().transpose();
-	_dxEngine.GetContext()->UpdateSubresource(_dxEngine.GetConstBuff(), 0, nullptr, &cb, 0, 0);
-}
-
 void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
 	_dxEngine.ClearBuffers();
-	_dxEngine.BindVertexBuff();
 
+	_dxEngine.BindVertexBuff();
 	_dxEngine.VSSetShader();
 	_dxEngine.VSSetConstantBuffers(0, 1);
 	_dxEngine.PSSetShader();
