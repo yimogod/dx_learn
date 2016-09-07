@@ -1,7 +1,7 @@
 #include <fbxsdk.h>
 #include <util/FBXParser.h>
 #include <util/FBXUtil.h>
-#include <graphics/Scene.h>
+#include <scene/Scene.h>
 
 #include <iostream>
 

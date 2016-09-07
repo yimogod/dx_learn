@@ -1,4 +1,4 @@
-#include <graphics/Camera.h>
+#include <scene/Camera.h>
 #include <math/algebra/Matrix1x4.h>
 
 Camera::Camera(){

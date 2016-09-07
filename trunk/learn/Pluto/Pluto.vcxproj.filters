@@ -19,6 +19,9 @@
     <Filter Include="graphics\dx">
       <UniqueIdentifier>{0ada6729-1ef6-4fd7-86b9-af00b6d7576d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{4c78df39-7a22-42cb-b6a4-8728d8700ed9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\DDSTextureLoader.cpp">
@@ -35,18 +38,6 @@
     </ClCompile>
     <ClCompile Include="src\util\ObjParser.cpp">
       <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Camera.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Light.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Mesh.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Scene.cpp">
-      <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\sys\Application.cpp">
       <Filter>sys</Filter>
@@ -102,6 +93,27 @@
     <ClCompile Include="src\sys\Window.cpp">
       <Filter>sys</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\VertexShader.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXVisual.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Camera.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Light.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Mesh.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Scene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\PixelShader.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -151,22 +163,10 @@
     <ClInclude Include="..\include\math\algebra\Vector3D.h">
       <Filter>math\algebra</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\Camera.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\graphics\Color.h">
       <Filter>graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\Light.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\Mesh.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\graphics\Plane3D.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\Scene.h">
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics\Vertex.h">
@@ -192,6 +192,27 @@
     </ClInclude>
     <ClInclude Include="..\include\sys\Window.h">
       <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\VertexShader.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXVisual.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\scene\Camera.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\scene\Light.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\scene\Mesh.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\scene\Scene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\PixelShader.h">
+      <Filter>graphics\dx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -356,14 +356,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\graphics\Camera.cpp" />
     <ClCompile Include="src\graphics\DXEngine.cpp" />
+    <ClCompile Include="src\graphics\DXVisual.cpp" />
     <ClCompile Include="src\graphics\GeoCreater.cpp" />
     <ClCompile Include="src\graphics\InputLayout.cpp" />
-    <ClCompile Include="src\graphics\Light.cpp" />
-    <ClCompile Include="src\graphics\Mesh.cpp" />
-    <ClCompile Include="src\graphics\Scene.cpp" />
+    <ClCompile Include="src\graphics\PixelShader.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
+    <ClCompile Include="src\graphics\VertexShader.cpp" />
     <ClCompile Include="src\math\algebra\EulerAngles.cpp" />
     <ClCompile Include="src\math\algebra\Matrix1x4.cpp" />
     <ClCompile Include="src\math\algebra\Matrix3x3.cpp" />
@@ -372,6 +371,10 @@
     <ClCompile Include="src\math\algebra\Quternion.cpp" />
     <ClCompile Include="src\math\algebra\Vector2D.cpp" />
     <ClCompile Include="src\math\algebra\Vector3D.cpp" />
+    <ClCompile Include="src\scene\Camera.cpp" />
+    <ClCompile Include="src\scene\Light.cpp" />
+    <ClCompile Include="src\scene\Mesh.cpp" />
+    <ClCompile Include="src\scene\Scene.cpp" />
     <ClCompile Include="src\sys\Application.cpp" />
     <ClCompile Include="src\sys\BaseApp.cpp" />
     <ClCompile Include="src\sys\DLog.cpp" />
@@ -386,17 +389,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BaseDataStruct.h" />
-    <ClInclude Include="..\include\graphics\Camera.h" />
     <ClInclude Include="..\include\graphics\Color.h" />
     <ClInclude Include="..\include\graphics\DXEngine.h" />
+    <ClInclude Include="..\include\graphics\DXVisual.h" />
     <ClInclude Include="..\include\graphics\GeoCreater.h" />
     <ClInclude Include="..\include\graphics\InputLayout.h" />
-    <ClInclude Include="..\include\graphics\Light.h" />
-    <ClInclude Include="..\include\graphics\Mesh.h" />
+    <ClInclude Include="..\include\graphics\PixelShader.h" />
     <ClInclude Include="..\include\graphics\Plane3D.h" />
-    <ClInclude Include="..\include\graphics\Scene.h" />
     <ClInclude Include="..\include\graphics\Shader.h" />
     <ClInclude Include="..\include\graphics\Vertex.h" />
+    <ClInclude Include="..\include\graphics\VertexShader.h" />
     <ClInclude Include="..\include\Main.h" />
     <ClInclude Include="..\include\math\algebra\EulerAngles.h" />
     <ClInclude Include="..\include\math\algebra\Matrix1x4.h" />
@@ -405,6 +407,10 @@
     <ClInclude Include="..\include\math\algebra\Quaternion.h" />
     <ClInclude Include="..\include\math\algebra\Vector2D.h" />
     <ClInclude Include="..\include\math\algebra\Vector3D.h" />
+    <ClInclude Include="..\include\scene\Camera.h" />
+    <ClInclude Include="..\include\scene\Light.h" />
+    <ClInclude Include="..\include\scene\Mesh.h" />
+    <ClInclude Include="..\include\scene\Scene.h" />
     <ClInclude Include="..\include\sys\Application.h" />
     <ClInclude Include="..\include\sys\BaseApp.h" />
     <ClInclude Include="..\include\sys\DLog.h" />

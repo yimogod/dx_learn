@@ -1,5 +1,5 @@
 #include <math/algebra/Vector3D.h>
-#include <graphics/Mesh.h>
+#include <scene/Mesh.h>
 #include <graphics/Vertex.h>
 
 Mesh::Mesh(){

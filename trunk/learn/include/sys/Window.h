@@ -1,6 +1,6 @@
 #pragma once
 #include <sys/BaseApp.h>
-#include <graphics/Camera.h>
+#include <scene/Camera.h>
 
 class Window : public BaseApp{
 public:

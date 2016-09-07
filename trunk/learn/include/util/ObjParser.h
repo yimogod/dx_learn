@@ -1,5 +1,5 @@
 #pragma once
-#include <graphics/Scene.h>
+#include <scene/Scene.h>
 #include <string>
 
 using namespace std;

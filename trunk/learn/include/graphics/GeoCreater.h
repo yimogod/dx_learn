@@ -1,5 +1,5 @@
 #pragma once
-#include <graphics/Mesh.h>
+#include <scene/Mesh.h>
 
 class GeoCreater{
 	public:

@@ -2,7 +2,7 @@
 #include <string>
 
 #include <sys/SysEnv.h>
-#include <graphics/Scene.h>
+#include <scene/Scene.h>
 #include <graphics/DXEngine.h>
 
 class BaseApp{
