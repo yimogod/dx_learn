@@ -16,14 +16,12 @@ bool Window::Init(HINSTANCE const &ins, HWND const &hwnd){
 }
 
 void Window::Update(){
-	if(!isLMouseDown() || !isRMouseDown()){
-		_lastMouseX = GetMouseX();
-		_lastMouseY = GetMouseY();
-	}
-
 	UpdateByKey(0.002f);
-	UpdateByLMouse(0.001f);
-	UpdateByRMouse(0.001f);
+	UpdateByLMouse(0.003f);
+	UpdateByRMouse(0.003f);
+
+	_lastMouseX = GetMouseX();
+	_lastMouseY = GetMouseY();
 }
 
 void Window::UpdateByLMouse(float value){
@@ -33,10 +31,19 @@ void Window::UpdateByLMouse(float value){
 	int dx = _lastMouseX - GetMouseX();
 	int dy = _lastMouseY - GetMouseY();
 	if(abs(dx) > abs(dy)){
-		_currMesh->rotateY(-2.0f * dx * value);
+		_currMesh->rotateY(dx * value);
 	}else{
-		_currMesh->rotateX(-2.0f * dy * value);
+		_currMesh->rotateX(dy * value);
 	}
+}
+
+void Window::UpdateByRMouse(float value){
+	if(!isRMouseDown())return;
+
+	int dx = _lastMouseX - GetMouseX();
+	int dy = _lastMouseY - GetMouseY();
+	_camera.rotateY(dx * value);
+	_camera.pitchRotate(dy * value);
 }
 
 void Window::UpdateByKey(float value){
@@ -54,15 +61,6 @@ void Window::UpdateByKey(float value){
 	}
 }
 
-void Window::UpdateByRMouse(float value){
-	if(!isRMouseDown())return;
-
-	int dx = _lastMouseX - GetMouseX();
-	int dy = _lastMouseY - GetMouseY();
-	_camera.rotateY(-2.0f * dx * value);
-	_camera.pitchRotate(-2.0f * dy * value);
-	
-}
 
 void Window::Destroy(){
 	UnloadContent();
