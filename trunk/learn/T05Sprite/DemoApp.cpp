@@ -1,7 +1,4 @@
-#include <DirectXMath.h>
-#include <DirectXColors.h>
 #include <graphics/GeoCreater.h>
-#include <graphics/Mesh.h>
 #include <graphics/Shader.h>
 #include "DemoApp.h"
 
@@ -57,8 +54,7 @@ void DemoApp::Update(){
 void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
-	_dxEngine.ClearRenderTargetView(Colors::MidnightBlue);
-	_dxEngine.ClearDepthStencilView(D3D11_CLEAR_DEPTH, 1.0f, 0);
+	_dxEngine.ClearBuffers();
 	_dxEngine.BindVertexBuff();
 
 	_dxEngine.VSSetShader();

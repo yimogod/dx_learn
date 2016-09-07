@@ -1,5 +1,9 @@
 #pragma once
-#include <graphics/DXInclude.h>
+#include <d3d11_1.h>
+#include <d3dcompiler.h>
+#include <DirectXColors.h>
+#include <graphics/Vertex.h>
+#include <graphics/Shader.h>
 
 class DXEngine{
 public:
@@ -32,9 +36,8 @@ public:
 	inline ID3D11DeviceContext* GetContext() const;
 	inline ID3D11Buffer* GetConstBuff() const;
 
+	void ClearBuffers(const FLOAT ColorRGBA[4] = DirectX::Colors::MidnightBlue);
 	//device或者context的一些代理方法
-	inline void ClearRenderTargetView(const FLOAT ColorRGBA[4]);
-	inline void ClearDepthStencilView(UINT ClearFlags, FLOAT Depth, UINT8 Stencil);
 	inline void VSSetShader();
 	inline void VSSetConstantBuffers(UINT StartSlot, UINT NumBuffer);
 	inline void PSSetShader();
@@ -132,15 +135,6 @@ inline ID3D11Buffer* DXEngine::GetConstBuff() const{
 
 inline bool DXEngine::GetReady(){
 	return _ready;
-}
-
-
-inline void DXEngine::ClearRenderTargetView(const FLOAT ColorRGBA[4]){
-	_context->ClearRenderTargetView(_renderTargetView, ColorRGBA);
-}
-
-inline void DXEngine::ClearDepthStencilView(UINT ClearFlags, FLOAT Depth, UINT8 Stencil){
-	_context->ClearDepthStencilView(_depthStencilView, ClearFlags, Depth, Stencil);
 }
 
 inline void DXEngine::VSSetShader(){

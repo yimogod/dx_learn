@@ -390,3 +390,8 @@ bool DXEngine::CreateSamplerState(){
 
 	return true;
 }
+
+void DXEngine::ClearBuffers(const FLOAT ColorRGBA[4]){
+	_context->ClearRenderTargetView(_renderTargetView, ColorRGBA);
+	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}

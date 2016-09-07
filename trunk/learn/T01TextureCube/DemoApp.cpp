@@ -1,11 +1,6 @@
-#include <DirectXMath.h>
 #include <util/ObjParser.h>
-#include <DirectXColors.h>
-#include <graphics/Mesh.h>
 #include <graphics/Shader.h>
 #include "DemoApp.h"
-
-using namespace DirectX;
 
 DemoApp::DemoApp(){}
 
@@ -15,7 +10,6 @@ bool DemoApp::LoadContent(){
 	ObjParser reader;
 	reader.read(GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
-
 	_scene.camera = &_camera;
 	
 	/*准备顶点缓冲数据*/
@@ -60,8 +54,7 @@ void DemoApp::Update(){
 void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
-	_dxEngine.ClearRenderTargetView(Colors::MidnightBlue);
-	_dxEngine.ClearDepthStencilView(D3D11_CLEAR_DEPTH, 1.0f, 0);
+	_dxEngine.ClearBuffers();
 	_dxEngine.BindVertexBuff();
 
 	_dxEngine.VSSetShader();

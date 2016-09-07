@@ -184,9 +184,6 @@
     <ClInclude Include="..\include\graphics\InputLayout.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\DXInclude.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\sys\InputEngine.h">
       <Filter>sys</Filter>
     </ClInclude>
