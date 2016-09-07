@@ -10,11 +10,8 @@ public:
 	BaseApp();
 	virtual ~BaseApp();
 
-	bool Init(HINSTANCE const &ins, HWND const &hwnd);
-	void Destroy();
-
-	virtual bool LoadContent() = 0;
-	virtual void UnloadContent() = 0;
+	virtual bool Init(HINSTANCE const &ins, HWND const &hwnd);
+	virtual void Destroy() = 0;
 
 	virtual void Update() = 0;
 	virtual void Render() = 0;
@@ -31,8 +28,8 @@ protected:
 	inline bool isKeyDown(int keycode) const;
 	inline bool isLMouseDown() const;
 	inline bool isRMouseDown() const;
-	inline bool GetMouseX() const;
-	inline bool GetMouseY() const;
+	inline int GetMouseX() const;
+	inline int GetMouseY() const;
 
 	std::string const GetAppRoot();
 	std::string GetFullPath(char* path);
@@ -46,7 +43,6 @@ protected:
 	int _height = 0; //屏幕高度
 
 	SysEnv _env;
-	DXEngine _dxEngine;
 
 private:
 	int _pressedKey = -1; //按下的按钮
@@ -60,18 +56,18 @@ inline bool BaseApp::isKeyDown(int keycode) const{
 	return keycode == _pressedKey;
 }
 
-inline bool BaseApp::GetMouseX() const{
-	return _mouseX;
-}
-
-inline bool BaseApp::GetMouseY() const{
-	return _mouseY;
-}
-
 inline bool BaseApp::isLMouseDown() const{
 	return _isLMouseDown;
 }
 
 inline bool BaseApp::isRMouseDown() const{
 	return _isRMouseDown;
+}
+
+inline int BaseApp::GetMouseX() const{
+	return _mouseX;
+}
+
+inline int BaseApp::GetMouseY() const{
+	return _mouseY;
 }

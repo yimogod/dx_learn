@@ -45,6 +45,7 @@ public:
     
 public:
     Camera();
+	//Camera(const Camera &c);//复制构造函数
     ~Camera();
     
 	void setPos(float px, float py, float pz);

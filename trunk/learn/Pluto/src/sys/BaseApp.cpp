@@ -15,13 +15,7 @@ bool BaseApp::Init(HINSTANCE const &ins, HWND const &hwnd){
 	_width = rect.right - rect.left;
 	_height = rect.bottom - rect.top;
 
-	_dxEngine.InitDevice(hwnd, _width, _height);
-
-	return LoadContent();
-}
-
-void BaseApp::Destroy(){
-	UnloadContent();
+	return true;
 }
 
 void BaseApp::OnMove(int screenX, int screenY){

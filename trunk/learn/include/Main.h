@@ -148,7 +148,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 	{
 		int x, y;
 		Extract(lParam, x, y);
-		g_app->OnMouseDown(x, y);
+		g_app->OnMouseUp(x, y);
 		break;
 	}
 	case WM_RBUTTONDOWN:
@@ -162,7 +162,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 	{
 		int x, y;
 		Extract(lParam, x, y);
-		g_app->OnRMouseDown(x, y);
+		g_app->OnRMouseUp(x, y);
 		break;
 	}
 	case WM_MOUSEMOVE:

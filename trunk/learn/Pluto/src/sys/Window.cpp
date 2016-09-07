@@ -4,42 +4,52 @@ Window::Window(){}
 
 Window::~Window(){}
 
+bool Window::Init(HINSTANCE const &ins, HWND const &hwnd){
+	BaseApp::Init(ins, hwnd);
+	_dxEngine.InitDevice(hwnd, _width, _height);
+
+	_camera.setPos(0, 0, -2.0f);
+	_camera.setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
+	_camera.setAspect(_width, _height);
+
+	return LoadContent();
+}
+
 void Window::Update(){
 	if(!isLMouseDown() || !isRMouseDown()){
 		_lastMouseX = GetMouseX();
 		_lastMouseY = GetMouseY();
 	}
 
-	UpdateByKey(0.1f);
-	UpdateByLMouse(0.1f);
-	UpdateByRMouse(0.1f);
+	UpdateByKey(0.002f);
+	UpdateByLMouse(0.001f);
+	UpdateByRMouse(0.001f);
 }
 
 void Window::UpdateByLMouse(float value){
 	if(!isLMouseDown())return;
-	if(_crrMesh == nullptr)return;
+	if(_currMesh == nullptr)return;
 
 	int dx = _lastMouseX - GetMouseX();
 	int dy = _lastMouseY - GetMouseY();
 	if(abs(dx) > abs(dy)){
-		_crrMesh->rotateY(-2.0f * dx * value);
-	}
-	else{
-		_crrMesh->rotateX(-2.0f * dy * value);
+		_currMesh->rotateY(-2.0f * dx * value);
+	}else{
+		_currMesh->rotateX(-2.0f * dy * value);
 	}
 }
 
 void Window::UpdateByKey(float value){
-	if(isKeyDown(97)){
+	if(isKeyDown(65)){//A
 		_camera.strafe(-value);
 	}
-	if(isKeyDown(100)){
+	if(isKeyDown(68)){//D
 		_camera.strafe(value);
 	}
-	if(isKeyDown(119)){
+	if(isKeyDown(87)){//W
 		_camera.walk(value);
 	}
-	if(isKeyDown(115)){
+	if(isKeyDown(83)){//S
 		_camera.walk(-value);
 	}
 }
@@ -52,4 +62,8 @@ void Window::UpdateByRMouse(float value){
 	_camera.rotateY(-2.0f * dx * value);
 	_camera.pitchRotate(-2.0f * dy * value);
 	
+}
+
+void Window::Destroy(){
+	UnloadContent();
 }

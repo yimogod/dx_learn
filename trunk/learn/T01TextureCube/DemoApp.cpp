@@ -16,16 +16,13 @@ bool DemoApp::LoadContent(){
 	reader.read(GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 
-	_scene.camera = new Camera();
-	_scene.camera->setPos(0, 0, -2.0f);
-	_scene.camera->setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
-	_scene.camera->setAspect(_width, _height);
+	_scene.camera = &_camera;
 	
 	/*准备顶点缓冲数据*/
-	Mesh* mesh = _scene.getMesh(0);
+	_currMesh = _scene.getMesh(0);
 	Vertex *vertices = 0;
-	vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexList(vertices);
+	vertices = new Vertex[_currMesh->indexNum];
+	_currMesh->getVertexList(vertices);
 
 	/*准备shader数据*/
 	Shader vs(L"shader/Triangle.fx", "VS", "vs_4_0");
@@ -40,7 +37,7 @@ bool DemoApp::LoadContent(){
 	
 	int numElements = ARRAYSIZE(layout);
 	_dxEngine.CreateShader(vs, ps, layout, numElements);
-	_dxEngine.CreateVertexBuffer(vertices, mesh->indexNum, 40 * 4);
+	_dxEngine.CreateVertexBuffer(vertices, _currMesh->indexNum, 40 * 4);
 	_dxEngine.CreateConstBuffer(sizeof(ConstantBuffer));
 	_dxEngine.CreateTexture(GetFullPathW("assets/t_01.dds").c_str());
 
@@ -52,13 +49,12 @@ void DemoApp::UnloadContent(){
 }
 
 void DemoApp::Update(){
-	//UpdatePosByRMouse(_scene.camera, 0.001f);
-	//UpdatePosByLMouse(_scene.currMesh(), 0.001f);
+	Window::Update();
 
 	ConstantBuffer cb;
-	cb.model = _scene.currMesh()->localToWorldMatrix().transpose();
-	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
-	cb.perspective = _scene.camera->getCameraToProjMatrix().transpose();
+	cb.model = _currMesh->localToWorldMatrix().transpose();
+	cb.view = _camera.getWorldToCameraMatrix().transpose();
+	cb.perspective = _camera.getCameraToProjMatrix().transpose();
 	_dxEngine.GetContext()->UpdateSubresource(_dxEngine.GetConstBuff(), 0, nullptr, &cb, 0, 0);
 }
 
@@ -75,7 +71,6 @@ void DemoApp::Render(){
 	_dxEngine.PSSetShaderResources(0);
 	_dxEngine.PSSetSamplers(0, 1);
 
-	Mesh *m = _scene.getMesh(0);
-	_dxEngine.GetContext()->Draw(m->indexNum, 0);
+	_dxEngine.GetContext()->Draw(_currMesh->indexNum, 0);
 	_dxEngine.GetChain()->Present(0, 0);
 }
