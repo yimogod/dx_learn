@@ -64,5 +64,5 @@ void DemoApp::Render(){
 	_dxEngine.PSSetSamplers(0, 1);
 
 	_dxEngine.GetContext()->Draw(_currMesh->indexNum, 0);
-	_dxEngine.GetChain()->Present(0, 0);
+	_dxEngine.Present();
 }

@@ -32,11 +32,11 @@ public:
 public:
 	inline bool GetReady();
 	inline ID3D11Device* GetDevice() const;
-	inline IDXGISwapChain* GetChain() const;
 	inline ID3D11DeviceContext* GetContext() const;
 	inline ID3D11Buffer* GetConstBuff() const;
 
 	void ClearBuffers(const FLOAT ColorRGBA[4] = DirectX::Colors::MidnightBlue);
+	void Present();
 	//device或者context的一些代理方法
 	inline void VSSetShader();
 	inline void VSSetConstantBuffers(UINT StartSlot, UINT NumBuffer);
@@ -123,10 +123,6 @@ inline ID3D11Device* DXEngine::GetDevice() const{
 
 inline ID3D11DeviceContext* DXEngine::GetContext() const{
 	return _context;
-}
-
-inline IDXGISwapChain* DXEngine::GetChain() const{
-	return _chain;
 }
 
 inline ID3D11Buffer* DXEngine::GetConstBuff() const{
