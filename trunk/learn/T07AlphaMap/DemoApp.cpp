@@ -18,7 +18,7 @@ bool DemoApp::loadContent(){
 
 	Mesh *m = new Mesh();
 	m->setWorldPos(0, 0, 0.0f);
-	GeoCreater::createSprite(m);
+	GeoCreater::CreateSprite(m);
 	_scene.meshList[0] = m;
 	_scene.meshNum = 1;
 

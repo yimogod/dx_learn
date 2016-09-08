@@ -26,12 +26,6 @@ public:
 
 	void ClearBuffers(const FLOAT ColorRGBA[4] = DirectX::Colors::MidnightBlue);
 	void Present();
-	//device或者context的一些代理方法
-	
-	
-	inline void PSSetShaderResources(UINT StartSlot);
-	inline void PSSetSamplers(UINT StartSlot, UINT NumSampler);
-
 private:
 	HINSTANCE _ins;
 	HWND _hwnd;
@@ -63,10 +57,6 @@ private:
 	ID3D11BlendState* _blendState;
 	ID3D11BlendState* _blendEnableState;
 	ID3D11BlendState* _blendDisableState;
-
-	/*对贴图资源引用的resource view, 如果一个面需要多张图, 那么我们的_resView就会是个数组*/
-	int _resViewNum = 0;
-	ID3D11ShaderResourceView* _resView[8];
 private:
 	/*创建深度缓存*/
 	bool CreateDepthStencilView();
@@ -100,8 +90,4 @@ inline ID3D11DeviceContext* DXEngine::GetContext() const{
 
 inline bool DXEngine::GetReady(){
 	return _ready;
-}
-
-inline void DXEngine::PSSetShaderResources(UINT StartSlot){
-	_context->PSSetShaderResources(StartSlot, _resViewNum, _resView);
 }

@@ -8,6 +8,8 @@
 #include <graphics/PixelShader.h>
 #include <graphics/SamplerState.h>
 
+#include <graphics/ShaderResourceView.h>
+
 class DXVisual{
 public:
 	DXVisual();
@@ -23,6 +25,9 @@ public:
 	inline void PreAddLayoutTangent();
 	inline void PreAddLayoutColor();
 	inline void PreAddLayoutTexcoord();
+
+	//读取图片, 设置resourceview
+	inline bool CreateTexture(const wchar_t* path);
 
 	//设置创建buffer需要的各种数据
 	inline void PreSetConstBufferSize(int byteWidth);//设置constbuffer对象的byte
@@ -44,6 +49,8 @@ private:
 	PixelShader _ps;
 
 	SamplerState _samplerState;
+
+	ShaderResourceView _resView;
 
 	int _vertexNum = 0;
 	int _constByteWidth = 0;
@@ -88,4 +95,8 @@ inline void DXVisual::PreSetConstBufferSize(int byteWidth){
 
 inline ID3D11Buffer* DXVisual::GetDXConstBuffer() const{
 	return _constBuffer.GetDXObj();
+}
+
+inline bool DXVisual::CreateTexture(const wchar_t* path){
+	return _resView.AddTexture(path);
 }

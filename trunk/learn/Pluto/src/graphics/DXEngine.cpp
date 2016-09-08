@@ -280,16 +280,6 @@ void DXEngine::DisableAlphaBlend(){
 	_context->OMSetBlendState(_blendDisableState, blendFactor, D3D11_DEFAULT_SAMPLE_MASK);
 }
 
-bool DXEngine::CreateTexture(const wchar_t* path){
-	HRESULT hr = CreateDDSTextureFromFile(_device, path, nullptr, &_resView[_resViewNum], 2048U);
-	if(FAILED(hr))return false;
-	_resViewNum++;
-	return true;
-}
-
-// Create the sample state
-
-
 void DXEngine::ClearBuffers(const FLOAT ColorRGBA[4]){
 	_context->ClearRenderTargetView(_renderTargetView, ColorRGBA);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);

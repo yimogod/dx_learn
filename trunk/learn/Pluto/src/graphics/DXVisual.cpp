@@ -34,5 +34,6 @@ void DXVisual::Draw(ID3D11DeviceContext* context){
 	_constBuffer.BindConstBuff(context, 0, 1);
 	_ps.PSSetShader(context);
 
+	_resView.BindShaderResource(context, 0);
 	_samplerState.BindSamplerState(context, 0, 1);
 }

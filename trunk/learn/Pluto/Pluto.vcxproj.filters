@@ -123,7 +123,10 @@
     <ClCompile Include="src\graphics\IndexBuffer.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\SamplerState.cpp" />
+    <ClCompile Include="src\graphics\SamplerState.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\ShaderResourceView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -233,6 +236,9 @@
     <ClInclude Include="..\include\graphics\IndexBuffer.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\SamplerState.h" />
+    <ClInclude Include="..\include\graphics\SamplerState.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\ShaderResourceView.h" />
   </ItemGroup>
 </Project>
