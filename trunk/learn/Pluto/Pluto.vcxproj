@@ -363,6 +363,7 @@
     <ClCompile Include="src\graphics\IndexBuffer.cpp" />
     <ClCompile Include="src\graphics\InputLayout.cpp" />
     <ClCompile Include="src\graphics\PixelShader.cpp" />
+    <ClCompile Include="src\graphics\SamplerState.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
     <ClCompile Include="src\graphics\VertexBuffer.cpp" />
     <ClCompile Include="src\graphics\VertexShader.cpp" />
@@ -401,6 +402,7 @@
     <ClInclude Include="..\include\graphics\InputLayout.h" />
     <ClInclude Include="..\include\graphics\PixelShader.h" />
     <ClInclude Include="..\include\graphics\Plane3D.h" />
+    <ClInclude Include="..\include\graphics\SamplerState.h" />
     <ClInclude Include="..\include\graphics\Shader.h" />
     <ClInclude Include="..\include\graphics\Vertex.h" />
     <ClInclude Include="..\include\graphics\VertexBuffer.h" />

@@ -33,7 +33,6 @@ void DemoApp::Render(){
 	_dxEngine.DrawVisual(_visual);
 
 	_dxEngine.PSSetShaderResources(0);
-	_dxEngine.PSSetSamplers(0, 1);
 	
 	_dxEngine.GetContext()->Draw(_currMesh->indexNum, 0);
 	_dxEngine.Present();

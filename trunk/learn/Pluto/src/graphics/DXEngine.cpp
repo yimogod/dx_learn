@@ -65,7 +65,6 @@ void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
 	CreateViewPort();
 
-	CreateSamplerState();
 	CreateDepthState();
 
 	_ready = true;
@@ -289,21 +288,7 @@ bool DXEngine::CreateTexture(const wchar_t* path){
 }
 
 // Create the sample state
-bool DXEngine::CreateSamplerState(){
-	D3D11_SAMPLER_DESC sampDesc;
-	ZeroMemory(&sampDesc, sizeof(sampDesc));
-	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-	sampDesc.MinLOD = 0;
-	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-	HRESULT hr = _device->CreateSamplerState(&sampDesc, &_sampleState);
-	if(FAILED(hr))return false;
 
-	return true;
-}
 
 void DXEngine::ClearBuffers(const FLOAT ColorRGBA[4]){
 	_context->ClearRenderTargetView(_renderTargetView, ColorRGBA);

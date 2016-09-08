@@ -22,6 +22,9 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum){
 	result = _constBuffer.CreateConstBuffer(device, _constByteWidth);
 	if(!result)return false;
 
+	result = _samplerState.CreateSamplerState(device);
+	if(!result)return false;
+
 	return result;
 }
 
@@ -30,4 +33,6 @@ void DXVisual::Draw(ID3D11DeviceContext* context){
 	_vs.VSSetShader(context);
 	_constBuffer.BindConstBuff(context, 0, 1);
 	_ps.PSSetShader(context);
+
+	_samplerState.BindSamplerState(context, 0, 1);
 }

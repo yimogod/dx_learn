@@ -123,6 +123,7 @@
     <ClCompile Include="src\graphics\IndexBuffer.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\SamplerState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -232,5 +233,6 @@
     <ClInclude Include="..\include\graphics\IndexBuffer.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\graphics\SamplerState.h" />
   </ItemGroup>
 </Project>

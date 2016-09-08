@@ -6,6 +6,7 @@
 #include <graphics/ConstBuffer.h>
 #include <graphics/VertexShader.h>
 #include <graphics/PixelShader.h>
+#include <graphics/SamplerState.h>
 
 class DXVisual{
 public:
@@ -41,6 +42,8 @@ private:
 
 	VertexShader _vs;
 	PixelShader _ps;
+
+	SamplerState _samplerState;
 
 	int _vertexNum = 0;
 	int _constByteWidth = 0;
