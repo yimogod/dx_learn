@@ -7,17 +7,27 @@
 #include <graphics/VertexShader.h>
 #include <graphics/PixelShader.h>
 
-class DXVisual
-{
+class DXVisual{
 public:
-	DXVisual();
 	DXVisual();
 	~DXVisual();
 
+	//设置shader的名称
+	inline void PreInitShader(wchar_t* vsName, wchar_t* psName);
+	//设置layout
+	inline void PreAddLayoutPostion();
+	inline void PreAddLayoutColor();
+	inline void PreAddLayoutTexcoord();
 
+	//设置创建buffer需要的各种数据
+	inline void PreSetConstBufferSize(int byteWidth);//设置constbuffer对象的byte
 
-	bool Init(ID3D11Device* device);
+	bool Init(ID3D11Device* device, void* vertices, int vertexNum);
 	void Draw(ID3D11DeviceContext* context);
+
+public: //获取dx obj相关
+	inline ID3D11Buffer* GetDXConstBuffer() const;
+
 private:
 	InputLayout _layout;
 
@@ -27,5 +37,32 @@ private:
 
 	VertexShader _vs;
 	PixelShader _ps;
+
+	int _constByteWidth = 0;
 };
 
+inline void DXVisual::PreInitShader(wchar_t* vsName, wchar_t* psName){
+	_vs.SetFileName(vsName);
+	_ps.SetFileName(psName);
+}
+
+
+inline void DXVisual::PreAddLayoutPostion(){
+	_layout.AddPosition();
+}
+
+inline void DXVisual::PreAddLayoutColor(){
+	_layout.AddColor();
+}
+
+inline void DXVisual::PreAddLayoutTexcoord(){
+	_layout.AddTexCoord();
+}
+
+inline void DXVisual::PreSetConstBufferSize(int byteWidth){
+	_constByteWidth = byteWidth;
+}
+
+inline ID3D11Buffer* DXVisual::GetDXConstBuffer() const{
+	return _constBuffer.GetDXObj();
+}

@@ -13,28 +13,25 @@ bool DemoApp::LoadContent(){
 	
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.getMesh(0);
-	Vertex *vertices = new Vertex[_currMesh->indexNum];
+	Vertex* vertices = new Vertex[_currMesh->indexNum];
 	_currMesh->getVertexList(vertices);
 
+
 	/*准备shader数据*/
-	VertexShader vs(L"shader/Triangle.fx", "VS", "vs_4_0");
-	PixelShader ps(L"shader/Triangle.fx", "PS", "ps_4_0");
+	_visual.PreInitShader(L"shader/Triangle.fx", L"shader/Triangle.fx");
 	
 	/*创建 layout*/
-	InputLayout layout;
-	layout.AddElement("POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
-	layout.AddElement("COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
-	layout.AddElement("TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
+	_visual.PreAddLayoutPostion();
+	_visual.PreAddLayoutColor();
+	_visual.PreAddLayoutTexcoord();
+
+	//创建buffer需要的变量
+	_visual.PreSetConstBufferSize(sizeof(ConstantBuffer));
 	
-	_dxEngine.CreateShader(vs, ps, layout);
-	_dxEngine.CreateVertexBuffer(vertices, _currMesh->indexNum, 40 * 4);
-	_dxEngine.CreateConstBuffer(sizeof(ConstantBuffer));
-	
+	//初始化visual
+	_dxEngine.InitVisual(_visual, vertices, _currMesh->indexNum);
 	
 	_dxEngine.CreateTexture(GetFullPathW("assets/t_01.dds").c_str());
-
-
-	_dxEngine.InitVisual(_visual);
 
 	delete(vertices);
 	return true;
@@ -47,11 +44,8 @@ void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
 	_dxEngine.ClearBuffers();
+	_dxEngine.DrawVisual(_visual);
 
-	_dxEngine.BindVertexBuff();
-	_dxEngine.VSSetShader();
-	_dxEngine.VSSetConstantBuffers(0, 1);
-	_dxEngine.PSSetShader();
 	_dxEngine.PSSetShaderResources(0);
 	_dxEngine.PSSetSamplers(0, 1);
 

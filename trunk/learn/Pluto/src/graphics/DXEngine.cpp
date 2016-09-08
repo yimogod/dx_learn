@@ -54,8 +54,8 @@ bool DXEngine::CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight)
 	return true;
 }
 
-void DXEngine::InitVisual(DXVisual &visual){
-	visual.Init(_device);
+void DXEngine::InitVisual(DXVisual &visual, void* vertices, int vertexNum){
+	visual.Init(_device, vertices, vertexNum);
 }
 
 void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
@@ -69,6 +69,10 @@ void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	CreateDepthState();
 
 	_ready = true;
+}
+
+void DXEngine::DrawVisual(DXVisual &visual){
+	visual.Draw(_context);
 }
 
 bool DXEngine::CreateDepthStencilView(){

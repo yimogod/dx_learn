@@ -14,23 +14,10 @@ public:
 
 	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
-	void InitVisual(DXVisual &visual);
-
-
-
-	//创建/绑定各种buff
-	bool CreateVertexBuffer(Vertex *vertices, int vertNum, int vertSize);
-	bool CreateVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff);
-	void BindVertexBuff();
-	void BindVertexBuff(ID3D11Buffer* vertexBuff);
-
-	bool CreateIndexBuffer(unsigned short* indexList, int indexNum);
-	void BindIndexBuff();
-	
-	bool CreateConstBuffer(ID3D11Buffer** constBuff, int byteWidth);
-	bool CreateConstBuffer(int byteWidth);
-
+	void InitVisual(DXVisual &visual, void* vertices, int vertexNum);
 	bool CreateTexture(const wchar_t* path);
+
+	void DrawVisual(DXVisual &visual);
 
 public:
 	inline bool GetReady();

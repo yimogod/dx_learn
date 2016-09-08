@@ -31,7 +31,8 @@ void Window::UpdateConstBuff(){
 	cb.model = _currMesh->localToWorldMatrix().transpose();
 	cb.view = _camera.getWorldToCameraMatrix().transpose();
 	cb.perspective = _camera.getCameraToProjMatrix().transpose();
-	_dxEngine.GetContext()->UpdateSubresource(_dxEngine.GetConstBuff(), 0, nullptr, &cb, 0, 0);
+
+	_dxEngine.GetContext()->UpdateSubresource(_visual.GetDXConstBuffer(), 0, nullptr, &cb, 0, 0);
 }
 
 void Window::UpdateByLMouse(float value){

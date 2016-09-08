@@ -4,27 +4,28 @@ DXVisual::DXVisual(){}
 
 DXVisual::~DXVisual(){}
 
-bool DXVisual::Init(ID3D11Device* device){
+bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum){
 	//创建 vertex shader
-	bool result = _vs.CreateVertexShader(device, layout);
+	bool result = _vs.CreateVertexShader(device, _layout);
 	if(!result)return false;
 
 	//创建 pixel shader
-	result = ps.CreatePixelShader(device);
+	result = _ps.CreatePixelShader(device);
+	if(!result)return false;
+
+	int singleVertexByte = _layout.GetTotalByte();
+	result = _vertexBuffer.CreateVertexBuffer(device, vertices, vertexNum * singleVertexByte);
+	if(!result)return false;
+
+	result = _constBuffer.CreateConstBuffer(device, _constByteWidth);
+	if(!result)return false;
+
 	return result;
-
-	//CreateVertexBuffer
-	_vertexBuffer.CreateVertexBuffer(device, vertices, 100000);
-
-	//createconst buffer
-	_constBuffer.CreateConstBuffer(device, sizeof(ConstantBuffer));
 }
 
 void DXVisual::Draw(ID3D11DeviceContext* context){
 	_vertexBuffer.BindVertexBuff(context, _layout);
-	_vs->VSSetShader(context);
-
+	_vs.VSSetShader(context);
 	_constBuffer.BindConstBuff(context, 0, 1);
-
-	_ps->PSSetShader(context);
+	_ps.PSSetShader(context);
 }
