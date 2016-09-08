@@ -16,14 +16,11 @@ bool DemoApp::LoadContent(){
 	Vertex* vertices = new Vertex[_currMesh->indexNum];
 	_currMesh->getVertexList(vertices);
 
-
 	/*准备shader数据*/
 	_visual.PreInitShader(L"shader/Triangle.fx", L"shader/Triangle.fx");
 	
 	/*创建 layout*/
-	_visual.PreAddLayoutPostion();
-	_visual.PreAddLayoutColor();
-	_visual.PreAddLayoutTexcoord();
+	_visual.PreAddDefaultLayout();
 
 	//创建buffer需要的变量
 	_visual.PreSetConstBufferSize(sizeof(ConstantBuffer));

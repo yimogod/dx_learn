@@ -14,8 +14,12 @@ public:
 
 	//设置shader的名称
 	inline void PreInitShader(wchar_t* vsName, wchar_t* psName);
+
 	//设置layout
+	inline void PreAddDefaultLayout();
 	inline void PreAddLayoutPostion();
+	inline void PreAddLayoutNormal();
+	inline void PreAddLayoutTangent();
 	inline void PreAddLayoutColor();
 	inline void PreAddLayoutTexcoord();
 
@@ -38,6 +42,7 @@ private:
 	VertexShader _vs;
 	PixelShader _ps;
 
+	int _vertexNum = 0;
 	int _constByteWidth = 0;
 };
 
@@ -46,9 +51,24 @@ inline void DXVisual::PreInitShader(wchar_t* vsName, wchar_t* psName){
 	_ps.SetFileName(psName);
 }
 
+inline void DXVisual::PreAddDefaultLayout(){
+	_layout.AddPosition();
+	_layout.AddNormal();
+	_layout.AddTangent();
+	_layout.AddColor();
+	_layout.AddTexCoord();
+}
 
 inline void DXVisual::PreAddLayoutPostion(){
 	_layout.AddPosition();
+}
+
+inline void DXVisual::PreAddLayoutNormal(){
+
+}
+
+inline void DXVisual::PreAddLayoutTangent(){
+
 }
 
 inline void DXVisual::PreAddLayoutColor(){

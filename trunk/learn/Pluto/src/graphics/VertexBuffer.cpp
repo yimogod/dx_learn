@@ -1,4 +1,5 @@
 #include <graphics\VertexBuffer.h>
+#include <graphics/Vertex.h>
 
 VertexBuffer::VertexBuffer(){
 }
@@ -33,7 +34,7 @@ void VertexBuffer::BindVertexBuff(ID3D11DeviceContext* context, InputLayout &lay
 	context->IASetInputLayout(layout.GetDXObj());
 
 	/*ÉèÖÃµ±Ç°vertex buff*/
-	UINT stride = layout.GetTotalByte();// sizeof(Vertex);
+	UINT stride = layout.GetTotalByte();
 	UINT offset = 0;
 	context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
 

@@ -12,6 +12,8 @@ public:
 	HRESULT CreateInputLayout(ID3D11Device* device, ID3DBlob* blob);
 
 	inline void AddPosition();
+	inline void AddNormal();
+	inline void AddTangent();
 	inline void AddColor();
 	inline void AddTexCoord();
 	inline void AddTexCoord_1();
@@ -43,14 +45,22 @@ inline void InputLayout::AddPosition(){
 	AddElement("POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
 }
 
+inline void InputLayout::AddNormal(){
+	AddElement("NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
+}
+
+inline void InputLayout::AddTangent(){
+	AddElement("TANGENT", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
+}
+
 inline void InputLayout::AddColor(){
 	AddElement("COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
 }
 
 inline void InputLayout::AddTexCoord(){
-	AddElement("TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
+	AddElement("TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 8);
 }
 
 inline void InputLayout::AddTexCoord_1(){
-	AddElement("TEXCOORD", 1, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
+	AddElement("TEXCOORD", 1, DXGI_FORMAT_R32G32_FLOAT, 8);
 }
