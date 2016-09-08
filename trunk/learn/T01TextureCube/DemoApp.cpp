@@ -16,18 +16,7 @@ bool DemoApp::LoadContent(){
 	Vertex* vertices = new Vertex[_currMesh->indexNum];
 	_currMesh->getVertexList(vertices);
 
-	/*准备shader数据*/
-	_visual.PreInitShader(L"shader/Triangle.fx", L"shader/Triangle.fx");
-	
-	/*创建 layout*/
-	_visual.PreAddDefaultLayout();
-
-	//创建buffer需要的变量
-	_visual.PreSetConstBufferSize(sizeof(ConstantBuffer));
-	
-	//初始化visual
-	_dxEngine.InitVisual(_visual, vertices, _currMesh->indexNum);
-	
+	InitVisual(_visual, L"shader/Triangle.fx", vertices);
 	_dxEngine.CreateTexture(GetFullPathW("assets/t_01.dds").c_str());
 
 	delete(vertices);

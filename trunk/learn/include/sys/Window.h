@@ -19,6 +19,8 @@ protected:
 	void UpdateByLMouse(float value);
 	void UpdateByKey(float value);
 	void UpdateConstBuff();
+
+	void InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices);
 protected:
 	Mesh* _currMesh = nullptr;
 

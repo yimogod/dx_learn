@@ -15,6 +15,20 @@ bool Window::Init(HINSTANCE const &ins, HWND const &hwnd){
 	return LoadContent();
 }
 
+void Window::InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices){
+	/*准备shader数据*/
+	visual.PreInitShader(vsName, vsName);
+
+	/*创建 layout*/
+	visual.PreAddDefaultLayout();
+
+	//创建buffer需要的变量
+	visual.PreSetConstBufferSize(sizeof(ConstantBuffer));
+
+	//初始化visual
+	_dxEngine.InitVisual(visual, vertices, _currMesh->indexNum);
+}
+
 void Window::Update(){
 	UpdateByKey(0.002f);
 	UpdateByLMouse(0.003f);
