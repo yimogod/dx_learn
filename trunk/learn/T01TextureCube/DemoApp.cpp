@@ -25,12 +25,16 @@ bool DemoApp::LoadContent(){
 	layout.AddElement("POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
 	layout.AddElement("COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
 	layout.AddElement("TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 16);
-
 	
 	_dxEngine.CreateShader(vs, ps, layout);
 	_dxEngine.CreateVertexBuffer(vertices, _currMesh->indexNum, 40 * 4);
 	_dxEngine.CreateConstBuffer(sizeof(ConstantBuffer));
+	
+	
 	_dxEngine.CreateTexture(GetFullPathW("assets/t_01.dds").c_str());
+
+
+	_dxEngine.InitVisual(_visual);
 
 	delete(vertices);
 	return true;

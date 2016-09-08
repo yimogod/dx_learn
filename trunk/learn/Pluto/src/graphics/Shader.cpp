@@ -5,7 +5,7 @@ Shader::Shader()
 {
 }
 
-Shader::Shader(const wchar_t* fileName, const char* entrytPoint, const char* shaderModel):
+Shader::Shader(wchar_t* fileName, char* entrytPoint, char* shaderModel):
 	_fileName(fileName), _entryPoint(entrytPoint), _shaderModel(shaderModel)
 {
 

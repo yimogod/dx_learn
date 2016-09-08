@@ -54,6 +54,10 @@ bool DXEngine::CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight)
 	return true;
 }
 
+void DXEngine::InitVisual(DXVisual &visual){
+	visual.Init(_device);
+}
+
 void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	CreateDevice(hwnd, screenWidth, screenHeight);
 	CreateDepthStencilView();
@@ -193,20 +197,6 @@ void DXEngine::CreateViewPort(){
 
 
 
-bool DXEngine::CreateVertexBuffer(Vertex *vertices, int vertNum, int vertSize){
-	return CreateVertexBuffer(vertices, vertNum * vertSize, &_vertexBuff);
-}
-
-
-bool DXEngine::CreateShader(VertexShader &vs, PixelShader &ps, InputLayout& layout){
-	/*创建 vertex shader*/
-	bool result = vs.CreateVertexShader(_device, layout);
-	if(!result)return false;
-
-	/*创建 pixel shader*/
-	result = ps.CreatePixelShader(_device);
-	return result;
-}
 
 bool DXEngine::CreateDepthState(){
 	D3D11_DEPTH_STENCIL_DESC dsd;

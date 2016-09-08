@@ -5,15 +5,21 @@
 class Shader{
 public:
 	Shader();
-	Shader(const wchar_t* fileName, const char* entrytPoint, const char* shaderModel);
-
+	Shader(wchar_t* fileName, char* entrytPoint, char* shaderModel);
 	virtual ~Shader();
+
+	inline void SetFileName(wchar_t* fileName);
 protected:
 	//±‡“Îshader
 	bool CompileShaderFromFile(ID3DBlob** ppBlobOut);
 
 protected:
-	const wchar_t* _fileName;
-	const char* _entryPoint;
-	const char* _shaderModel;
+	wchar_t* _fileName = nullptr;
+	char* _entryPoint = nullptr;
+	char* _shaderModel = nullptr;
 };
+
+
+inline void Shader::SetFileName(wchar_t* fileName){
+	_fileName = fileName;
+}

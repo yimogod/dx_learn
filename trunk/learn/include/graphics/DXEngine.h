@@ -2,6 +2,7 @@
 #include <d3d11_1.h>
 #include <d3dcompiler.h>
 #include <DirectXColors.h>
+#include <graphics/DXVisual.h>
 #include <graphics/Vertex.h>
 #include <graphics/VertexShader.h>
 #include <graphics/PixelShader.h>
@@ -13,9 +14,10 @@ public:
 
 	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
+	void InitVisual(DXVisual &visual);
 
-	//编译并创建shader
-	bool CreateShader(VertexShader &vs, PixelShader &ps, InputLayout &layout);
+
+
 	//创建/绑定各种buff
 	bool CreateVertexBuffer(Vertex *vertices, int vertNum, int vertSize);
 	bool CreateVertexBuffer(Vertex *vertices, int byteWidth, ID3D11Buffer** vertexBuff);
@@ -34,14 +36,12 @@ public:
 	inline bool GetReady();
 	inline ID3D11Device* GetDevice() const;
 	inline ID3D11DeviceContext* GetContext() const;
-	inline ID3D11Buffer* GetConstBuff() const;
 
 	void ClearBuffers(const FLOAT ColorRGBA[4] = DirectX::Colors::MidnightBlue);
 	void Present();
 	//device或者context的一些代理方法
-	inline void VSSetShader();
-	inline void VSSetConstantBuffers(UINT StartSlot, UINT NumBuffer);
-	inline void PSSetShader();
+	
+	
 	inline void PSSetShaderResources(UINT StartSlot);
 	inline void PSSetSamplers(UINT StartSlot, UINT NumSampler);
 
@@ -116,24 +116,8 @@ inline ID3D11DeviceContext* DXEngine::GetContext() const{
 	return _context;
 }
 
-inline ID3D11Buffer* DXEngine::GetConstBuff() const{
-	return _constBuff;
-}
-
 inline bool DXEngine::GetReady(){
 	return _ready;
-}
-
-inline void DXEngine::VSSetShader(){
-	_context->VSSetShader(_vs, nullptr, 0);
-}
-
-inline void DXEngine::VSSetConstantBuffers(UINT StartSlot, UINT NumBuffers){
-	_context->VSSetConstantBuffers(StartSlot, NumBuffers, &_constBuff);
-}
-
-inline void DXEngine::PSSetShader(){
-	_context->PSSetShader(_ps, nullptr, 0);
 }
 
 inline void DXEngine::PSSetShaderResources(UINT StartSlot){

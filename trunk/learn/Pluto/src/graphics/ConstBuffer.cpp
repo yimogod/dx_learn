@@ -1,12 +1,9 @@
 #include <graphics\ConstBuffer.h>
 
-ConstBuffer::ConstBuffer()
-{
+ConstBuffer::ConstBuffer(){
 }
 
-
-ConstBuffer::~ConstBuffer()
-{
+ConstBuffer::~ConstBuffer(){
 }
 
 bool ConstBuffer::CreateConstBuffer(ID3D11Device* device, int byteWidth){

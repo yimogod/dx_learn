@@ -1,6 +1,7 @@
 #pragma once
 #include <sys/BaseApp.h>
 #include <scene/Camera.h>
+#include <graphics/DXVisual.h>
 
 class Window : public BaseApp{
 public:
@@ -20,8 +21,10 @@ protected:
 	void UpdateConstBuff();
 protected:
 	Mesh* _currMesh = nullptr;
+
 	Camera _camera;
 	Scene _scene;
+	DXVisual _visual;
 
 	DXEngine _dxEngine;
 

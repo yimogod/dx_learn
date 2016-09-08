@@ -1,16 +1,16 @@
 #include <graphics/VertexShader.h>
 
-VertexShader::VertexShader(){
+VertexShader::VertexShader() :
+	Shader(L"DummyShader", "VS", "vs_4_0"){
 }
 
-VertexShader::VertexShader(const wchar_t* fileName, const char* entrytPoint, const char* shaderModel):
-	Shader(fileName, entrytPoint, shaderModel)
+VertexShader::VertexShader(wchar_t* fileName):
+	Shader(fileName, "VS", "vs_4_0")
 {
 
 }
 
-VertexShader::~VertexShader(){
-}
+VertexShader::~VertexShader(){}
 
 bool VertexShader::CreateVertexShader(ID3D11Device* device, InputLayout &inputLayout){
 	ID3DBlob* blob = nullptr;
