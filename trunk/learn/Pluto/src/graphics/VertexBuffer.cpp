@@ -28,12 +28,12 @@ bool VertexBuffer::CreateVertexBuffer(ID3D11Device* device, void* vertices, int 
 }
 
 
-void VertexBuffer::BindVertexBuff(ID3D11DeviceContext* context, UINT vertexByte){
+void VertexBuffer::BindVertexBuff(ID3D11DeviceContext* context, InputLayout &layout){
 	/*设置 layout*/
-	//context->IASetInputLayout(_vertexLayout);
+	context->IASetInputLayout(layout.GetDXObj());
 
 	/*设置当前vertex buff*/
-	UINT stride = vertexByte;// sizeof(Vertex);
+	UINT stride = layout.GetTotalByte();// sizeof(Vertex);
 	UINT offset = 0;
 	context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
 

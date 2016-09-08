@@ -21,7 +21,7 @@ bool DXVisual::Init(ID3D11Device* device){
 }
 
 void DXVisual::Draw(ID3D11DeviceContext* context){
-	_vertexBuffer.BindVertexBuff(context, sizeof(Vertex));
+	_vertexBuffer.BindVertexBuff(context, _layout);
 	_vs->VSSetShader(context);
 
 	_constBuffer.BindConstBuff(context, 0, 1);
