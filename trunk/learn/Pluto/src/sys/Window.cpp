@@ -1,4 +1,5 @@
 #include <sys/Window.h>
+#include <string>
 
 Window::Window(){}
 
@@ -30,8 +31,9 @@ void Window::InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices){
 }
 
 void Window::InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices, const char* texturePath){
-	const wchar_t* path = GetFullPathW(texturePath).c_str();
-	visual.PreAddTexture(path);
+	std::wstring path = GetFullPathW(texturePath);
+	const wchar_t* cpath = path.c_str();
+	visual.PreAddTexture(cpath);
 	InitVisual(visual, vsName, vertices);
 }
 
