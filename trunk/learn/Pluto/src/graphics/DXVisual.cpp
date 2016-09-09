@@ -39,4 +39,6 @@ void DXVisual::Draw(ID3D11DeviceContext* context){
 
 	_resView.BindShaderResource(context, 0);
 	_samplerState.BindSamplerState(context, 0, 1);
+
+	context->Draw(_vertexNum, 0);
 }

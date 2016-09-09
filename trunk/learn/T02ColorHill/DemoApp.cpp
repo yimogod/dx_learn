@@ -1,8 +1,4 @@
-#include <DirectXMath.h>
-#include <DirectXColors.h>
-#include <dinput.h>
 #include <math.h>
-
 #include "DemoApp.h"
 
 using namespace DirectX;
@@ -11,88 +7,40 @@ DemoApp::DemoApp(){}
 
 DemoApp::~DemoApp(){}
 
-bool DemoApp::loadContent(){
+bool DemoApp::LoadContent(){
+	_scene.camera = &_camera;
+
 	_scene.meshNum = 1;
 	_scene.meshList[0] = new Mesh();
-	Mesh* mesh = _scene.getMesh(0);
+	_currMesh = _scene.getMesh(0);
 
-	//创建鼠标键盘放在前面, 是防止debug时老报错
-	createDXInput();
-
-	createGrid(128.0f, 128.0f, 8.0f, (*mesh));
-	mesh->setWorldPos(-64.0f, 0.0f, -64.0f);
-
-	_scene.camera = new Camera();
-	_scene.camera->setPos(0, 50.0f, -50.0f);
-	_scene.camera->setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
-	_scene.camera->setEulerAngle(0.0f, -0.5f, 0.0f);
-	_scene.camera->setAspect(_width, _height);
+	CreateGrid(128.0f, 128.0f, 8.0f, (*_currMesh));
+	_currMesh->setWorldPos(-64.0f, 0.0f, -64.0f);
 
 	/*准备顶点缓冲数据*/
-	Vertex *vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexPosList(vertices);
+	Vertex *vertices = new Vertex[_currMesh->indexNum];
+	_currMesh->getVertexPosList(vertices);
 
-	/*准备shader数据*/
-	CreateShaderInfo vs;
-	vs.fileName = L"shader/ColorVertex.fx";
-	vs.entryPoint = "VS";
-	vs.shaderModel = "vs_4_0";
-	CreateShaderInfo ps;
-	ps.fileName = L"shader/ColorVertex.fx";
-	ps.entryPoint = "PS";
-	ps.shaderModel = "ps_4_0";
+	InitVisual(_visual, L"shader/ColorVertex.fx", vertices);
 
-	/*创建 layout*/
-	D3D11_INPUT_ELEMENT_DESC layout[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-	int numElements = ARRAYSIZE(layout);
-
-	initDevice();
-	
-	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum, 32 * 4);
-	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
 	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
 
 	delete(vertices);
-
 	return true;
 }
 
-void DemoApp::unloadContent(){
-	BaseApp::unloadContent();
+void DemoApp::UnloadContent(){
 }
 
-void DemoApp::update(){
-	UpdatePosByRMouse(_scene.camera, 0.001f);
-	UpdatePosByLMouse(_scene.currMesh(), 0.001f);
+void DemoApp::Render(){
+	if(!_dxEngine.GetReady())return;
 
-	ConstantBuffer cb;
-	cb.model = _scene.currMesh()->localToWorldMatrix().transpose();
-	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
-	cb.perspective = _scene.camera->getWorldToProjMatrix().transpose();
-	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+	_dxEngine.ClearBuffers();
+	_dxEngine.DrawVisual(_visual);
+	_dxEngine.Present();
 }
 
-void DemoApp::render(){
-	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
-	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-	bindVertexBuff();
-
-	_context->VSSetShader(_vs, nullptr, 0);
-	_context->VSSetConstantBuffers(0, 1, &_constBuff);
-	_context->PSSetShader(_ps, nullptr, 0);
-
-	Mesh *m = _scene.getMesh(0);
-	_context->Draw(m->indexNum, 0);
-
-	_chain->Present(0, 0);
-}
-
-void DemoApp::createGrid(float width, float depth, float unitSize, Mesh &mesh){
+void DemoApp::CreateGrid(float width, float depth, float unitSize, Mesh &mesh){
 	int rowVertex = (int)(depth / unitSize) + 1;
 	int colVertex = (int)(width / unitSize) + 1;
 
@@ -106,12 +54,12 @@ void DemoApp::createGrid(float width, float depth, float unitSize, Mesh &mesh){
 			index = r * colVertex + c;
 			px = c * unitSize;
 			py = 0.0f;
-			py = getVertexHeight(px, pz);
+			py = GetVertexHeight(px, pz);
 			mesh.vertexList[index].z = pz;
 			mesh.vertexList[index].x = px;
 			mesh.vertexList[index].y = py;
 
-			mesh.vertexColorList[index] = getColorFromHeight(py);
+			mesh.vertexColorList[index] = GetColorFromHeight(py);
 		}
 	}
 
@@ -141,11 +89,11 @@ void DemoApp::createGrid(float width, float depth, float unitSize, Mesh &mesh){
 	}
 }
 
-float DemoApp::getVertexHeight(float x, float z){
+float DemoApp::GetVertexHeight(float x, float z){
 	return 0.1f * (z * sinf(0.1f * x) + x * cosf(0.1f * z));
 }
 
-Color DemoApp::getColorFromHeight(float y){
+Color DemoApp::GetColorFromHeight(float y){
 	if(y < -20.0f)return Color(1.0f, 0.96f, 0.62f);
 	if(y < 5.0f)return Color(0.48f, 0.77f, 0.46f);
 	if(y < 12.0f)return Color(0.1f, 0.48f, 0.19f);

@@ -58,10 +58,10 @@ inline void DXVisual::PreInitShader(wchar_t* vsName, wchar_t* psName){
 
 inline void DXVisual::PreAddDefaultLayout(){
 	_layout.AddPosition();
-	_layout.AddNormal();
-	_layout.AddTangent();
 	_layout.AddColor();
 	_layout.AddTexCoord();
+	_layout.AddNormal();
+	_layout.AddTangent();
 }
 
 inline void DXVisual::PreSetConstBufferSize(int byteWidth){

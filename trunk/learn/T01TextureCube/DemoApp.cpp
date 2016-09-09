@@ -22,15 +22,12 @@ bool DemoApp::LoadContent(){
 	return true;
 }
 
-void DemoApp::UnloadContent(){
-}
+void DemoApp::UnloadContent(){}
 
 void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
 	_dxEngine.ClearBuffers();
 	_dxEngine.DrawVisual(_visual);
-
-	_dxEngine.GetContext()->Draw(_currMesh->indexNum, 0);
 	_dxEngine.Present();
 }

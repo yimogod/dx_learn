@@ -1,29 +1,23 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
+#include <sys/Window.h>
 
-#include <DirectXMath.h>
-#include <dinput.h>
-#include <BaseApp.h>
-
-using namespace DirectX;
-
-class DemoApp : public BaseApp{
+class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();
 
-	bool loadContent();
-	void unloadContent();
+	virtual bool LoadContent();
+	virtual void UnloadContent();
 
-	void update();
-	void render();
+	virtual void Render();
 
 protected:
 	/* all parm size is base on meter */
-	void createGrid(float width, float depth, float unitSize, Mesh &mesh);
-	float getVertexHeight(float x, float z);
-	Color getColorFromHeight(float y);
+	void CreateGrid(float width, float depth, float unitSize, Mesh &mesh);
+	float GetVertexHeight(float x, float z);
+	Color GetColorFromHeight(float y);
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
@@ -33,9 +27,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new DemoApp();
 	info.icon = nullptr;
-	info.title = L"TextureCube";
-	info.width = 800;
-	info.height = 600;
+	info.title = L"ColorHill";
+	info.width = 1200;
+	info.height = 960;
 
 	return MainBody(hInstance, hPrevInstance, lpCmdLine, nCmdShow, info);
 }

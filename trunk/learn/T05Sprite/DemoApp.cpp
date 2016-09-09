@@ -16,8 +16,7 @@ bool DemoApp::LoadContent(){
 	Vertex* vertices = new Vertex[_currMesh->indexNum];
 	_currMesh->getVertexList(vertices);
 
-	InitVisual(_visual, L"shader/sprite.fx", vertices);
-	_dxEngine.CreateTexture(GetFullPathW("assets/t_01.dds").c_str());
+	InitVisual(_visual, L"shader/sprite.fx", vertices, "assets/t_01.dds");
 
 	delete(vertices);
 	return true;
@@ -31,9 +30,5 @@ void DemoApp::Render(){
 
 	_dxEngine.ClearBuffers();
 	_dxEngine.DrawVisual(_visual);
-
-	_dxEngine.PSSetShaderResources(0);
-	
-	_dxEngine.GetContext()->Draw(_currMesh->indexNum, 0);
 	_dxEngine.Present();
 }
