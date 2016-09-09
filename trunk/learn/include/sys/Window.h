@@ -21,6 +21,7 @@ protected:
 	void UpdateConstBuff();
 
 	void InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices);
+	void InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices, const char* texturePath);
 protected:
 	Mesh* _currMesh = nullptr;
 

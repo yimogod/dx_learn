@@ -6,8 +6,7 @@ using namespace DirectX;
 
 DXEngine::DXEngine():
 	_driverType(D3D_DRIVER_TYPE_HARDWARE),
-	_featureLevel(D3D_FEATURE_LEVEL_11_1),
-	_resViewNum(0)
+	_featureLevel(D3D_FEATURE_LEVEL_11_1)
 {
 }
 

@@ -67,7 +67,7 @@ string BaseApp::GetFullPath(char* path){
 	return _env.getVariable("PLU_ROOT") + path;
 }
 
-wstring BaseApp::GetFullPathW(char* path){
+wstring BaseApp::GetFullPathW(const char* path){
 	string pstr = _env.getVariable("PLU_ROOT") + path;
 	wstring wst;
 	str_2_wstr(pstr, wst);

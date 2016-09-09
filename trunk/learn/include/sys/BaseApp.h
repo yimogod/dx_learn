@@ -33,7 +33,7 @@ protected:
 
 	std::string const GetAppRoot();
 	std::string GetFullPath(char* path);
-	std::wstring GetFullPathW(char* path);
+	std::wstring GetFullPathW(const char* path);
 
 protected:
 	HINSTANCE _ins;

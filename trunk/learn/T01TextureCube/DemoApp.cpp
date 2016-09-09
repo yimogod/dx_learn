@@ -16,8 +16,7 @@ bool DemoApp::LoadContent(){
 	Vertex* vertices = new Vertex[_currMesh->indexNum];
 	_currMesh->getVertexList(vertices);
 
-	InitVisual(_visual, L"shader/Triangle.fx", vertices);
-	_dxEngine.CreateTexture(GetFullPathW("assets/t_01.dds").c_str());
+	InitVisual(_visual, L"shader/Triangle.fx", vertices, "assets/t_01.dds");
 
 	delete(vertices);
 	return true;

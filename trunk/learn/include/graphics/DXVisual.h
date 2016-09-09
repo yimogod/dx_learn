@@ -20,14 +20,9 @@ public:
 
 	//设置layout
 	inline void PreAddDefaultLayout();
-	inline void PreAddLayoutPostion();
-	inline void PreAddLayoutNormal();
-	inline void PreAddLayoutTangent();
-	inline void PreAddLayoutColor();
-	inline void PreAddLayoutTexcoord();
 
 	//读取图片, 设置resourceview
-	inline bool CreateTexture(const wchar_t* path);
+	inline void PreAddTexture(const wchar_t* path);
 
 	//设置创建buffer需要的各种数据
 	inline void PreSetConstBufferSize(int byteWidth);//设置constbuffer对象的byte
@@ -69,26 +64,6 @@ inline void DXVisual::PreAddDefaultLayout(){
 	_layout.AddTexCoord();
 }
 
-inline void DXVisual::PreAddLayoutPostion(){
-	_layout.AddPosition();
-}
-
-inline void DXVisual::PreAddLayoutNormal(){
-
-}
-
-inline void DXVisual::PreAddLayoutTangent(){
-
-}
-
-inline void DXVisual::PreAddLayoutColor(){
-	_layout.AddColor();
-}
-
-inline void DXVisual::PreAddLayoutTexcoord(){
-	_layout.AddTexCoord();
-}
-
 inline void DXVisual::PreSetConstBufferSize(int byteWidth){
 	_constByteWidth = byteWidth;
 }
@@ -97,6 +72,6 @@ inline ID3D11Buffer* DXVisual::GetDXConstBuffer() const{
 	return _constBuffer.GetDXObj();
 }
 
-inline bool DXVisual::CreateTexture(const wchar_t* path){
-	return _resView.AddTexture(path);
+inline void DXVisual::PreAddTexture(const wchar_t* path){
+	return _resView.AddTexturePath(path);
 }

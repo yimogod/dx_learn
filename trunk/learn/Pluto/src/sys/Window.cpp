@@ -29,6 +29,12 @@ void Window::InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices){
 	_dxEngine.InitVisual(visual, vertices, _currMesh->indexNum);
 }
 
+void Window::InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices, const char* texturePath){
+	const wchar_t* path = GetFullPathW(texturePath).c_str();
+	visual.PreAddTexture(path);
+	InitVisual(visual, vsName, vertices);
+}
+
 void Window::Update(){
 	UpdateByKey(0.002f);
 	UpdateByLMouse(0.003f);

@@ -25,6 +25,9 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum){
 	result = _samplerState.CreateSamplerState(device);
 	if(!result)return false;
 
+	result = _resView.CreateTexture(device);
+	if(!result)return false;
+
 	return result;
 }
 
