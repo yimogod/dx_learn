@@ -11,6 +11,8 @@ struct VS_INPUT{
 	float4 pos : POSITION;
 	float4 color : COLOR;
 	float2 tex : TEXCOORD0;
+	float4 normal : NORMAL;
+	float4 tangent : TANGENT;
 };
 
 struct PS_INPUT{

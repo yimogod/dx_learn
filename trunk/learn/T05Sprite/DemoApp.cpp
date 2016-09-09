@@ -13,12 +13,7 @@ bool DemoApp::LoadContent(){
 	GeoCreater::CreateSprite(*_currMesh);
 
 	/*准备顶点缓冲数据*/
-	Vertex* vertices = new Vertex[_currMesh->indexNum];
-	_currMesh->getVertexList(vertices);
-
-	InitVisual(_visual, L"shader/sprite.fx", vertices, "assets/t_01.dds");
-
-	delete(vertices);
+	InitVisual(_visual, _currMesh, L"shader/sprite.fx", "assets/t_01.dds");
 	return true;
 }
 

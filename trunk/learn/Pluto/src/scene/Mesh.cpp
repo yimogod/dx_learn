@@ -12,37 +12,6 @@ void Mesh::setWorldPos(float x, float y, float z){
 	position = Vector3D(x, y, z);
 }
 
-void Mesh::getVertexPosList(Vertex list[]){
-	Vector3D vec;
-	Color color;
-	for(int i = 0; i < indexNum; i++){
-		int index = indexList[i];
-		vec = vertexList[index].add(position);
-		color = vertexColorList[index];
-
-		list[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
-		list[i].color = Float4A{ color.r, color.g, color.b, 1.0f };
-	}
-}
-
-void Mesh::getVertexUVList(Vertex list[]){
-	Vector2D uv;
-	for(int i = 0; i < indexNum; i++){
-		int uvIndex = uvIndexList[i];
-		uv = uvList[uvIndex];
-
-		list[i].uv = Float2A{ uv.x, uv.y };
-	}
-}
-
-void Mesh::getVertexNormalList(Vertex list[]){
-	Vector3D normal;
-	for(int i = 0; i < indexNum; i++){
-		normal = normalList[i];
-		list[i].normal = Float4{ normal.x, normal.y, normal.z, 1.0f };
-	}
-}
-
 void Mesh::GetVertexList(Vertex list[]){
 	for(int i = 0; i < vertexNum; i++){
 		Vector3D vec = vertexList[i].add(position);
@@ -75,24 +44,22 @@ void Mesh::calVertexNormal(){
 		int i1 = indexList[i * 3 + 1];
 		int i2 = indexList[i * 3 + 2];
 
+		//3个顶点数
 		Vector3D v0 = vertexList[i0];
 		Vector3D v1 = vertexList[i1];
 		Vector3D v2 = vertexList[i2];
 
+		//计算点法线
 		Vector3D e0 = v1.sub(v0);
 		Vector3D e1 = v2.sub(v0);
 		Vector3D faceNormal = e0.cross(e1);
 		faceNormal.normalize();
 
-		normalList[i * 3 + 0] = faceNormal;
-		normalList[i * 3 + 1] = faceNormal;
-		normalList[i * 3 + 2] = faceNormal;
+		normalList[i0] = normalList[i0].add(faceNormal);
+		normalList[i1] = normalList[i1].add(faceNormal);
+		normalList[i2] = normalList[i2].add(faceNormal);
 
-		//由uv坐标计算切线
-		i0 = uvIndexList[i * 3 + 0];
-		i1 = uvIndexList[i * 3 + 1];
-		i2 = uvIndexList[i * 3 + 2];
-		
+		//3个uv坐标, 由uv坐标计算点切线
 		Vector2D t0 = uvList[i0];
 		Vector2D t1 = uvList[i1];
 		Vector2D t2 = uvList[i2];
@@ -107,9 +74,10 @@ void Mesh::calVertexNormal(){
 		tangent.z = (u1.y * e0.z - u1.x * e1.z) * den;
 		tangent.normalize();
 		tangent = e0.div(u0.x);
-		tangentList[i * 3 + 0] = tangent;
-		tangentList[i * 3 + 1] = tangent;
-		tangentList[i * 3 + 2] = tangent;
+
+		tangentList[i0] = tangentList[i0].add(tangent);
+		tangentList[i1] = tangentList[i1].add(tangent);
+		tangentList[i2] = tangentList[i2].add(tangent);
 
 		/*Vector3D binormal;
 		binormal.x = (u0.x * e1.x - u0.y * e0.x) * den;

@@ -20,11 +20,4 @@ void GeoCreater::CreateSprite(Mesh &m){
 	m.indexList[3] = 2;
 	m.indexList[4] = 0;
 	m.indexList[5] = 3;
-
-	m.uvIndexList[0] = 1;
-	m.uvIndexList[1] = 0;
-	m.uvIndexList[2] = 2;
-	m.uvIndexList[3] = 2;
-	m.uvIndexList[4] = 0;
-	m.uvIndexList[5] = 3;
 }

@@ -26,31 +26,22 @@ public:
 	Vector3D vertexList[128];
 	/* vertex color, each vertex has its color */
 	Color vertexColorList[128];
-
 	/*S, T, S, T, S, T, 贴图数据列表*/
-	int uvNum = 0;
-	Vector2D uvList[256];
+	int uvNum = 0;// == vertexnum
+	Vector2D uvList[128];
+	/*顶点<点>法线, 数量等于定点数*/
+	Vector3D normalList[128];
+	/*切线数等于索引数量*/
+	Vector3D tangentList[128];
 
-	/* 顶点索引和uv坐标索引 */
+	//顶点索引
 	int indexNum = 0;
 	int indexList[512];
-	int uvIndexList[512];
-	/*顶点面法线, 法线数等于索引数量, 或者顶点法线, 数量等于定点数*/
-	Vector3D normalList[512];
-	/*顶点法线, 切线数等于索引数量*/
-	Vector3D tangentList[512];
 public:
 	/*格式化数据准备传入vertext buff, 我们使用vbo*/
 	/*length is vertex num*/
 	void GetVertexList(Vertex list[]);
 	void GetIndexList(int list[]);
-
-	/*  分别给顶点传入位置, 法线和uv数据
-	 ** 其实就是拆分了getVertexList()
-	 */
-	void getVertexPosList(Vertex list[]);
-	void getVertexUVList(Vertex list[]);
-	void getVertexNormalList(Vertex list[]);
 
 	/*计算法线数据*/
 	void calVertexNormal();

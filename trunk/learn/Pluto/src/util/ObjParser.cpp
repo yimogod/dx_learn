@@ -81,13 +81,6 @@ void ObjParser::parseVUNStr(string& str){
 	for(k = k + 1; str[k] != '/'; k++){
 		a = a * 10 + char_2_int(str[k]);
 	}
-	_mesh->uvIndexList[_mesh->indexNum] = a - 1;
-
-	//读取法线, 我不需要. 因为自己计算法线
-	//a = 0;
-	//for(k = k + 1; str[k]; k++)
-	//	a = a * 10 + (str[k] - 48);
-
 	_mesh->indexNum++;
 }
 
