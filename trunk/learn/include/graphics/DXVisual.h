@@ -27,7 +27,7 @@ public:
 	//设置创建buffer需要的各种数据
 	inline void PreSetConstBufferSize(int byteWidth);//设置constbuffer对象的byte
 
-	bool Init(ID3D11Device* device, void* vertices, int vertexNum);
+	bool Init(ID3D11Device* device, void* vertices, int vertexNum, int* indices, int indexNum);
 	void Draw(ID3D11DeviceContext* context);
 
 public: //获取dx obj相关
@@ -47,7 +47,6 @@ private:
 
 	ShaderResourceView _resView;
 
-	int _vertexNum = 0;
 	int _constByteWidth = 0;
 };
 

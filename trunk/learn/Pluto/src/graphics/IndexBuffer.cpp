@@ -10,11 +10,13 @@ IndexBuffer::~IndexBuffer()
 }
 
 /*设置index buff*/
-bool IndexBuffer::CreateIndexBuffer(ID3D11Device *device, unsigned short* indexList, int indexNum){
+bool IndexBuffer::CreateIndexBuffer(ID3D11Device *device, int* indexList, int indexNum){
+	_indexNum = indexNum;
+
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(short) * indexNum;//定点数据占用的所有空间
+	bd.ByteWidth = sizeof(int) * indexNum;//定点数据占用的所有空间
 	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	bd.CPUAccessFlags = NULL;
 

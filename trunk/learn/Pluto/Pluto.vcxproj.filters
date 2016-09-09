@@ -126,7 +126,9 @@
     <ClCompile Include="src\graphics\SamplerState.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\ShaderResourceView.cpp" />
+    <ClCompile Include="src\graphics\ShaderResourceView.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -239,6 +241,8 @@
     <ClInclude Include="..\include\graphics\SamplerState.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\ShaderResourceView.h" />
+    <ClInclude Include="..\include\graphics\ShaderResourceView.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

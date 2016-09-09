@@ -7,12 +7,14 @@ VertexBuffer::VertexBuffer(){
 VertexBuffer::~VertexBuffer(){
 }
 
-bool VertexBuffer::CreateVertexBuffer(ID3D11Device* device, void* vertices, int totalByte){
+bool VertexBuffer::CreateVertexBuffer(ID3D11Device* device, void* vertices, int vertNum, int singleVertByte){
+	_vertexNum = vertNum;
+
 	/*设置buff desc*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = totalByte;//数据总长度
+	bd.ByteWidth = singleVertByte * vertNum;//数据总长度
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = NULL;
 

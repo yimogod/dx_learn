@@ -20,8 +20,8 @@ protected:
 	void UpdateByKey(float value);
 	void UpdateConstBuff();
 
-	void InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices);
-	void InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices, const char* texturePath);
+	void InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName);
+	void InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName, const char* texturePath);
 protected:
 	Mesh* _currMesh = nullptr;
 

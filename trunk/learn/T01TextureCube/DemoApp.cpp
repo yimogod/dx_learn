@@ -13,12 +13,7 @@ bool DemoApp::LoadContent(){
 	
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.getMesh(0);
-	Vertex* vertices = new Vertex[_currMesh->indexNum];
-	_currMesh->getVertexList(vertices);
-
-	InitVisual(_visual, L"shader/Triangle.fx", vertices, "assets/t_01.dds");
-
-	delete(vertices);
+	InitVisual(_visual, _currMesh, L"shader/Triangle.fx", "assets/t_01.dds");
 	return true;
 }
 

@@ -14,7 +14,7 @@ public:
 
 	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
-	void InitVisual(DXVisual &visual, void* vertices, int vertexNum);
+	void InitVisual(DXVisual &visual, void* vertices, int vertexNum, int* indices, int indexNum);
 	bool CreateTexture(const wchar_t* path);
 
 	void DrawVisual(DXVisual &visual);

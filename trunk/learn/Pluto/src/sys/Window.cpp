@@ -16,7 +16,7 @@ bool Window::Init(HINSTANCE const &ins, HWND const &hwnd){
 	return LoadContent();
 }
 
-void Window::InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices){
+void Window::InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName){
 	/*准备shader数据*/
 	visual.PreInitShader(vsName, vsName);
 
@@ -27,14 +27,22 @@ void Window::InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices){
 	visual.PreSetConstBufferSize(sizeof(ConstantBuffer));
 
 	//初始化visual
-	_dxEngine.InitVisual(visual, vertices, _currMesh->indexNum);
+	Vertex* vertices = new Vertex[mesh->vertexNum];
+	mesh->GetVertexList(vertices);
+	int* indices = new int[mesh->indexNum];
+	mesh->GetIndexList(indices);
+
+	_dxEngine.InitVisual(visual, vertices, mesh->vertexNum, indices, mesh->indexNum);
+
+	delete(vertices);
+	delete(indices);
 }
 
-void Window::InitVisual(DXVisual &visual, wchar_t* vsName, void* vertices, const char* texturePath){
+void Window::InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName, const char* texturePath){
 	std::wstring path = GetFullPathW(texturePath);
 	const wchar_t* cpath = path.c_str();
 	visual.PreAddTexture(cpath);
-	InitVisual(visual, vsName, vertices);
+	InitVisual(visual, mesh, vsName);
 }
 
 void Window::Update(){

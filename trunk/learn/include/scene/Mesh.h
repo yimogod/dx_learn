@@ -41,10 +41,9 @@ public:
 	Vector3D tangentList[512];
 public:
 	/*格式化数据准备传入vertext buff, 我们使用vbo*/
-	/*length is index num*/
-	void getVertexList(Vertex list[]);
 	/*length is vertex num*/
-	void getVertexList_v2(Vertex list[]);
+	void GetVertexList(Vertex list[]);
+	void GetIndexList(int list[]);
 
 	/*  分别给顶点传入位置, 法线和uv数据
 	 ** 其实就是拆分了getVertexList()
