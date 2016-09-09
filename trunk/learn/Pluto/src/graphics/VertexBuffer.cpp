@@ -41,5 +41,5 @@ void VertexBuffer::BindVertexBuff(ID3D11DeviceContext* context, InputLayout &lay
 	context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
 
 	/*设置三角形排列方式, 即顶点拓扑方式*/
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 }

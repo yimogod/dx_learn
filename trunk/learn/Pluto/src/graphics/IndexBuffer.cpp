@@ -30,5 +30,5 @@ bool IndexBuffer::CreateIndexBuffer(ID3D11Device *device, int* indexList, int in
 }
 
 void IndexBuffer::BindIndexBuff(ID3D11DeviceContext* context){
-	context->IASetIndexBuffer(_indexBuff, DXGI_FORMAT_R16_UINT, 0);
+	context->IASetIndexBuffer(_indexBuff, DXGI_FORMAT_R32_UINT, 0);
 }
