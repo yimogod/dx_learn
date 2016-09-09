@@ -35,9 +35,7 @@ PS_INPUT VS(VS_INPUT input){
 
 
 float4 PS(PS_INPUT input):SV_Target{
-	float4 col = txDiffuse.Sample(samLinear, input.tex);
-	clip(col.a - 0.2f);
-
+	float4 col = txDiffuse.Sample(samLinear, input.tex) * input.color;
 	return col;
 }
 

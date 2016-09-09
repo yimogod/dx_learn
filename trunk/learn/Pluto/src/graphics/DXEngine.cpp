@@ -65,6 +65,7 @@ void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	CreateViewPort();
 
 	CreateDepthState();
+	CreateRasterizerState(D3D11_FILL_MODE::D3D11_FILL_SOLID, _solidRS);
 
 	_ready = true;
 }
@@ -232,7 +233,7 @@ bool DXEngine::CreateRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerS
 	rsd.CullMode = D3D11_CULL_BACK;//开启背面剔除
 	//rsd.CullMode = D3D11_CULL_FRONT;
 	//rsd.CullMode = D3D11_CULL_NONE;
-	rsd.FrontCounterClockwise = false; //逆时针为false, 及三角形顺时针为正方向
+	rsd.FrontCounterClockwise = false; //顺时针为false, 及三角形逆时针为正方向
 	rsd.DepthClipEnable = true; //深度剪切开启
 	rsd.DepthBias = 0; //
 	rsd.DepthBiasClamp = 0.0f;
