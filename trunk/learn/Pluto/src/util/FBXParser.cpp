@@ -59,7 +59,7 @@ void FBXParser::processMesh(FbxNode* node){
 
 	Mesh* mesh = new Mesh();
 	FbxDouble3 pos = node->LclTranslation.Get();
-	mesh->setWorldPos(pos[0], pos[1], pos[2]);
+	mesh->SetWorldPos(pos[0], pos[1], pos[2]);
 	
 	readVertex(mesh, fmesh);
 	readIndex(mesh, fmesh);

@@ -6,13 +6,13 @@ DemoApp::DemoApp(){}
 DemoApp::~DemoApp(){}
 
 bool DemoApp::LoadContent(){
-	_camera.setEulerAngle(0, -1.56f, 0);
-	_camera.setPos(0, 4.0f, 0);
+	_camera.setEulerAngle(0, -1.2f, 0);
+	_camera.setPos(0, 6.0f, -2.0f);
 
 	_currMesh = new Mesh();
 	CreateGrid(8, 8, (*_currMesh));
 	//中心为原点
-	_currMesh->setWorldPos(0.0f, 0.0f, 0.0f);
+	_currMesh->SetWorldPos(-4.0f, 0.0f, -4.0f);
 
 	/*准备顶点缓冲数据*/
 	InitVisual(_visual, _currMesh, L"shader/ColorVertex.fx");

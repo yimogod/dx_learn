@@ -36,7 +36,7 @@ public:
 
 	//顶点索引
 	int indexNum = 0;
-	int indexList[2048];
+	int indexList[512];
 public:
 	/*格式化数据准备传入vertext buff, 我们使用vbo*/
 	/*length is vertex num*/
@@ -49,7 +49,8 @@ public:
 public:
 	/* mesh在世界中的坐标 */
 	Vector3D position;
-	void setWorldPos(float x, float y, float z);
+	void SetWorldPos(float x, float y, float z);
+	void Move(float x, float y, float z);
 	/* mesh在世界中的旋转, 旋转值是弧度 */
 	Vector3D eulerAngle;
 	void rotateX(float x);

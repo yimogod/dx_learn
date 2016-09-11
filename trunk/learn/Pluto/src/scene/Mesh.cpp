@@ -8,15 +8,23 @@ Mesh::Mesh(){
 
 Mesh::~Mesh(){}
 
-void Mesh::setWorldPos(float x, float y, float z){
-	position = Vector3D(x, y, z);
+void Mesh::SetWorldPos(float x, float y, float z){
+	position.x = x;
+	position.y = y;
+	position.z = z;
+}
+
+void Mesh::Move(float x, float y, float z){
+	position.x += x;
+	position.y += y;
+	position.z += z;
 }
 
 void Mesh::GetVertexList(Vertex list[]){
 	for(int i = 0; i < vertexNum; i++){
-		Vector3D vec = vertexList[i].add(position);
+		Vector3D vec = vertexList[i];
 		Color color = vertexColorList[i];
-		Vector3D normal = normalList[i].add(position);
+		Vector3D normal = normalList[i];
 
 		list[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
 		list[i].color = Float4A{ color.r, color.g, color.b, 1.0f };
@@ -100,7 +108,7 @@ Matrix4x4 Mesh::localToWorldMatrix(){
 	Matrix4x4 mat(1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
-		-position.x, -position.y, -position.z, 1.0f);
+		position.x, position.y, position.z, 1.0f);
 	Matrix4x4 m = mat.rotateY(eulerAngle.y);
 	m = m.rotateX(eulerAngle.x);
 	m = m.rotateZ(eulerAngle.z);

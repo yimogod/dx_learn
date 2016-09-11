@@ -100,6 +100,19 @@ void Window::UpdateByKey(float value){
 	if(isKeyDown(83)){//S
 		_camera.walk(-value);
 	}
+
+	if(isKeyDown(37)){//left
+		_currMesh->Move(-value, 0, 0);
+	}
+	if(isKeyDown(39)){//right
+		_currMesh->Move(value, 0, 0);
+	}
+	if(isKeyDown(38)){//front
+		_currMesh->Move(0, 0, value);
+	}
+	if(isKeyDown(40)){//back
+		_currMesh->Move(0, 0, -value);
+	}
 }
 
 
