@@ -54,7 +54,7 @@ void ObjParser::ReadVertex(string &line){
 	istringstream ss(line);
 	ss >> s1 >> f2 >> f3 >> f4;
 
-	_vertexList[_mesh->vertexNum] = Vector3D(f2, f3, -1.0f * f4);
+	_vertexList[_vertexNum] = Vector3D(f2, f3, -1.0f * f4);
 	_vertexNum++;
 }
 
