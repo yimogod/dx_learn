@@ -1,8 +1,6 @@
 #include <graphics/GeoCreater.h>
 #include "DemoApp.h"
 
-using namespace DirectX;
-
 DemoApp::DemoApp(){}
 
 DemoApp::~DemoApp(){}

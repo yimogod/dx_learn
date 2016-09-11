@@ -4,7 +4,6 @@ IndexBuffer::IndexBuffer()
 {
 }
 
-
 IndexBuffer::~IndexBuffer()
 {
 }
@@ -19,6 +18,8 @@ bool IndexBuffer::CreateIndexBuffer(ID3D11Device *device, int* indexList, int in
 	bd.ByteWidth = sizeof(int) * indexNum;//定点数据占用的所有空间
 	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	bd.CPUAccessFlags = NULL;
+	bd.MiscFlags = 0;
+	bd.StructureByteStride = 0;
 
 	/*设置 resource data*/
 	D3D11_SUBRESOURCE_DATA InitData;

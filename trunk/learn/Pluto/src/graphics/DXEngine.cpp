@@ -235,9 +235,9 @@ bool DXEngine::CreateRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerS
 	//rsd.CullMode = D3D11_CULL_NONE;
 	rsd.FrontCounterClockwise = false; //顺时针为false, 及三角形逆时针为正方向
 	rsd.DepthClipEnable = true; //深度剪切开启
+	rsd.ScissorEnable = false;
 	rsd.DepthBias = 0; //
 	rsd.DepthBiasClamp = 0.0f;
-	rsd.ScissorEnable = false;
 
 	HRESULT hr = _device->CreateRasterizerState(&rsd, &rs);
 	if(FAILED(hr))return false;

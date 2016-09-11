@@ -26,7 +26,7 @@ PS_INPUT VS(VS_INPUT input){
 	output.pos = mul(input.pos, model);
 	output.pos = mul(output.pos, view);
 	output.pos = mul(output.pos, perspective);
-
+	//output.pos = input.pos;
 	output.color = input.color;
 	output.tex = input.tex;
 
