@@ -7,6 +7,12 @@ Vector3D::Vector3D(){
     z = 0;
 }
 
+Vector3D::Vector3D(const Vector3D &value){
+	x = value.x;
+	y = value.y;
+	z = value.z;
+}
+
 Vector3D::Vector3D(float px, float py, float pz){
     x = px;
     y = py;
@@ -59,6 +65,13 @@ void Vector3D::normalize(){
     x /= len;
     y /= len;
     z /= len;
+}
+
+Vector3D& Vector3D::operator=(const Vector3D &v){
+	x = v.x;
+	y = v.y;
+	z = v.z;
+	return *this;
 }
 
 float distanceBetweenVector3D(const Vector3D &va, const Vector3D &vb){

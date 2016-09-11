@@ -10,7 +10,7 @@ bool DemoApp::LoadContent(){
 	_camera.setPos(0, 6.0f, -2.0f);
 
 	_currMesh = new Mesh();
-	CreateGrid(8, 8, (*_currMesh));
+	CreateGrid(10, 10, (*_currMesh));
 	//中心为原点
 	_currMesh->SetWorldPos(-4.0f, 0.0f, -4.0f);
 
@@ -74,13 +74,13 @@ void DemoApp::CreateGrid(int cols, int rows, Mesh &mesh){
 }
 
 float DemoApp::GetVertexHeight(float x, float z){
-	return 0.1f * (z * sinf(0.1f * x) + x * cosf(0.1f * z));
+	return 0.4f * (z * sinf(0.4f * x) + x * cosf(0.4f * z));
 }
 
 Color DemoApp::GetColorFromHeight(float y){
-	if(y < -20.0f)return Color(1.0f, 0.96f, 0.62f);
-	if(y < 5.0f)return Color(0.48f, 0.77f, 0.46f);
-	if(y < 12.0f)return Color(0.1f, 0.48f, 0.19f);
-	if(y < 20.0f)return Color(0.45f, 0.39f, 0.34f);
+	if(y < -5.0f)return Color(1.0f, 0.96f, 0.62f);
+	if(y < 1.0f)return Color(0.48f, 0.77f, 0.46f);
+	if(y < 3.0f)return Color(0.1f, 0.48f, 0.19f);
+	if(y < 6.0f)return Color(0.45f, 0.39f, 0.34f);
 	return Color();
 }

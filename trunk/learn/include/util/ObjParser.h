@@ -2,23 +2,29 @@
 #include <scene/Scene.h>
 #include <string>
 
-using namespace std;
-
 class ObjParser{
 public:
 	ObjParser();
     
-	void read(const char* name, Scene* scene);
+	void Read(const char* name, Scene* scene);
 
 private:
 	Scene* _scene;
 	/*解析的obj赋予到的mesh*/
 	Mesh* _mesh;
-	void readVertex(string& line);
-	void readIndex(string& line);
-	void readUV(string& line);
+	
+	//vert的坐标
+	int _vertexNum = 0;
+	Vector3D _vertexList[256];
 
-private:
+	//uv坐标, obj单独存储uv坐标, 然后在index中保存uv坐标索引信息
+	int _uvNum = 0;
+	Vector2D _uvList[128];
+
+	void ReadVertex(std::string& line);
+	void ReadIndex(std::string& line);
+	void ReadUV(std::string& line);
+
 	/*解析由vertext_index/un_index/normal_index组成的字符串*/
-	void parseVUNStr(string& line);
+	void ParseVUNStr(std::string& line);
 };

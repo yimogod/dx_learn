@@ -6,6 +6,8 @@ public:
 	IndexBuffer();
 	~IndexBuffer();
 
+	bool useIndex = true;
+
 	bool CreateIndexBuffer(ID3D11Device *device, int* indexList, int indexNum);
 	void BindIndexBuff(ID3D11DeviceContext* context);
 

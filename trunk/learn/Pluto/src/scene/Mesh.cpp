@@ -44,19 +44,32 @@ void Mesh::GetIndexList(int list[]){
  * 意味着顶点法线是连接面法线的平均值. 这样在平面内进行插值的话会有错误.
  * 因为实际上, 插值的应该是在顶点本平面内的法线进行插值
  */
-void Mesh::calVertexNormal(){
-	int triNum = (int)(indexNum / 3);
+void Mesh::CalVertexNormal(){
+	bool b = UseIndex();
+	int triNum = 0;
+	
+	if(b){//使用的是索引模式
+		triNum = (int)(indexNum / 3);
+	}else{ //使用的是顶点模式
+		triNum = (int)(vertexNum / 3);
+	}
+
+	int i0, i1, i2;
 	for(int i = 0; i < triNum; i++){
 		//由定点坐标计算法线
-		int i0 = indexList[i * 3 + 0];
-		int i1 = indexList[i * 3 + 1];
-		int i2 = indexList[i * 3 + 2];
+		if(b){
+			i0 = indexList[i * 3 + 0];
+			i1 = indexList[i * 3 + 1];
+			i2 = indexList[i * 3 + 2];
+		}else{
+			i0 = i * 3 + 0;
+			i1 = i * 3 + 1;
+			i2 = i * 3 + 2;
+		}
 
-		//3个顶点数
 		Vector3D v0 = vertexList[i0];
 		Vector3D v1 = vertexList[i1];
 		Vector3D v2 = vertexList[i2];
-
 		//计算点法线
 		Vector3D e0 = v1.sub(v0);
 		Vector3D e1 = v2.sub(v0);

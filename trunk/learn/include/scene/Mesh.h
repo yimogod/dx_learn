@@ -34,7 +34,7 @@ public:
 	/*切线数等于索引数量*/
 	Vector3D tangentList[256];
 
-	//顶点索引
+	//顶点索引, 如果=0, 那我们就不用drawindex了.
 	int indexNum = 0;
 	int indexList[512];
 public:
@@ -44,7 +44,7 @@ public:
 	void GetIndexList(int list[]);
 
 	/*计算法线数据*/
-	void calVertexNormal();
+	void CalVertexNormal();
 
 public:
 	/* mesh在世界中的坐标 */
@@ -57,4 +57,10 @@ public:
 	void rotateY(float y);
 
 	Matrix4x4 localToWorldMatrix();
+
+	inline bool UseIndex() const;
 };
+
+inline bool Mesh::UseIndex() const{
+	return indexNum > 0;
+}

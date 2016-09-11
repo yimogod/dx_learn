@@ -7,7 +7,7 @@ DemoApp::~DemoApp(){}
 
 bool DemoApp::LoadContent(){
 	ObjParser reader;
-	reader.read(GetFullPath("assets/cube.obj").c_str(), &_scene);
+	reader.Read(GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 	_scene.camera = &_camera;
 	

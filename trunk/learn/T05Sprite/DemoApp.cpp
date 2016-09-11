@@ -7,7 +7,7 @@ DemoApp::~DemoApp(){}
 
 bool DemoApp::LoadContent(){
 	_currMesh = new Mesh();
-	_currMesh->setWorldPos(0, 0, 0.0f);
+	_currMesh->SetWorldPos(0, 0, 0.0f);
 	GeoCreater::CreateSprite(*_currMesh);
 
 	/*准备顶点缓冲数据*/

@@ -17,8 +17,12 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum, int* in
 	result = _vertexBuffer.CreateVertexBuffer(device, vertices, vertexNum, singleVertexByte);
 	if(!result)return false;
 
-	result = _indexBuffer.CreateIndexBuffer(device, indices, indexNum);
-	if(!result)return false;
+	if(indexNum > 0){
+		result = _indexBuffer.CreateIndexBuffer(device, indices, indexNum);
+		if(!result)return false;
+	}else{
+		_indexBuffer.useIndex = false;
+	}
 
 	result = _constBuffer.CreateConstBuffer(device, _constByteWidth);
 	if(!result)return false;
@@ -43,5 +47,9 @@ void DXVisual::Draw(ID3D11DeviceContext* context){
 	_resView.BindShaderResource(context, 0);
 	_samplerState.BindSamplerState(context, 0, 1);
 
-	context->DrawIndexed(_indexBuffer.GetIndexNum(), 0, 0);
+	if(_indexBuffer.useIndex){
+		context->DrawIndexed(_indexBuffer.GetIndexNum(), 0, 0);
+	}else{
+		context->Draw(_vertexBuffer.GetVertexNum(), 0);
+	}
 }

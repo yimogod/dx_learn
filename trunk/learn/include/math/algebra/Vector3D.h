@@ -7,6 +7,7 @@ public:
     float z;
     
     Vector3D();
+	Vector3D(const Vector3D &value);
     Vector3D(float px, float py, float pz);
     
     /* 模长度 */
@@ -28,6 +29,8 @@ public:
     Vector3D cross(const Vector3D &v);
     /* 归一化 */
     void normalize();
+
+	Vector3D& operator=(const Vector3D &v);
 };
 
 float distanceBetweenVector3D(const Vector3D &va, const Vector3D &vb);

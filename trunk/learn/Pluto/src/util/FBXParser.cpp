@@ -67,7 +67,7 @@ void FBXParser::processMesh(FbxNode* node){
 
 	_scene->meshList[_scene->meshNum] = mesh;
 	_scene->meshNum += 1;
-	mesh->calVertexNormal();
+	mesh->CalVertexNormal();
 }
 
 /* ถฅตใสýื้ */
