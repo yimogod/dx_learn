@@ -23,20 +23,20 @@ public:
 
 	/*顶点个数*/
 	int vertexNum = 0;
-	Vector3D vertexList[128];
+	Vector3D vertexList[256];
 	/* vertex color, each vertex has its color */
-	Color vertexColorList[128];
+	Color vertexColorList[256];
 	/*S, T, S, T, S, T, 贴图数据列表*/
 	int uvNum = 0;// == vertexnum
-	Vector2D uvList[128];
+	Vector2D uvList[256];
 	/*顶点<点>法线, 数量等于定点数*/
-	Vector3D normalList[128];
+	Vector3D normalList[256];
 	/*切线数等于索引数量*/
-	Vector3D tangentList[128];
+	Vector3D tangentList[256];
 
 	//顶点索引
 	int indexNum = 0;
-	int indexList[512];
+	int indexList[2048];
 public:
 	/*格式化数据准备传入vertext buff, 我们使用vbo*/
 	/*length is vertex num*/

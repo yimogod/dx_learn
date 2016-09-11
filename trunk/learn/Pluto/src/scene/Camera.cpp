@@ -16,7 +16,7 @@ void Camera::setPos(float px, float py, float pz){
 }
 
 void Camera::setEulerAngle(float pheading, float ppitch, float pbank){
-	heading = heading;
+	heading = pheading;
 	pitch = ppitch;
 	bank = pbank;
 }

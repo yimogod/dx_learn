@@ -15,7 +15,7 @@ public:
 
 protected:
 	/* all parm size is base on meter */
-	void CreateGrid(float width, float depth, float unitSize, Mesh &mesh);
+	void CreateGrid(int cols, int rows, Mesh &mesh);
 	float GetVertexHeight(float x, float z);
 	Color GetColorFromHeight(float y);
 };

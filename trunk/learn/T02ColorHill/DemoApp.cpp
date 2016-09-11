@@ -1,31 +1,21 @@
 #include <math.h>
 #include "DemoApp.h"
 
-using namespace DirectX;
-
 DemoApp::DemoApp(){}
 
 DemoApp::~DemoApp(){}
 
 bool DemoApp::LoadContent(){
-	_scene.camera = &_camera;
+	_camera.setEulerAngle(0, -1.56f, 0);
+	_camera.setPos(0, 4.0f, 0);
 
-	_scene.meshNum = 1;
-	_scene.meshList[0] = new Mesh();
-	_currMesh = _scene.getMesh(0);
-
-	CreateGrid(128.0f, 128.0f, 8.0f, (*_currMesh));
-	_currMesh->setWorldPos(-64.0f, 0.0f, -64.0f);
+	_currMesh = new Mesh();
+	CreateGrid(8, 8, (*_currMesh));
+	//中心为原点
+	_currMesh->setWorldPos(0.0f, 0.0f, 0.0f);
 
 	/*准备顶点缓冲数据*/
-	Vertex *vertices = new Vertex[_currMesh->indexNum];
-	_currMesh->getVertexPosList(vertices);
-
-	InitVisual(_visual, L"shader/ColorVertex.fx", vertices);
-
-	//createRasterizerState(D3D11_FILL_WIREFRAME, _wireframeRS);
-
-	delete(vertices);
+	InitVisual(_visual, _currMesh, L"shader/ColorVertex.fx");
 	return true;
 }
 
@@ -40,23 +30,18 @@ void DemoApp::Render(){
 	_dxEngine.Present();
 }
 
-void DemoApp::CreateGrid(float width, float depth, float unitSize, Mesh &mesh){
-	int rowVertex = (int)(depth / unitSize) + 1;
-	int colVertex = (int)(width / unitSize) + 1;
+//cols, rows指的是网格线的个数, 注释以4x4网格为例子, 但只有9个正方形
+void DemoApp::CreateGrid(int cols, int rows, Mesh &mesh){
+	mesh.vertexNum = cols * rows;
 
-	mesh.vertexNum = (short)(rowVertex * colVertex);
-
+	//会有16个顶点
 	int index = 0;
-	float pz, px, py;
-	for(int r = 0; r < rowVertex; ++r){
-		pz = r * unitSize;
-		for(int c = 0; c < colVertex; ++c){
-			index = r * colVertex + c;
-			px = c * unitSize;
-			py = 0.0f;
-			py = GetVertexHeight(px, pz);
-			mesh.vertexList[index].z = pz;
-			mesh.vertexList[index].x = px;
+	for(int row = 0; row < rows; ++row){
+		for(int col = 0; col < cols; ++col){
+			index = row * cols + col;
+			int py = GetVertexHeight(col, row);
+			mesh.vertexList[index].z = row;
+			mesh.vertexList[index].x = col;
 			mesh.vertexList[index].y = py;
 
 			mesh.vertexColorList[index] = GetColorFromHeight(py);
@@ -64,27 +49,26 @@ void DemoApp::CreateGrid(float width, float depth, float unitSize, Mesh &mesh){
 	}
 
 	/*each rectange have 6 vertex*/
-	mesh.indexNum = (short)((rowVertex - 1) * (colVertex - 1) * 6);
+	mesh.indexNum = (cols - 1) * (rows - 1) * 6;
 
 	//正方形底下那条边的左侧点的索引
 	int lowIndex = 0;
 	//正方形上面那条边的左侧点的索引
 	int highIndex = 0;
-	int top = rowVertex - 1;
-	int right = colVertex - 1;
-	for(int r = 0; r < top; ++r){
-		for(int c = 0; c < right; ++c){
-			index = (r * right + c) * 6;
-
-			lowIndex = r * colVertex + c;
-			highIndex = lowIndex + colVertex;
-			
+	int top = rows - 1;
+	int right = cols - 1;
+	index = 0;
+	for(int row = 0; row < top; ++row){
+		for(int col = 0; col < right; ++col){
+			lowIndex = row * cols + col;
+			highIndex = lowIndex + cols;
 			mesh.indexList[index + 0] = lowIndex;
 			mesh.indexList[index + 1] = highIndex;
 			mesh.indexList[index + 2] = lowIndex + 1;
 			mesh.indexList[index + 3] = lowIndex + 1;
 			mesh.indexList[index + 4] = highIndex;
 			mesh.indexList[index + 5] = highIndex + 1;
+			index += 6;
 		}
 	}
 }
