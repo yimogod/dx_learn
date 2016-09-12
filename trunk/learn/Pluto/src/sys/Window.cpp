@@ -16,7 +16,9 @@ bool Window::Init(HINSTANCE const &ins, HWND const &hwnd){
 	return LoadContent();
 }
 
-void Window::InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName){
+void Window::InitVisual(Mesh* mesh, wchar_t* vsName){
+	DXVisual& visual = mesh->visual;
+
 	/*准备shader数据*/
 	visual.PreInitShader(vsName, vsName);
 
@@ -39,11 +41,13 @@ void Window::InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName){
 	delete(indices);
 }
 
-void Window::InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName, const char* texturePath){
+void Window::InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath){
+	DXVisual& visual = mesh->visual;
+
 	std::wstring path = GetFullPathW(texturePath);
 	const wchar_t* cpath = path.c_str();
 	visual.PreAddTexture(cpath);
-	InitVisual(visual, mesh, vsName);
+	InitVisual(mesh, vsName);
 }
 
 void Window::Update(){
@@ -58,11 +62,13 @@ void Window::Update(){
 
 void Window::UpdateConstBuff(){
 	MVPConstBuffer cb;
-	cb.model = _currMesh->localToWorldMatrix().transpose();
 	cb.view = _camera.getWorldToCameraMatrix().transpose();
 	cb.perspective = _camera.getCameraToProjMatrix().transpose();
-	
-	_dxEngine.UpdateVSSubResource(_visual, 0, &cb);
+	for(int i = 0; i < _scene.meshNum; i++){
+		Mesh* mesh = _scene.GetMesh(i);
+		cb.model = mesh->localToWorldMatrix().transpose();
+		_dxEngine.UpdateVSSubResource(mesh->visual, 0, &cb);
+	}
 }
 
 void Window::UpdateByLMouse(float value){

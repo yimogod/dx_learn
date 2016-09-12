@@ -13,8 +13,8 @@ public:
 	Scene();
 	~Scene();
 
-	Mesh* getMesh(int i);
-	Mesh* currMesh(){ return getMesh(0); }
+	Mesh* GetMesh(int i);
+	void AddMesh(Mesh* mesh);
 public:
 	int renderType;
 	

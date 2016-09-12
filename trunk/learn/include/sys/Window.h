@@ -22,14 +22,15 @@ protected:
 	void UpdateByKey(float value);
 	void UpdateConstBuff();
 
-	void InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName);
-	void InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName, const char* texturePath);
+	void InitVisual(Mesh* mesh, wchar_t* vsName);
+	void InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath);
+
+	inline DXVisual& GetVisual() const;
 protected:
 	Mesh* _currMesh = nullptr;
 
 	Camera _camera;
 	Scene _scene;
-	DXVisual _visual;
 
 	DXEngine _dxEngine;
 
@@ -37,3 +38,7 @@ private:
 	int _lastMouseX = 0;
 	int _lastMouseY = 0;
 };
+
+inline DXVisual& Window::GetVisual() const{
+	return _currMesh->visual;
+}

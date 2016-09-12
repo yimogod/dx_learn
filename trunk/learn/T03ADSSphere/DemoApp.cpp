@@ -32,8 +32,8 @@ bool DemoApp::LoadContent(){
 	_scene.lightNum = 2;
 
 	/*准备顶点缓冲数据*/
-	_currMesh = _scene.getMesh(0);
-	InitVisual(_visual, _currMesh, L"shader/Phong.fx", "assets/t_02.dds");
+	_currMesh = _scene.GetMesh(0);
+	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_02.dds");
 	return true;
 }
 
@@ -76,14 +76,14 @@ void DemoApp::Update(){
 		light->range};
 	pb.pointLight = pl;
 
-	_dxEngine.UpdatePSSubResource(_visual, 0, &pb);
+	_dxEngine.UpdatePSSubResource(GetVisual(), 0, &pb);
 }
 
 void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 	
 	_dxEngine.ClearBuffers();
-	_dxEngine.DrawVisual(_visual);
+	_dxEngine.DrawVisual(GetVisual());
 
 	_dxEngine.Present();
 }

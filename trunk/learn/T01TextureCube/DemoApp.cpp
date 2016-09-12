@@ -12,8 +12,8 @@ bool DemoApp::LoadContent(){
 	_scene.camera = &_camera;
 	
 	/*准备顶点缓冲数据*/
-	_currMesh = _scene.getMesh(0);
-	InitVisual(_visual, _currMesh, L"shader/Triangle.fx", "assets/t_01.dds");
+	_currMesh = _scene.GetMesh(0);
+	InitVisual(_currMesh, L"shader/Triangle.fx", "assets/t_01.dds");
 	return true;
 }
 
@@ -23,6 +23,6 @@ void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
 	_dxEngine.ClearBuffers();
-	_dxEngine.DrawVisual(_visual);
+	_dxEngine.DrawVisual(GetVisual());
 	_dxEngine.Present();
 }

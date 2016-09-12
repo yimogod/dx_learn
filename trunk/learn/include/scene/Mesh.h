@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <BaseDataStruct.h>
+#include <graphics/DXVisual.h>
 #include <math/algebra/Vector3D.h>
 #include <math/algebra/Vector2D.h>
 #include <math/algebra/Matrix4x4.h>
@@ -16,6 +17,8 @@ public:
 	Mesh();
 	~Mesh();
     
+	DXVisual visual;
+
     std::string name;
 	/* meshµÄ×´Ì¬ */
 	int state;

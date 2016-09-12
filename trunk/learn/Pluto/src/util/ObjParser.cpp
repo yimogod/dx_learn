@@ -41,8 +41,7 @@ void ObjParser::Read(const char* name, Scene* pscene){
 
 	_mesh->CalVertexNormal();
 
-	_scene->meshList[_scene->meshNum] = _mesh;
-	_scene->meshNum += 1;
+	_scene->AddMesh(_mesh);
 }
 
 

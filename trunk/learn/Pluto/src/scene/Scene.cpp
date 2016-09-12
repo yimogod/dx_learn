@@ -6,8 +6,12 @@ Scene::Scene(){
 
 Scene::~Scene(){}
 
- Mesh* Scene::getMesh(int i) {
-	 if (i >= meshNum)return NULL;
+ Mesh* Scene::GetMesh(int i) {
+	 if (i >= meshNum)return nullptr;
 	 return meshList[i];
  }
 
+ void Scene::AddMesh(Mesh* mesh){
+	 meshList[meshNum] = mesh;
+	 meshNum++;
+ }

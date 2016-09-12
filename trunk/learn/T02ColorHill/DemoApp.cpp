@@ -13,9 +13,10 @@ bool DemoApp::LoadContent(){
 	CreateGrid(10, 10, (*_currMesh));
 	//中心为原点
 	_currMesh->SetWorldPos(-4.0f, 0.0f, -4.0f);
+	_scene.AddMesh(_currMesh);
 
 	/*准备顶点缓冲数据*/
-	InitVisual(_visual, _currMesh, L"shader/ColorVertex.fx");
+	InitVisual(_currMesh, L"shader/ColorVertex.fx");
 	return true;
 }
 
@@ -26,7 +27,7 @@ void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
 	_dxEngine.ClearBuffers();
-	_dxEngine.DrawVisual(_visual);
+	_dxEngine.DrawVisual(GetVisual());
 	_dxEngine.Present();
 }
 
