@@ -38,7 +38,7 @@ bool DemoApp::LoadContent(){
 }
 
 void DemoApp::PreAddOtherConstBuffer(DXVisual &visual){
-	visual.PreSetConstBufferSize(sizeof(PhongConstBuffer));
+	visual.PreSetPSConstBufferSize(sizeof(PhongConstBuffer));
 }
 
 void DemoApp::UnloadContent(){}
@@ -76,7 +76,7 @@ void DemoApp::Update(){
 		light->range};
 	pb.pointLight = pl;
 
-	_dxEngine.UpdateSubResource(_visual, 1, &pb);
+	_dxEngine.UpdatePSSubResource(_visual, 0, &pb);
 }
 
 void DemoApp::Render(){

@@ -21,7 +21,8 @@ public:
 	inline bool GetReady();
 	inline ID3D11Device* GetDevice() const;
 
-	inline void UpdateSubResource(DXVisual &visual, int buffIndex, const void* data);
+	inline void UpdateVSSubResource(DXVisual &visual, int buffIndex, const void* data);
+	inline void UpdatePSSubResource(DXVisual &visual, int buffIndex, const void* data);
 	void ClearBuffers(const FLOAT ColorRGBA[4] = DirectX::Colors::MidnightBlue);
 	void Present();
 private:
@@ -86,6 +87,10 @@ inline bool DXEngine::GetReady(){
 	return _ready;
 }
 
-inline void DXEngine::UpdateSubResource(DXVisual &visual, int buffIndex, const void* data){
-	visual.UpdateConstBuffer(_context, buffIndex, data);
+inline void DXEngine::UpdateVSSubResource(DXVisual &visual, int buffIndex, const void* data){
+	visual.UpdateVSConstBuffer(_context, buffIndex, data);
+}
+
+inline void DXEngine::UpdatePSSubResource(DXVisual &visual, int buffIndex, const void* data){
+	visual.UpdatePSConstBuffer(_context, buffIndex, data);
 }

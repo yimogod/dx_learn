@@ -24,7 +24,7 @@ void Window::InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName){
 	visual.PreAddDefaultLayout();
 
 	//创建buffer需要的变量
-	visual.PreSetConstBufferSize(sizeof(MVPConstBuffer));
+	visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
 	PreAddOtherConstBuffer(visual);
 
 	//初始化visual
@@ -62,7 +62,7 @@ void Window::UpdateConstBuff(){
 	cb.view = _camera.getWorldToCameraMatrix().transpose();
 	cb.perspective = _camera.getCameraToProjMatrix().transpose();
 	
-	_dxEngine.UpdateSubResource(_visual, 0, &cb);
+	_dxEngine.UpdateVSSubResource(_visual, 0, &cb);
 }
 
 void Window::UpdateByLMouse(float value){
