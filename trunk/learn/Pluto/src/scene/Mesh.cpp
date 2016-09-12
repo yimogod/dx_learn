@@ -1,6 +1,5 @@
 #include <math/algebra/Vector3D.h>
 #include <scene/Mesh.h>
-#include <graphics/Vertex.h>
 
 Mesh::Mesh(){
 	state = Mesh::STATE_ACTIVE;

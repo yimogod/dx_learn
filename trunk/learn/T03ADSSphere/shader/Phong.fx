@@ -59,7 +59,7 @@ void computeDirectionLight(float4 textColor, DirectionLight light,
 	spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	ambient = textColor * light.ambientColor * light.ambientColor.a;
 
-	float3 lightVec = -light.direction;
+	float3 lightVec = -light.direction.xyz;
 	float diffuseFactor = dot(lightVec, pixelNormal);
 	if(diffuseFactor > 0.0f){
 		diffuse = diffuseFactor * textColor * light.diffuseColor;

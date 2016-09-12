@@ -1,46 +1,19 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
+#include <sys/Window.h>
 
-#include <DirectXMath.h>
-#include <dinput.h>
-#include <BaseApp.h>
-#include <BaseDataStruct.h>
-
-/*方向光*/
-struct DirectionLight{
-	Float4A ambientColor;
-	Float4A diffuseColor;
-	Float4A specularColor;
-	Float4 direction;
-};
-
-/*点光源*/
-struct PointLight{
-	Float4A ambientColor;
-	Float4A diffuseColor;
-	Float4A specularColor;
-	Float4 worldPos;
-	float range;
-	Float3 attenuate;
-};
-
-struct PhongBuffer{
-	Float4 eyeWorldPos;
-	DirectionLight directionLight;
-	PointLight pointLight;
-};
-
-class DemoApp : public BaseApp{
+class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();
 
-	bool loadContent();
-	void unloadContent();
+	virtual bool LoadContent();
+	virtual void UnloadContent();
+	virtual void PreAddOtherConstBuffer(DXVisual &visual);
 
-	void update();
-	void render();
+	virtual void Update();
+	virtual void Render();
 protected:
 	ID3D11Buffer* _phongBuff = nullptr;
 };

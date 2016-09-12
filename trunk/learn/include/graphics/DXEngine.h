@@ -1,9 +1,9 @@
 #pragma once
 #include <d3d11_1.h>
 #include <d3dcompiler.h>
+#include <BaseDataStruct.h>
 #include <DirectXColors.h>
 #include <graphics/DXVisual.h>
-#include <graphics/Vertex.h>
 #include <graphics/VertexShader.h>
 #include <graphics/PixelShader.h>
 
@@ -15,15 +15,13 @@ public:
 	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	void InitVisual(DXVisual &visual, void* vertices, int vertexNum, int* indices, int indexNum);
-	bool CreateTexture(const wchar_t* path);
-
 	void DrawVisual(DXVisual &visual);
 
 public:
 	inline bool GetReady();
 	inline ID3D11Device* GetDevice() const;
-	inline ID3D11DeviceContext* GetContext() const;
 
+	inline void UpdateSubResource(DXVisual &visual, int buffIndex, const void* data);
 	void ClearBuffers(const FLOAT ColorRGBA[4] = DirectX::Colors::MidnightBlue);
 	void Present();
 private:
@@ -84,10 +82,10 @@ inline ID3D11Device* DXEngine::GetDevice() const{
 	return _device;
 }
 
-inline ID3D11DeviceContext* DXEngine::GetContext() const{
-	return _context;
-}
-
 inline bool DXEngine::GetReady(){
 	return _ready;
+}
+
+inline void DXEngine::UpdateSubResource(DXVisual &visual, int buffIndex, const void* data){
+	visual.UpdateConstBuffer(_context, buffIndex, data);
 }

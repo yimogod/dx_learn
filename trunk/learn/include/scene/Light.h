@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <iostream>
-#include <graphics/Color.h>
+#include <BaseDataStruct.h>
 #include <math/algebra/Vector3D.h>
 
 class Light{

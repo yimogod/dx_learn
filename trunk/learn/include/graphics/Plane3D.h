@@ -2,8 +2,7 @@
 #define __TEngine__Plane3D__
 
 #include <iostream>
-
-#include <graphics/Vertex.h>
+#include <BaseDataStruct.h>
 #include <math/algebra/Vector3D.h>
 
 class Plane3D{

@@ -1,28 +1,15 @@
-#include <DirectXMath.h>
-#include <DirectXColors.h>
-#include <dinput.h>
 #include <util/ObjParser.h>
-
 #include "DemoApp.h"
-
-using namespace DirectX;
 
 DemoApp::DemoApp(){}
 
 DemoApp::~DemoApp(){}
 
-bool DemoApp::loadContent(){
-	initDevice();
-
+bool DemoApp::LoadContent(){
 	ObjParser reader;
-	reader.read(getFullPath("assets/cube.obj").c_str(), &_scene);
+	reader.Read(GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
-
-	_scene.camera = new Camera();
-	_scene.camera->setPos(0, 0, -2.0f);
-	_scene.camera->setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
-	_scene.camera->setAspect(_width, _height);
-
+	_scene.camera = &_camera;
 
 	_scene.lightList[0] = new Light();
 	_scene.lightList[0]->type = Light::TYPE_DIRECTION;
@@ -45,56 +32,19 @@ bool DemoApp::loadContent(){
 	_scene.lightNum = 2;
 
 	/*准备顶点缓冲数据*/
-	Mesh* mesh = _scene.getMesh(0);
-	Vertex *vertices = 0;
-	vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexList(vertices);
-
-	/*准备shader数据*/
-	CreateShaderInfo vs;
-	vs.fileName = L"shader/Phong.fx";
-	vs.entryPoint = "VS";
-	vs.shaderModel = "vs_4_0";
-	CreateShaderInfo ps;
-	ps.fileName = L"shader/Phong.fx";
-	ps.entryPoint = "PS";
-	ps.shaderModel = "ps_4_0";
-
-	/*创建 layout*/
-	D3D11_INPUT_ELEMENT_DESC layout[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 40, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-	};
-
-	int numElements = ARRAYSIZE(layout);
-	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum, 56 * 4);
-
-	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createConstBuffer(&_phongBuff, sizeof(PhongBuffer));
-
-	createTexture(getFullPathW("assets/t_02.dds").c_str());
-	
-	delete(vertices);
+	_currMesh = _scene.getMesh(0);
+	InitVisual(_visual, _currMesh, L"shader/Phong.fx", "assets/t_02.dds");
 	return true;
 }
 
-void DemoApp::unloadContent(){
-	BaseApp::unloadContent();
+void DemoApp::PreAddOtherConstBuffer(DXVisual &visual){
+	visual.PreSetConstBufferSize(sizeof(PhongConstBuffer));
 }
 
-void DemoApp::update(){
-	UpdatePosByRMouse(_scene.camera, 0.001f);
-	UpdatePosByLMouse(_scene.currMesh(), 0.001f);
+void DemoApp::UnloadContent(){}
 
-	/*根据相机重新计算各个矩阵*/
-	ConstantBuffer cb;
-	cb.model = _scene.currMesh()->localToWorldMatrix().transpose();
-	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
-	cb.perspective = _scene.camera->getCameraToProjMatrix().transpose();
-	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+void DemoApp::Update(){
+	Window::Update();
 
 	Light* light = _scene.lightList[0];
 	Color ac = light->ambientColor;
@@ -102,7 +52,7 @@ void DemoApp::update(){
 	Color sc = light->specularColor;
 	Vector3D d = light->dir;
 
-	PhongBuffer pb;
+	PhongConstBuffer pb;
 	pb.eyeWorldPos = Float4{ 0.0f, 0.0f, -1.0f, 1.0f };
 
 	DirectionLight dl = DirectionLight{
@@ -122,29 +72,19 @@ void DemoApp::update(){
 		Float4A{ dc.r, dc.g, dc.b, dc.a },
 		Float4A{ sc.r, sc.g, sc.b, sc.a },
 		Float4{ d.x, d.y, d.z, 1.0f },
-		light->range,
-		Float3{ light->kc, light->kl, light->kq } };
+		Float3{ light->kc, light->kl, light->kq },
+		light->range};
 	pb.pointLight = pl;
 
-	_context->UpdateSubresource(_phongBuff, 0, nullptr, &pb, 0, 0);
+	_dxEngine.UpdateSubResource(_visual, 1, &pb);
 }
 
-void DemoApp::render(){
-	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
-	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-	bindVertexBuff();
+void DemoApp::Render(){
+	if(!_dxEngine.GetReady())return;
+	
+	_dxEngine.ClearBuffers();
+	//_dxEngine.GetContext()->PSSetConstantBuffers(1, 1, &_phongBuff);
+	_dxEngine.DrawVisual(_visual);
 
-	_context->VSSetShader(_vs, nullptr, 0);
-	_context->VSSetConstantBuffers(0, 1, &_constBuff);
-	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetConstantBuffers(1, 1, &_phongBuff);
-	_context->PSSetShaderResources(0, _resViewNum, _resView);
-	_context->PSSetSamplers(0, 1, &_sampleState);
-
-	Mesh *m = _scene.getMesh(0);
-	_context->Draw(m->indexNum, 0);
-
-	_chain->Present(0, 0);
+	_dxEngine.Present();
 }

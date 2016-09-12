@@ -8,7 +8,7 @@ public:
 
 	bool CreateConstBuffer(ID3D11Device* device, int byteWidth);
 	inline void BindConstBuff(ID3D11DeviceContext* context, UINT StartSlot, UINT NumBuffer);
-	inline ID3D11Buffer* GetDXObj() const;
+	inline void UpdateConstBuff(ID3D11DeviceContext* context, const void* data);
 private:
 	ID3D11Buffer* _constBuff = nullptr;
 };
@@ -17,6 +17,6 @@ inline void ConstBuffer::BindConstBuff(ID3D11DeviceContext* context, UINT StartS
 	context->VSSetConstantBuffers(StartSlot, NumBuffers, &_constBuff);
 }
 
-inline ID3D11Buffer* ConstBuffer::GetDXObj() const{
-	return _constBuff;
+inline void ConstBuffer::UpdateConstBuff(ID3D11DeviceContext* context, const void* data){
+	context->UpdateSubresource(_constBuff, 0, nullptr, data, 0, 0);
 }

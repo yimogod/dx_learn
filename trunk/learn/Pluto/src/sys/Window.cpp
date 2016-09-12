@@ -24,7 +24,8 @@ void Window::InitVisual(DXVisual &visual, Mesh* mesh, wchar_t* vsName){
 	visual.PreAddDefaultLayout();
 
 	//创建buffer需要的变量
-	visual.PreSetConstBufferSize(sizeof(ConstantBuffer));
+	visual.PreSetConstBufferSize(sizeof(MVPConstBuffer));
+	PreAddOtherConstBuffer(visual);
 
 	//初始化visual
 	Vertex* vertices = new Vertex[mesh->vertexNum];
@@ -51,18 +52,17 @@ void Window::Update(){
 	UpdateByRMouse(0.003f);
 	UpdateConstBuff();
 
-
 	_lastMouseX = GetMouseX();
 	_lastMouseY = GetMouseY();
 }
 
 void Window::UpdateConstBuff(){
-	ConstantBuffer cb;
+	MVPConstBuffer cb;
 	cb.model = _currMesh->localToWorldMatrix().transpose();
 	cb.view = _camera.getWorldToCameraMatrix().transpose();
 	cb.perspective = _camera.getCameraToProjMatrix().transpose();
-
-	_dxEngine.GetContext()->UpdateSubresource(_visual.GetDXConstBuffer(), 0, nullptr, &cb, 0, 0);
+	
+	_dxEngine.UpdateSubResource(_visual, 0, &cb);
 }
 
 void Window::UpdateByLMouse(float value){
@@ -115,6 +115,9 @@ void Window::UpdateByKey(float value){
 	}
 }
 
+void Window::PreAddOtherConstBuffer(DXVisual &visual){
+
+}
 
 void Window::Destroy(){
 	UnloadContent();

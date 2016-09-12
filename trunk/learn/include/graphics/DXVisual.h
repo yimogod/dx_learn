@@ -30,15 +30,16 @@ public:
 	bool Init(ID3D11Device* device, void* vertices, int vertexNum, int* indices, int indexNum);
 	void Draw(ID3D11DeviceContext* context);
 
-public: //获取dx obj相关
-	inline ID3D11Buffer* GetDXConstBuffer() const;
-
+public:
+	inline void UpdateConstBuffer(ID3D11DeviceContext* context, int index, const void* data);
 private:
 	InputLayout _layout;
 
 	VertexBuffer _vertexBuffer;
 	IndexBuffer _indexBuffer;
-	ConstBuffer _constBuffer;
+	ConstBuffer _constBuffer[4];
+	int _constByteWidth[4];
+	int _constBufferNum = 0;
 
 	VertexShader _vs;
 	PixelShader _ps;
@@ -46,8 +47,6 @@ private:
 	SamplerState _samplerState;
 
 	ShaderResourceView _resView;
-
-	int _constByteWidth = 0;
 };
 
 inline void DXVisual::PreInitShader(wchar_t* vsName, wchar_t* psName){
@@ -64,13 +63,14 @@ inline void DXVisual::PreAddDefaultLayout(){
 }
 
 inline void DXVisual::PreSetConstBufferSize(int byteWidth){
-	_constByteWidth = byteWidth;
-}
-
-inline ID3D11Buffer* DXVisual::GetDXConstBuffer() const{
-	return _constBuffer.GetDXObj();
+	_constByteWidth[_constBufferNum] = byteWidth;
+	_constBufferNum++;
 }
 
 inline void DXVisual::PreAddTexture(const wchar_t* path){
 	return _resView.AddTexturePath(path);
+}
+
+inline void DXVisual::UpdateConstBuffer(ID3D11DeviceContext* context, int index, const void* data){
+	_constBuffer[index].UpdateConstBuff(context, data);
 }

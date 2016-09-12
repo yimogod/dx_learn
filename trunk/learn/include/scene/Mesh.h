@@ -1,11 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <BaseDataStruct.h>
 #include <math/algebra/Vector3D.h>
 #include <math/algebra/Vector2D.h>
 #include <math/algebra/Matrix4x4.h>
-#include <graphics/Color.h>
-#include <graphics/Vertex.h>
 
 /* 很多个三角形组成的三角网 */
 class Mesh{

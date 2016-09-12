@@ -394,7 +394,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BaseDataStruct.h" />
-    <ClInclude Include="..\include\graphics\Color.h" />
     <ClInclude Include="..\include\graphics\ConstBuffer.h" />
     <ClInclude Include="..\include\graphics\DXEngine.h" />
     <ClInclude Include="..\include\graphics\DXVisual.h" />
@@ -406,7 +405,6 @@
     <ClInclude Include="..\include\graphics\SamplerState.h" />
     <ClInclude Include="..\include\graphics\Shader.h" />
     <ClInclude Include="..\include\graphics\ShaderResourceView.h" />
-    <ClInclude Include="..\include\graphics\Vertex.h" />
     <ClInclude Include="..\include\graphics\VertexBuffer.h" />
     <ClInclude Include="..\include\graphics\VertexShader.h" />
     <ClInclude Include="..\include\Main.h" />
