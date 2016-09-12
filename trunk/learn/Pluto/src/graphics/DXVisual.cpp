@@ -24,8 +24,13 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum, int* in
 		_indexBuffer.useIndex = false;
 	}
 
-	for(int i = 0; i < _constBufferNum; i++){
-		result = _constBuffer[i].CreateConstBuffer(device, _constByteWidth[i]);
+	for(int i = 0; i < _vsConstBufferNum; i++){
+		result = _vsConstBuffer[i].CreateConstBuffer(device, _vsConstByteWidth[i], true);
+		if(!result)return false;
+	}
+
+	for(int i = 0; i < _psConstBufferNum; i++){
+		result = _psConstBuffer[i].CreateConstBuffer(device, _psConstByteWidth[i], false);
 		if(!result)return false;
 	}
 
@@ -43,7 +48,7 @@ void DXVisual::Draw(ID3D11DeviceContext* context){
 	_indexBuffer.BindIndexBuff(context);
 
 	_vs.VSSetShader(context);
-	_constBuffer[0].BindConstBuff(context, 0, 1);
+	_vsConstBuffer[0].BindConstBuff(context, 0, 1);
 	_ps.PSSetShader(context);
 
 	_resView.BindShaderResource(context, 0);
@@ -54,4 +59,15 @@ void DXVisual::Draw(ID3D11DeviceContext* context){
 	}else{
 		context->Draw(_vertexBuffer.GetVertexNum(), 0);
 	}
+}
+
+
+void DXVisual::PreSetVSConstBufferSize(int byteWidth){
+	_vsConstByteWidth[_vsConstBufferNum] = byteWidth;
+	_vsConstBufferNum++;
+}
+
+void DXVisual::PreSetPSConstBufferSize(int byteWidth){
+	_psConstByteWidth[_psConstBufferNum] = byteWidth;
+	_psConstBufferNum++;
 }

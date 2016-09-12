@@ -25,21 +25,26 @@ public:
 	inline void PreAddTexture(const wchar_t* path);
 
 	//设置创建buffer需要的各种数据
-	inline void PreSetConstBufferSize(int byteWidth);//设置constbuffer对象的byte
+	void PreSetVSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
+	void PreSetPSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
 
 	bool Init(ID3D11Device* device, void* vertices, int vertexNum, int* indices, int indexNum);
 	void Draw(ID3D11DeviceContext* context);
 
 public:
-	inline void UpdateConstBuffer(ID3D11DeviceContext* context, int index, const void* data);
+	inline void UpdateVSConstBuffer(ID3D11DeviceContext* context, int index, const void* data);
+	inline void UpdatePSConstBuffer(ID3D11DeviceContext* context, int index, const void* data);
 private:
 	InputLayout _layout;
 
 	VertexBuffer _vertexBuffer;
 	IndexBuffer _indexBuffer;
-	ConstBuffer _constBuffer[4];
-	int _constByteWidth[4];
-	int _constBufferNum = 0;
+	ConstBuffer _vsConstBuffer[4];
+	int _vsConstByteWidth[4];
+	int _vsConstBufferNum = 0;
+	ConstBuffer _psConstBuffer[4];
+	int _psConstByteWidth[4];
+	int _psConstBufferNum = 0;
 
 	VertexShader _vs;
 	PixelShader _ps;
@@ -62,15 +67,13 @@ inline void DXVisual::PreAddDefaultLayout(){
 	_layout.AddTangent();
 }
 
-inline void DXVisual::PreSetConstBufferSize(int byteWidth){
-	_constByteWidth[_constBufferNum] = byteWidth;
-	_constBufferNum++;
+inline void DXVisual::UpdateVSConstBuffer(ID3D11DeviceContext* context, int index, const void* data){
+	_vsConstBuffer[index].UpdateConstBuff(context, data);
+}
+inline void DXVisual::UpdatePSConstBuffer(ID3D11DeviceContext* context, int index, const void* data){
+	_psConstBuffer[index].UpdateConstBuff(context, data);
 }
 
 inline void DXVisual::PreAddTexture(const wchar_t* path){
 	return _resView.AddTexturePath(path);
-}
-
-inline void DXVisual::UpdateConstBuffer(ID3D11DeviceContext* context, int index, const void* data){
-	_constBuffer[index].UpdateConstBuff(context, data);
 }

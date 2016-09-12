@@ -6,7 +6,9 @@ ConstBuffer::ConstBuffer(){
 ConstBuffer::~ConstBuffer(){
 }
 
-bool ConstBuffer::CreateConstBuffer(ID3D11Device* device, int byteWidth){
+bool ConstBuffer::CreateConstBuffer(ID3D11Device* device, int byteWidth, bool forVS){
+	_forVS = forVS;
+
 	/*创建constant buff, 类似于uniform变量*/
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
