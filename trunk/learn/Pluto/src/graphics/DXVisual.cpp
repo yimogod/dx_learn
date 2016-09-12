@@ -24,13 +24,16 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum, int* in
 		_indexBuffer.useIndex = false;
 	}
 
+	int slot = 0;
 	for(int i = 0; i < _vsConstBufferNum; i++){
-		result = _vsConstBuffer[i].CreateConstBuffer(device, _vsConstByteWidth[i], true);
+		result = _vsConstBuffer[i].CreateConstBuffer(device, _vsConstByteWidth[i], slot, true);
+		slot++;
 		if(!result)return false;
 	}
 
 	for(int i = 0; i < _psConstBufferNum; i++){
-		result = _psConstBuffer[i].CreateConstBuffer(device, _psConstByteWidth[i], false);
+		result = _psConstBuffer[i].CreateConstBuffer(device, _psConstByteWidth[i], slot, false);
+		slot++;
 		if(!result)return false;
 	}
 
@@ -48,8 +51,13 @@ void DXVisual::Draw(ID3D11DeviceContext* context){
 	_indexBuffer.BindIndexBuff(context);
 
 	_vs.VSSetShader(context);
-	_vsConstBuffer[0].BindConstBuff(context, 0, 1);
+	for(int i = 0; i < _vsConstBufferNum; i++){
+		_vsConstBuffer[i].BindConstBuff(context, 1);
+	}
 	_ps.PSSetShader(context);
+	for(int i = 0; i < _psConstBufferNum; i++){
+		_psConstBuffer[i].BindConstBuff(context, 1);
+	}
 
 	_resView.BindShaderResource(context, 0);
 	_samplerState.BindSamplerState(context, 0, 1);

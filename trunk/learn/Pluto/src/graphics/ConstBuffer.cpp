@@ -6,8 +6,9 @@ ConstBuffer::ConstBuffer(){
 ConstBuffer::~ConstBuffer(){
 }
 
-bool ConstBuffer::CreateConstBuffer(ID3D11Device* device, int byteWidth, bool forVS){
+bool ConstBuffer::CreateConstBuffer(ID3D11Device* device, int byteWidth, int slot, bool forVS){
 	_forVS = forVS;
+	_startSlot = slot;
 
 	/*创建constant buff, 类似于uniform变量*/
 	D3D11_BUFFER_DESC bd;
@@ -21,4 +22,12 @@ bool ConstBuffer::CreateConstBuffer(ID3D11Device* device, int byteWidth, bool fo
 	if(FAILED(hr))return false;
 
 	return true;
+}
+
+void ConstBuffer::BindConstBuff(ID3D11DeviceContext* context, UINT NumBuffers){
+	if(_forVS){
+		context->VSSetConstantBuffers(_startSlot, NumBuffers, &_constBuff);
+	}else{
+		context->PSSetConstantBuffers(_startSlot, NumBuffers, &_constBuff);
+	}
 }

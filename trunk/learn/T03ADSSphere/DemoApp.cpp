@@ -83,7 +83,6 @@ void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 	
 	_dxEngine.ClearBuffers();
-	//_dxEngine.GetContext()->PSSetConstantBuffers(1, 1, &_phongBuff);
 	_dxEngine.DrawVisual(_visual);
 
 	_dxEngine.Present();
