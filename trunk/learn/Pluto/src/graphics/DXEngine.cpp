@@ -206,7 +206,7 @@ bool DXEngine::CreateDepthState(){
 	ZeroMemory(&dsd, sizeof(dsd));
 	dsd.DepthEnable = true;
 	dsd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	dsd.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+	dsd.DepthFunc = D3D11_COMPARISON_LESS;
 
 	dsd.StencilEnable = false;
 	dsd.StencilReadMask = D3D11_DEFAULT_STENCIL_READ_MASK;
