@@ -24,6 +24,7 @@ protected:
 
 	void InitVisual(Mesh* mesh, wchar_t* vsName);
 	void InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath);
+	void AddTexture(Mesh* mesh, const char* texturePath);//º”‘ÿ∂‡’≈Õº∆¨
 
 	inline DXVisual& GetVisual() const;
 protected:

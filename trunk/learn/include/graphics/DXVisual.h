@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <d3d11_1.h>
 #include <graphics/InputLayout.h>
 #include <graphics/VertexBuffer.h>
@@ -22,7 +23,7 @@ public:
 	inline void PreAddDefaultLayout();
 
 	//读取图片, 设置resourceview
-	inline void PreAddTexture(const wchar_t* path);
+	inline void PreAddTexture(const std::wstring &path);
 
 	//设置创建buffer需要的各种数据
 	void PreSetVSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
@@ -74,6 +75,6 @@ inline void DXVisual::UpdatePSConstBuffer(ID3D11DeviceContext* context, int inde
 	_psConstBuffer[index].UpdateConstBuff(context, data);
 }
 
-inline void DXVisual::PreAddTexture(const wchar_t* path){
+inline void DXVisual::PreAddTexture(const std::wstring &path){
 	return _resView.AddTexturePath(path);
 }

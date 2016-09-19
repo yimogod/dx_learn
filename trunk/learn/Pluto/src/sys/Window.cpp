@@ -42,11 +42,7 @@ void Window::InitVisual(Mesh* mesh, wchar_t* vsName){
 }
 
 void Window::InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath){
-	DXVisual& visual = mesh->visual;
-
-	std::wstring path = GetFullPathW(texturePath);
-	const wchar_t* cpath = path.c_str();
-	visual.PreAddTexture(cpath);
+	AddTexture(mesh, texturePath);
 	InitVisual(mesh, vsName);
 }
 
@@ -123,6 +119,12 @@ void Window::UpdateByKey(float value){
 
 void Window::PreAddOtherConstBuffer(DXVisual &visual){
 
+}
+
+void Window::AddTexture(Mesh* mesh, const char* texturePath){
+	DXVisual &visual = mesh->visual;
+	std::wstring path = GetFullPathW(texturePath);
+	visual.PreAddTexture(path);
 }
 
 void Window::Destroy(){

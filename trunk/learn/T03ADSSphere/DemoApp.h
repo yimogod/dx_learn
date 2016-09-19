@@ -14,8 +14,6 @@ public:
 
 	virtual void Update();
 	virtual void Render();
-protected:
-	ID3D11Buffer* _phongBuff = nullptr;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
