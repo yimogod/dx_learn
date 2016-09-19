@@ -10,6 +10,16 @@ struct DirectionLight{
 	float4 direction;
 };
 
+/*点光源*/
+struct PointLight{
+	float4 ambientColor;
+	float4 diffuseColor;
+	float4 specularColor;
+	float4 worldPos;
+	float range;
+	float3 attenuate;
+};
+
 /*顶点输入*/
 struct VS_INPUT{
 	float4 pos : POSITION;
@@ -42,6 +52,7 @@ cbuffer cbPhong : register(b1){
 	float4 eyePosW;
 
 	DirectionLight directionLight;
+	PointLight pointLight;
 }
 
 void computeDirectionLight(float4 textColor, float4 specColor, DirectionLight light,
@@ -52,7 +63,7 @@ void computeDirectionLight(float4 textColor, float4 specColor, DirectionLight li
 	spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	ambient = textColor * light.ambientColor * light.ambientColor.a;
 
-	float3 lightVec = -light.direction;
+	float3 lightVec = -light.direction.xyz;
 	float diffuseFactor = dot(lightVec, pixelNormal);
 	if(diffuseFactor > 0.0f){
 		diffuse = diffuseFactor * textColor * light.diffuseColor;
