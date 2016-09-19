@@ -3,8 +3,6 @@
 #include <Main.h>
 #include <sys/Window.h>
 
-using namespace DirectX;
-
 class DemoApp : public Window{
 public:
 	DemoApp();

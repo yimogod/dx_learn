@@ -1,23 +1,17 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
+#include <sys/Window.h>
 
-#include <DirectXMath.h>
-#include <dinput.h>
-#include <BaseApp.h>
-
-using namespace DirectX;
-
-class DemoApp : public BaseApp{
+class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();
 
-	bool loadContent();
-	void unloadContent();
+	virtual bool LoadContent();
+	virtual void UnloadContent();
 
-	void update();
-	void render();
+	virtual void Render();
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
@@ -27,7 +21,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new DemoApp();
 	info.icon = nullptr;
-	info.title = L"TextureCube";
+	info.title = L"Alpha Map";
 	info.width = 1200;
 	info.height = 960;
 

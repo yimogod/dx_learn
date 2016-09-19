@@ -1,37 +1,19 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
+#include <sys/Window.h>
 
-#include <DirectXMath.h>
-#include <dinput.h>
-#include <BaseApp.h>
-#include <BaseDataStruct.h>
-
-/*·½Ïò¹â*/
-struct DirectionLight{
-	Float4A ambientColor;
-	Float4A diffuseColor;
-	Float4A specularColor;
-	Float4 direction;
-};
-
-struct PhongBuffer{
-	Float4 eyeWorldPos;
-	DirectionLight directionLight;
-};
-
-class DemoApp : public BaseApp{
+class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();
 
-	bool loadContent();
-	void unloadContent();
+	virtual void PreAddOtherConstBuffer(DXVisual &visual);
+	virtual bool LoadContent();
+	virtual void UnloadContent();
 
-	void update();
-	void render();
-protected:
-	ID3D11Buffer* _phongBuff = nullptr;
+	virtual void Update();
+	virtual void Render();
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
@@ -41,9 +23,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new DemoApp();
 	info.icon = nullptr;
-	info.title = L"Normal map";
-	info.width = 800;
-	info.height = 600;
+	info.title = L"Normal Map";
+	info.width = 1200;
+	info.height = 960;
 
 	return MainBody(hInstance, hPrevInstance, lpCmdLine, nCmdShow, info);
 }

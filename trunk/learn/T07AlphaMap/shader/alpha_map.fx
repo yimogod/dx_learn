@@ -38,7 +38,7 @@ float4 PS(PS_INPUT input):SV_Target{
 	float alpha = txDiffuse[2].Sample(samLinear, input.tex).r;
 
 	float4 blendColor = (alpha * col1) + (1.0f - alpha) * col2;
-	blendColor = saturate(blendColor);
+	blendColor = saturate(blendColor);//Ωÿ»°(0,1)
 
 	return blendColor;
 }
