@@ -53,9 +53,9 @@ public:
 	void setFrustum(float viewDis, float pfov, float nz, float fz);
     void setAspect(int pviewportWidth, int pviewportHeight);
 
-	Matrix4x4 getWorldToCameraMatrix();
-	Matrix4x4 getCameraToProjMatrix();
-	Matrix4x4 getWorldToProjMatrix();
+	Matrix4x4 GetWorldToCameraMatrix();
+	Matrix4x4 GetCameraToProjMatrix();
+	Matrix4x4 GetWorldToProjMatrix();
 
 	/*镜头在right方向横移, d为增量*/
 	void strafe(float d);

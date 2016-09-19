@@ -62,8 +62,8 @@ void Window::Update(){
 
 void Window::UpdateConstBuff(){
 	MVPConstBuffer cb;
-	cb.view = _camera.getWorldToCameraMatrix().transpose();
-	cb.perspective = _camera.getCameraToProjMatrix().transpose();
+	cb.view = _camera.GetWorldToCameraMatrix().transpose();
+	cb.perspective = _camera.GetCameraToProjMatrix().transpose();
 	for(int i = 0; i < _scene.meshNum; i++){
 		Mesh* mesh = _scene.GetMesh(i);
 		cb.model = mesh->localToWorldMatrix().transpose();

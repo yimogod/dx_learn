@@ -34,7 +34,7 @@ void Camera::setAspect(int pviewportWidth, int pviewportHeight){
 	aspect = (float)pviewportWidth / (float)pviewportHeight;
 }
 
-Matrix4x4 Camera::getWorldToCameraMatrix(){
+Matrix4x4 Camera::GetWorldToCameraMatrix(){
 	Matrix4x4 move(1.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 1.0f, 0.0f,
@@ -46,25 +46,26 @@ Matrix4x4 Camera::getWorldToCameraMatrix(){
 	return m;
 }
 
-Matrix4x4 Camera::getCameraToProjMatrix(){
-	Matrix4x4 mat = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+Matrix4x4 Camera::GetCameraToProjMatrix(){
+	Matrix4x4 mat = Matrix4x4(
+		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, aspect, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 1.0f,
-		0.0f, 0.0f, 0.0f, 0.0f);
+		0.0f, 0.0f,-1.0f, 0.0f);
 
 	return mat;
 }
 
-Matrix4x4 Camera::getWorldToProjMatrix(){
-	Matrix4x4 a = getWorldToCameraMatrix();
-	Matrix4x4 b = getCameraToProjMatrix();
+Matrix4x4 Camera::GetWorldToProjMatrix(){
+	Matrix4x4 a = GetWorldToCameraMatrix();
+	Matrix4x4 b = GetCameraToProjMatrix();
 	return a.mul(b);
 
 }
 
 void Camera::strafe(float d){
 	Matrix1x4 worldPos = Matrix1x4(position.x, position.y, position.z, 1.0f);
-	Matrix4x4 wvMat = getWorldToCameraMatrix();
+	Matrix4x4 wvMat = GetWorldToCameraMatrix();
 	Matrix1x4 viewPos = worldPos.mul(wvMat);
 	viewPos.m00 += d;
 
@@ -78,7 +79,7 @@ void Camera::strafe(float d){
 
 void Camera::walk(float d){
 	Matrix1x4 worldPos = Matrix1x4(position.x, position.y, position.z, 1.0f);
-	Matrix4x4 wvMat = getWorldToCameraMatrix();
+	Matrix4x4 wvMat = GetWorldToCameraMatrix();
 	Matrix1x4 viewPos = worldPos.mul(wvMat);
 	viewPos.m02 += d;
 
