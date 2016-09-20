@@ -32,6 +32,9 @@ public:
 	inline void UpdatePSSubResource(DXVisual &visual, int buffIndex, const void* data);
 	inline void Present();
 	void ClearBuffers(const FLOAT ColorRGBA[4] = DirectX::Colors::MidnightBlue);
+
+	void EnableAlphaBlend();
+	void DisableAlphaBlend();
 private:
 	HINSTANCE _ins;
 	HWND _hwnd;
@@ -77,8 +80,6 @@ private:
 
 	/*默认创建开启和关闭的blendstate*/
 	void CreateAlphaBlendState();
-	void EnableAlphaBlend();
-	void DisableAlphaBlend();
 
 	bool CreateDepthState();
 	bool CreateRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs);

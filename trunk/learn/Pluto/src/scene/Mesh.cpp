@@ -19,6 +19,12 @@ void Mesh::Move(float x, float y, float z){
 	position.z += z;
 }
 
+void Mesh::SetColor(Color& color){
+	for(int i = 0; i < vertexNum; i++){
+		vertexColorList[i] = color;
+	}
+}
+
 void Mesh::GetVertexList(Vertex list[]){
 	for(int i = 0; i < vertexNum; i++){
 		Vector3D vec = vertexList[i];
@@ -26,7 +32,7 @@ void Mesh::GetVertexList(Vertex list[]){
 		Vector3D normal = normalList[i];
 
 		list[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
-		list[i].color = Float4A{ color.r, color.g, color.b, 1.0f };
+		list[i].color = Float4A{ color.r, color.g, color.b, color.a };
 		list[i].uv = Float2A{ uvList[i].x, uvList[i].y };
 		list[i].normal = Float4{ normal.x, normal.y, normal.z, 1.0f };
 	}

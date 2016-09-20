@@ -58,8 +58,10 @@ public:
 	void rotateX(float x);
 	void rotateY(float y);
 
-	Matrix4x4 localToWorldMatrix();
+	//¶¥µãÑÕÉ«
+	void SetColor(Color& color);
 
+	Matrix4x4 localToWorldMatrix();
 	inline bool UseIndex() const;
 };
 

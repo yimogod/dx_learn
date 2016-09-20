@@ -66,6 +66,7 @@ void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 
 	CreateDepthState();
 	CreateRasterizerState(D3D11_FILL_MODE::D3D11_FILL_SOLID, _solidRS);
+	CreateAlphaBlendState();
 
 	_ready = true;
 }
