@@ -31,15 +31,14 @@ PS_INPUT VS(VS_INPUT input){
 
 	output.color = input.color;
 	output.tex = input.tex;
+	output.tex.x += scroll;
 
 	return output;
 }
 
 
 float4 PS(PS_INPUT input):SV_Target{
-	input.tex.x += scroll;
 	float4 col = txDiffuse.Sample(samLinear, input.tex);
-
 	return col;
 }
 

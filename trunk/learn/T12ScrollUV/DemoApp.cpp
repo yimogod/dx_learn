@@ -20,7 +20,7 @@ bool DemoApp::LoadContent(){
 }
 
 void DemoApp::PreAddOtherConstBuffer(DXVisual &visual){
-	visual.PreSetPSConstBufferSize(sizeof(ScrollBuffer));
+	visual.PreSetVSConstBufferSize(sizeof(ScrollBuffer));
 }
 
 void DemoApp::UnloadContent(){}
@@ -29,7 +29,7 @@ void DemoApp::Update(){
 	Window::Update();
 
 	_scroll.scroll += 0.0001f;
-	_dxEngine.UpdatePSSubResource(GetVisual(), 0, &_scroll);
+	_dxEngine.UpdateVSSubResource(GetVisual(), 1, &_scroll);
 }
 
 void DemoApp::Render(){
