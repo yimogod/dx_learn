@@ -9,6 +9,8 @@ public:
 	bool CreateRenderTargetView(ID3D11Device* deivce, int width, int height);
 	void ClearRTT(ID3D11DeviceContext* context, ID3D11DepthStencilView* depthStencilView);
 	inline void UseRTT(ID3D11DeviceContext* context, ID3D11DepthStencilView* depthStencilView);
+	inline ID3D11ShaderResourceView* GetRTTResView();
+
 private:
 	//ÓÃÓÚRTTµÄrender target
 	ID3D11Texture2D* _renderTargetBuffer;
@@ -18,4 +20,8 @@ private:
 
 inline void DXRenderTexture::UseRTT(ID3D11DeviceContext* context, ID3D11DepthStencilView* depthStencilView){
 	context->OMSetRenderTargets(1, &_renderTargetView, depthStencilView);
+}
+
+inline ID3D11ShaderResourceView* DXRenderTexture::GetRTTResView(){
+	return _renderTargetResView;
 }

@@ -61,7 +61,7 @@ void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	CreateDevice(hwnd, screenWidth, screenHeight);
 	CreateDepthStencilView();
 	CreateRenderTargetlView();
-	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
+	SetDefaultRenderTargetView();
 	CreateViewPort();
 
 	CreateDepthState();

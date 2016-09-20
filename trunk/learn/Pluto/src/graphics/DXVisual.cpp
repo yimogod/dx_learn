@@ -46,7 +46,7 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum, int* in
 	return result;
 }
 
-void DXVisual::Draw(ID3D11DeviceContext* context){
+void DXVisual::Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resView){
 	_vertexBuffer.BindVertexBuff(context, _layout);
 	_indexBuffer.BindIndexBuff(context);
 
@@ -59,7 +59,11 @@ void DXVisual::Draw(ID3D11DeviceContext* context){
 		_psConstBuffer[i].BindConstBuff(context, 1);
 	}
 
-	_resView.BindShaderResource(context, 0);
+	if(resView == nullptr){
+		_resView.BindShaderResource(context, 0);
+	}else{
+		context->PSSetShaderResources(0, 1, &resView);
+	}
 	_samplerState.BindSamplerState(context, 0, 1);
 
 	if(_indexBuffer.useIndex){

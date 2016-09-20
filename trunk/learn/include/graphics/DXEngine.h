@@ -16,7 +16,9 @@ public:
 	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	void InitVisual(DXVisual &visual, void* vertices, int vertexNum, int* indices, int indexNum);
+	inline void SetDefaultRenderTargetView();
 	inline void DrawVisual(DXVisual &visual);
+	inline void DrawVisual2RTT(DXVisual &visual);
 
 	//创建rtt相关
 	inline void CreateRTT();
@@ -91,6 +93,10 @@ inline bool DXEngine::GetReady(){
 	return _ready;
 }
 
+inline void DXEngine::SetDefaultRenderTargetView(){
+	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
+}
+
 inline void DXEngine::UpdateVSSubResource(DXVisual &visual, int buffIndex, const void* data){
 	visual.UpdateVSConstBuffer(_context, buffIndex, data);
 }
@@ -114,4 +120,8 @@ inline void DXEngine::Present(){
 
 inline void DXEngine::DrawVisual(DXVisual &visual){
 	visual.Draw(_context);
+}
+
+inline void DXEngine::DrawVisual2RTT(DXVisual &visual){
+	visual.Draw(_context, _renderTexture.GetRTTResView());
 }

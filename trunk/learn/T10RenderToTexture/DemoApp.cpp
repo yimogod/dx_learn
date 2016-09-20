@@ -26,7 +26,10 @@ void DemoApp::Render(){
 	_dxEngine.UseRTT();
 	_dxEngine.DrawVisual(GetVisual());
 	
+	_dxEngine.SetDefaultRenderTargetView();
 	_dxEngine.ClearBuffers();
-	_dxEngine.DrawVisual(GetVisual());
+	_dxEngine.DrawVisual2RTT(GetVisual());
+	//draw render texture to visual
+	//_dxEngine.DrawVisual(GetVisual());
 	_dxEngine.Present();
 }
