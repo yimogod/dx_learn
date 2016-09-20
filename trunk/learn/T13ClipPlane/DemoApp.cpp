@@ -3,6 +3,11 @@
 
 DemoApp::DemoApp(){
 	_scroll.scroll = 0;
+	//xz平面下面全部剪切!
+	_clipBuffer.x = 0.0f;
+	_clipBuffer.y = 1.0f;
+	_clipBuffer.z = 0.0f;
+	_clipBuffer.w = 0.0f;
 }
 
 DemoApp::~DemoApp(){}
@@ -21,6 +26,7 @@ bool DemoApp::LoadContent(){
 
 void DemoApp::PreAddOtherConstBuffer(DXVisual &visual){
 	visual.PreSetVSConstBufferSize(sizeof(ScrollBuffer));
+	visual.PreSetVSConstBufferSize(sizeof(Float4));
 }
 
 void DemoApp::UnloadContent(){}
@@ -30,6 +36,7 @@ void DemoApp::Update(){
 
 	_scroll.scroll += 0.0001f;
 	_dxEngine.UpdateVSSubResource(GetVisual(), 1, &_scroll);
+	_dxEngine.UpdateVSSubResource(GetVisual(), 2, &_clipBuffer);
 }
 
 void DemoApp::Render(){

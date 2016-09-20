@@ -22,6 +22,7 @@ public:
 
 private:
 	ScrollBuffer _scroll;
+	Float4 _clipBuffer;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
