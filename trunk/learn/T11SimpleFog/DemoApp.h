@@ -1,14 +1,7 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
-
-#include <dinput.h>
-#include <DirectXMath.h>
-#include <graphics/Scene.h>
-#include <math/algebra/Matrix4x4.h>
-#include <BaseApp.h>
-
-using namespace DirectX;
+#include <sys/Window.h>
 
 struct FogBuffer{
 	float fogMinDis;
@@ -16,16 +9,17 @@ struct FogBuffer{
 	float padding1, padding2;//´Õ³É4µÄ±¶Êý
 };
 
-class DemoApp : public BaseApp{
+class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();
 
-	bool loadContent();
-	void unloadContent();
+	virtual bool LoadContent();
+	virtual void PreAddOtherConstBuffer(DXVisual &visual);
+	virtual void UnloadContent();
 
-	void update();
-	void render();
+	virtual void Update();
+	virtual void Render();
 
 protected:
 	ID3D11Buffer* _fogBuff = nullptr;
@@ -38,7 +32,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new DemoApp();
 	info.icon = nullptr;
-	info.title = L"TextureCube";
+	info.title = L"Simple Cube";
 	info.width = 1200;
 	info.height = 960;
 
