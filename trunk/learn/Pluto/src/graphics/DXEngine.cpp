@@ -201,8 +201,8 @@ bool DXEngine::CreateRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerS
 void DXEngine::CreateAlphaBlendState(){
 	D3D11_BLEND_DESC bsr;
 	ZeroMemory(&bsr, sizeof(D3D11_BLEND_DESC));
-	//bsr.AlphaToCoverageEnable = false;
-	//bsr.IndependentBlendEnable = false;
+	bsr.AlphaToCoverageEnable = FALSE;
+	bsr.IndependentBlendEnable = FALSE;
 
 	// 创建一个alpha blend状态.
 	bsr.RenderTarget[0].BlendEnable = TRUE;
@@ -216,7 +216,8 @@ void DXEngine::CreateAlphaBlendState(){
 
 	bsr.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;//0x0f;
 
-	_device->CreateBlendState(&bsr, &_blendEnableState);
+	HRESULT hr = _device->CreateBlendState(&bsr, &_blendEnableState);
+	if(FAILED(hr))return;
 
 	bsr.RenderTarget[0].BlendEnable = FALSE;
 	_device->CreateBlendState(&bsr, &_blendDisableState);
