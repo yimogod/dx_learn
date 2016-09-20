@@ -6,6 +6,7 @@
 #include <graphics/DXVisual.h>
 #include <graphics/VertexShader.h>
 #include <graphics/PixelShader.h>
+#include <graphics/DXRenderTexture.h>
 
 class DXEngine{
 public:
@@ -15,7 +16,11 @@ public:
 	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	void InitVisual(DXVisual &visual, void* vertices, int vertexNum, int* indices, int indexNum);
-	void DrawVisual(DXVisual &visual);
+	inline void DrawVisual(DXVisual &visual);
+
+	//创建rtt相关
+	inline void CreateRTT();
+	inline void UseRTT();
 
 public:
 	inline bool GetReady();
@@ -23,8 +28,8 @@ public:
 
 	inline void UpdateVSSubResource(DXVisual &visual, int buffIndex, const void* data);
 	inline void UpdatePSSubResource(DXVisual &visual, int buffIndex, const void* data);
+	inline void Present();
 	void ClearBuffers(const FLOAT ColorRGBA[4] = DirectX::Colors::MidnightBlue);
-	void Present();
 private:
 	HINSTANCE _ins;
 	HWND _hwnd;
@@ -42,7 +47,6 @@ private:
 	/*默认缓存视图*/
 	ID3D11Texture2D* _renderTargetBuffer;
 	ID3D11RenderTargetView* _renderTargetView;
-	ID3D11ShaderResourceView* _renderTargetResView;
 
 	/*默认模板视图*/
 	ID3D11Texture2D* _depthStencilBuffer;
@@ -56,6 +60,9 @@ private:
 	ID3D11BlendState* _blendState;
 	ID3D11BlendState* _blendEnableState;
 	ID3D11BlendState* _blendDisableState;
+
+	//RTT
+	DXRenderTexture _renderTexture;
 private:
 	/*创建深度缓存*/
 	bool CreateDepthStencilView();
@@ -70,9 +77,6 @@ private:
 	void CreateAlphaBlendState();
 	void EnableAlphaBlend();
 	void DisableAlphaBlend();
-
-	/*创建shader使用的texture2d*/
-	bool CreateRenderTargetViewByShaderRes();
 
 	bool CreateDepthState();
 	bool CreateRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs);
@@ -93,4 +97,21 @@ inline void DXEngine::UpdateVSSubResource(DXVisual &visual, int buffIndex, const
 
 inline void DXEngine::UpdatePSSubResource(DXVisual &visual, int buffIndex, const void* data){
 	visual.UpdatePSConstBuffer(_context, buffIndex, data);
+}
+
+inline void DXEngine::CreateRTT(){
+	_renderTexture.CreateRenderTargetView(_device, _width, _height);
+}
+
+inline void DXEngine::UseRTT(){
+	_renderTexture.UseRTT(_context, _depthStencilView);
+	_renderTexture.ClearRTT(_context, _depthStencilView);
+}
+
+inline void DXEngine::Present(){
+	_chain->Present(0, 0);
+}
+
+inline void DXEngine::DrawVisual(DXVisual &visual){
+	visual.Draw(_context);
 }

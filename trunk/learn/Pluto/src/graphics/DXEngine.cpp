@@ -70,10 +70,6 @@ void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	_ready = true;
 }
 
-void DXEngine::DrawVisual(DXVisual &visual){
-	visual.Draw(_context);
-}
-
 bool DXEngine::CreateDepthStencilView(){
 	//声明深度模板<数据>描述
 	D3D11_TEXTURE2D_DESC td;
@@ -120,51 +116,6 @@ bool DXEngine::CreateRenderTargetlView(){
 
 	return true;
 }
-
-bool DXEngine::CreateRenderTargetViewByShaderRes(){
-	HRESULT hr;
-
-	D3D11_TEXTURE2D_DESC textureDesc;
-	ZeroMemory(&textureDesc, sizeof(textureDesc));
-
-	textureDesc.Width = _width;
-	textureDesc.Height = _height;
-	textureDesc.MipLevels = 1;
-	textureDesc.ArraySize = 1;
-	textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	textureDesc.SampleDesc.Count = 1;
-	textureDesc.Usage = D3D11_USAGE_DEFAULT;
-	textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-	textureDesc.CPUAccessFlags = 0;
-	textureDesc.MiscFlags = 0;
-
-	/*创建后缓存视图用到的texture2d buff*/
-	hr = _device->CreateTexture2D(&textureDesc, NULL, &_renderTargetBuffer);
-	if(FAILED(hr))return false;
-
-	/*创建render target view*/
-	D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
-	renderTargetViewDesc.Format = textureDesc.Format;
-	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-	renderTargetViewDesc.Texture2D.MipSlice = 0;
-
-	// Create the render target view.
-	hr = _device->CreateRenderTargetView(_renderTargetBuffer, &renderTargetViewDesc, &_renderTargetView);
-	if(FAILED(hr))return false;
-
-	/*创建于shader关联的贴图资源, 跟render target 的缓存关联*/
-	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResViewDesc;
-	shaderResViewDesc.Format = textureDesc.Format;
-	shaderResViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	shaderResViewDesc.Texture2D.MostDetailedMip = 0;
-	shaderResViewDesc.Texture2D.MipLevels = 1;
-
-	hr = _device->CreateShaderResourceView(_renderTargetBuffer, &shaderResViewDesc, &_renderTargetResView);
-	if(FAILED(hr))return false;
-
-	return true;
-}
-
 
 void DXEngine::CreateViewPort(){
 	/*设置viewport*/
@@ -283,8 +234,4 @@ void DXEngine::DisableAlphaBlend(){
 void DXEngine::ClearBuffers(const FLOAT ColorRGBA[4]){
 	_context->ClearRenderTargetView(_renderTargetView, ColorRGBA);
 	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-}
-
-void DXEngine::Present(){
-	_chain->Present(0, 0);
 }

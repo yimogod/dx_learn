@@ -358,6 +358,7 @@
   <ItemGroup>
     <ClCompile Include="src\graphics\ConstBuffer.cpp" />
     <ClCompile Include="src\graphics\DXEngine.cpp" />
+    <ClCompile Include="src\graphics\DXRenderTexture.cpp" />
     <ClCompile Include="src\graphics\DXVisual.cpp" />
     <ClCompile Include="src\graphics\GeoCreater.cpp" />
     <ClCompile Include="src\graphics\IndexBuffer.cpp" />
@@ -396,6 +397,7 @@
     <ClInclude Include="..\include\BaseDataStruct.h" />
     <ClInclude Include="..\include\graphics\ConstBuffer.h" />
     <ClInclude Include="..\include\graphics\DXEngine.h" />
+    <ClInclude Include="..\include\graphics\DXRenderTexture.h" />
     <ClInclude Include="..\include\graphics\DXVisual.h" />
     <ClInclude Include="..\include\graphics\GeoCreater.h" />
     <ClInclude Include="..\include\graphics\IndexBuffer.h" />
