@@ -1,31 +1,26 @@
 #pragma once
 #include <windows.h>
 #include <Main.h>
-
-#include <DirectXMath.h>
-#include <dinput.h>
-#include <BaseApp.h>
-
-using namespace DirectX;
+#include <sys/Window.h>
 
 struct ScrollBuffer{
 	float scroll;
 	float pad0, pad1, pad2;
 };
 
-class DemoApp : public BaseApp{
+class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();
 
-	bool loadContent();
-	void unloadContent();
+	virtual bool LoadContent();
+	virtual void PreAddOtherConstBuffer(DXVisual &visual);
+	virtual void UnloadContent();
 
-	void update();
-	void render();
+	virtual void Update();
+	virtual void Render();
 
 private:
-	ID3D11Buffer* _scrollBuff = nullptr;
 	ScrollBuffer _scroll;
 };
 
@@ -36,7 +31,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new DemoApp();
 	info.icon = nullptr;
-	info.title = L"TextureCube";
+	info.title = L"Scroll UV";
 	info.width = 1200;
 	info.height = 960;
 

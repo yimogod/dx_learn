@@ -20,9 +20,6 @@ public:
 
 	virtual void Update();
 	virtual void Render();
-
-protected:
-	ID3D11Buffer* _fogBuff = nullptr;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,

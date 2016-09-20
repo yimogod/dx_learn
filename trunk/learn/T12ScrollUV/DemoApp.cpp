@@ -1,11 +1,5 @@
-#include <DirectXMath.h>
-#include <DirectXColors.h>
-#include <dinput.h>
-#include <graphics/GeoCreater.h>
-
+#include <util/ObjParser.h>
 #include "DemoApp.h"
-
-using namespace DirectX;
 
 DemoApp::DemoApp(){
 	_scroll.scroll = 0;
@@ -13,89 +7,35 @@ DemoApp::DemoApp(){
 
 DemoApp::~DemoApp(){}
 
-bool DemoApp::loadContent(){
-	initDevice();
+bool DemoApp::LoadContent(){
+	ObjParser reader;
+	reader.Read(GetFullPath("assets/cube.obj").c_str(), &_scene);
+	_scene.renderType = Scene::RENDER_TYPE_FRAME;
+	_scene.camera = &_camera;
 
-	Mesh *m = new Mesh();
-	m->setWorldPos(0, 0, 0.0f);
-	GeoCreater::createSprite(m);
-	_scene.meshList[0] = m;
-	_scene.meshNum = 1;
-
-	_scene.camera = new Camera();
-	_scene.camera->setPos(0, 0, -2.0f);
-	_scene.camera->setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
-	_scene.camera->setAspect(_width, _height);
-	
 	/*准备顶点缓冲数据*/
-	Mesh* mesh = _scene.getMesh(0);
-	Vertex *vertices = 0;
-	vertices = new Vertex[mesh->indexNum];
-	mesh->getVertexList(vertices);
-
-	/*准备shader数据*/
-	CreateShaderInfo vs;
-	vs.fileName = L"shader/scroll_uv.fx";
-	vs.entryPoint = "VS";
-	vs.shaderModel = "vs_4_0";
-	CreateShaderInfo ps;
-	ps.fileName = L"shader/scroll_uv.fx";
-	ps.entryPoint = "PS";
-	ps.shaderModel = "ps_4_0";
-
-	/*创建 layout*/
-	D3D11_INPUT_ELEMENT_DESC layout[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-	int numElements = ARRAYSIZE(layout);
-	createShader(vs, ps, layout, numElements);
-	createVertexBuffer(vertices, mesh->indexNum, 40 * 4);
-	createConstBuffer(&_constBuff, sizeof(ConstantBuffer));
-	createConstBuffer(&_scrollBuff, sizeof(ScrollBuffer));
-
-	createTexture(getFullPathW("assets/t_01.dds").c_str());
-
-	delete(vertices);
+	_currMesh = _scene.GetMesh(0);
+	InitVisual(_currMesh, L"shader/scroll_uv.fx", "assets/t_01.dds");
 	return true;
 }
 
-void DemoApp::unloadContent(){
-	BaseApp::unloadContent();
+void DemoApp::PreAddOtherConstBuffer(DXVisual &visual){
+	visual.PreSetPSConstBufferSize(sizeof(ScrollBuffer));
 }
 
-void DemoApp::update(){
-	UpdatePosByRMouse(_scene.camera, 0.001f);
-	UpdatePosByLMouse(_scene.currMesh(), 0.001f);
+void DemoApp::UnloadContent(){}
 
-	ConstantBuffer cb;
-	cb.model = _scene.currMesh()->localToWorldMatrix().transpose();
-	cb.view = _scene.camera->getWorldToCameraMatrix().transpose();
-	cb.perspective = _scene.camera->getCameraToProjMatrix().transpose();
-	_context->UpdateSubresource(_constBuff, 0, nullptr, &cb, 0, 0);
+void DemoApp::Update(){
+	Window::Update();
 
 	_scroll.scroll += 0.0001f;
-	_context->UpdateSubresource(_scrollBuff, 0, nullptr, &_scroll, 0, 0);
+	_dxEngine.UpdatePSSubResource(GetVisual(), 0, &_scroll);
 }
 
-void DemoApp::render(){
-	if(_context == NULL)return;
-	_context->ClearRenderTargetView(_renderTargetView, Colors::MidnightBlue);
-	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+void DemoApp::Render(){
+	if(!_dxEngine.GetReady())return;
 
-	bindVertexBuff();
-
-	_context->VSSetShader(_vs, nullptr, 0);
-	_context->VSSetConstantBuffers(0, 1, &_constBuff);
-	_context->PSSetShader(_ps, nullptr, 0);
-	_context->PSSetConstantBuffers(1, 1, &_scrollBuff);
-	_context->PSSetShaderResources(0, _resViewNum, _resView);
-
-	_context->PSSetSamplers(0, 1, &_sampleState);
-
-	Mesh *m = _scene.getMesh(0);
-	_context->Draw(m->indexNum, 0);
-
-	_chain->Present(0, 0);
+	_dxEngine.ClearBuffers();
+	_dxEngine.DrawVisual(GetVisual());
+	_dxEngine.Present();
 }
