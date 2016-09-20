@@ -10,16 +10,14 @@ bool DemoApp::LoadContent(){
 	_currMesh->SetWorldPos(0, 0, 0.0f);
 	GeoCreater::CreateSprite(*_currMesh);
 	_scene.AddMesh(_currMesh);
-	InitVisual(_scene.meshList[0], L"shader/blending.fx", "assets/t_01.dds");
+	InitVisual(_currMesh, L"shader/blending.fx", "assets/t_01.dds");
 
 	//这个更远些
 	_currMesh = new Mesh();
 	_currMesh->SetWorldPos(1.5f, 0, 2.0f);
 	GeoCreater::CreateSprite(*_currMesh);
 	_scene.AddMesh(_currMesh);
-
-	/*准备顶点缓冲数据*/
-	InitVisual(_scene.meshList[1], L"shader/blending.fx", "assets/t_02.dds");
+	InitVisual(_currMesh, L"shader/blending.fx", "assets/t_02.dds");
 	return true;
 }
 
