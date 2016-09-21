@@ -4,4 +4,5 @@
 class GeoCreater{
 	public:
 		static void CreateSprite(Mesh &mesh);
+		static void CreateFloor(Mesh &mesh);
 };

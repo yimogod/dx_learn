@@ -11,6 +11,10 @@ cbuffer ScrollBuffer : register(b1){
 	float scroll;
 }
 
+cbuffer FadeBuffer : register(b2){
+	float fade;
+}
+
 struct VS_INPUT{
 	float4 pos : POSITION;
 	float4 color : COLOR;
@@ -30,6 +34,7 @@ PS_INPUT VS(VS_INPUT input){
 	output.pos = mul(output.pos, perspective);
 
 	output.color = input.color;
+	output.color.a -= fade;
 	output.tex = input.tex;
 	output.tex.x += scroll;
 
@@ -39,6 +44,7 @@ PS_INPUT VS(VS_INPUT input){
 
 float4 PS(PS_INPUT input):SV_Target{
 	float4 col = txDiffuse.Sample(samLinear, input.tex);
+	col.a = input.color.a;
 	return col;
 }
 

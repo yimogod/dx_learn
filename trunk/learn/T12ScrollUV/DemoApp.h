@@ -22,6 +22,8 @@ public:
 
 private:
 	ScrollBuffer _scroll;
+	ScrollBuffer _fade;
+	float _tag = 0.1f;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
