@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="DemoApp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DemoApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="shader">
+      <UniqueIdentifier>{dfc1a562-e6ea-49de-a44f-e6429ec6be3a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader\fire.fx">
+      <Filter>shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
