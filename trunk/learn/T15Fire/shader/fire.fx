@@ -1,19 +1,28 @@
-Texture2D txDiffuse : register(t0);
+Texture2D fireTexture : register(t0);
+Texture2D noiseTexture : register(t1);
+Texture2D alphaTexture : register(t2);
 SamplerState samLinear : register(s0);
 
 cbuffer ConstantBuffer : register(b0){
 	matrix model;
 	matrix view;
 	matrix perspective;
-}
+};
 
-cbuffer ScrollBuffer : register(b1){
-	float scroll;
-}
+cbuffer NoiseBuffer : register(b1){
+	float frameTime;
+	float3 scrollSpeeds;
+	float3 scales;
+	float padding;
+};
 
-cbuffer FadeBuffer : register(b2){
-	float fade;
-}
+cbuffer DistortionBuffer : register(b2){
+	float2 distortion1;
+	float2 distortion2;
+	float2 distortion3;
+	float distortionScale;
+	float distortionBias;
+};
 
 struct VS_INPUT{
 	float4 pos : POSITION;
@@ -25,6 +34,9 @@ struct PS_INPUT{
 	float4 pos : SV_POSITION;
 	float4 color : COLOR;
 	float2 tex : TEXCOORD0;
+	float2 texCoords1 : TEXCOORD1;
+	float2 texCoords2 : TEXCOORD2;
+	float2 texCoords3 : TEXCOORD3;
 };
 
 PS_INPUT VS(VS_INPUT input){
@@ -34,17 +46,53 @@ PS_INPUT VS(VS_INPUT input){
 	output.pos = mul(output.pos, perspective);
 
 	output.color = input.color;
-	output.color.a -= fade;
 	output.tex = input.tex;
-	output.tex.x += scroll;
+
+	//3张noise图片的滚动
+	output.texCoords1 = (input.tex * scales.x);
+	output.texCoords1.y = output.texCoords1.y + (frameTime * scrollSpeeds.x);
+
+	output.texCoords2 = (input.tex * scales.y);
+	output.texCoords2.y = output.texCoords2.y + (frameTime * scrollSpeeds.y);
+
+	output.texCoords3 = (input.tex * scales.z);
+	output.texCoords3.y = output.texCoords3.y + (frameTime * scrollSpeeds.z);
 
 	return output;
 }
 
 
 float4 PS(PS_INPUT input):SV_Target{
-	float4 col = txDiffuse.Sample(samLinear, input.tex);
-	col.a = input.color.a;
+	float4 noise1 = noiseTexture.Sample(samLinear, input.texCoords1);
+	float4 noise2 = noiseTexture.Sample(samLinear, input.texCoords2);
+	float4 noise3 = noiseTexture.Sample(samLinear, input.texCoords3);
+
+	// Move the noise from the (0, 1) range to the (-1, +1) range.
+	noise1 = (noise1 - 0.5f) * 2.0f;
+	noise2 = (noise2 - 0.5f) * 2.0f;
+	noise3 = (noise3 - 0.5f) * 2.0f;
+
+	//扭曲三张噪声
+	noise1.xy = noise1.xy * distortion1.xy;
+	noise2.xy = noise2.xy * distortion2.xy;
+	noise3.xy = noise3.xy * distortion3.xy;
+
+	float4 finalNoise = noise1 + noise2 + noise3;
+
+	//perturb用来增强火焰闪烁
+	float perturb = ((1.0f - input.tex.y) * distortionScale) + distortionBias;
+
+	//最终的采样坐标
+	float2 noiseCoords = (finalNoise.xy * perturb) + input.tex.xy;
+
+	float4 col = fireTexture.Sample(samLinear, noiseCoords);
+	//float4 col = fireTexture.Sample(samLinear, input.texCoords1);
+	//col = (col - 0.5f) * 2.0f;
+	//col.xy = col.xy * distortion1;
+
+
+	float4 alphaColor = alphaTexture.Sample(samLinear, input.texCoords1);
+	col.a = alphaColor.r;
 	return col;
 }
 

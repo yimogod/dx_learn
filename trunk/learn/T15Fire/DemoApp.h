@@ -3,9 +3,23 @@
 #include <Main.h>
 #include <sys/Window.h>
 
-struct ScrollBuffer{
-	float scroll;
-	float pad0, pad1, pad2;
+//scroll = 3张图片的scroll速度. 我们有3张noise图片, 其中第2,3张是根据第一张坐平铺生成的
+//scale = 3张图片的scroll速度. 我们有3张noise图片
+struct NoiseBuffer{
+	float frame;
+	Float3 scroll; 
+	Float3 scale;
+	float pad0;
+};
+
+//扭曲
+//三张noise图片的扭曲
+struct DistortionBuffer{
+	Float2 distortion1;
+	Float2 distortion2;
+	Float2 distortion3;
+	float distortionScale;
+	float distortionBias;
 };
 
 class DemoApp : public Window{
@@ -21,9 +35,8 @@ public:
 	virtual void Render();
 
 private:
-	ScrollBuffer _scroll;
-	ScrollBuffer _fade;
-	float _tag = 0.1f;
+	NoiseBuffer _noise;
+	DistortionBuffer _distortion;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
