@@ -6,13 +6,18 @@ public:
 	SamplerState();
 	~SamplerState();
 
-	bool CreateSamplerState(ID3D11Device* device);
-	inline void BindSamplerState(ID3D11DeviceContext* context, UINT StartSlot, UINT NumSamplers);
+	inline int GetStateNum() const;
 
+	bool CreateSamplerState(ID3D11Device* device);
+	void BindSamplerState(ID3D11DeviceContext* context);
+	void AddAdress(D3D11_TEXTURE_ADDRESS_MODE adress);
 private:
-	ID3D11SamplerState* _samplerState;
+	//一个visual会用到多个sampler
+	int _stateNum;
+	D3D11_TEXTURE_ADDRESS_MODE _adress[8];
+	ID3D11SamplerState* _samplerState[8];
 };
 
-inline void SamplerState::BindSamplerState(ID3D11DeviceContext* context, UINT StartSlot, UINT NumSamplers){
-	context->PSSetSamplers(StartSlot, NumSamplers, &_samplerState);
+inline int SamplerState::GetStateNum() const{
+	return _stateNum;
 }

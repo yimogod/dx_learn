@@ -24,6 +24,7 @@ public:
 
 	//读取图片, 设置resourceview
 	inline void PreAddTexture(const std::wstring &path);
+	inline void PreAddSampleState(const D3D11_TEXTURE_ADDRESS_MODE adress);
 
 	//设置创建buffer需要的各种数据
 	void PreSetVSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
@@ -52,7 +53,6 @@ private:
 	PixelShader _ps;
 
 	SamplerState _samplerState;
-
 	ShaderResourceView _resView;
 };
 
@@ -77,5 +77,9 @@ inline void DXVisual::UpdatePSConstBuffer(ID3D11DeviceContext* context, int inde
 }
 
 inline void DXVisual::PreAddTexture(const std::wstring &path){
-	return _resView.AddTexturePath(path);
+	_resView.AddTexturePath(path);
+}
+
+inline void DXVisual::PreAddSampleState(const D3D11_TEXTURE_ADDRESS_MODE adress){
+	_samplerState.AddAdress(adress);
 }

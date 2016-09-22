@@ -1,7 +1,8 @@
 Texture2D fireTexture : register(t0);
 Texture2D noiseTexture : register(t1);
 Texture2D alphaTexture : register(t2);
-SamplerState samLinear : register(s0);
+SamplerState samWrap : register(s0);
+SamplerState samClamp : register(s1);
 
 cbuffer ConstantBuffer : register(b0){
 	matrix model;
@@ -63,9 +64,9 @@ PS_INPUT VS(VS_INPUT input){
 
 
 float4 PS(PS_INPUT input):SV_Target{
-	float4 noise1 = noiseTexture.Sample(samLinear, input.texCoords1);
-	float4 noise2 = noiseTexture.Sample(samLinear, input.texCoords2);
-	float4 noise3 = noiseTexture.Sample(samLinear, input.texCoords3);
+	float4 noise1 = noiseTexture.Sample(samWrap, input.texCoords1);
+	float4 noise2 = noiseTexture.Sample(samWrap, input.texCoords2);
+	float4 noise3 = noiseTexture.Sample(samWrap, input.texCoords3);
 
 	// Move the noise from the (0, 1) range to the (-1, +1) range.
 	noise1 = (noise1 - 0.5f) * 2.0f;
@@ -85,13 +86,8 @@ float4 PS(PS_INPUT input):SV_Target{
 	//最终的采样坐标
 	float2 noiseCoords = (finalNoise.xy * perturb) + input.tex.xy;
 
-	float4 col = fireTexture.Sample(samLinear, noiseCoords);
-	//float4 col = fireTexture.Sample(samLinear, input.texCoords1);
-	//col = (col - 0.5f) * 2.0f;
-	//col.xy = col.xy * distortion1;
-
-
-	float4 alphaColor = alphaTexture.Sample(samLinear, input.texCoords1);
+	float4 col = fireTexture.Sample(samClamp, noiseCoords);
+	float4 alphaColor = alphaTexture.Sample(samClamp, input.texCoords1);
 	col.a = alphaColor.r;
 	return col;
 }

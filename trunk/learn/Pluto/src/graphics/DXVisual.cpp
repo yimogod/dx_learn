@@ -64,7 +64,7 @@ void DXVisual::Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resV
 	}else{
 		context->PSSetShaderResources(0, 1, &resView);
 	}
-	_samplerState.BindSamplerState(context, 0, 1);
+	_samplerState.BindSamplerState(context);
 
 	if(_indexBuffer.useIndex){
 		context->DrawIndexed(_indexBuffer.GetIndexNum(), 0, 0);
