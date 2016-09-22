@@ -25,6 +25,7 @@ protected:
 	void InitVisual(Mesh* mesh, wchar_t* vsName);
 	void InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath);
 	void AddTexture(Mesh* mesh, const char* texturePath);//加载多张图片
+	inline void AddSamplerState(D3D11_TEXTURE_ADDRESS_MODE adress);//创建多个sampler
 
 	inline DXVisual& GetVisual() const;
 protected:
@@ -42,4 +43,8 @@ private:
 
 inline DXVisual& Window::GetVisual() const{
 	return _currMesh->visual;
+}
+
+inline void Window::AddSamplerState(D3D11_TEXTURE_ADDRESS_MODE adress){
+	_currMesh->visual.PreAddSampleState(adress);
 }

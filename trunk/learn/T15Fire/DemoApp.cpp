@@ -41,6 +41,8 @@ bool DemoApp::LoadContent(){
 	AddTexture(_currMesh, "assets/fire/fire01.dds");
 	AddTexture(_currMesh, "assets/fire/noise01.dds");
 	AddTexture(_currMesh, "assets/fire/alpha01.dds");
+	AddSamplerState(D3D11_TEXTURE_ADDRESS_WRAP);
+	AddSamplerState(D3D11_TEXTURE_ADDRESS_CLAMP);
 	InitVisual(_currMesh, L"shader/fire.fx");
 	_dxEngine.EnableAlphaBlend();
 	return true;
@@ -56,7 +58,7 @@ void DemoApp::UnloadContent(){}
 void DemoApp::Update(){
 	Window::Update();
 
-	_noise.frame += 0.001f;
+	_noise.frame += 0.0001f;
 	if(_noise.frame > 1000.0f)_noise.frame = 0.0f;
 
 	_dxEngine.UpdateVSSubResource(GetVisual(), 1, &_noise);

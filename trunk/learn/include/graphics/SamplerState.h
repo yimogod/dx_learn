@@ -13,7 +13,7 @@ public:
 	void AddAdress(D3D11_TEXTURE_ADDRESS_MODE adress);
 private:
 	//一个visual会用到多个sampler
-	int _stateNum;
+	int _stateNum = 0;
 	D3D11_TEXTURE_ADDRESS_MODE _adress[8];
 	ID3D11SamplerState* _samplerState[8];
 };

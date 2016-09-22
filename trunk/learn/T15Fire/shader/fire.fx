@@ -87,7 +87,7 @@ float4 PS(PS_INPUT input):SV_Target{
 	float2 noiseCoords = (finalNoise.xy * perturb) + input.tex.xy;
 
 	float4 col = fireTexture.Sample(samClamp, noiseCoords);
-	float4 alphaColor = alphaTexture.Sample(samClamp, input.texCoords1);
+	float4 alphaColor = alphaTexture.Sample(samClamp, noiseCoords);
 	col.a = alphaColor.r;
 	return col;
 }

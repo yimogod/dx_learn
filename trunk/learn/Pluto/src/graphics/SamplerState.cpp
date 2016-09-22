@@ -1,6 +1,7 @@
 #include <graphics\SamplerState.h>
 
 SamplerState::SamplerState(){
+	_stateNum = 0;
 	for(int i = 0; i < 8; i++){
 		_adress[i] = D3D11_TEXTURE_ADDRESS_WRAP;
 	}
@@ -24,7 +25,7 @@ bool SamplerState::CreateSamplerState(ID3D11Device* device){
 		sampDesc.AddressU = _adress[i];
 		sampDesc.AddressV = _adress[i];
 		sampDesc.AddressW = _adress[i];
-		sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+		sampDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
 		sampDesc.MinLOD = 0;
 		sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 		HRESULT hr = device->CreateSamplerState(&sampDesc, &_samplerState[i]);
