@@ -12,6 +12,7 @@ public:
 	void SetDepthState(ID3D11DeviceContext* context);
 
 	inline ID3D11DepthStencilView* GetDepthStencilView();
+	inline void ClearDepthStencilView(ID3D11DeviceContext* context);
 private:
 	int _width;
 	int _height;
@@ -23,4 +24,8 @@ private:
 
 inline ID3D11DepthStencilView* DepthState::GetDepthStencilView(){
 	return _depthStencilView;
+}
+
+inline void DepthState::ClearDepthStencilView(ID3D11DeviceContext* context){
+	context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }

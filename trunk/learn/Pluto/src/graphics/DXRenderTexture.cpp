@@ -66,6 +66,5 @@ void DXRenderTexture::ClearRTT(ID3D11DeviceContext* context){
 	color[2] = 0.501960814f;
 	color[3] = 1.0f;
 	context->ClearRenderTargetView(_renderTargetView, color);
-	context->ClearDepthStencilView(_depthState.GetDepthStencilView(),
-		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	_depthState.ClearDepthStencilView(context);
 }

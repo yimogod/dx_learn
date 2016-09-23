@@ -178,6 +178,5 @@ void DXEngine::DisableAlphaBlend(){
 void DXEngine::ClearBuffers(const FLOAT ColorRGBA[4]){
 	_defaultDepthState.SetDepthState(_context);
 	_context->ClearRenderTargetView(_renderTargetView, ColorRGBA);
-	_context->ClearDepthStencilView(_defaultDepthState.GetDepthStencilView(),
-		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	_defaultDepthState.ClearDepthStencilView(_context);
 }
