@@ -26,10 +26,6 @@ bool DemoApp::LoadContent(){
 }
 
 void DemoApp::Update(){
-	_currMesh = _scene.GetMesh(0);
-	UpdateConstBuff();
-
-	_currMesh = _scene.GetMesh(1);
 	Window::Update();
 }
 

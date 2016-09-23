@@ -14,11 +14,10 @@ bool DemoApp::LoadContent(){
 	
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
-	_currMesh->SetWorldPos(-1.0f, -1.2f, 0.0f);
+	_currMesh->SetWorldPos(0, -0.5f, 0);
 	InitVisual(_currMesh, L"shader/Triangle.fx", "assets/t_01.dds");
 	
 	_currMesh = new Mesh();
-	_currMesh->SetWorldPos(0, 0, 0.0f);
 	GeoCreater::CreateSprite(*_currMesh);
 	_scene.AddMesh(_currMesh);
 	/*准备顶点缓冲数据*/
@@ -35,17 +34,14 @@ bool DemoApp::LoadContent(){
 void DemoApp::UnloadContent(){}
 
 void DemoApp::Update(){
-	_currMesh = _scene.GetMesh(0);
-	UpdateConstBuff();
-	
-	_currMesh = _scene.GetMesh(1);
 	Window::Update();
+
+	_currMesh = _scene.GetMesh(1);
 	Float4 screenSize;
 	screenSize.x = _width;
 	screenSize.y = _height;
 	screenSize.z = 0;
 	screenSize.w = 1.0f;
-
 	_dxEngine.UpdateVSSubResource(GetVisual(), 1, &screenSize);
 }
 
