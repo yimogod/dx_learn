@@ -20,9 +20,9 @@ bool DemoApp::LoadContent(){
 
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(ScrollBuffer));
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(Float4));
+	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
+	PreSetVSConstBufferSize(_currMesh, sizeof(ScrollBuffer));
+	PreSetVSConstBufferSize(_currMesh, sizeof(Float4));
 	InitVisual(_currMesh, L"shader/clip_plane.fx", "assets/t_01.dds");
 	return true;
 }

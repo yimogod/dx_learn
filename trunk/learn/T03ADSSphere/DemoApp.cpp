@@ -32,9 +32,8 @@ bool DemoApp::LoadContent(){
 	_scene.lightNum = 2;
 
 	/*准备顶点缓冲数据*/
-	_currMesh = _scene.GetMesh(0);
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
-	_currMesh->visual.PreSetPSConstBufferSize(sizeof(PhongConstBuffer));
+	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
+	PreSetPSConstBufferSize(_currMesh, sizeof(PhongConstBuffer));
 	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_02.dds");
 	return true;
 }

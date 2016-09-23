@@ -13,8 +13,8 @@ bool DemoApp::LoadContent(){
 
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(FogBuffer));
+	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
+	PreSetVSConstBufferSize(_currMesh, sizeof(FogBuffer));
 	InitVisual(_currMesh, L"shader/linear_fog.fx", "assets/t_01.dds");
 	return true;
 }

@@ -23,8 +23,12 @@ protected:
 
 	void InitVisual(Mesh* mesh, wchar_t* vsName);
 	void InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath);
+
+	//方法代理, 为了让代码更好看
 	void AddTexture(Mesh* mesh, const char* texturePath);//加载多张图片
-	inline void AddSamplerState(D3D11_TEXTURE_ADDRESS_MODE adress);//创建多个sampler
+	inline void AddSamplerState(Mesh* mesh, D3D11_TEXTURE_ADDRESS_MODE adress);//创建多个sampler
+	inline void PreSetVSConstBufferSize(Mesh* mesh, int byteWidth);
+	inline void PreSetPSConstBufferSize(Mesh* mesh, int byteWidth);
 
 	inline DXVisual& GetVisual() const;
 protected:
@@ -44,6 +48,14 @@ inline DXVisual& Window::GetVisual() const{
 	return _currMesh->visual;
 }
 
-inline void Window::AddSamplerState(D3D11_TEXTURE_ADDRESS_MODE adress){
-	_currMesh->visual.PreAddSampleState(adress);
+inline void Window::AddSamplerState(Mesh* mesh, D3D11_TEXTURE_ADDRESS_MODE adress){
+	mesh->visual.PreAddSampleState(adress);
+}
+
+inline void Window::PreSetVSConstBufferSize(Mesh* mesh, int byteWidth){
+	mesh->visual.PreSetVSConstBufferSize(byteWidth);
+}
+
+inline void Window::PreSetPSConstBufferSize(Mesh* mesh, int byteWidth){
+	mesh->visual.PreSetPSConstBufferSize(byteWidth);
 }

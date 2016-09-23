@@ -22,8 +22,8 @@ bool DemoApp::LoadContent(){
 	GeoCreater::CreateSprite(*_currMesh);
 	_scene.AddMesh(_currMesh);
 	/*准备顶点缓冲数据*/
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(Float4));
+	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
+	PreSetVSConstBufferSize(_currMesh, sizeof(Float4));
 	InitVisual(_currMesh, L"shader/Blur.fx");
 	
 	int halfWidth = (int)(0.5f * _width);

@@ -41,11 +41,11 @@ bool DemoApp::LoadContent(){
 	AddTexture(_currMesh, "assets/fire/fire01.dds");
 	AddTexture(_currMesh, "assets/fire/noise01.dds");
 	AddTexture(_currMesh, "assets/fire/alpha01.dds");
-	AddSamplerState(D3D11_TEXTURE_ADDRESS_WRAP);
-	AddSamplerState(D3D11_TEXTURE_ADDRESS_CLAMP);
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
-	_currMesh->visual.PreSetVSConstBufferSize(sizeof(NoiseBuffer));
-	_currMesh->visual.PreSetPSConstBufferSize(sizeof(DistortionBuffer));
+	AddSamplerState(_currMesh, D3D11_TEXTURE_ADDRESS_WRAP);
+	AddSamplerState(_currMesh, D3D11_TEXTURE_ADDRESS_CLAMP);
+	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
+	PreSetVSConstBufferSize(_currMesh, sizeof(NoiseBuffer));
+	PreSetPSConstBufferSize(_currMesh, sizeof(DistortionBuffer));
 	InitVisual(_currMesh, L"shader/fire.fx");
 	_dxEngine.EnableAlphaBlend();
 	return true;
