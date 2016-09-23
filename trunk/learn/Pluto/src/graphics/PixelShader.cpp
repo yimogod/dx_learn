@@ -1,10 +1,10 @@
 #include <graphics/PixelShader.h>
 
-PixelShader::PixelShader() : Shader(L"DummyShader", "PS", "ps_4_0")
+PixelShader::PixelShader() : Shader(L"DummyShader", "PS", "ps_5_0")
 {
 }
 
-PixelShader::PixelShader(wchar_t* fileName) : Shader(fileName, "PS", "ps_4_0")
+PixelShader::PixelShader(wchar_t* fileName) : Shader(fileName, "PS", "ps_5_0")
 {
 }
 

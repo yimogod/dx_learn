@@ -357,6 +357,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\ConstBuffer.cpp" />
+    <ClCompile Include="src\graphics\DepthState.cpp" />
     <ClCompile Include="src\graphics\DXEngine.cpp" />
     <ClCompile Include="src\graphics\DXRenderTexture.cpp" />
     <ClCompile Include="src\graphics\DXVisual.cpp" />
@@ -396,6 +397,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\BaseDataStruct.h" />
     <ClInclude Include="..\include\graphics\ConstBuffer.h" />
+    <ClInclude Include="..\include\graphics\DepthState.h" />
     <ClInclude Include="..\include\graphics\DXEngine.h" />
     <ClInclude Include="..\include\graphics\DXRenderTexture.h" />
     <ClInclude Include="..\include\graphics\DXVisual.h" />

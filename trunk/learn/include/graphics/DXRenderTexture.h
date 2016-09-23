@@ -1,5 +1,6 @@
 #pragma once
 #include <d3d11_1.h>
+#include <graphics/DepthState.h>
 
 class DXRenderTexture{
 public:
@@ -7,8 +8,8 @@ public:
 	~DXRenderTexture();
 
 	bool CreateRenderTargetView(ID3D11Device* deivce, int width, int height);
-	void ClearRTT(ID3D11DeviceContext* context, ID3D11DepthStencilView* depthStencilView);
-	inline void UseRTT(ID3D11DeviceContext* context, ID3D11DepthStencilView* depthStencilView);
+	void ClearRTT(ID3D11DeviceContext* context);
+	inline void UseRTT(ID3D11DeviceContext* context);
 	inline ID3D11ShaderResourceView* GetRTTResView();
 
 private:
@@ -16,10 +17,12 @@ private:
 	ID3D11Texture2D* _renderTargetBuffer;
 	ID3D11RenderTargetView* _renderTargetView;
 	ID3D11ShaderResourceView* _renderTargetResView;
+
+	DepthState _depthState;
 };
 
-inline void DXRenderTexture::UseRTT(ID3D11DeviceContext* context, ID3D11DepthStencilView* depthStencilView){
-	context->OMSetRenderTargets(1, &_renderTargetView, depthStencilView);
+inline void DXRenderTexture::UseRTT(ID3D11DeviceContext* context){
+	context->OMSetRenderTargets(1, &_renderTargetView, _depthState.GetDepthStencilView());
 }
 
 inline ID3D11ShaderResourceView* DXRenderTexture::GetRTTResView(){

@@ -10,8 +10,7 @@ DXEngine::DXEngine():
 {
 }
 
-DXEngine::~DXEngine(){
-}
+DXEngine::~DXEngine(){}
 
 bool DXEngine::CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	_hwnd = hwnd;
@@ -59,51 +58,17 @@ void DXEngine::InitVisual(DXVisual &visual, void* vertices, int vertexNum, int* 
 
 void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	CreateDevice(hwnd, screenWidth, screenHeight);
-	CreateDepthStencilView();
+	_defaultDepthState.CreateDepthView(_device, screenWidth, screenHeight);
 	CreateRenderTargetlView();
 	SetDefaultRenderTargetView();
 	CreateViewPort();
 
-	CreateDepthState();
+	_defaultDepthState.CreateDepthState(_device);
 	CreateRasterizerState(D3D11_FILL_MODE::D3D11_FILL_SOLID, _solidRS);
 	CreateAlphaBlendState();
 
 	_ready = true;
 }
-
-bool DXEngine::CreateDepthStencilView(){
-	//声明深度模板<数据>描述
-	D3D11_TEXTURE2D_DESC td;
-	ZeroMemory(&td, sizeof(td));
-	td.Width = _width;
-	td.Height = _height;
-	td.MipLevels = 1; //深度缓存不需要mip level
-	td.ArraySize = 1; //texture array中texture的个数, 如果深度缓存, 1个
-	td.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	td.Usage = D3D11_USAGE_DEFAULT;
-
-	td.SampleDesc.Count = 1;//这边只能设置为1, 否则出错
-	td.SampleDesc.Quality = 0;
-
-	td.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	td.CPUAccessFlags = 0;
-	td.MiscFlags = 0;
-
-	/*创建深度/模板缓存*/
-	HRESULT hr = _device->CreateTexture2D(&td, nullptr, &_depthStencilBuffer);
-	if(FAILED(hr))return false;
-
-	//深度缓存描述
-	D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
-	ZeroMemory(&dsvd, sizeof(dsvd));
-	dsvd.Format = td.Format;
-	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	dsvd.Texture2D.MipSlice = 0;
-	hr = _device->CreateDepthStencilView(_depthStencilBuffer, &dsvd, &_depthStencilView);
-	if(FAILED(hr))return false;
-	return true;
-}
-
 //这里只是创建了render target view, 并没有设置到context中--OMSetRenderTargets
 bool DXEngine::CreateRenderTargetlView(){
 	//创建back buff
@@ -133,16 +98,12 @@ void DXEngine::CreateViewPort(){
 /*void DXEngine::Destroy(){
 	unloadContent();
 
-	if(_depthStencilBuffer)_depthStencilBuffer->Release();
-	if(_depthStencilView)_depthStencilView->Release();
 	if(_renderTargetBuffer)_renderTargetBuffer->Release();
 	if(_renderTargetView)_renderTargetView->Release();
 	if(_chain)_chain->Release();
 	if(_context)_context->Release();
 	if(_device)_device->Release();
 
-	_depthStencilBuffer = NULL;
-	_depthStencilView = NULL;
 	_renderTargetBuffer = NULL;
 	_renderTargetView = NULL;
 	_chain = NULL;
@@ -150,31 +111,12 @@ void DXEngine::CreateViewPort(){
 	_device = NULL;
 }*/
 
-
-
-
-bool DXEngine::CreateDepthState(){
-	D3D11_DEPTH_STENCIL_DESC dsd;
-	ZeroMemory(&dsd, sizeof(dsd));
-	dsd.DepthEnable = true;
-	dsd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	dsd.DepthFunc = D3D11_COMPARISON_LESS;
-
-	dsd.StencilEnable = false;
-	dsd.StencilReadMask = D3D11_DEFAULT_STENCIL_READ_MASK;
-	dsd.StencilWriteMask = D3D11_DEFAULT_STENCIL_WRITE_MASK;
-
-	dsd.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-	dsd.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-	dsd.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	dsd.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
-	dsd.BackFace = dsd.FrontFace;
-
-	HRESULT hr = _device->CreateDepthStencilState(&dsd, &_depthStencilState);
-	if(FAILED(hr))return false;
-
-	_context->OMSetDepthStencilState(_depthStencilState, 0);
-	return true;
+void DXEngine::CreateRTT(int width, int height){
+	if(width == 0 || height == 0){
+		width = _width;
+		height = _height;
+	}
+	_renderTexture.CreateRenderTargetView(_device, width, height);
 }
 
 bool DXEngine::CreateRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs){
@@ -234,6 +176,8 @@ void DXEngine::DisableAlphaBlend(){
 }
 
 void DXEngine::ClearBuffers(const FLOAT ColorRGBA[4]){
+	_defaultDepthState.SetDepthState(_context);
 	_context->ClearRenderTargetView(_renderTargetView, ColorRGBA);
-	_context->ClearDepthStencilView(_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	_context->ClearDepthStencilView(_defaultDepthState.GetDepthStencilView(),
+		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }

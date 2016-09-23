@@ -3,27 +3,15 @@
 #include <Main.h>
 #include <sys/Window.h>
 
-struct ScrollBuffer{
-	float scroll;
-	float pad0, pad1, pad2;
-};
-
 class DemoApp : public Window{
 public:
 	DemoApp();
 	virtual ~DemoApp();
 
-	virtual void PreAddOtherConstBuffer(DXVisual &visual);
 	virtual bool LoadContent();
 	virtual void UnloadContent();
 
-	virtual void Update();
 	virtual void Render();
-
-private:
-	ScrollBuffer _scroll;
-	ScrollBuffer _fade;
-	float _tag = 0.1f;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
@@ -33,7 +21,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new DemoApp();
 	info.icon = nullptr;
-	info.title = L"Scroll UV";
+	info.title = L"Depth Field";
 	info.width = 1200;
 	info.height = 960;
 

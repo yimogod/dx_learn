@@ -7,6 +7,7 @@
 #include <graphics/VertexShader.h>
 #include <graphics/PixelShader.h>
 #include <graphics/DXRenderTexture.h>
+#include <graphics/DepthState.h>
 
 class DXEngine{
 public:
@@ -21,7 +22,7 @@ public:
 	inline void DrawVisual2RTT(DXVisual &visual);
 
 	//创建rtt相关
-	inline void CreateRTT();
+	void CreateRTT(int width = 0, int height = 0);
 	inline void UseRTT();
 
 public:
@@ -53,10 +54,7 @@ private:
 	ID3D11Texture2D* _renderTargetBuffer;
 	ID3D11RenderTargetView* _renderTargetView;
 
-	/*默认模板视图*/
-	ID3D11Texture2D* _depthStencilBuffer;
-	ID3D11DepthStencilView* _depthStencilView;
-	ID3D11DepthStencilState* _depthStencilState;
+	DepthState _defaultDepthState;
 
 	/*默认光栅化状态*/
 	ID3D11RasterizerState* _wireframeRS;
@@ -95,7 +93,7 @@ inline bool DXEngine::GetReady(){
 }
 
 inline void DXEngine::SetDefaultRenderTargetView(){
-	_context->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
+	_context->OMSetRenderTargets(1, &_renderTargetView, _defaultDepthState.GetDepthStencilView());
 }
 
 inline void DXEngine::UpdateVSSubResource(DXVisual &visual, int buffIndex, const void* data){
@@ -106,13 +104,9 @@ inline void DXEngine::UpdatePSSubResource(DXVisual &visual, int buffIndex, const
 	visual.UpdatePSConstBuffer(_context, buffIndex, data);
 }
 
-inline void DXEngine::CreateRTT(){
-	_renderTexture.CreateRenderTargetView(_device, _width, _height);
-}
-
 inline void DXEngine::UseRTT(){
-	_renderTexture.UseRTT(_context, _depthStencilView);
-	_renderTexture.ClearRTT(_context, _depthStencilView);
+	_renderTexture.UseRTT(_context);
+	_renderTexture.ClearRTT(_context);
 }
 
 inline void DXEngine::Present(){

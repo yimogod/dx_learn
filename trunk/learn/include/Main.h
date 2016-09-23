@@ -40,9 +40,8 @@ int MainBody(_In_ HINSTANCE hInstance,
 	g_app = info.app;
 
 	/*初始化d3d设备*/
-	hr = g_app->Init(hInstance, g_hWnd);
-
-	if(FAILED(hr)){
+	bool result = g_app->Init(hInstance, g_hWnd);
+	if(!result){
 		g_app->Destroy();
 		return NULL;
 	}

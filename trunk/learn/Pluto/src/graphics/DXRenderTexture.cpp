@@ -47,15 +47,25 @@ bool DXRenderTexture::CreateRenderTargetView(ID3D11Device* device, int width, in
 	hr = device->CreateShaderResourceView(_renderTargetBuffer, &shaderResViewDesc, &_renderTargetResView);
 	if(FAILED(hr))return false;
 
+
+	bool result = _depthState.CreateDepthView(device, width, height);
+	if(!result)return false;
+
+	result = _depthState.CreateDepthState(device);
+	if(!result)return false;
+
 	return true;
 }
 
-void DXRenderTexture::ClearRTT(ID3D11DeviceContext* context, ID3D11DepthStencilView* depthStencilView){
+void DXRenderTexture::ClearRTT(ID3D11DeviceContext* context){
+	_depthState.SetDepthState(context);
+
 	float color[4];
 	color[0] = 0.501960814f;
 	color[1] = 0.0f;
 	color[2] = 0.501960814f;
 	color[3] = 1.0f;
 	context->ClearRenderTargetView(_renderTargetView, color);
-	context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	context->ClearDepthStencilView(_depthState.GetDepthStencilView(),
+		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }

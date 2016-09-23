@@ -132,6 +132,9 @@
     <ClCompile Include="src\graphics\DXRenderTexture.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\DepthState.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -242,6 +245,9 @@
       <Filter>graphics\dx</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics\DXRenderTexture.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DepthState.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
   </ItemGroup>
