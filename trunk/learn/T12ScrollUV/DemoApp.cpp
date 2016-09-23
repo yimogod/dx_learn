@@ -17,14 +17,12 @@ bool DemoApp::LoadContent(){
 
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
+	_currMesh->visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
+	_currMesh->visual.PreSetVSConstBufferSize(sizeof(ScrollBuffer));
+	_currMesh->visual.PreSetVSConstBufferSize(sizeof(ScrollBuffer));
 	InitVisual(_currMesh, L"shader/scroll_uv.fx", "assets/t_01.dds");
 	_dxEngine.EnableAlphaBlend();
 	return true;
-}
-
-void DemoApp::PreAddOtherConstBuffer(DXVisual &visual){
-	visual.PreSetVSConstBufferSize(sizeof(ScrollBuffer));
-	visual.PreSetVSConstBufferSize(sizeof(ScrollBuffer));
 }
 
 void DemoApp::UnloadContent(){}

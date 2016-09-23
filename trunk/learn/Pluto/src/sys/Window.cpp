@@ -26,8 +26,8 @@ void Window::InitVisual(Mesh* mesh, wchar_t* vsName){
 	visual.PreAddDefaultLayout();
 
 	//创建buffer需要的变量
-	visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
-	PreAddOtherConstBuffer(visual);
+	if(visual.GetConstBufferNum() == 0)
+		visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
 
 	//初始化visual
 	Vertex* vertices = new Vertex[mesh->vertexNum];
@@ -115,10 +115,6 @@ void Window::UpdateByKey(float value){
 	if(isKeyDown(40)){//back
 		_currMesh->Move(0, 0, -value);
 	}
-}
-
-void Window::PreAddOtherConstBuffer(DXVisual &visual){
-
 }
 
 void Window::AddTexture(Mesh* mesh, const char* texturePath){

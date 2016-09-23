@@ -23,7 +23,10 @@ struct PS_INPUT{
 
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
-	output.pos = input.pos * 0.5f;
+	output.pos = mul(input.pos, model);
+	output.pos = mul(output.pos, view);
+	output.pos = mul(output.pos, perspective);
+
 	output.color = input.color;
 	output.tex = input.tex;
 
@@ -31,6 +34,6 @@ PS_INPUT VS(VS_INPUT input){
 }
 
 
-float4 PS(PS_INPUT input):SV_Target{
+float4 PS(PS_INPUT input) :SV_Target{
 	return txDiffuse.Sample(samLinear, input.tex);
 }

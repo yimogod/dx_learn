@@ -37,17 +37,3 @@ PS_INPUT VS(VS_INPUT input){
 float4 PS(PS_INPUT input):SV_Target{
 	return txDiffuse.Sample(samLinear, input.tex);
 }
-
-RasterizerState WireframeRS{
-	FillMode = Wireframe;
-	CullMode = Back;
-	// Default values used for any properties we do not set.
-};
-
-technique11 ColorTech{
-	pass P0{
-		SetVertexShader(CompileShader(vs_4_0, VS()));
-		SetPixelShader(CompileShader(ps_4_0, PS()));
-		SetRasterizerState(WireframeRS);
-	}
-}

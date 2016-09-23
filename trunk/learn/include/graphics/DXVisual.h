@@ -16,6 +16,9 @@ public:
 	DXVisual();
 	~DXVisual();
 
+	//获取visual已经有的constbuffer数量
+	inline int GetConstBufferNum();
+
 	//设置shader的名称
 	inline void PreInitShader(wchar_t* vsName, wchar_t* psName);
 
@@ -42,9 +45,13 @@ private:
 
 	VertexBuffer _vertexBuffer;
 	IndexBuffer _indexBuffer;
+
+	//用于vs的uniform数据
 	ConstBuffer _vsConstBuffer[4];
 	int _vsConstByteWidth[4];
 	int _vsConstBufferNum = 0;
+
+	//用于ps的uniform数据
 	ConstBuffer _psConstBuffer[4];
 	int _psConstByteWidth[4];
 	int _psConstBufferNum = 0;
@@ -82,4 +89,8 @@ inline void DXVisual::PreAddTexture(const std::wstring &path){
 
 inline void DXVisual::PreAddSampleState(const D3D11_TEXTURE_ADDRESS_MODE adress){
 	_samplerState.AddAdress(adress);
+}
+
+inline int DXVisual::GetConstBufferNum(){
+	return _vsConstBufferNum + _psConstBufferNum;
 }

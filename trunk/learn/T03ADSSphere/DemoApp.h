@@ -10,7 +10,6 @@ public:
 
 	virtual bool LoadContent();
 	virtual void UnloadContent();
-	virtual void PreAddOtherConstBuffer(DXVisual &visual);
 
 	virtual void Update();
 	virtual void Render();

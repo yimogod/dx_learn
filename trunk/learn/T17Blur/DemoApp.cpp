@@ -14,6 +14,7 @@ bool DemoApp::LoadContent(){
 	
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
+	_currMesh->SetWorldPos(-1.0f, -1.2f, 0.0f);
 	InitVisual(_currMesh, L"shader/Triangle.fx", "assets/t_01.dds");
 	
 	_currMesh = new Mesh();
@@ -21,8 +22,9 @@ bool DemoApp::LoadContent(){
 	GeoCreater::CreateSprite(*_currMesh);
 	_scene.AddMesh(_currMesh);
 	/*准备顶点缓冲数据*/
+	_currMesh->visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
+	_currMesh->visual.PreSetVSConstBufferSize(sizeof(Float4));
 	InitVisual(_currMesh, L"shader/Blur.fx");
-
 	
 	int halfWidth = (int)(0.5f * _width);
 	int halfHeight = (int)(0.5f * _height);
@@ -30,15 +32,14 @@ bool DemoApp::LoadContent(){
 	return true;
 }
 
-void DemoApp::PreAddOtherConstBuffer(DXVisual &visual){
-	visual.PreSetVSConstBufferSize(sizeof(Float4));
-}
-
 void DemoApp::UnloadContent(){}
 
 void DemoApp::Update(){
+	_currMesh = _scene.GetMesh(0);
+	UpdateConstBuff();
+	
+	_currMesh = _scene.GetMesh(1);
 	Window::Update();
-
 	Float4 screenSize;
 	screenSize.x = _width;
 	screenSize.y = _height;
@@ -60,5 +61,7 @@ void DemoApp::Render(){
 	_dxEngine.SetDefaultRenderTargetView();
 	_dxEngine.ClearBuffers();
 	_dxEngine.DrawVisual2RTT(GetVisual());
+	
+	
 	_dxEngine.Present();
 }

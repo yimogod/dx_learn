@@ -15,7 +15,6 @@ public:
 protected:
 	virtual bool LoadContent() = 0;
 	virtual void UnloadContent() = 0;
-	virtual void PreAddOtherConstBuffer(DXVisual &visual);//预添加其他constbuffer, 比如灯光之类的
 
 	void UpdateByRMouse(float value);
 	void UpdateByLMouse(float value);

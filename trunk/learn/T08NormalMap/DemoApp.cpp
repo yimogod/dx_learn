@@ -36,14 +36,12 @@ bool DemoApp::LoadContent(){
 
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
+	_currMesh->visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
+	_currMesh->visual.PreSetPSConstBufferSize(sizeof(PhongConstBuffer));
 	AddTexture(_currMesh, "assets/t_01.dds");
 	AddTexture(_currMesh, "assets/n_01.dds");
 	InitVisual(_currMesh, L"shader/normal_map.fx");
 	return true;
-}
-
-void DemoApp::PreAddOtherConstBuffer(DXVisual &visual){
-	visual.PreSetPSConstBufferSize(sizeof(PhongConstBuffer));
 }
 
 void DemoApp::UnloadContent(){}

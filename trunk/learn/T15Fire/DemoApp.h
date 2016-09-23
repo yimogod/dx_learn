@@ -28,7 +28,6 @@ public:
 	virtual ~DemoApp();
 
 	virtual bool LoadContent();
-	virtual void PreAddOtherConstBuffer(DXVisual &visual);
 	virtual void UnloadContent();
 
 	virtual void Update();
