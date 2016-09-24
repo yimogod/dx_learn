@@ -59,11 +59,13 @@ void DXEngine::InitVisual(DXVisual &visual, void* vertices, int vertexNum, int* 
 void DXEngine::InitDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	CreateDevice(hwnd, screenWidth, screenHeight);
 	_defaultDepthState.CreateDepthView(_device, screenWidth, screenHeight);
+	_disableDepthState.CreateDepthView(_device, screenWidth, screenHeight);
 	CreateRenderTargetlView();
 	SetDefaultRenderTargetView();
 	CreateViewPort();
 
-	_defaultDepthState.CreateDepthState(_device);
+	_defaultDepthState.CreateDepthState(_device, true);
+	_disableDepthState.CreateDepthState(_device, false);
 	CreateRasterizerState(D3D11_FILL_MODE::D3D11_FILL_SOLID, _solidRS);
 	CreateAlphaBlendState();
 
@@ -86,8 +88,8 @@ bool DXEngine::CreateRenderTargetlView(){
 void DXEngine::CreateViewPort(){
 	/*…Ë÷√viewport*/
 	D3D11_VIEWPORT vp;
-	vp.Width = _width;
-	vp.Height = _height;
+	vp.Width = (float)_width;
+	vp.Height = (float)_height;
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 0;
@@ -116,7 +118,9 @@ void DXEngine::CreateRTT(int width, int height){
 		width = _width;
 		height = _height;
 	}
-	_renderTexture.CreateRenderTargetView(_device, width, height);
+
+	_renderTexture[_renderTextureNum].CreateRenderTargetView(_device, width, height);
+	_renderTextureNum++;
 }
 
 bool DXEngine::CreateRasterizerState(D3D11_FILL_MODE fillmode, ID3D11RasterizerState* rs){

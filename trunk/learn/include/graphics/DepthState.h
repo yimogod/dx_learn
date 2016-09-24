@@ -7,7 +7,7 @@ public:
 	~DepthState();
 
 	bool CreateDepthView(ID3D11Device* device, int width, int height);
-	bool CreateDepthState(ID3D11Device* device);
+	bool CreateDepthState(ID3D11Device* device, bool enable);
 
 	void SetDepthState(ID3D11DeviceContext* context);
 

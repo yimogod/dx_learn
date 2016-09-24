@@ -47,8 +47,8 @@ PS_INPUT VS(VS_INPUT input){
 	output.tex1 = input.tex + float2(0.0f, -texelHeight);
 	output.tex3 = input.tex + float2(0.0f, texelHeight);
 
-	output.tex4 = input.tex + float2(0.0f, -texelWidth);
-	output.tex2 = input.tex + float2(0.0f, texelWidth);
+	output.tex4 = input.tex + float2(-texelWidth, 0.0f);
+	output.tex2 = input.tex + float2(texelWidth, 0.0f);
 
 	return output;
 }

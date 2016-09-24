@@ -51,7 +51,7 @@ bool DXRenderTexture::CreateRenderTargetView(ID3D11Device* device, int width, in
 	bool result = _depthState.CreateDepthView(device, width, height);
 	if(!result)return false;
 
-	result = _depthState.CreateDepthState(device);
+	result = _depthState.CreateDepthState(device, true);
 	if(!result)return false;
 
 	return true;

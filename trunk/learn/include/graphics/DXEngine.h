@@ -19,11 +19,11 @@ public:
 	void InitVisual(DXVisual &visual, void* vertices, int vertexNum, int* indices, int indexNum);
 	inline void SetDefaultRenderTargetView();
 	inline void DrawVisual(DXVisual &visual);
-	inline void DrawVisual2RTT(DXVisual &visual);
+	inline void DrawVisualByRTT(DXVisual &visual, int index = 0);
 
 	//创建rtt相关
 	void CreateRTT(int width = 0, int height = 0);
-	inline void UseRTT();
+	inline void UseRTT(int index = 0);
 
 public:
 	inline bool GetReady();
@@ -36,6 +36,8 @@ public:
 
 	void EnableAlphaBlend();
 	void DisableAlphaBlend();
+	inline void TurnOnZBuffer();
+	inline void TurnOffZBuffer();
 private:
 	HINSTANCE _ins;
 	HWND _hwnd;
@@ -55,6 +57,7 @@ private:
 	ID3D11RenderTargetView* _renderTargetView;
 
 	DepthState _defaultDepthState;
+	DepthState _disableDepthState;
 
 	/*默认光栅化状态*/
 	ID3D11RasterizerState* _wireframeRS;
@@ -65,7 +68,8 @@ private:
 	ID3D11BlendState* _blendDisableState;
 
 	//RTT
-	DXRenderTexture _renderTexture;
+	DXRenderTexture _renderTexture[4];
+	int _renderTextureNum = 0;
 private:
 	/*创建深度缓存*/
 	bool CreateDepthStencilView();
@@ -104,9 +108,17 @@ inline void DXEngine::UpdatePSSubResource(DXVisual &visual, int buffIndex, const
 	visual.UpdatePSConstBuffer(_context, buffIndex, data);
 }
 
-inline void DXEngine::UseRTT(){
-	_renderTexture.UseRTT(_context);
-	_renderTexture.ClearRTT(_context);
+inline void DXEngine::TurnOnZBuffer(){
+	_defaultDepthState.SetDepthState(_context);
+}
+
+inline void DXEngine::TurnOffZBuffer(){
+	_disableDepthState.SetDepthState(_context);
+}
+
+inline void DXEngine::UseRTT(int index){
+	_renderTexture[index].UseRTT(_context);
+	_renderTexture[index].ClearRTT(_context);
 }
 
 inline void DXEngine::Present(){
@@ -117,6 +129,6 @@ inline void DXEngine::DrawVisual(DXVisual &visual){
 	visual.Draw(_context);
 }
 
-inline void DXEngine::DrawVisual2RTT(DXVisual &visual){
-	visual.Draw(_context, _renderTexture.GetRTTResView());
+inline void DXEngine::DrawVisualByRTT(DXVisual &visual, int index){
+	visual.Draw(_context, _renderTexture[index].GetRTTResView());
 }

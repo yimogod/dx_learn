@@ -43,10 +43,10 @@ bool DepthState::CreateDepthView(ID3D11Device* device, int width, int height){
 	return true;
 }
 
-bool DepthState::CreateDepthState(ID3D11Device* device){
+bool DepthState::CreateDepthState(ID3D11Device* device, bool enable){
 	D3D11_DEPTH_STENCIL_DESC dsd;
 	ZeroMemory(&dsd, sizeof(dsd));
-	dsd.DepthEnable = true;
+	dsd.DepthEnable = enable;
 	dsd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 	dsd.DepthFunc = D3D11_COMPARISON_LESS;
 
