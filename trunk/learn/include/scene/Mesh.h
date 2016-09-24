@@ -52,6 +52,7 @@ public:
 	/* mesh在世界中的坐标 */
 	Vector3D position;
 	void SetWorldPos(float x, float y, float z);
+	void SetScale(float scale);
 	void Move(float x, float y, float z);
 	/* mesh在世界中的旋转, 旋转值是弧度 */
 	Vector3D eulerAngle;

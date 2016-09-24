@@ -13,6 +13,13 @@ void Mesh::SetWorldPos(float x, float y, float z){
 	position.z = z;
 }
 
+void Mesh::SetScale(float scale){
+	for(int i = 0; i < vertexNum; i++){
+		Vector3D vec = vertexList[i];
+		vertexList[i] = vec.mul(scale);
+	}
+}
+
 void Mesh::Move(float x, float y, float z){
 	position.x += x;
 	position.y += y;
