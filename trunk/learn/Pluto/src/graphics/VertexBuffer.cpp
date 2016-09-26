@@ -30,16 +30,16 @@ bool VertexBuffer::CreateVertexBuffer(ID3D11Device* device, void* vertices, int 
 }
 
 
-void VertexBuffer::BindVertexBuff(ID3D11DeviceContext* context, InputLayout &layout){
+void VertexBuffer::BindVertexBuff(ID3D11DeviceContext* context, InputLayout &layout, int slot){
 	/*设置 layout*/
 	context->IASetInputLayout(layout.GetDXObj());
 
 	/*设置当前vertex buff*/
-	UINT stride = layout.GetTotalByte();
+	UINT stride = layout.GetTotalByte(slot);
 	UINT offset = 0;
 	context->IASetVertexBuffers(0, 1, &_vertexBuff, &stride, &offset);
 
-	/*设置三角形排列方式, 即顶点拓扑方式*/
 	//context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	/*设置三角形排列方式, 即顶点拓扑方式*/
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }

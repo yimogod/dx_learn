@@ -13,7 +13,7 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum, int* in
 	result = _ps.CreatePixelShader(device);
 	if(!result)return false;
 
-	int singleVertexByte = _layout.GetTotalByte();
+	int singleVertexByte = _layout.GetTotalByte(0);
 	result = _vertexBuffer.CreateVertexBuffer(device, vertices, vertexNum, singleVertexByte);
 	if(!result)return false;
 

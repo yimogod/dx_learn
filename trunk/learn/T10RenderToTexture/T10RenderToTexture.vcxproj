@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9AD5454B-BE04-42AE-B3D4-3F50F3CB6D41}</ProjectGuid>
-    <RootNamespace>T01TextureCube</RootNamespace>
+    <RootNamespace>T10RenderToTexture</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
     <ProjectName>T10RenderToTexture</ProjectName>
   </PropertyGroup>

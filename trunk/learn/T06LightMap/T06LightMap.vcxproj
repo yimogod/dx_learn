@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E4BF0517-2E8C-407D-8BA9-8C4BC46E73B7}</ProjectGuid>
-    <RootNamespace>T01TextureCube</RootNamespace>
+    <RootNamespace>T06LightMap</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
     <ProjectName>T06LightMap</ProjectName>
   </PropertyGroup>

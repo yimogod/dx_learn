@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FF53396B-6888-4C22-BB11-1F43A18FC4D1}</ProjectGuid>
-    <RootNamespace>T09SpecularMap</RootNamespace>
+    <ProjectGuid>{DF3FD6BB-84EA-4B36-802D-1457AE303FA1}</ProjectGuid>
+    <RootNamespace>T18Instance</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
-    <ProjectName>T09SpecularMap</ProjectName>
+    <ProjectName>T18Instance</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -132,9 +132,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <FxCompile Include="shader\specular_map.fx">
+    <FxCompile Include="shader\scroll_uv.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

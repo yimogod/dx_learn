@@ -29,6 +29,8 @@ protected:
 	inline void AddSamplerState(Mesh* mesh, D3D11_TEXTURE_ADDRESS_MODE adress);//创建多个sampler
 	inline void PreSetVSConstBufferSize(Mesh* mesh, int byteWidth);
 	inline void PreSetPSConstBufferSize(Mesh* mesh, int byteWidth);
+	inline void PreAddLayout(Mesh* mesh);
+	inline void PreAddLayoutInstance(Mesh* mesh);
 
 	inline DXVisual& GetVisual() const;
 protected:
@@ -58,4 +60,12 @@ inline void Window::PreSetVSConstBufferSize(Mesh* mesh, int byteWidth){
 
 inline void Window::PreSetPSConstBufferSize(Mesh* mesh, int byteWidth){
 	mesh->visual.PreSetPSConstBufferSize(byteWidth);
+}
+
+inline void Window::PreAddLayout(Mesh* mesh){
+	mesh->visual.PreAddDefaultLayout();
+}
+
+inline void Window::PreAddLayoutInstance(Mesh* mesh){
+	mesh->visual.PreAddDefaultLayoutInstance();
 }

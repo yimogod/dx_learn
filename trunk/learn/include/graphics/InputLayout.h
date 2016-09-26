@@ -16,25 +16,35 @@ public:
 	inline void AddTangent();
 	inline void AddColor();
 	inline void AddTexCoord();
-	inline void AddTexCoord_1();
+	void AddInstance();
 
 	inline int GetElementNum() const;
-	inline int GetTotalByte() const;
+	inline int GetTotalByte(int slot) const;
 	inline ID3D11InputLayout* GetDXObj() const;
 
 private:
 	ID3D11InputLayout* _vertexLayout = nullptr;
 	D3D11_INPUT_ELEMENT_DESC _layout[8];
 	int _elementNum = 0;
-	int _totalByte = 0;
+
+	//占用了几个slot
+	int _slotNum = 0;
+	int _totalByte[4];
+
+	//除了标准的vs输入,添加的其他附加的数据. 比如为了instance效果, 添加的位置元素
+	bool _hasInstance = false;
+
+	//当前texture语义索引
+	int _semanTextureIndex = 0;
+
 };
 
 inline int InputLayout::GetElementNum() const{
 	return _elementNum;
 }
 
-inline int InputLayout::GetTotalByte() const{
-	return _totalByte;
+inline int InputLayout::GetTotalByte(int slot) const{
+	return _totalByte[slot];
 }
 
 inline ID3D11InputLayout* InputLayout::GetDXObj() const{
@@ -58,9 +68,6 @@ inline void InputLayout::AddColor(){
 }
 
 inline void InputLayout::AddTexCoord(){
-	AddElement("TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 8);
-}
-
-inline void InputLayout::AddTexCoord_1(){
-	AddElement("TEXCOORD", 1, DXGI_FORMAT_R32G32_FLOAT, 8);
+	AddElement("TEXCOORD", _semanTextureIndex, DXGI_FORMAT_R32G32_FLOAT, 8);
+	_semanTextureIndex++;
 }

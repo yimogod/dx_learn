@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{547EF1E0-9683-403C-80D8-C106D9790AF9}</ProjectGuid>
-    <RootNamespace>T01TextureCube</RootNamespace>
+    <RootNamespace>T07AlphaMap</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
     <ProjectName>T07AlphaMap</ProjectName>
   </PropertyGroup>

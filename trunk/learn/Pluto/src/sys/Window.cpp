@@ -23,7 +23,8 @@ void Window::InitVisual(Mesh* mesh, wchar_t* vsName){
 	visual.PreInitShader(vsName, vsName);
 
 	/*创建 layout*/
-	visual.PreAddDefaultLayout();
+	if(visual.GetLayoutNum() == 0)
+		visual.PreAddDefaultLayout();
 
 	//创建buffer需要的变量
 	if(visual.GetConstBufferNum() == 0)

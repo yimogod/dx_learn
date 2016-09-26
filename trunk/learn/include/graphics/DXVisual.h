@@ -18,12 +18,15 @@ public:
 
 	//获取visual已经有的constbuffer数量
 	inline int GetConstBufferNum();
+	//获取visual layout元素的个数
+	inline int GetLayoutNum();
 
 	//设置shader的名称
 	inline void PreInitShader(wchar_t* vsName, wchar_t* psName);
 
 	//设置layout
 	inline void PreAddDefaultLayout();
+	inline void PreAddDefaultLayoutInstance();
 
 	//读取图片, 设置resourceview
 	inline void PreAddTexture(const std::wstring &path);
@@ -42,6 +45,7 @@ public:
 	inline void UpdatePSConstBuffer(ID3D11DeviceContext* context, int index, const void* data);
 private:
 	InputLayout _layout;
+
 
 	VertexBuffer _vertexBuffer;
 	IndexBuffer _indexBuffer;
@@ -76,6 +80,10 @@ inline void DXVisual::PreAddDefaultLayout(){
 	_layout.AddTangent();
 }
 
+inline void DXVisual::PreAddDefaultLayoutInstance(){
+	_layout.AddInstance();
+}
+
 inline void DXVisual::UpdateVSConstBuffer(ID3D11DeviceContext* context, int index, const void* data){
 	_vsConstBuffer[index].UpdateConstBuff(context, data);
 }
@@ -93,4 +101,8 @@ inline void DXVisual::PreAddSampleState(const D3D11_TEXTURE_ADDRESS_MODE adress)
 
 inline int DXVisual::GetConstBufferNum(){
 	return _vsConstBufferNum + _psConstBufferNum;
+}
+
+inline int DXVisual::GetLayoutNum(){
+	return _layout.GetElementNum();
 }

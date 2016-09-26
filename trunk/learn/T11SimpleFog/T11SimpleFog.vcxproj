@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0B519F59-12D1-4355-8080-B60EF99325C7}</ProjectGuid>
-    <RootNamespace>T01TextureCube</RootNamespace>
+    <RootNamespace>T11SimpleFog</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
     <ProjectName>T11SimpleFog</ProjectName>
   </PropertyGroup>
