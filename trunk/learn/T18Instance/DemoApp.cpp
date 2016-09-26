@@ -19,7 +19,7 @@ bool DemoApp::LoadContent(){
 	PreAddLayout(_currMesh);
 	PreAddLayoutInstance(_currMesh);
 
-	InitVisual(_currMesh, L"shader/scroll_uv.fx", "assets/t_01.dds");
+	InitVisual(_currMesh, L"shader/Instance.fx", "assets/t_01.dds");
 	_dxEngine.EnableAlphaBlend();
 	return true;
 }

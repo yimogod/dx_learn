@@ -12,7 +12,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shader\scroll_uv.fx">
+    <FxCompile Include="shader\Instance.fx">
       <Filter>shader</Filter>
     </FxCompile>
   </ItemGroup>

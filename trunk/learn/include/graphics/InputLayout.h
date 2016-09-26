@@ -1,8 +1,8 @@
 #pragma once
 #include <d3d11_1.h>
+#include <graphics/VertexBuffer.h>
 
-class InputLayout
-{
+class InputLayout{
 public:
 	InputLayout();
 	~InputLayout();
@@ -10,6 +10,8 @@ public:
 public:
 	void AddElement(LPCSTR SemanticName, UINT SemanticIndex, DXGI_FORMAT Format, int byteWidth);
 	HRESULT CreateInputLayout(ID3D11Device* device, ID3DBlob* blob);
+	//绑定1个/多个 vertextbuffer到此layout下
+	void BindVertexBuffer(ID3D11DeviceContext* context, VertexBuffer* vertexList);
 
 	inline void AddPosition();
 	inline void AddNormal();
@@ -20,6 +22,7 @@ public:
 
 	inline int GetElementNum() const;
 	inline int GetTotalByte(int slot) const;
+	inline int GetSlotNum() const;
 	inline ID3D11InputLayout* GetDXObj() const;
 
 private:
@@ -28,11 +31,8 @@ private:
 	int _elementNum = 0;
 
 	//占用了几个slot
-	int _slotNum = 0;
+	int _slotIndex = 0;
 	int _totalByte[4];
-
-	//除了标准的vs输入,添加的其他附加的数据. 比如为了instance效果, 添加的位置元素
-	bool _hasInstance = false;
 
 	//当前texture语义索引
 	int _semanTextureIndex = 0;
@@ -45,6 +45,10 @@ inline int InputLayout::GetElementNum() const{
 
 inline int InputLayout::GetTotalByte(int slot) const{
 	return _totalByte[slot];
+}
+
+inline int InputLayout::GetSlotNum() const{
+	return _slotIndex + 1;
 }
 
 inline ID3D11InputLayout* InputLayout::GetDXObj() const{

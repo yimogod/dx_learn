@@ -47,7 +47,7 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum, int* in
 }
 
 void DXVisual::Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resView){
-	_vertexBuffer.BindVertexBuff(context, _layout);
+	_layout.BindVertexBuffer(context, &_vertexBuffer);
 	_indexBuffer.BindIndexBuff(context);
 
 	_vs.VSSetShader(context);
