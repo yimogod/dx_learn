@@ -17,6 +17,10 @@ bool Window::Init(HINSTANCE const &ins, HWND const &hwnd){
 }
 
 void Window::InitVisual(Mesh* mesh, wchar_t* vsName){
+	InitVisual(mesh, nullptr, 0, vsName);
+}
+
+void Window::InitVisual(Mesh* mesh, Vertex* vertAddOn, int vertAddOnNum, wchar_t* vsName){
 	DXVisual& visual = mesh->visual;
 
 	/*准备shader数据*/
@@ -31,12 +35,33 @@ void Window::InitVisual(Mesh* mesh, wchar_t* vsName){
 		visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
 
 	//初始化visual
-	Vertex* vertices = new Vertex[mesh->vertexNum];
-	mesh->GetVertexList(vertices);
+	//多个Vertex数组
+	Vertex** vertices = nullptr;
+	int* vertexNum = nullptr;
+	int vertListNum = 1;
+	if(vertAddOnNum == 0){
+		vertListNum = 1;
+	}else{
+		vertListNum = 2;
+	}
+	 
+	vertices = new Vertex*[vertListNum];
+	vertexNum = new int[vertListNum];
+
+	vertices[0] = new Vertex[mesh->vertexNum];
+	mesh->GetVertexList(vertices[0]);
+	vertexNum[0] = mesh->vertexNum;
+
+	if(vertListNum == 2){
+		vertices[1] = vertAddOn;
+		vertexNum[1] = vertAddOnNum;
+	}
+
+
 	int* indices = new int[mesh->indexNum];
 	mesh->GetIndexList(indices);
 
-	_dxEngine.InitVisual(visual, vertices, mesh->vertexNum, indices, mesh->indexNum);
+	_dxEngine.InitVisual(visual, (void**)vertices, vertexNum, indices, mesh->indexNum);
 
 	delete(vertices);
 	delete(indices);

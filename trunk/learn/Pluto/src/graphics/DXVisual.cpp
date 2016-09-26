@@ -4,7 +4,7 @@ DXVisual::DXVisual(){}
 
 DXVisual::~DXVisual(){}
 
-bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum, int* indices, int indexNum){
+bool DXVisual::Init(ID3D11Device* device, void** vertices, int* vertexNum, int* indices, int indexNum){
 	//´´½¨ vertex shader
 	bool result = _vs.CreateVertexShader(device, _layout);
 	if(!result)return false;
@@ -13,9 +13,11 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum, int* in
 	result = _ps.CreatePixelShader(device);
 	if(!result)return false;
 
-	int singleVertexByte = _layout.GetTotalByte(0);
-	result = _vertexBuffer.CreateVertexBuffer(device, vertices, vertexNum, singleVertexByte);
-	if(!result)return false;
+	for(int i = 0; i < _layout.GetSlotNum(); i++){
+		int singleVertexByte = _layout.GetTotalByte(i);
+		result = _vertexBuffer[i].CreateVertexBuffer(device, vertices[i], vertexNum[i], singleVertexByte);
+		if(!result)return false;
+	}
 
 	if(indexNum > 0){
 		result = _indexBuffer.CreateIndexBuffer(device, indices, indexNum);
@@ -47,7 +49,7 @@ bool DXVisual::Init(ID3D11Device* device, void* vertices, int vertexNum, int* in
 }
 
 void DXVisual::Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resView){
-	_layout.BindVertexBuffer(context, &_vertexBuffer);
+	_layout.BindVertexBuffer(context, _vertexBuffer);
 	_indexBuffer.BindIndexBuff(context);
 
 	_vs.VSSetShader(context);
@@ -69,7 +71,13 @@ void DXVisual::Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resV
 	if(_indexBuffer.useIndex){
 		context->DrawIndexed(_indexBuffer.GetIndexNum(), 0, 0);
 	}else{
-		context->Draw(_vertexBuffer.GetVertexNum(), 0);
+		int vertNum = _vertexBuffer[0].GetVertexNum();
+		int insNum = _vertexBuffer[1].GetVertexNum();
+		if(_layout.HasInstance()){
+			context->DrawInstanced(vertNum, insNum, 0, 0);
+		}else{
+			context->Draw(vertNum, 0);
+		}
 	}
 }
 

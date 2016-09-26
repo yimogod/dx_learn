@@ -23,6 +23,7 @@ public:
 	inline int GetElementNum() const;
 	inline int GetTotalByte(int slot) const;
 	inline int GetSlotNum() const;
+	inline bool HasInstance() const;
 	inline ID3D11InputLayout* GetDXObj() const;
 
 private:
@@ -37,6 +38,8 @@ private:
 	//当前texture语义索引
 	int _semanTextureIndex = 0;
 
+	//是否有instance相关的元素
+	bool _hasInstance = false;
 };
 
 inline int InputLayout::GetElementNum() const{
@@ -49,6 +52,10 @@ inline int InputLayout::GetTotalByte(int slot) const{
 
 inline int InputLayout::GetSlotNum() const{
 	return _slotIndex + 1;
+}
+
+inline bool InputLayout::HasInstance() const{
+	return _hasInstance;
 }
 
 inline ID3D11InputLayout* InputLayout::GetDXObj() const{

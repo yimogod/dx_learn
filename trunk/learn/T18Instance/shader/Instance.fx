@@ -11,14 +11,11 @@ cbuffer ScrollBuffer : register(b1){
 	float scroll;
 }
 
-cbuffer FadeBuffer : register(b2){
-	float fade;
-}
-
 struct VS_INPUT{
 	float4 pos : POSITION;
 	float4 color : COLOR;
 	float2 tex : TEXCOORD0;
+	float3 insPos : TEXCOORD1;
 };
 
 struct PS_INPUT{
@@ -29,12 +26,16 @@ struct PS_INPUT{
 
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
+
+	input.pos.x += input.insPos.x;
+	input.pos.y += input.insPos.y;
+	input.pos.z += input.insPos.z;
+
 	output.pos = mul(input.pos, model);
 	output.pos = mul(output.pos, view);
 	output.pos = mul(output.pos, perspective);
 
 	output.color = input.color;
-	output.color.a -= fade;
 	output.tex = input.tex;
 	output.tex.x += scroll;
 

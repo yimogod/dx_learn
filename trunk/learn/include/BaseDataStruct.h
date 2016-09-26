@@ -94,3 +94,8 @@ struct MVPConstBuffer{
 	Matrix4x4 view;
 	Matrix4x4 perspective;
 };
+
+struct InstancePos{
+	Float3 position;
+	float pad;
+};

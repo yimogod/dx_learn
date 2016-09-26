@@ -37,6 +37,8 @@ void InputLayout::AddInstance(){
 
 	_elementNum++;
 	_totalByte[_slotIndex] += 16;
+
+	_hasInstance = true;
 }
 
 HRESULT InputLayout::CreateInputLayout(ID3D11Device* device, ID3DBlob* blob){

@@ -22,6 +22,7 @@ protected:
 	void UpdateConstBuff();
 
 	void InitVisual(Mesh* mesh, wchar_t* vsName);
+	void InitVisual(Mesh* mesh, Vertex* vertAddOn, int vertAddOnNum, wchar_t* vsName);
 	void InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath);
 
 	//方法代理, 为了让代码更好看

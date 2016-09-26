@@ -36,7 +36,9 @@ public:
 	void PreSetVSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
 	void PreSetPSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
 
-	bool Init(ID3D11Device* device, void* vertices, int vertexNum, int* indices, int indexNum);
+	//vertices是个二维数组
+	//vertexNum是个一维数组
+	bool Init(ID3D11Device* device, void** vertices, int* vertexNum, int* indices, int indexNum);
 	//resView 外部传进来的贴图
 	void Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resView = nullptr);
 
@@ -47,7 +49,7 @@ private:
 	InputLayout _layout;
 
 
-	VertexBuffer _vertexBuffer;
+	VertexBuffer _vertexBuffer[4];
 	IndexBuffer _indexBuffer;
 
 	//用于vs的uniform数据
