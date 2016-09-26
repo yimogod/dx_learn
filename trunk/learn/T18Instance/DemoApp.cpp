@@ -14,24 +14,22 @@ bool DemoApp::LoadContent(){
 
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
-	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
-	PreSetVSConstBufferSize(_currMesh, sizeof(Float4));
 	PreAddLayout(_currMesh);
 	PreAddLayoutInstance(_currMesh);
+	AddTexture(_currMesh, "assets/t_01.dds");
 
-	InitVisual(_currMesh, L"shader/Instance.fx", "assets/t_01.dds");
+	Vertex insList[4];
+	insList[0].pos = Float4(-1.5f, -1.5f, 5.0f, 1.0f);
+	insList[0].pos = Float4(-1.5f, 1.5f, 5.0f, 1.0f);
+	insList[0].pos = Float4(1.5f, -1.5f, 5.0f, 1.0f);
+	insList[0].pos = Float4(1.5f, 1.5f, 5.0f, 1.0f);
+
+	InitVisual(_currMesh, insList, 4, L"shader/Instance.fx");
 	_dxEngine.EnableAlphaBlend();
 	return true;
 }
 
 void DemoApp::UnloadContent(){}
-
-void DemoApp::Update(){
-	Window::Update();
-
-	Float4 insPos;
-	_dxEngine.UpdateVSSubResource(GetVisual(), 1, &insPos);
-}
 
 void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;

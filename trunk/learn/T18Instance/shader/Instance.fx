@@ -7,10 +7,6 @@ cbuffer ConstantBuffer : register(b0){
 	matrix perspective;
 }
 
-cbuffer ScrollBuffer : register(b1){
-	float scroll;
-}
-
 struct VS_INPUT{
 	float4 pos : POSITION;
 	float4 color : COLOR;
@@ -37,7 +33,6 @@ PS_INPUT VS(VS_INPUT input){
 
 	output.color = input.color;
 	output.tex = input.tex;
-	output.tex.x += scroll;
 
 	return output;
 }
