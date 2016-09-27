@@ -6,7 +6,7 @@ VertexBuffer::VertexBuffer(){
 VertexBuffer::~VertexBuffer(){
 }
 
-bool VertexBuffer::CreateVertexBuffer(ID3D11Device* device, void* vertices, int vertNum, int singleVertByte){
+bool VertexBuffer::CreateVertexBuffer(ID3D11Device* device, char* vertices, int vertNum, int singleVertByte){
 	_vertexNum = vertNum;
 
 	/*…Ë÷√buff desc*/

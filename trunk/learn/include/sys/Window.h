@@ -22,7 +22,7 @@ protected:
 	void UpdateConstBuff();
 
 	void InitVisual(Mesh* mesh, wchar_t* vsName);
-	void InitVisual(Mesh* mesh, Vertex* vertAddOn, int vertAddOnNum, wchar_t* vsName);
+	void InitVisual(Mesh* mesh, char* vertAddOn, int vertAddOnNum, wchar_t* vsName);
 	void InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath);
 
 	//方法代理, 为了让代码更好看
@@ -30,7 +30,7 @@ protected:
 	inline void AddSamplerState(Mesh* mesh, D3D11_TEXTURE_ADDRESS_MODE adress);//创建多个sampler
 	inline void PreSetVSConstBufferSize(Mesh* mesh, int byteWidth);
 	inline void PreSetPSConstBufferSize(Mesh* mesh, int byteWidth);
-	inline void PreAddLayout(Mesh* mesh);
+	inline void PreAddDefaultLayout(Mesh* mesh);
 	inline void PreAddLayoutInstance(Mesh* mesh);
 
 	inline DXVisual& GetVisual() const;
@@ -63,7 +63,7 @@ inline void Window::PreSetPSConstBufferSize(Mesh* mesh, int byteWidth){
 	mesh->visual.PreSetPSConstBufferSize(byteWidth);
 }
 
-inline void Window::PreAddLayout(Mesh* mesh){
+inline void Window::PreAddDefaultLayout(Mesh* mesh){
 	mesh->visual.PreAddDefaultLayout();
 }
 

@@ -16,7 +16,7 @@ public:
 
 	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
-	void InitVisual(DXVisual &visual, void** vertices, int* vertexNum, int* indices, int indexNum);
+	void InitVisual(DXVisual &visual, char** vertices, int* vertexNum, int* indices, int indexNum);
 	inline void SetDefaultRenderTargetView();
 	inline void DrawVisual(DXVisual &visual);
 	inline void DrawVisualByRTT(DXVisual &visual, int index = 0);

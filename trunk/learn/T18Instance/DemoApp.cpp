@@ -14,17 +14,18 @@ bool DemoApp::LoadContent(){
 
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
-	PreAddLayout(_currMesh);
+	_currMesh->SetWorldPos(0, 0, 0);
+	PreAddDefaultLayout(_currMesh);
 	PreAddLayoutInstance(_currMesh);
 	AddTexture(_currMesh, "assets/t_01.dds");
 
-	Vertex insList[4];
-	insList[0].pos = Float4(-1.5f, -1.5f, 5.0f, 1.0f);
-	insList[0].pos = Float4(-1.5f, 1.5f, 5.0f, 1.0f);
-	insList[0].pos = Float4(1.5f, -1.5f, 5.0f, 1.0f);
-	insList[0].pos = Float4(1.5f, 1.5f, 5.0f, 1.0f);
+	Float4 insList[4];
+	insList[0] = Float4(-1.5f, -1.5f, 5.0f, 1.0f);
+	insList[1] = Float4(-1.5f, 1.5f, 5.0f, 1.0f);
+	insList[2] = Float4(1.5f, -1.5f, 5.0f, 1.0f);
+	insList[3] = Float4(1.5f, 1.5f, 5.0f, 1.0f);
 
-	InitVisual(_currMesh, insList, 4, L"shader/Instance.fx");
+	InitVisual(_currMesh, (char *)insList, 4, L"shader/Instance.fx");
 	_dxEngine.EnableAlphaBlend();
 	return true;
 }

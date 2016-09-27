@@ -20,7 +20,7 @@ void Window::InitVisual(Mesh* mesh, wchar_t* vsName){
 	InitVisual(mesh, nullptr, 0, vsName);
 }
 
-void Window::InitVisual(Mesh* mesh, Vertex* vertAddOn, int vertAddOnNum, wchar_t* vsName){
+void Window::InitVisual(Mesh* mesh, char* vertAddOn, int vertAddOnNum, wchar_t* vsName){
 	DXVisual& visual = mesh->visual;
 
 	/*准备shader数据*/
@@ -36,7 +36,7 @@ void Window::InitVisual(Mesh* mesh, Vertex* vertAddOn, int vertAddOnNum, wchar_t
 
 	//初始化visual
 	//多个Vertex数组
-	Vertex** vertices = nullptr;
+	char** vertices = nullptr;
 	int* vertexNum = nullptr;
 	int vertListNum = 1;
 	if(vertAddOnNum == 0){
@@ -45,11 +45,12 @@ void Window::InitVisual(Mesh* mesh, Vertex* vertAddOn, int vertAddOnNum, wchar_t
 		vertListNum = 2;
 	}
 	 
-	vertices = new Vertex*[vertListNum];
+	vertices = new char*[vertListNum];
 	vertexNum = new int[vertListNum];
 
-	vertices[0] = new Vertex[mesh->vertexNum];
-	mesh->GetVertexList(vertices[0]);
+	Vertex *vert = new Vertex[mesh->vertexNum];
+	mesh->GetVertexList(vert);
+	vertices[0] = (char*)vert;
 	vertexNum[0] = mesh->vertexNum;
 
 	if(vertListNum == 2){
@@ -61,7 +62,7 @@ void Window::InitVisual(Mesh* mesh, Vertex* vertAddOn, int vertAddOnNum, wchar_t
 	int* indices = new int[mesh->indexNum];
 	mesh->GetIndexList(indices);
 
-	_dxEngine.InitVisual(visual, (void**)vertices, vertexNum, indices, mesh->indexNum);
+	_dxEngine.InitVisual(visual, vertices, vertexNum, indices, mesh->indexNum);
 
 	delete(vertices);
 	delete(indices);

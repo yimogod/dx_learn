@@ -52,7 +52,7 @@ bool DXEngine::CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight)
 	return true;
 }
 
-void DXEngine::InitVisual(DXVisual &visual, void** vertices, int* vertexNum, int* indices, int indexNum){
+void DXEngine::InitVisual(DXVisual &visual, char** vertices, int* vertexNum, int* indices, int indexNum){
 	visual.Init(_device, vertices, vertexNum, indices, indexNum);
 }
 

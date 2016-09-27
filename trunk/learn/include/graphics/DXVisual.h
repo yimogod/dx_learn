@@ -38,7 +38,7 @@ public:
 
 	//vertices是个二维数组
 	//vertexNum是个一维数组
-	bool Init(ID3D11Device* device, void** vertices, int* vertexNum, int* indices, int indexNum);
+	bool Init(ID3D11Device* device, char** vertices, int* vertexNum, int* indices, int indexNum);
 	//resView 外部传进来的贴图
 	void Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resView = nullptr);
 

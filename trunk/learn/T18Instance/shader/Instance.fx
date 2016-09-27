@@ -11,7 +11,9 @@ struct VS_INPUT{
 	float4 pos : POSITION;
 	float4 color : COLOR;
 	float2 tex : TEXCOORD0;
-	float3 insPos : TEXCOORD1;
+	float4 normal : NORMAL;
+	float4 tangent : TANGENT;
+	float4 insPos : TEXCOORD1;
 };
 
 struct PS_INPUT{
@@ -23,11 +25,9 @@ struct PS_INPUT{
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
 
-	input.pos.x += input.insPos.x;
-	input.pos.y += input.insPos.y;
-	input.pos.z += input.insPos.z;
-
-	output.pos = mul(input.pos, model);
+	output.pos = input.pos + input.insPos;
+	output.pos.w = 1.0f;
+	output.pos = mul(output.pos, model);
 	output.pos = mul(output.pos, view);
 	output.pos = mul(output.pos, perspective);
 

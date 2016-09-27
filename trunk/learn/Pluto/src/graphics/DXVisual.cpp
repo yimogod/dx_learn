@@ -4,7 +4,7 @@ DXVisual::DXVisual(){}
 
 DXVisual::~DXVisual(){}
 
-bool DXVisual::Init(ID3D11Device* device, void** vertices, int* vertexNum, int* indices, int indexNum){
+bool DXVisual::Init(ID3D11Device* device, char** vertices, int* vertexNum, int* indices, int indexNum){
 	//´´½¨ vertex shader
 	bool result = _vs.CreateVertexShader(device, _layout);
 	if(!result)return false;
