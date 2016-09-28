@@ -29,3 +29,8 @@ bool PixelShader::CreatePixelShader(ID3D11Device* device){
 	blob->Release();
 	return true;
 }
+
+void PixelShader::Reset(){
+	Shader::Reset();
+	_ps = nullptr;
+}

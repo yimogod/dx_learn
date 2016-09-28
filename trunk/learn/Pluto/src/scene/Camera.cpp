@@ -9,26 +9,30 @@ Camera::Camera(){
 Camera::~Camera(){
 }
 
-void Camera::setPos(float px, float py, float pz){
+void Camera::SetPos(float px, float py, float pz){
 	position.x = px;
 	position.y = py;
 	position.z = pz;
 }
 
-void Camera::setEulerAngle(float pheading, float ppitch, float pbank){
+void Camera::SetPos(const Vector3D &pos){
+	position = pos;
+}
+
+void Camera::SetEulerAngle(float pheading, float ppitch, float pbank){
 	heading = pheading;
 	pitch = ppitch;
 	bank = pbank;
 }
 
-void Camera::setFrustum(float viewDis, float pfov, float nz, float fz){
+void Camera::SetFrustum(float viewDis, float pfov, float nz, float fz){
 	dis = viewDis;
 	fov = pfov;
 	nearClipZ = nz;
 	farClipZ = fz;
 }
 
-void Camera::setAspect(int pviewportWidth, int pviewportHeight){
+void Camera::SetAspect(int pviewportWidth, int pviewportHeight){
 	viewportWidth = pviewportWidth;
 	viewportHeight = pviewportHeight;
 	aspect = (float)pviewportWidth / (float)pviewportHeight;

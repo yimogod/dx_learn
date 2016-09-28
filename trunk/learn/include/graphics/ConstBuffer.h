@@ -6,6 +6,7 @@ public:
 	ConstBuffer();
 	~ConstBuffer();
 
+	void Reset();
 	bool CreateConstBuffer(ID3D11Device* device, int byteWidth, int slot, bool forVS);
 	void BindConstBuff(ID3D11DeviceContext* context, UINT NumBuffer);
 	inline void UpdateConstBuff(ID3D11DeviceContext* context, const void* data);

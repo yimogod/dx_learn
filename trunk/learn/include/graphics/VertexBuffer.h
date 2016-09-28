@@ -6,9 +6,11 @@ public:
 	VertexBuffer();
 	~VertexBuffer();
 
+	void Reset();
 	bool CreateVertexBuffer(ID3D11Device* device, char* vertices, int vertNum, int singleVertByte);
 	inline int GetVertexNum() const;
 	inline ID3D11Buffer* GetDXObj() const;
+
 private:
 	ID3D11Buffer* _vertexBuff = nullptr;
 	int _vertexNum = 0;

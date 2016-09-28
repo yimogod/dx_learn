@@ -48,10 +48,12 @@ public:
 	//Camera(const Camera &c);//复制构造函数
     ~Camera();
     
-	void setPos(float px, float py, float pz);
-	void setEulerAngle(float pheading, float ppitch, float pbank);
-	void setFrustum(float viewDis, float pfov, float nz, float fz);
-    void setAspect(int pviewportWidth, int pviewportHeight);
+	void SetPos(float px, float py, float pz);
+	void SetPos(const Vector3D &pos);
+	//rotate y, x, z, 基于自身坐标, 单位角度
+	void SetEulerAngle(float pheading, float ppitch, float pbank);
+	void SetFrustum(float viewDis, float pfov, float nz, float fz);
+    void SetAspect(int pviewportWidth, int pviewportHeight);
 
 	Matrix4x4 GetWorldToCameraMatrix();
 	Matrix4x4 GetCameraToProjMatrix();

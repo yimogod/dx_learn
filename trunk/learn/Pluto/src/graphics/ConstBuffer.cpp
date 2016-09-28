@@ -31,3 +31,9 @@ void ConstBuffer::BindConstBuff(ID3D11DeviceContext* context, UINT NumBuffers){
 		context->PSSetConstantBuffers(_startSlot, NumBuffers, &_constBuff);
 	}
 }
+
+void ConstBuffer::Reset(){
+	_constBuff = nullptr;
+	_forVS = true;
+	_startSlot = 0;
+}

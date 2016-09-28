@@ -21,3 +21,11 @@ void ShaderResourceView::AddTexturePath(const std::wstring &path){
 	_texturePathList[_resViewNum] = path;
 	_resViewNum++;
 }
+
+void ShaderResourceView::Reset(){
+	_resViewNum = 0;
+	for(int i = 0; i < 8; i++){
+		_texturePathList[i] = nullptr;
+		_resView[i] = nullptr;
+	}
+}

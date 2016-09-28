@@ -8,6 +8,7 @@ public:
 	Shader(wchar_t* fileName, char* entrytPoint, char* shaderModel);
 	virtual ~Shader();
 
+	virtual void Reset();
 	inline void SetFileName(wchar_t* fileName);
 protected:
 	//±‡“Îshader

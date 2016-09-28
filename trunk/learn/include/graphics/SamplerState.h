@@ -8,6 +8,7 @@ public:
 
 	inline int GetStateNum() const;
 
+	void Reset();
 	bool CreateSamplerState(ID3D11Device* device);
 	void BindSamplerState(ID3D11DeviceContext* context);
 	void AddAdress(D3D11_TEXTURE_ADDRESS_MODE adress);

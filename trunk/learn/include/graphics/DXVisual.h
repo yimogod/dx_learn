@@ -42,6 +42,10 @@ public:
 	//resView 外部传进来的贴图
 	void Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resView = nullptr);
 
+	//动态改变shader, 这涉及到更改很多东西
+	//几乎意味着重建整个Visual, layout, vertbuffer, pixelbuffer, constbuffer全部需要重建
+	void UpdateShader(wchar_t* vsName, wchar_t* psName);
+	void Reset();
 public:
 	inline void UpdateVSConstBuffer(ID3D11DeviceContext* context, int index, const void* data);
 	inline void UpdatePSConstBuffer(ID3D11DeviceContext* context, int index, const void* data);

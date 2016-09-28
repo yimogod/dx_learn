@@ -40,3 +40,10 @@ void SamplerState::BindSamplerState(ID3D11DeviceContext* context){
 		context->PSSetSamplers(i, 1, &_samplerState[i]);
 	}
 }
+
+void SamplerState::Reset(){
+	_stateNum = 0;
+	for(int i = 0; i < 8; i++){
+		_samplerState[i] = nullptr;
+	}
+}

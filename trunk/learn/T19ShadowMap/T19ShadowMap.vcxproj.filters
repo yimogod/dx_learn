@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="shader">
+      <UniqueIdentifier>{4c7ffaa2-f3f7-45e7-bd54-b89aeddd0231}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DemoApp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader\Phong.fx">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\Depth.fx">
+      <Filter>shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DemoApp.cpp" />
+  </ItemGroup>
+</Project>

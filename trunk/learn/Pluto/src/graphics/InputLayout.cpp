@@ -69,3 +69,13 @@ void InputLayout::BindVertexBuffer(ID3D11DeviceContext* context, VertexBuffer* v
 	delete[] strides;
 	delete[] offsets;
 }
+
+void InputLayout::Reset(){
+	_elementNum = 0;
+	_slotIndex = 0;
+	_semanTextureIndex = 0;
+	_hasInstance = false;
+
+	//究竟释放了没有?
+	_vertexLayout = nullptr;
+}

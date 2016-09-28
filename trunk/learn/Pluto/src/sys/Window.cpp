@@ -9,9 +9,9 @@ bool Window::Init(HINSTANCE const &ins, HWND const &hwnd){
 	BaseApp::Init(ins, hwnd);
 	_dxEngine.InitDevice(hwnd, _width, _height);
 
-	_camera.setPos(0, 0, -2.0f);
-	_camera.setFrustum(1.0f, 45.0f, 1.0f, 100.0f);
-	_camera.setAspect(_width, _height);
+	_camera.SetPos(0, 0, -2.0f);
+	_camera.SetFrustum(1.0f, 45.0f, 1.0f, 100.0f);
+	_camera.SetAspect(_width, _height);
 
 	return LoadContent();
 }

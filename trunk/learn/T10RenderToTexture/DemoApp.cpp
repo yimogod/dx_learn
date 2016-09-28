@@ -41,6 +41,6 @@ void DemoApp::Render(){
 	_currMesh = _scene.GetMesh(1);
 	_dxEngine.SetDefaultRenderTargetView();
 	_dxEngine.ClearBuffers();
-	_dxEngine.DrawVisual2RTT(GetVisual());
+	_dxEngine.DrawVisualByRTT(GetVisual());
 	_dxEngine.Present();
 }

@@ -91,3 +91,33 @@ void DXVisual::PreSetPSConstBufferSize(int byteWidth){
 	_psConstByteWidth[_psConstBufferNum] = byteWidth;
 	_psConstBufferNum++;
 }
+
+void DXVisual::UpdateShader(wchar_t* vsName, wchar_t* psName){
+	//÷ÿ…Ëshader√˚≥∆
+	PreInitShader(vsName, psName);
+
+}
+
+void DXVisual::Reset(){
+	_layout.Reset();
+	for(int i = 0; i < 4; i++){
+		_vertexBuffer[i].Reset();
+	}
+
+	_indexBuffer.Reset();
+
+	_vsConstBufferNum = 0;
+	for(int i = 0; i < 4; i++){
+		_vsConstBuffer[i].Reset();
+	}
+
+	_psConstBufferNum = 0;
+	for(int i = 0; i < 4; i++){
+		_psConstBuffer[i].Reset();
+	}
+
+	_vs.Reset();
+	_ps.Reset();
+	_samplerState.Reset();
+	_resView.Reset();
+}

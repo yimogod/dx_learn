@@ -9,6 +9,7 @@ public:
 
 	inline int GetResViewNum() const;
 
+	void Reset();
 	bool CreateTexture(ID3D11Device* device);
 	void AddTexturePath(const std::wstring &path);
 	inline void BindShaderResource(ID3D11DeviceContext* context, UINT StartSlot);

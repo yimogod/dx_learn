@@ -36,3 +36,8 @@ bool VertexShader::CreateVertexShader(ID3D11Device* device, InputLayout &inputLa
 	blob->Release();
 	return true;
 }
+
+void VertexShader::Reset(){
+	Shader::Reset();
+	_vs = nullptr;
+}

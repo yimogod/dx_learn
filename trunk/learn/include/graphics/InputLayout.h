@@ -13,6 +13,8 @@ public:
 	//绑定1个/多个 vertextbuffer到此layout下
 	void BindVertexBuffer(ID3D11DeviceContext* context, VertexBuffer* vertexList);
 
+	void Reset();
+
 	inline void AddPosition();
 	inline void AddNormal();
 	inline void AddTangent();
