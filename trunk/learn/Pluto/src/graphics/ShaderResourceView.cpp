@@ -25,7 +25,7 @@ void ShaderResourceView::AddTexturePath(const std::wstring &path){
 void ShaderResourceView::Reset(){
 	_resViewNum = 0;
 	for(int i = 0; i < 8; i++){
-		_texturePathList[i] = nullptr;
+		_texturePathList[i] = L"";
 		_resView[i] = nullptr;
 	}
 }

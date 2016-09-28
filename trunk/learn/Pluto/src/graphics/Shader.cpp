@@ -45,6 +45,4 @@ bool Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut){
 
 void Shader::Reset(){
 	_fileName = nullptr;
-	_entryPoint = nullptr;
-	_shaderModel = nullptr;
 }

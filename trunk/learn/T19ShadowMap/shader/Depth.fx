@@ -21,7 +21,7 @@ struct VS_INPUT{
 /*œÒÀÿ ‰»Î*/
 struct PS_INPUT{
 	float4 pos : SV_POSITION;
-	float2 depthPos : TEXCOORD0;
+	float4 depthPos : TEXCOORD0;
 };
 
 
@@ -37,6 +37,6 @@ PS_INPUT VS(VS_INPUT input){
 
 float4 PS(PS_INPUT input) :SV_Target{
 	float depth = input.depthPos.z / input.depthPos.w;
-	float color = float4(depth, depth, depth, 1.0f);
+	float4 color = float4(depth, depth, depth, 1.0f);
 	return color;
 }

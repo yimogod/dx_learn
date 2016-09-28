@@ -33,7 +33,7 @@ bool DemoApp::LoadContent(){
 	_currMesh->SetWorldPos(0, -0.5f, 0);
 	GeoCreater::CreateFloor(*_currMesh);
 	_scene.AddMesh(_currMesh);
-	InitVisual(_currMesh, L"shader/Triangle.fx");
+	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_01.dds");
 
 
 	_dxEngine.CreateRTT();
@@ -58,20 +58,6 @@ void DemoApp::UpdateConstForPhong(){
 		Float4A{ sc.r, sc.g, sc.b, sc.a },
 		Float4{ d.x, d.y, d.z, 1.0f } };
 	pb.directionLight = dl;
-
-	light = _scene.lightList[1];
-	ac = light->ambientColor;
-	dc = light->diffuseColor;
-	sc = light->specularColor;
-	d = light->pos;
-	PointLight pl = PointLight{
-		Float4A{ ac.r, ac.g, ac.b, ac.a },
-		Float4A{ dc.r, dc.g, dc.b, dc.a },
-		Float4A{ sc.r, sc.g, sc.b, sc.a },
-		Float4{ d.x, d.y, d.z, 1.0f },
-		Float3{ light->kc, light->kl, light->kq },
-		light->range};
-	pb.pointLight = pl;
 
 	_dxEngine.UpdatePSSubResource(GetVisual(), 0, &pb);
 }
@@ -104,12 +90,12 @@ void DemoApp::Render(){
 	_currMesh = _scene.GetMesh(0);
 	_currMesh->visual.Reset();
 	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
-	InitVisual(_currMesh, L"shader/Phong.fx");
+	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_02.dds");
 	_currMesh = _scene.GetMesh(1);
 	_currMesh->visual.Reset();
 	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
 	PreSetPSConstBufferSize(_currMesh, sizeof(PhongConstBuffer));
-	InitVisual(_currMesh, L"shader/Phong.fx");
+	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_01.dds");
 	UpdateConstForPhong();
 
 
