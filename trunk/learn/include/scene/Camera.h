@@ -10,11 +10,11 @@ public:
     Vector3D position;
 	
 	/* base on angle radians(弧度), 基于世界坐标系逆时针, */
-	/*rotate y, 180~-180*/
+	/*rotate y, PI~-PI*/
 	float heading;
 	/* rotate x, 90~-90 */
 	float pitch;
-	/* roatet z, 180~-180 */
+	/* roatet z, PI~-PI */
 	float bank;
 
     /* 视距，视点到投影面的距离 */

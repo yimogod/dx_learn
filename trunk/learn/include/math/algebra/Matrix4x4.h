@@ -40,7 +40,7 @@ public:
 	Matrix4x4 reverse();
 
 	/*v是弧度, 基于世界坐标系*/
-	Matrix4x4 rotateX(float v);
-	Matrix4x4 rotateY(float v);
+	Matrix4x4 RotateX(float v);
+	Matrix4x4 RotateY(float v);
 	Matrix4x4 rotateZ(float v);
 };

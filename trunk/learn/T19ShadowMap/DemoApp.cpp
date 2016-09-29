@@ -25,15 +25,15 @@ bool DemoApp::LoadContent(){
 	ObjParser reader;
 	reader.Read(GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_currMesh = _scene.GetMesh(0);
-	_currMesh->SetWorldPos(0, 0.5f, 0);
+	_currMesh->SetWorldPos(0, 0, 0);
 	InitVisual(_currMesh, L"shader/Depth.fx");
 
 	//2. 地板, 坐标在0, -0.5f, 0
-	//_currMesh = new Mesh();
-	//_currMesh->SetWorldPos(0, -0.5f, 1.0f);
-	//GeoCreater::CreateFloor(*_currMesh);
-	//_scene.AddMesh(_currMesh);
-	//InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_01.dds");
+	_currMesh = new Mesh();
+	_currMesh->SetWorldPos(0, 0, 0);
+	GeoCreater::CreateFloor(*_currMesh);
+	_scene.AddMesh(_currMesh);
+	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_01.dds");
 
 
 	//_dxEngine.CreateRTT();
@@ -72,7 +72,7 @@ void DemoApp::RenderOneTime(){
 	Light &light = *_scene.lightList[0];
 	_camera.SetPos(light.pos);
 	_camera.SetAspect(1280, 1280);
-	_camera.SetEulerAngle(0, 0, 45.0f);
+	_camera.SetEulerAngle(-1.6f, -0.5f, 0);
 
 	//2. 设置mesh的shader为depth, 将场景的深度信息绘制到RTT
 	//_currMesh = _scene.GetMesh(0);
@@ -130,7 +130,7 @@ void DemoApp::Render(){
 	UpdateConstBuff();
 	_currMesh = _scene.GetMesh(0);
 	_dxEngine.DrawVisual(GetVisual());
-	//_currMesh = _scene.GetMesh(1);
-	//_dxEngine.DrawVisual(GetVisual());
+	_currMesh = _scene.GetMesh(1);
+	_dxEngine.DrawVisual(GetVisual());
 	_dxEngine.Present();
 }
