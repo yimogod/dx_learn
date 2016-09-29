@@ -37,11 +37,13 @@ void Mesh::GetVertexList(Vertex list[]){
 		Vector3D vec = vertexList[i];
 		Color color = vertexColorList[i];
 		Vector3D normal = normalList[i];
+		Vector3D tangent = tangentList[i];
 
 		list[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
 		list[i].color = Float4A{ color.r, color.g, color.b, color.a };
 		list[i].uv = Float2A{ uvList[i].x, uvList[i].y };
 		list[i].normal = Float4{ normal.x, normal.y, normal.z, 1.0f };
+		list[i].tangent = Float4{ tangent.x, tangent.y, tangent.z, 1.0f };
 	}
 }
 

@@ -14,8 +14,9 @@ bool DemoApp::LoadContent(){
 	//平行光坐标在地图左上角, 超右下方观看
 	_scene.lightList[0] = new Light();
 	_scene.lightList[0]->type = Light::TYPE_DIRECTION;
-	_scene.lightList[0]->ambientColor = Color{ 0.0f, 0.0f, 0.0f, 0.3f };
-	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 0.0f, 0.0f, 1.0f };
+	//黄色太阳光
+	_scene.lightList[0]->ambientColor = Color{ 0.0f, 0.0f, 0.0f, 0.6f };
+	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 1.0f, 0.0f, 0.6f };
 	_scene.lightList[0]->specularColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
 	_scene.lightList[0]->pos = Vector3D(-4.0f, 4.0f, 0.0f);
 	_scene.lightList[0]->dir = Vector3D(1.0f, -1.0f, 0.0f);
@@ -137,8 +138,8 @@ void DemoApp::Render(){
 	PreSetPSConstBufferSize(_currMesh, sizeof(PhongConstBuffer));
 	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_01.dds");
 	UpdateConstForPhong();
-	UpdateConstBuff();
 
+	UpdateConstBuff();
 	//绘制到后缓冲
 	_dxEngine.SetDefaultRenderTargetView();
 	_dxEngine.ClearBuffers();

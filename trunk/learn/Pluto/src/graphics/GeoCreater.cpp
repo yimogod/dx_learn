@@ -20,6 +20,8 @@ void GeoCreater::CreateSprite(Mesh &m){
 	m.indexList[3] = 2;
 	m.indexList[4] = 1;
 	m.indexList[5] = 3;
+
+	m.CalVertexNormal();
 }
 
 void GeoCreater::CreateFloor(Mesh &m){
@@ -42,4 +44,6 @@ void GeoCreater::CreateFloor(Mesh &m){
 	m.indexList[3] = 2;
 	m.indexList[4] = 1;
 	m.indexList[5] = 3;
+
+	m.CalVertexNormal();
 }

@@ -17,7 +17,8 @@ struct VS_INPUT{
 	float4 pos : POSITION;
 	float4 color : COLOR;
 	float2 tex : TEXCOORD0;
-	float4 normal: NORMAL;
+	float4 normal : NORMAL;
+	float4 tangent : TANGENT;
 };
 
 /*像素输入*/
@@ -62,7 +63,7 @@ void computeDirectionLight(float4 textColor, DirectionLight light,
 	float3 lightVec = -light.direction.xyz;
 	float diffuseFactor = dot(lightVec, pixelNormal);
 	if(diffuseFactor > 0.0f){
-		diffuse = diffuseFactor * textColor * light.diffuseColor;
+		diffuse = diffuseFactor * textColor * light.diffuseColor * light.diffuseColor.a;
 
 		float3 v = reflect(-lightVec, pixelNormal);
 		float specFactor = max(0.0f, dot(v, toEyeW));
@@ -98,7 +99,7 @@ float4 PS(PS_INPUT input) :SV_Target{
 	float3 normalW = normalize(input.normalW).xyz;
 	float3 toEyeW = normalize(eyePosW - input.posW).xyz;
 	float3 posW = input.posW.xyz;
-	float4 color = float4(1.0f, 0, 0, 1.0f);
+	float4 color = float4(0.0f, 0, 0, 1.0f);
 
 	//转换在lightspace的坐标从-1~1 到0~1(贴图空间)
 	float2 projectTexCoord;
