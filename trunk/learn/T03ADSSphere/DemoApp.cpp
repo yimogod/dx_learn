@@ -16,6 +16,7 @@ bool DemoApp::LoadContent(){
 	_scene.lightList[0]->ambientColor = Color{ 0.0f, 0.0f, 0.0f, 0.3f };
 	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 0.0f, 0.0f, 1.0f };
 	_scene.lightList[0]->specularColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+	_scene.lightList[0]->pos = Vector3D(0.0f, 0.0f, 0.0f);
 	_scene.lightList[0]->dir = Vector3D(1.0f, 0.0f, 1.0f);
 	
 	_scene.lightList[1] = new Light();
@@ -32,6 +33,7 @@ bool DemoApp::LoadContent(){
 	_scene.lightNum = 2;
 
 	/*准备顶点缓冲数据*/
+	_currMesh = _scene.GetMesh(0);
 	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
 	PreSetPSConstBufferSize(_currMesh, sizeof(PhongConstBuffer));
 	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_02.dds");

@@ -89,7 +89,6 @@ struct DirectionLight{
 	Float4A ambientColor;
 	Float4A diffuseColor;
 	Float4A specularColor;
-	Float4 positon;//ÊÀ½ç×ø±ê
 	Float4 direction;
 };
 

@@ -6,7 +6,6 @@
 struct LightSpaceBuffer{
 	Matrix4x4 view;
 	Matrix4x4 perspective;
-	Float4 pos;
 };
 
 class DemoApp : public Window{

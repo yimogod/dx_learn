@@ -131,10 +131,10 @@ float4 PS(PS_INPUT input) :SV_Target{
 	dc += D;
 	sc += S;
 
-	computePointLight(color, pointLight, posW, normalW, toEyeW, A, D, S);
-	ac += A;
-	dc += D;
-	sc += S;
+	//computePointLight(color, pointLight, posW, normalW, toEyeW, A, D, S);
+	//ac += A;
+	//dc += D;
+	//sc += S;
 
 	float4 lit = ac + dc + sc;
 	return lit;

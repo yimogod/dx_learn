@@ -51,7 +51,6 @@ void DemoApp::UpdateConstForPhong(){
 	Color dc = light.diffuseColor;
 	Color sc = light.specularColor;
 	Vector3D d = light.dir;
-	Vector3D p = light.pos;
 	
 	PhongConstBuffer pb;
 	pb.eyeWorldPos = Float4{ 0.0f, 0.0f, -1.0f, 1.0f };
@@ -60,7 +59,6 @@ void DemoApp::UpdateConstForPhong(){
 		Float4A{ ac.r, ac.g, ac.b, ac.a },
 		Float4A{ dc.r, dc.g, dc.b, dc.a },
 		Float4A{ sc.r, sc.g, sc.b, sc.a },
-		Float4{ p.x, p.y, p.z, 1.0f },
 		Float4{ d.x, d.y, d.z, 1.0f } };
 	pb.directionLight = dl;
 
@@ -94,8 +92,6 @@ void DemoApp::Render(){
 	//设置light space的转换数据
 	_lightSpaceBuffer.view = _camera.GetWorldToCameraMatrix().transpose();
 	_lightSpaceBuffer.perspective = _camera.GetCameraToProjMatrix().transpose();
-	_lightSpaceBuffer.pos = Float4(light.pos.x, light.pos.y, light.pos.z, 1.0f);
-
 
 	//2. 设置mesh的shader为depth, 将场景的深度信息绘制到RTT
 	_currMesh = _scene.GetMesh(0);

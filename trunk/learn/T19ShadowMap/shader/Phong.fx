@@ -8,7 +8,6 @@ struct DirectionLight{
 	float4 ambientColor;
 	float4 diffuseColor;
 	float4 specularColor;
-	float4 position;//基于世界
 	float4 direction;
 };
 
@@ -42,7 +41,6 @@ cbuffer cbTransform : register(b0){
 cbuffer cbLightSpace : register(b1){
 	matrix lightView;
 	matrix lightPerspective;
-	float4 directLightPos;
 }
 
 //ps ads信息
@@ -90,8 +88,6 @@ PS_INPUT VS(VS_INPUT input){
 	output.lightSpacePos = mul(output.lightSpacePos, lightView);
 	output.lightSpacePos = mul(output.lightSpacePos, lightPerspective);
 
-	//灯光所在的世界坐标和顶点的时间坐标差
-	output.lightDeltaPos = normalize(directLightPos - worldPos);
 	return output;
 }
 
