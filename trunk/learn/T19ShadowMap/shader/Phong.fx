@@ -104,6 +104,8 @@ float4 PS(PS_INPUT input) :SV_Target{
 	float2 projectTexCoord;
 	projectTexCoord.x = input.lightSpacePos.x / input.lightSpacePos.w / 2.0f + 0.5f;
 	projectTexCoord.y = -input.lightSpacePos.y / input.lightSpacePos.w / 2.0f + 0.5f;
+
+
 	//lightspace看到的这个点, 在现在的view space是否可见
 	if((saturate(projectTexCoord.x) == projectTexCoord.x) && (saturate(projectTexCoord.y) == projectTexCoord.y))
 	{

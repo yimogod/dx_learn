@@ -17,7 +17,6 @@ public:
 	virtual bool LoadContent();
 	virtual void UnloadContent();
 
-	void RenderOneTime();
 	void UpdateConstForPhong();
 	virtual void Update();
 	virtual void Render();
