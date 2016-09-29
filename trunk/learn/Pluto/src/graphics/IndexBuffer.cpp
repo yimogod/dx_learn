@@ -35,7 +35,9 @@ void IndexBuffer::BindIndexBuff(ID3D11DeviceContext* context){
 }
 
 void IndexBuffer::Reset(){
+	if(_indexBuff)_indexBuff->Release();
+	_indexBuff = nullptr;
+
 	useIndex = true;
 	_indexNum = 0;
-	_indexBuff = nullptr;
 }

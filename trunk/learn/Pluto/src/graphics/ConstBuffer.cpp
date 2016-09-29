@@ -33,7 +33,10 @@ void ConstBuffer::BindConstBuff(ID3D11DeviceContext* context, UINT NumBuffers){
 }
 
 void ConstBuffer::Reset(){
+	if(_constBuff)_constBuff->Release();
+
 	_constBuff = nullptr;
 	_forVS = true;
 	_startSlot = 0;
+
 }

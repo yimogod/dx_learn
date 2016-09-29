@@ -76,6 +76,11 @@ void InputLayout::Reset(){
 	_semanTextureIndex = 0;
 	_hasInstance = false;
 
-	//究竟释放了没有?
+	if(_vertexLayout)_vertexLayout->Release();
 	_vertexLayout = nullptr;
+
+	_totalByte[0] = 0;
+	_totalByte[1] = 0;
+	_totalByte[2] = 0;
+	_totalByte[3] = 0;
 }

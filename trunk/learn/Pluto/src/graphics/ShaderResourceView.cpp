@@ -26,6 +26,7 @@ void ShaderResourceView::Reset(){
 	_resViewNum = 0;
 	for(int i = 0; i < 8; i++){
 		_texturePathList[i] = L"";
+		if(_resView[i])_resView[i]->Release();
 		_resView[i] = nullptr;
 	}
 }

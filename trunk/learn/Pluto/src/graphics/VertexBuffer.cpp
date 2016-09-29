@@ -31,5 +31,6 @@ bool VertexBuffer::CreateVertexBuffer(ID3D11Device* device, char* vertices, int 
 
 void VertexBuffer::Reset(){
 	_vertexNum = 0;
+	if(_vertexBuff)_vertexBuff->Release();
 	_vertexBuff = nullptr;
 }

@@ -32,5 +32,6 @@ bool PixelShader::CreatePixelShader(ID3D11Device* device){
 
 void PixelShader::Reset(){
 	Shader::Reset();
+	if(_ps)_ps->Release();
 	_ps = nullptr;
 }
