@@ -2,6 +2,9 @@
 #include <util/DDSTextureLoader.h>
 
 ShaderResourceView::ShaderResourceView(){
+	for(int i = 0; i < 8; i++){
+		_resView[i] = nullptr;
+	}
 }
 
 ShaderResourceView::~ShaderResourceView(){

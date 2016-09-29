@@ -26,18 +26,18 @@ bool DemoApp::LoadContent(){
 	reader.Read(GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_currMesh = _scene.GetMesh(0);
 	_currMesh->SetWorldPos(0, 0, 0);
+	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
 	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_02.dds");
 
 	//2. 地板, 坐标在0, -0.5f, 0
-	//_currMesh = new Mesh();
-	//_currMesh->SetWorldPos(0, 0, 0);
-	//GeoCreater::CreateFloor(*_currMesh);
-	//_scene.AddMesh(_currMesh);
-	//InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_01.dds");
+	_currMesh = new Mesh();
+	_currMesh->SetWorldPos(0, 0, 0);
+	GeoCreater::CreateFloor(*_currMesh);
+	_scene.AddMesh(_currMesh);
+	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
+	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_01.dds");
 
-
-	//_dxEngine.CreateRTT();
-
+	_dxEngine.CreateRTT();
 
 	RenderOneTime();
 	return true;
@@ -70,32 +70,34 @@ void DemoApp::RenderOneTime(){
 
 	//1. 调整相机姿态到灯光姿态
 	Light &light = *_scene.lightList[0];
-	//_camera.SetPos(light.pos);
-	//_camera.SetAspect(1280, 1280);
-	//_camera.SetEulerAngle(-1.6f, -0.5f, 0);
+	_camera.SetPos(light.pos);
+	_camera.SetAspect(1280, 1280);
+	_camera.SetEulerAngle(-1.6f, -0.5f, 0);
 
 	//2. 设置mesh的shader为depth, 将场景的深度信息绘制到RTT
 	_currMesh = _scene.GetMesh(0);
 	_currMesh->visual.Reset();
+	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
 	InitVisual(_currMesh, L"shader/Depth.fx");
-	//_currMesh = _scene.GetMesh(1);
-	//_currMesh->visual.Reset();
-	//InitVisual(_currMesh, L"shader/Depth.fx");
+	_currMesh = _scene.GetMesh(1);
+	_currMesh->visual.Reset();
+	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
+	InitVisual(_currMesh, L"shader/Depth.fx");
 
 	//RTT
-	//_dxEngine.UseRTT();
+	_dxEngine.UseRTT();
 	//更新mvp
-	//UpdateConstBuff();
-	//_currMesh = _scene.GetMesh(0);
-	//_dxEngine.DrawVisual(GetVisual());
-	//_currMesh = _scene.GetMesh(1);
-	//_dxEngine.DrawVisual(GetVisual());
-	/*
-
+	UpdateConstBuff();
+	_currMesh = _scene.GetMesh(0);
+	_dxEngine.DrawVisual(GetVisual());
+	_currMesh = _scene.GetMesh(1);
+	_dxEngine.DrawVisual(GetVisual());
+	
 	//渲染正常的场景
 	//回归相机
-	_camera.SetPos(0, 0, -2.0f);
+	_camera.SetPos(0, 1.0f, -2.0f);
 	_camera.SetEulerAngle(0, 0, 0);
+	_camera.SetAspect(_width, _height);
 	//设置mesh的shader为正常渲染shader
 	_currMesh = _scene.GetMesh(0);
 	_currMesh->visual.Reset();
@@ -117,7 +119,7 @@ void DemoApp::RenderOneTime(){
 	_dxEngine.DrawVisualByRTT(GetVisual());
 	_currMesh = _scene.GetMesh(1);
 	_dxEngine.DrawVisualByRTT(GetVisual());
-	_dxEngine.Present();*/
+	_dxEngine.Present();
 }
 
 void DemoApp::Update(){
@@ -125,12 +127,13 @@ void DemoApp::Update(){
 }
 
 void DemoApp::Render(){
+	return;
 	_dxEngine.ClearBuffers();
 	//更新mvp
 	//UpdateConstBuff();
 	_currMesh = _scene.GetMesh(0);
 	_dxEngine.DrawVisual(GetVisual());
-	//_currMesh = _scene.GetMesh(1);
-	//_dxEngine.DrawVisual(GetVisual());
+	_currMesh = _scene.GetMesh(1);
+	_dxEngine.DrawVisual(GetVisual());
 	_dxEngine.Present();
 }

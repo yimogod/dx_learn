@@ -29,7 +29,7 @@ PS_INPUT VS(VS_INPUT input){
 	output.pos = mul(output.pos, view);
 	output.pos = mul(output.pos, perspective);
 	
-	output.depthPos = input.pos;
+	output.depthPos = output.pos;
 	return output;
 }
 
