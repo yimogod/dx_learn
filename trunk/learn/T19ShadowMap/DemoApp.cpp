@@ -46,12 +46,13 @@ bool DemoApp::LoadContent(){
 void DemoApp::UnloadContent(){}
 
 void DemoApp::UpdateConstForPhong(){
-	Light* light = _scene.lightList[0];
-	Color ac = light->ambientColor;
-	Color dc = light->diffuseColor;
-	Color sc = light->specularColor;
-	Vector3D d = light->dir;
-
+	Light light = *_scene.lightList[0];
+	Color ac = light.ambientColor;
+	Color dc = light.diffuseColor;
+	Color sc = light.specularColor;
+	Vector3D d = light.dir;
+	Vector3D p = light.pos;
+	
 	PhongConstBuffer pb;
 	pb.eyeWorldPos = Float4{ 0.0f, 0.0f, -1.0f, 1.0f };
 
@@ -59,6 +60,7 @@ void DemoApp::UpdateConstForPhong(){
 		Float4A{ ac.r, ac.g, ac.b, ac.a },
 		Float4A{ dc.r, dc.g, dc.b, dc.a },
 		Float4A{ sc.r, sc.g, sc.b, sc.a },
+		Float4{ p.x, p.y, p.z, 1.0f },
 		Float4{ d.x, d.y, d.z, 1.0f } };
 	pb.directionLight = dl;
 
@@ -73,6 +75,10 @@ void DemoApp::RenderOneTime(){
 	_camera.SetPos(light.pos);
 	_camera.SetAspect(1280, 1280);
 	_camera.SetEulerAngle(-1.6f, -0.5f, 0);
+	//设置light space的转换数据
+	_lightSpaceBuffer.view = _camera.GetWorldToCameraMatrix().transpose();
+	_lightSpaceBuffer.perspective = _camera.GetCameraToProjMatrix().transpose();
+	_lightSpaceBuffer.pos = Float4(light.pos.x, light.pos.y, light.pos.z, 1.0f);
 
 	//2. 设置mesh的shader为depth, 将场景的深度信息绘制到RTT
 	_currMesh = _scene.GetMesh(0);
@@ -98,15 +104,18 @@ void DemoApp::RenderOneTime(){
 	_camera.SetPos(0, 1.0f, -2.0f);
 	_camera.SetEulerAngle(0, 0, 0);
 	_camera.SetAspect(_width, _height);
+
 	//设置mesh的shader为正常渲染shader
 	_currMesh = _scene.GetMesh(0);
 	_currMesh->visual.Reset();
 	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
+	PreSetVSConstBufferSize(_currMesh, sizeof(LightSpaceBuffer));
 	PreSetPSConstBufferSize(_currMesh, sizeof(PhongConstBuffer));
 	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_02.dds");
 	_currMesh = _scene.GetMesh(1);
 	_currMesh->visual.Reset();
 	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
+	PreSetVSConstBufferSize(_currMesh, sizeof(LightSpaceBuffer));
 	PreSetPSConstBufferSize(_currMesh, sizeof(PhongConstBuffer));
 	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_01.dds");
 	UpdateConstBuff();

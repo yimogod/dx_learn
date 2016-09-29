@@ -3,6 +3,12 @@
 #include <Main.h>
 #include <sys/Window.h>
 
+struct LightSpaceBuffer{
+	Matrix4x4 view;
+	Matrix4x4 perspective;
+	Float4 pos;
+};
+
 class DemoApp : public Window{
 public:
 	DemoApp();
@@ -15,6 +21,9 @@ public:
 	void UpdateConstForPhong();
 	virtual void Update();
 	virtual void Render();
+
+private:
+	LightSpaceBuffer _lightSpaceBuffer;
 };
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
