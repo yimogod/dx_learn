@@ -11,7 +11,9 @@ public:
 	virtual bool LoadContent();
 	virtual void UnloadContent();
 
+	void RenderOneTime();
 	void UpdateConstForPhong();
+	virtual void Update();
 	virtual void Render();
 };
 
@@ -22,9 +24,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	MainInfo info;
 	info.app = new DemoApp();
 	info.icon = nullptr;
-	info.title = L"ADS Sphere";
-	info.width = 800;
-	info.height = 600;
+	info.title = L"Shadow Map";
+	info.width = 1280;
+	info.height = 960;
 
 	return MainBody(hInstance, hPrevInstance, lpCmdLine, nCmdShow, info);
 }

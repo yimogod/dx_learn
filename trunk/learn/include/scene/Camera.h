@@ -4,6 +4,7 @@
 #include <math/algebra/Matrix4x4.h>
 #include <graphics/Plane3D.h>
 
+//默认方向是(0,0,1)
 class Camera{
 public:
     Vector3D position;
@@ -60,14 +61,13 @@ public:
 	Matrix4x4 GetWorldToProjMatrix();
 
 	/*镜头在right方向横移, d为增量*/
-	void strafe(float d);
+	void Strafe(float d);
 	/*镜头在direction(heading方向)前进or后退, d为增量*/
-	void walk(float d);
+	void Walk(float d);
 	/*镜头绕自身up轴旋转, d为增量弧度*/
-	void headingRotate(float radian);
+	void HeadingRotate(float radian);
 	/*镜头绕世界坐标系Y轴旋转, d为增量弧度*/
-	void rotateY(float radian);
+	void RotateY(float radian);
 	/*镜头绕自身right轴旋转, d为增量弧度*/
-	void pitchRotate(float radian);
-
+	void PitchRotate(float radian);
 };

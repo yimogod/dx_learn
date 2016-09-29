@@ -56,8 +56,8 @@ public:
 	void Move(float x, float y, float z);
 	/* mesh在世界中的旋转, 旋转值是弧度 */
 	Vector3D eulerAngle;
-	void rotateX(float x);
-	void rotateY(float y);
+	void RotateX(float x);
+	void RotateY(float y);
 
 	//顶点颜色
 	void SetColor(Color& color);

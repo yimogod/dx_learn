@@ -13,6 +13,7 @@ bool DemoApp::LoadContent(){
 	
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
+	_currMesh->SetWorldPos(0, 0.5f, 1.0f);
 	InitVisual(_currMesh, L"shader/Triangle.fx", "assets/t_01.dds");
 	return true;
 }

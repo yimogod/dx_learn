@@ -2,7 +2,6 @@
 #include <math/algebra/Matrix1x4.h>
 
 Camera::Camera(){
-	position = Vector3D();
 	heading = pitch = bank = 0;
 }
 
@@ -43,8 +42,8 @@ Matrix4x4 Camera::GetWorldToCameraMatrix(){
 				0.0f, 1.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 1.0f, 0.0f,
 				-position.x, -position.y, -position.z, 1.0f);
-	Matrix4x4 m = move.rotateY(heading);
-	m = m.rotateX(pitch);
+	Matrix4x4 m = move.RotateY(heading);
+	m = m.RotateX(pitch);
 	m = m.rotateZ(bank);
 
 	return m;
@@ -61,13 +60,12 @@ Matrix4x4 Camera::GetCameraToProjMatrix(){
 }
 
 Matrix4x4 Camera::GetWorldToProjMatrix(){
-	Matrix4x4 a = GetWorldToCameraMatrix();
+	Matrix4x4 a = GetWorldToCameraMatrix();	
 	Matrix4x4 b = GetCameraToProjMatrix();
 	return a.mul(b);
-
 }
 
-void Camera::strafe(float d){
+void Camera::Strafe(float d){
 	Matrix1x4 worldPos = Matrix1x4(position.x, position.y, position.z, 1.0f);
 	Matrix4x4 wvMat = GetWorldToCameraMatrix();
 	Matrix1x4 viewPos = worldPos.mul(wvMat);
@@ -81,7 +79,7 @@ void Camera::strafe(float d){
 	position.z = worldPos.m02;
 }
 
-void Camera::walk(float d){
+void Camera::Walk(float d){
 	Matrix1x4 worldPos = Matrix1x4(position.x, position.y, position.z, 1.0f);
 	Matrix4x4 wvMat = GetWorldToCameraMatrix();
 	Matrix1x4 viewPos = worldPos.mul(wvMat);
@@ -95,14 +93,14 @@ void Camera::walk(float d){
 	position.z = worldPos.m02;
 }
 
-void Camera::headingRotate(float radian){
+void Camera::HeadingRotate(float radian){
 
 }
 
-void Camera::pitchRotate(float radian){
+void Camera::PitchRotate(float radian){
 	pitch += radian;
 }
 
-void Camera::rotateY(float radian){
+void Camera::RotateY(float radian){
 	heading += radian;
 }

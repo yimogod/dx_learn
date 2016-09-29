@@ -42,7 +42,6 @@ protected:
 
 	DXEngine _dxEngine;
 
-private:
 	int _lastMouseX = 0;
 	int _lastMouseY = 0;
 };

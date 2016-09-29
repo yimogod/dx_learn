@@ -101,9 +101,9 @@ void Window::UpdateByLMouse(float value){
 	int dx = _lastMouseX - GetMouseX();
 	int dy = _lastMouseY - GetMouseY();
 	if(abs(dx) > abs(dy)){
-		_currMesh->rotateY(dx * value);
+		_currMesh->RotateY(dx * value);
 	}else{
-		_currMesh->rotateX(dy * value);
+		_currMesh->RotateX(dy * value);
 	}
 }
 
@@ -112,22 +112,22 @@ void Window::UpdateByRMouse(float value){
 
 	int dx = _lastMouseX - GetMouseX();
 	int dy = _lastMouseY - GetMouseY();
-	_camera.rotateY(dx * value);
-	_camera.pitchRotate(dy * value);
+	_camera.RotateY(dx * value);
+	_camera.PitchRotate(dy * value);
 }
 
 void Window::UpdateByKey(float value){
 	if(isKeyDown(65)){//A
-		_camera.strafe(-value);
+		_camera.Strafe(-value);
 	}
 	if(isKeyDown(68)){//D
-		_camera.strafe(value);
+		_camera.Strafe(value);
 	}
 	if(isKeyDown(87)){//W
-		_camera.walk(value);
+		_camera.Walk(value);
 	}
 	if(isKeyDown(83)){//S
-		_camera.walk(-value);
+		_camera.Walk(-value);
 	}
 
 	if(isKeyDown(37)){//left

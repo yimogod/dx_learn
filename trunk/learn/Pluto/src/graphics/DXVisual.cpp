@@ -61,11 +61,14 @@ void DXVisual::Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resV
 		_psConstBuffer[i].BindConstBuff(context, 1);
 	}
 
-	if(resView == nullptr){
+	//我们的visual自身已经有了num张图片
+	int textureNum = _resView.GetResViewNum();
+	if(textureNum > 0)
 		_resView.BindShaderResource(context, 0);
-	}else{
-		context->PSSetShaderResources(0, 1, &resView);
-	}
+	//如果有传入rtt, 则我们接着添加rtt
+	if(resView != nullptr)
+		context->PSSetShaderResources(textureNum, 1, &resView);
+
 	_samplerState.BindSamplerState(context);
 
 	if(_indexBuffer.useIndex){
@@ -80,7 +83,6 @@ void DXVisual::Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resV
 		}
 	}
 }
-
 
 void DXVisual::PreSetVSConstBufferSize(int byteWidth){
 	_vsConstByteWidth[_vsConstBufferNum] = byteWidth;

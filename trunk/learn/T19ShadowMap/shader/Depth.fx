@@ -1,5 +1,3 @@
-/*ÌùÍ¼*/
-Texture2D txDiffuse : register(t0);
 SamplerState samLinear : register(s0);
 
 /*¿Õ¼ä×ª»»*/

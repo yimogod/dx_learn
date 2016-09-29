@@ -125,7 +125,7 @@ void Mesh::CalVertexNormal(){
 void Mesh::rotateX(float x){
 	eulerAngle.x += x;
 }
-void Mesh::rotateY(float y){
+void Mesh::RotateY(float y){
 	eulerAngle.y += y;
 }
 
@@ -134,7 +134,7 @@ Matrix4x4 Mesh::localToWorldMatrix(){
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
 		position.x, position.y, position.z, 1.0f);
-	Matrix4x4 m = mat.rotateY(eulerAngle.y);
+	Matrix4x4 m = mat.RotateY(eulerAngle.y);
 	m = m.rotateX(eulerAngle.x);
 	m = m.rotateZ(eulerAngle.z);
 
