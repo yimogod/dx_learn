@@ -50,7 +50,7 @@ cbuffer cbPhong : register(b2){
 }
 
 
-void computeDirectionLight(float4 textColor, DirectionLight light,
+void ComputeDirectionLight(float4 textColor, DirectionLight light,
 	float3 pixelNormal, float3 toEyeW,
 	out float4 ambient, out float4 diffuse, out float4 spec){
 	ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -121,7 +121,7 @@ float4 PS(PS_INPUT input) :SV_Target{
 			float4 sc = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 			float4 A, D, S;
-			computeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
+			ComputeDirectionLight(color, directionLight, normalW, toEyeW, A, D, S);
 			ac += A;
 			dc += D;
 			sc += S;

@@ -17,7 +17,7 @@ bool DemoApp::LoadContent(){
 	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 0.0f, 0.0f, 1.0f };
 	_scene.lightList[0]->specularColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
 	_scene.lightList[0]->pos = Vector3D(0.0f, 0.0f, 0.0f);
-	_scene.lightList[0]->dir = Vector3D(1.0f, 0.0f, 1.0f);
+	_scene.lightList[0]->dir = Vector3D(1.0f, -1.0f, 1.0f);
 	
 	_scene.lightList[1] = new Light();
 	_scene.lightList[1]->type = Light::TYPE_POINT;

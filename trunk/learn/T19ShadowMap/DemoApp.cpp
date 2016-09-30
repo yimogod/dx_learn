@@ -18,8 +18,8 @@ bool DemoApp::LoadContent(){
 	_scene.lightList[0]->ambientColor = Color{ 0.0f, 0.0f, 0.0f, 0.6f };
 	_scene.lightList[0]->diffuseColor = Color{ 1.0f, 1.0f, 0.0f, 0.6f };
 	_scene.lightList[0]->specularColor = Color{ 1.0f, 1.0f, 1.0f, 1.0f };
-	_scene.lightList[0]->pos = Vector3D(-4.0f, 4.0f, 0.0f);
-	_scene.lightList[0]->dir = Vector3D(1.0f, -1.0f, 0.0f);
+	_scene.lightList[0]->pos = Vector3D(-4.0f, 4.0f, -4.0f);
+	_scene.lightList[0]->dir = Vector3D(1.0f, -1.0f, 1.0f);
 	_scene.lightNum = 1;
 
 
@@ -87,7 +87,7 @@ void DemoApp::Render(){
 	Light &light = *_scene.lightList[0];
 	_camera.SetPos(light.pos);
 	_camera.SetAspect(1280, 1280);
-	_camera.SetEulerAngle(-1.6f, -0.5f, 0);
+	_camera.SetEulerAngle(-0.7f, -0.5f, 0);
 
 	//设置light space的转换数据
 	_lightSpaceBuffer.view = _camera.GetWorldToCameraMatrix().transpose();
