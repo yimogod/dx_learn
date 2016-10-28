@@ -51,7 +51,7 @@ public:
     
 	void SetPos(float px, float py, float pz);
 	void SetPos(const Vector3D &pos);
-	//rotate y, x, z, 基于自身坐标, 单位角度
+	//rotate y, x, z, 基于自身坐标, 单位弧度
 	void SetEulerAngle(float pheading, float ppitch, float pbank);
 	void SetFrustum(float viewDis, float pfov, float nz, float fz);
     void SetAspect(int pviewportWidth, int pviewportHeight);

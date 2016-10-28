@@ -1,6 +1,8 @@
 #include <util/ObjParser.h>
 #include "DemoApp.h"
 
+//剪切渲染像素, 在游戏中比如1000m开外的都被剪切掉
+//但其实场景管理已经去除了吧
 DemoApp::DemoApp(){
 	_scroll.scroll = 0;
 	//xz平面下面全部剪切!

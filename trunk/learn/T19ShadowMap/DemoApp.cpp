@@ -2,6 +2,10 @@
 #include <graphics/GeoCreater.h>
 #include "DemoApp.h"
 
+//shadowmap的思想就是把相机放在灯的位置(进而有了light space概念),
+//渲染出depthfield图(depth.fx)
+//然后在真实渲染的时候, 如果深度值大于之前渲染的深度值, 就是阴影
+//有个问题就是lightspace和view space有重合的地方才能用到shadowmap
 DemoApp::DemoApp(){}
 
 DemoApp::~DemoApp(){}
@@ -11,7 +15,7 @@ bool DemoApp::LoadContent(){
 	_camera.SetPos(0, 1.0f, -4.0);
 	_scene.camera = &_camera;
 
-	//平行光坐标在地图左上角, 超右下方观看
+	//平行光坐标在地图左上角, 朝右下方观看
 	_scene.lightList[0] = new Light();
 	_scene.lightList[0]->type = Light::TYPE_DIRECTION;
 	//黄色太阳光
@@ -23,15 +27,16 @@ bool DemoApp::LoadContent(){
 	_scene.lightNum = 1;
 
 
-	//1. 方块, 坐标在0, 0.5, 0
+	//1. 方块, 中心坐标在0, 0.5, 0,
 	ObjParser reader;
 	reader.Read(GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_currMesh = _scene.GetMesh(0);
+	//我们的方块是底部中心对齐
 	_currMesh->SetWorldPos(0, 0, 0);
 	PreSetVSConstBufferSize(_currMesh, sizeof(MVPConstBuffer));
 	InitVisual(_currMesh, L"shader/Phong.fx", "assets/t_02.dds");
 
-	//2. 地板, 坐标在0, -0.5f, 0
+	//2. 地板, 坐标在0, 0, 0
 	_currMesh = new Mesh();
 	_currMesh->SetWorldPos(0, 0, 0);
 	GeoCreater::CreateFloor(*_currMesh);
@@ -67,9 +72,9 @@ void DemoApp::UpdateConstForPhong(){
 }
 
 void DemoApp::Update(){
-	UpdateByKey(0.002f);
-	UpdateByLMouse(0.003f);
-	UpdateByRMouse(0.003f);
+	UpdateByKey(0.02f);
+	UpdateByLMouse(0.03f);
+	UpdateByRMouse(0.01f);
 
 	_lastMouseX = GetMouseX();
 	_lastMouseY = GetMouseY();
@@ -78,6 +83,9 @@ void DemoApp::Update(){
 void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
+
+	//先生成shadowmap, 理论上这需要工具预生成
+	//但我们直接做了, 所以很慢
 	//1. 调整相机姿态到灯光姿态
 	Vector3D oriPos = _camera.position;
 	float head = _camera.heading;

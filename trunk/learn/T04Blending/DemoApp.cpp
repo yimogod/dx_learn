@@ -27,12 +27,10 @@ void DemoApp::Render(){
 	if(!_dxEngine.GetReady())return;
 
 	_dxEngine.ClearBuffers();
-	//enableAlphaBlend();
-	_currMesh = _scene.meshList[0];
-	_dxEngine.DrawVisual(GetVisual());
-
 	_currMesh = _scene.meshList[1];
 	_dxEngine.DrawVisual(GetVisual());
-	//disableAlphaBlend();
+
+	_currMesh = _scene.meshList[0];
+	_dxEngine.DrawVisual(GetVisual());
 	_dxEngine.Present();
 }

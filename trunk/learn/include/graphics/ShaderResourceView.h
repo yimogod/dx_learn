@@ -2,6 +2,8 @@
 #include <string>
 #include <d3d11_1.h>
 
+//对texture引用的中间层, 会设置shader中用到的texture
+//比如vs input的texturecord0
 class ShaderResourceView{
 public:
 	ShaderResourceView();

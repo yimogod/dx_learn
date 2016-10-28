@@ -50,18 +50,21 @@ public:
 	inline void UpdateVSConstBuffer(ID3D11DeviceContext* context, int index, const void* data);
 	inline void UpdatePSConstBuffer(ID3D11DeviceContext* context, int index, const void* data);
 private:
+	//顶点布局
 	InputLayout _layout;
-
-
+	
+	//顶点和索引数据, 最多占用4个slot
 	VertexBuffer _vertexBuffer[4];
 	IndexBuffer _indexBuffer;
 
 	//用于vs的uniform数据
+	//我们约定一个shader中最多4个vertex const buffer
 	ConstBuffer _vsConstBuffer[4];
 	int _vsConstByteWidth[4];
 	int _vsConstBufferNum = 0;
 
 	//用于ps的uniform数据
+	//我们约定一个shader中最多4个pixel const buffer
 	ConstBuffer _psConstBuffer[4];
 	int _psConstByteWidth[4];
 	int _psConstBufferNum = 0;

@@ -180,6 +180,7 @@ void DXEngine::DisableAlphaBlend(){
 }
 
 void DXEngine::ClearBuffers(const FLOAT ColorRGBA[4]){
+	//默认我们开启深度测试
 	_defaultDepthState.SetDepthState(_context);
 	_context->ClearRenderTargetView(_renderTargetView, ColorRGBA);
 	_defaultDepthState.ClearDepthStencilView(_context);

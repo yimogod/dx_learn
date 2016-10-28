@@ -6,7 +6,7 @@
 class Scene{
 public:
 	static const int RENDER_TYPE_FRAME = 0;
-	static const int RENDeR_TYPE_FLAT = 1;
+	static const int RENDER_TYPE_FLAT = 1;
 	static const int RENDER_TYPE_COLOR = 2;
 	static const int RENDER_TYPE_TEXTURE = 3;
 	

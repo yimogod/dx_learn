@@ -57,6 +57,7 @@ bool DXRenderTexture::CreateRenderTargetView(ID3D11Device* device, int width, in
 	return true;
 }
 
+//rtt自带了一个深度缓冲区, 切换rtt时需要清理现有的缓冲区
 void DXRenderTexture::ClearRTT(ID3D11DeviceContext* context){
 	_depthState.SetDepthState(context);
 

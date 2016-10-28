@@ -40,6 +40,8 @@ struct PS_INPUT{
 	float2 texCoords3 : TEXCOORD3;
 };
 
+//火焰的标准算法
+//需要一张火焰图片, 一张扭曲图片, 一张透明图片
 PS_INPUT VS(VS_INPUT input){
 	PS_INPUT output = (PS_INPUT)0;
 	output.pos = mul(input.pos, model);

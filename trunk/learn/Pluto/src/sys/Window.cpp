@@ -26,11 +26,12 @@ void Window::InitVisual(Mesh* mesh, char* vertAddOn, int vertAddOnNum, wchar_t* 
 	/*准备shader数据*/
 	visual.PreInitShader(vsName, vsName);
 
-	/*创建 layout*/
+	//创建 layout, 如果之前我们没有手动创建layout, 那我们就用标准的渲染模型的layout
 	if(visual.GetLayoutNum() == 0)
 		visual.PreAddDefaultLayout();
 
 	//创建buffer需要的变量
+	//如果我们没有手动添加多个constbuffer, 那我们就默认添加mvp
 	if(visual.GetConstBufferNum() == 0)
 		visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
 

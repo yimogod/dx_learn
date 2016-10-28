@@ -31,6 +31,9 @@ bool DemoApp::LoadContent(){
 	InitVisual(_currMesh, L"shader/Screen.fx");
 
 	//创建2个rtt, 第一个用于渲染cube, 第二个用于blur, 然后渲染到后缓冲
+
+	//我用到了两个mesh, 这说明有问题. 理论上只能用一个
+	//或者可以做post process, 如果单个图片模糊, 那就直接美术模糊好了
 	_dxEngine.CreateRTT(_width, _height); 
 	int halfWidth = (int)(0.5f * _width);
 	int halfHeight = (int)(0.5f * _height);

@@ -37,13 +37,13 @@ cbuffer cbTransform : register(b0){
 	matrix perspective;
 }
 
-//vs, b包含此灯的位置
+//vs, 包含此灯的位置
 cbuffer cbLightSpace : register(b1){
 	matrix lightView;
 	matrix lightPerspective;
 }
 
-//ps ads信息
+//ps, 灯光信息
 cbuffer cbPhong : register(b2){
 	float4 eyePosW;
 	DirectionLight directionLight;
@@ -84,6 +84,7 @@ PS_INPUT VS(VS_INPUT input){
 	output.normalW = mul(input.normal, model);
 	output.normalW = normalize(output.normalW);
 
+	//计算此顶点在light空间的坐标
 	output.lightSpacePos = worldPos;
 	output.lightSpacePos = mul(output.lightSpacePos, lightView);
 	output.lightSpacePos = mul(output.lightSpacePos, lightPerspective);
@@ -104,9 +105,12 @@ float4 PS(PS_INPUT input) :SV_Target{
 
 
 	//lightspace看到的这个点, 在现在的view space是否可见
+	//saturate把数据截取到0~1
+	//以为相机空间和灯光空间的不一致性, 所以projectTexCoord的坐标有可能超出0~1
 	if((saturate(projectTexCoord.x) == projectTexCoord.x) && (saturate(projectTexCoord.y) == projectTexCoord.y))
 	{
-		//当前像素经过zbuffer后的深度值, 有可能是其他点覆盖了这个点的值
+		//当前像素经过zbuffer后的深度值, 有可能是在lightspace中, 更近的点覆盖了这个点的值
+		//如果覆盖, 意味着值更小了
 		float depthValue = depthMapTexture.Sample(samLinear, projectTexCoord).r;
 		//当前pixel在light space的真实深度, 有可能会被其他点的zbuffer覆盖
 		float lightDepthValue = input.lightSpacePos.z / input.lightSpacePos.w;

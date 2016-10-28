@@ -6,12 +6,12 @@ DemoApp::DemoApp(){}
 DemoApp::~DemoApp(){}
 
 bool DemoApp::LoadContent(){
-	_camera.setEulerAngle(0, -1.2f, 0);
-	_camera.setPos(0, 6.0f, -2.0f);
+	_camera.SetEulerAngle(0, -1.2f, 0);
+	_camera.SetPos(0, 6.0f, -2.0f);
 
 	_currMesh = new Mesh();
 	CreateGrid(10, 10, (*_currMesh));
-	//中心为原点
+	//创建的山脉,中心为原点
 	_currMesh->SetWorldPos(-4.0f, 0.0f, -4.0f);
 	_scene.AddMesh(_currMesh);
 
