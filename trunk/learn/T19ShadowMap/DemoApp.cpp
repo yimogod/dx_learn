@@ -85,7 +85,7 @@ void DemoApp::Render(){
 
 
 	//先生成shadowmap, 理论上这需要工具预生成
-	//但我们直接做了, 所以很慢
+	//但我们直接做了, 所以很慢, 这意味着对于动态光源shadow没办法使用
 	//1. 调整相机姿态到灯光姿态
 	Vector3D oriPos = _camera.position;
 	float head = _camera.heading;
