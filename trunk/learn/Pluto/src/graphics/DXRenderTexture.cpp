@@ -20,8 +20,8 @@ bool DXRenderTexture::CreateRenderTargetView(ID3D11Device* device, int width, in
 	td.SampleDesc.Quality = 0;
 
 	td.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-	td.CPUAccessFlags = 0;
-	td.MiscFlags = 0;
+	td.CPUAccessFlags = NULL;
+	td.MiscFlags = NULL;
 
 	/*创建后缓存视图用到的texture2d buff*/
 	HRESULT hr = device->CreateTexture2D(&td, NULL, &_renderTargetBuffer);

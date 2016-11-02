@@ -16,6 +16,8 @@ bool VertexBuffer::CreateVertexBuffer(ID3D11Device* device, char* vertices, int 
 	bd.ByteWidth = singleVertByte * vertNum;//数据总长度
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = NULL;
+	bd.MiscFlags = NULL;
+	bd.StructureByteStride = 0;
 
 	/*设置 resource data*/
 	D3D11_SUBRESOURCE_DATA InitData;

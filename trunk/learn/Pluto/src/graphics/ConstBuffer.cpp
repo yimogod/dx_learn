@@ -17,6 +17,7 @@ bool ConstBuffer::CreateConstBuffer(ID3D11Device* device, int byteWidth, int slo
 	bd.ByteWidth = byteWidth;
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	bd.CPUAccessFlags = NULL;
+	bd.StructureByteStride = 0;
 
 	HRESULT hr = device->CreateBuffer(&bd, nullptr, &_constBuff);
 	if(FAILED(hr))return false;
