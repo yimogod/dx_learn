@@ -1,4 +1,4 @@
-#include <graphics\Material.h>
+#include <graphics/Material.h>
 
 Material::Material()
 {

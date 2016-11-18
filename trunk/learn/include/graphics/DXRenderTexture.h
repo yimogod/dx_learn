@@ -1,6 +1,6 @@
 #pragma once
 #include <d3d11_1.h>
-#include <graphics/DepthState.h>
+#include <graphics/DXDepthState.h>
 
 //RTT, 讲渲染结果存储到一个texture中
 class DXRenderTexture{
