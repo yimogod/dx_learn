@@ -356,20 +356,21 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\graphics\ConstBuffer.cpp" />
-    <ClCompile Include="src\graphics\DepthState.cpp" />
+    <ClCompile Include="src\graphics\DXConstBuffer.cpp" />
+    <ClCompile Include="src\graphics\DXDepthState.cpp" />
     <ClCompile Include="src\graphics\DXEngine.cpp" />
     <ClCompile Include="src\graphics\DXRenderTexture.cpp" />
     <ClCompile Include="src\graphics\DXVisual.cpp" />
     <ClCompile Include="src\graphics\GeoCreater.cpp" />
-    <ClCompile Include="src\graphics\IndexBuffer.cpp" />
-    <ClCompile Include="src\graphics\InputLayout.cpp" />
-    <ClCompile Include="src\graphics\PixelShader.cpp" />
-    <ClCompile Include="src\graphics\SamplerState.cpp" />
-    <ClCompile Include="src\graphics\Shader.cpp" />
-    <ClCompile Include="src\graphics\ShaderResourceView.cpp" />
-    <ClCompile Include="src\graphics\VertexBuffer.cpp" />
-    <ClCompile Include="src\graphics\VertexShader.cpp" />
+    <ClCompile Include="src\graphics\DXIndexBuffer.cpp" />
+    <ClCompile Include="src\graphics\DXInputLayout.cpp" />
+    <ClCompile Include="src\graphics\Material.cpp" />
+    <ClCompile Include="src\graphics\DXPixelShader.cpp" />
+    <ClCompile Include="src\graphics\DXSamplerState.cpp" />
+    <ClCompile Include="src\graphics\DXShader.cpp" />
+    <ClCompile Include="src\graphics\DXShaderResourceView.cpp" />
+    <ClCompile Include="src\graphics\DXVertexBuffer.cpp" />
+    <ClCompile Include="src\graphics\DXVertexShader.cpp" />
     <ClCompile Include="src\math\algebra\EulerAngles.cpp" />
     <ClCompile Include="src\math\algebra\Matrix1x4.cpp" />
     <ClCompile Include="src\math\algebra\Matrix3x3.cpp" />
@@ -396,21 +397,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BaseDataStruct.h" />
-    <ClInclude Include="..\include\graphics\ConstBuffer.h" />
-    <ClInclude Include="..\include\graphics\DepthState.h" />
+    <ClInclude Include="..\include\graphics\DXConstBuffer.h" />
+    <ClInclude Include="..\include\graphics\DXDepthState.h" />
     <ClInclude Include="..\include\graphics\DXEngine.h" />
     <ClInclude Include="..\include\graphics\DXRenderTexture.h" />
     <ClInclude Include="..\include\graphics\DXVisual.h" />
     <ClInclude Include="..\include\graphics\GeoCreater.h" />
-    <ClInclude Include="..\include\graphics\IndexBuffer.h" />
-    <ClInclude Include="..\include\graphics\InputLayout.h" />
-    <ClInclude Include="..\include\graphics\PixelShader.h" />
+    <ClInclude Include="..\include\graphics\DXIndexBuffer.h" />
+    <ClInclude Include="..\include\graphics\DXInputLayout.h" />
+    <ClInclude Include="..\include\graphics\Material.h" />
+    <ClInclude Include="..\include\graphics\DXPixelShader.h" />
     <ClInclude Include="..\include\graphics\Plane3D.h" />
-    <ClInclude Include="..\include\graphics\SamplerState.h" />
-    <ClInclude Include="..\include\graphics\Shader.h" />
-    <ClInclude Include="..\include\graphics\ShaderResourceView.h" />
-    <ClInclude Include="..\include\graphics\VertexBuffer.h" />
-    <ClInclude Include="..\include\graphics\VertexShader.h" />
+    <ClInclude Include="..\include\graphics\DXSamplerState.h" />
+    <ClInclude Include="..\include\graphics\DXShader.h" />
+    <ClInclude Include="..\include\graphics\DXShaderResourceView.h" />
+    <ClInclude Include="..\include\graphics\DXVertexBuffer.h" />
+    <ClInclude Include="..\include\graphics\DXVertexShader.h" />
     <ClInclude Include="..\include\Main.h" />
     <ClInclude Include="..\include\math\algebra\EulerAngles.h" />
     <ClInclude Include="..\include\math\algebra\Matrix1x4.h" />

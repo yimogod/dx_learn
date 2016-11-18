@@ -1,4 +1,4 @@
-#include <graphics\SamplerState.h>
+#include <graphics/DXSamplerState.h>
 
 SamplerState::SamplerState(){
 	_stateNum = 0;

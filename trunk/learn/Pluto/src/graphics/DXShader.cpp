@@ -1,5 +1,5 @@
 #include <d3dcompiler.h>
-#include <graphics/Shader.h>
+#include <graphics/DXShader.h>
 
 Shader::Shader()
 {

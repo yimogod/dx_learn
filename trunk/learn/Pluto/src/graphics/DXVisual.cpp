@@ -1,4 +1,4 @@
-#include <graphics\DXVisual.h>
+#include <graphics/DXVisual.h>
 
 DXVisual::DXVisual(){}
 

@@ -1,4 +1,4 @@
-#include <graphics\IndexBuffer.h>
+#include <graphics/DXIndexBuffer.h>
 
 IndexBuffer::IndexBuffer()
 {

@@ -1,4 +1,4 @@
-#include <graphics/DepthState.h>
+#include <graphics/DXDepthState.h>
 
 DepthState::DepthState(){
 }

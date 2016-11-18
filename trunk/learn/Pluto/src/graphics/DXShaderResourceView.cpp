@@ -1,4 +1,4 @@
-#include <graphics/ShaderResourceView.h>
+#include <graphics/DXShaderResourceView.h>
 #include <util/DDSTextureLoader.h>
 
 ShaderResourceView::ShaderResourceView(){

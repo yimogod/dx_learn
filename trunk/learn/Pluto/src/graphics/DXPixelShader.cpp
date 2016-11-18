@@ -1,4 +1,4 @@
-#include <graphics/PixelShader.h>
+#include <graphics/DXPixelShader.h>
 
 PixelShader::PixelShader() : Shader(L"DummyShader", "PS", "ps_5_0")
 {

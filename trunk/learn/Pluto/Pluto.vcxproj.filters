@@ -78,12 +78,6 @@
     <ClCompile Include="src\graphics\DXEngine.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\Shader.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\InputLayout.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
     <ClCompile Include="src\sys\InputEngine.cpp">
       <Filter>sys</Filter>
     </ClCompile>
@@ -92,9 +86,6 @@
     </ClCompile>
     <ClCompile Include="src\sys\Window.cpp">
       <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\VertexShader.cpp">
-      <Filter>graphics\dx</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\DXVisual.cpp">
       <Filter>graphics\dx</Filter>
@@ -111,28 +102,40 @@
     <ClCompile Include="src\scene\Scene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\PixelShader.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\VertexBuffer.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\ConstBuffer.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\IndexBuffer.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\SamplerState.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\ShaderResourceView.cpp">
-      <Filter>graphics\dx</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\DXRenderTexture.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\DepthState.cpp">
+    <ClCompile Include="src\graphics\Material.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXConstBuffer.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXDepthState.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXIndexBuffer.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXInputLayout.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXPixelShader.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXSamplerState.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXShader.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXShaderResourceView.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXVertexBuffer.cpp">
+      <Filter>graphics\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\DXVertexShader.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
   </ItemGroup>
@@ -193,12 +196,6 @@
     <ClInclude Include="..\include\graphics\DXEngine.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\Shader.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\InputLayout.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\sys\InputEngine.h">
       <Filter>sys</Filter>
     </ClInclude>
@@ -207,9 +204,6 @@
     </ClInclude>
     <ClInclude Include="..\include\sys\Window.h">
       <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\VertexShader.h">
-      <Filter>graphics\dx</Filter>
     </ClInclude>
     <ClInclude Include="..\include\graphics\DXVisual.h">
       <Filter>graphics\dx</Filter>
@@ -226,28 +220,40 @@
     <ClInclude Include="..\include\scene\Scene.h">
       <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\PixelShader.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\VertexBuffer.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\ConstBuffer.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\IndexBuffer.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\SamplerState.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\graphics\ShaderResourceView.h">
-      <Filter>graphics\dx</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\graphics\DXRenderTexture.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\DepthState.h">
+    <ClInclude Include="..\include\graphics\Material.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXConstBuffer.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXDepthState.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXIndexBuffer.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXInputLayout.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXPixelShader.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXSamplerState.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXShader.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXShaderResourceView.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXVertexBuffer.h">
+      <Filter>graphics\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\graphics\DXVertexShader.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
   </ItemGroup>

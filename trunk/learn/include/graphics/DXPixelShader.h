@@ -1,5 +1,5 @@
 #pragma once
-#include <graphics/Shader.h>
+#include <graphics/DXShader.h>
 class PixelShader : public Shader{
 public:
 	PixelShader();

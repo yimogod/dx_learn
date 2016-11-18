@@ -4,10 +4,10 @@
 #include <BaseDataStruct.h>
 #include <DirectXColors.h>
 #include <graphics/DXVisual.h>
-#include <graphics/VertexShader.h>
-#include <graphics/PixelShader.h>
+#include <graphics/DXVertexShader.h>
+#include <graphics/DXPixelShader.h>
 #include <graphics/DXRenderTexture.h>
-#include <graphics/DepthState.h>
+#include <graphics/DXDepthState.h>
 
 class DXEngine{
 public:

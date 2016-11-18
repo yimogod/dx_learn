@@ -1,4 +1,4 @@
-#include <graphics/VertexShader.h>
+#include <graphics/DXVertexShader.h>
 
 VertexShader::VertexShader() :
 	Shader(L"DummyShader", "VS", "vs_4_0"){

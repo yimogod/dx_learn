@@ -1,5 +1,5 @@
 #pragma once
-#include <graphics/Shader.h>
+#include <graphics/DXShader.h>
 class VertexShader : public Shader{
 public:
 	VertexShader();

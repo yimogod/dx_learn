@@ -1,15 +1,15 @@
 #pragma once
 #include <string>
 #include <d3d11_1.h>
-#include <graphics/InputLayout.h>
-#include <graphics/VertexBuffer.h>
-#include <graphics/IndexBuffer.h>
-#include <graphics/ConstBuffer.h>
-#include <graphics/VertexShader.h>
-#include <graphics/PixelShader.h>
-#include <graphics/SamplerState.h>
+#include <graphics/DXInputLayout.h>
+#include <graphics/DXVertexBuffer.h>
+#include <graphics/DXIndexBuffer.h>
+#include <graphics/DXConstBuffer.h>
+#include <graphics/DXVertexShader.h>
+#include <graphics/DXPixelShader.h>
+#include <graphics/DXSamplerState.h>
 
-#include <graphics/ShaderResourceView.h>
+#include <graphics/DXShaderResourceView.h>
 
 //visual包含了渲染一个物体所需要的所有数据
 //包含顶点布局, 顶点数据, 索引数据, shader, 以及shader需要的vs/ps const buffer

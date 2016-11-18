@@ -1,4 +1,4 @@
-#include <graphics/InputLayout.h>
+#include <graphics/DXInputLayout.h>
 
 InputLayout::InputLayout(){
 	_totalByte[0] = 0;

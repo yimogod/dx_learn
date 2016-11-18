@@ -1,4 +1,4 @@
-#include <graphics/VertexBuffer.h>
+#include <graphics/DXVertexBuffer.h>
 
 VertexBuffer::VertexBuffer(){
 }
