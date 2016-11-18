@@ -138,6 +138,7 @@
     <ClCompile Include="src\graphics\DXVertexShader.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -256,5 +257,6 @@
     <ClInclude Include="..\include\graphics\DXVertexShader.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\graphics\Texture.h" />
   </ItemGroup>
 </Project>

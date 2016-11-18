@@ -1,12 +1,12 @@
 #include <graphics/DXRenderTexture.h>
 
-DXRenderTexture::DXRenderTexture(){
+RenderTexture::RenderTexture(){
 }
 
-DXRenderTexture::~DXRenderTexture(){
+RenderTexture::~RenderTexture(){
 }
 
-bool DXRenderTexture::CreateRenderTargetView(ID3D11Device* device, int width, int height){
+bool RenderTexture::CreateRenderTargetView(ID3D11Device* device, int width, int height){
 	D3D11_TEXTURE2D_DESC td;
 	ZeroMemory(&td, sizeof(td));
 	td.Width = width;
@@ -58,7 +58,7 @@ bool DXRenderTexture::CreateRenderTargetView(ID3D11Device* device, int width, in
 }
 
 //rtt自带了一个深度缓冲区, 切换rtt时需要清理现有的缓冲区
-void DXRenderTexture::ClearRTT(ID3D11DeviceContext* context){
+void RenderTexture::ClearRTT(ID3D11DeviceContext* context){
 	_depthState.SetDepthState(context);
 
 	float color[4];

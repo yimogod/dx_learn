@@ -3,10 +3,10 @@
 #include <graphics/DXDepthState.h>
 
 //RTT, 讲渲染结果存储到一个texture中
-class DXRenderTexture{
+class RenderTexture{
 public:
-	DXRenderTexture();
-	~DXRenderTexture();
+	RenderTexture();
+	~RenderTexture();
 
 	bool CreateRenderTargetView(ID3D11Device* deivce, int width, int height);
 	void ClearRTT(ID3D11DeviceContext* context);
@@ -22,10 +22,10 @@ private:
 	DepthState _depthState;
 };
 
-inline void DXRenderTexture::UseRTT(ID3D11DeviceContext* context){
+inline void RenderTexture::UseRTT(ID3D11DeviceContext* context){
 	context->OMSetRenderTargets(1, &_renderTargetView, _depthState.GetDepthStencilView());
 }
 
-inline ID3D11ShaderResourceView* DXRenderTexture::GetRTTResView(){
+inline ID3D11ShaderResourceView* RenderTexture::GetRTTResView(){
 	return _renderTargetResView;
 }

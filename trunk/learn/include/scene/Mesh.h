@@ -3,6 +3,7 @@
 #include <iostream>
 #include <BaseDataStruct.h>
 #include <graphics/DXVisual.h>
+#include <graphics/Material.h>
 #include <math/algebra/Vector3D.h>
 #include <math/algebra/Vector2D.h>
 #include <math/algebra/Matrix4x4.h>
@@ -18,6 +19,7 @@ public:
 	~Mesh();
     
 	DXVisual visual;
+	Material material;
 
     std::string name;
 	/* meshµÄ×´Ì¬ */

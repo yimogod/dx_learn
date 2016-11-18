@@ -68,7 +68,7 @@ private:
 	ID3D11BlendState* _blendDisableState;
 
 	//RTT
-	DXRenderTexture _renderTexture[4];
+	RenderTexture _renderTexture[4];
 	int _renderTextureNum = 0;
 private:
 	/*创建深度缓存*/

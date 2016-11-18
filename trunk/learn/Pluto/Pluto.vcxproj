@@ -371,6 +371,7 @@
     <ClCompile Include="src\graphics\DXShaderResourceView.cpp" />
     <ClCompile Include="src\graphics\DXVertexBuffer.cpp" />
     <ClCompile Include="src\graphics\DXVertexShader.cpp" />
+    <ClCompile Include="src\graphics\Texture.cpp" />
     <ClCompile Include="src\math\algebra\EulerAngles.cpp" />
     <ClCompile Include="src\math\algebra\Matrix1x4.cpp" />
     <ClCompile Include="src\math\algebra\Matrix3x3.cpp" />
@@ -413,6 +414,7 @@
     <ClInclude Include="..\include\graphics\DXShaderResourceView.h" />
     <ClInclude Include="..\include\graphics\DXVertexBuffer.h" />
     <ClInclude Include="..\include\graphics\DXVertexShader.h" />
+    <ClInclude Include="..\include\graphics\Texture.h" />
     <ClInclude Include="..\include\Main.h" />
     <ClInclude Include="..\include\math\algebra\EulerAngles.h" />
     <ClInclude Include="..\include\math\algebra\Matrix1x4.h" />
