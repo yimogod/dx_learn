@@ -14,6 +14,7 @@
 //visual包含了渲染一个物体所需要的所有数据
 //包含顶点布局, 顶点数据, 索引数据, shader, 以及shader需要的vs/ps const buffer
 //贴图以及贴图的采样状态
+//所有数据都处于扁平状态
 class DXVisual{
 public:
 	DXVisual();

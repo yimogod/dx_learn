@@ -10,3 +10,8 @@ Material::Material(const std::string &name){
 
 Material::~Material(){
 }
+
+void Material::AddTexture(const std::wstring &path){
+	_textureList[_textureNum].SetPath(path);
+	_textureNum++;
+}

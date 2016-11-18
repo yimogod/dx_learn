@@ -26,16 +26,11 @@ void Mesh::Move(float x, float y, float z){
 	position.z += z;
 }
 
-void Mesh::SetColor(Color& color){
-	for(int i = 0; i < vertexNum; i++){
-		vertexColorList[i] = color;
-	}
-}
 
 void Mesh::GetVertexList(Vertex list[]){
+	Color color = material->GetColor();
 	for(int i = 0; i < vertexNum; i++){
 		Vector3D vec = vertexList[i];
-		Color color = vertexColorList[i];
 		Vector3D normal = normalList[i];
 		Vector3D tangent = tangentList[i];
 

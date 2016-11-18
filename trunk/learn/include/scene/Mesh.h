@@ -19,7 +19,8 @@ public:
 	~Mesh();
     
 	DXVisual visual;
-	Material material;
+	//一个material会被不同的mesh引用
+	Material* material = nullptr;
 
     std::string name;
 	/* mesh的状态 */
@@ -28,8 +29,6 @@ public:
 	/*顶点个数*/
 	int vertexNum = 0;
 	Vector3D vertexList[256];
-	/* vertex color, each vertex has its color */
-	Color vertexColorList[256];
 	/*S, T, S, T, S, T, 贴图数据列表*/
 	int uvNum = 0;// == vertexnum
 	Vector2D uvList[256];
