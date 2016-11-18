@@ -31,7 +31,7 @@ public:
 	/*S, T, S, T, S, T, 贴图数据列表*/
 	int uvNum = 0;// == vertexnum
 	Vector2D uvList[256];
-	/*顶点<点>法线, 数量等于定点数*/
+	/*顶点<点>法线, 数量等于顶点数*/
 	Vector3D normalList[256];
 	/*切线数等于索引数量*/
 	Vector3D tangentList[256];

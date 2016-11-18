@@ -11,6 +11,9 @@
 
 #include <graphics/ShaderResourceView.h>
 
+//visual包含了渲染一个物体所需要的所有数据
+//包含顶点布局, 顶点数据, 索引数据, shader, 以及shader需要的vs/ps const buffer
+//贴图以及贴图的采样状态
 class DXVisual{
 public:
 	DXVisual();
@@ -54,6 +57,7 @@ private:
 	InputLayout _layout;
 	
 	//顶点和索引数据, 最多占用4个slot
+	//每个slot只能占用一个vertexbuffer. 共有16个slot
 	VertexBuffer _vertexBuffer[4];
 	IndexBuffer _indexBuffer;
 
@@ -72,7 +76,9 @@ private:
 	VertexShader _vs;
 	PixelShader _ps;
 
+	//考略应该每张texture对应一个sampler
 	SamplerState _samplerState;
+	//visual用到的贴图, 会有多张
 	ShaderResourceView _resView;
 };
 

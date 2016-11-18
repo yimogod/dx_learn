@@ -91,7 +91,8 @@ void ObjParser::ParseVUNStr(string& str){
 	//}
 
 	_mesh->vertexList[_mesh->vertexNum] = _vertexList[vertIndex];
-	_mesh->uvList[_mesh->vertexNum] = _uvList[uvIndex];
+	_mesh->uvList[_mesh->uvNum] = _uvList[uvIndex];
+	_mesh->uvNum++;
 	_mesh->vertexNum++;
 }
 
