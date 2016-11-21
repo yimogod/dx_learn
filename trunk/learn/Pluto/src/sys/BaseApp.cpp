@@ -58,18 +58,3 @@ void BaseApp::OnRMouseUp(int screenX, int screenY){
 	_mouseX = screenX;
 	_mouseY = screenY;
 }
-
-string const BaseApp::GetAppRoot(){
-	return _env.getVariable("PLU_ROOT");
-}
-
-string BaseApp::GetFullPath(char* path){
-	return _env.getVariable("PLU_ROOT") + path;
-}
-
-wstring BaseApp::GetFullPathW(const char* path){
-	string pstr = _env.getVariable("PLU_ROOT") + path;
-	wstring wst;
-	str_2_wstr(pstr, wst);
-	return wst;
-}

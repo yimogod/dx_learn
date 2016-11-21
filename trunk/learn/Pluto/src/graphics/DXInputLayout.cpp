@@ -47,7 +47,7 @@ HRESULT InputLayout::CreateInputLayout(ID3D11Device* device, ID3DBlob* blob){
 	return hr;
 }
 
-void InputLayout::BindVertexBuffer(ID3D11DeviceContext* context, VertexBuffer* vertexList){
+void InputLayout::BindVertexBuffer(ID3D11DeviceContext* context, VertexBuffer* posList){
 	/*ÉèÖÃ layout*/
 	context->IASetInputLayout(_vertexLayout);
 	int slotNum = GetSlotNum();
@@ -58,7 +58,7 @@ void InputLayout::BindVertexBuffer(ID3D11DeviceContext* context, VertexBuffer* v
 	for(int i = 0; i < slotNum; i++){
 		strides[i] = GetTotalByte(i);
 		offsets[i] = 0;
-		bufferPointers[i] = vertexList[i].GetDXObj();
+		bufferPointers[i] = posList[i].GetDXObj();
 	}
 	context->IASetVertexBuffers(0, slotNum, bufferPointers, strides, offsets);
 

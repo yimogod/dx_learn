@@ -6,5 +6,5 @@ public:
 	SysEnv();
 	~SysEnv();
 
-	std::string getVariable(std::string const& name);
+	 static std::string GetVariable(std::string const& name);
 };

@@ -11,7 +11,7 @@ public:
 	void AddElement(LPCSTR SemanticName, UINT SemanticIndex, DXGI_FORMAT Format, int byteWidth);
 	HRESULT CreateInputLayout(ID3D11Device* device, ID3DBlob* blob);
 	//绑定1个/多个 vertextbuffer到此layout下
-	void BindVertexBuffer(ID3D11DeviceContext* context, VertexBuffer* vertexList);
+	void BindVertexBuffer(ID3D11DeviceContext* context, VertexBuffer* posList);
 
 	void Reset();
 

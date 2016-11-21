@@ -395,6 +395,7 @@
     <ClCompile Include="src\util\FBXParser.cpp" />
     <ClCompile Include="src\util\FBXUtil.cpp" />
     <ClCompile Include="src\util\ObjParser.cpp" />
+    <ClCompile Include="src\util\PlutoUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BaseDataStruct.h" />
@@ -438,6 +439,7 @@
     <ClInclude Include="..\include\util\FBXParser.h" />
     <ClInclude Include="..\include\util\FBXUtil.h" />
     <ClInclude Include="..\include\util\ObjParser.h" />
+    <ClInclude Include="..\include\util\PlutoUtil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -4,7 +4,7 @@ Texture::Texture()
 {
 }
 
-Texture::Texture(const std::wstring &path){
+Texture::Texture(const std::string &path){
 	_path = path;
 }
 
@@ -16,7 +16,7 @@ Texture2D::Texture2D() : Texture()
 {
 }
 
-Texture2D::Texture2D(const std::wstring &path) : Texture(path)
+Texture2D::Texture2D(const std::string &path) : Texture(path)
 {
 }
 

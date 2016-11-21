@@ -1,11 +1,35 @@
 #include <math/algebra/Vector3D.h>
 #include <scene/Mesh.h>
+#include <util/CUtil.h>
 
 Mesh::Mesh(){
 	state = Mesh::STATE_ACTIVE;
 }
 
 Mesh::~Mesh(){}
+
+void Mesh::Init(){
+	/*准备shader数据*/
+	std::wstring shaderName = material->GetName_w();
+	visual.PreInitShader(shaderName.c_str(), shaderName.c_str());
+
+
+	//创建 layout, 如果之前我们没有手动创建layout, 那我们就用标准的渲染模型的layout
+	//目前只有instance实例会手动指定
+	if(visual.GetLayoutNum() == 0)
+		visual.PreAddDefaultLayout();
+
+	//创建buffer需要的变量
+	//如果我们没有手动添加多个constbuffer, 那我们就默认添加mvp
+	//这些我们应该从material读取--TODO
+	if(visual.GetConstBufferNum() == 0)
+		visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
+
+	vertexList = new Vertex[vertexNum];
+	GetVertexList();
+
+	//_dxEngine.InitVisual(visual, (char*)vertices, vertexNum, indexList, indexNum);
+}
 
 void Mesh::SetWorldPos(float x, float y, float z){
 	position.x = x;
@@ -15,8 +39,8 @@ void Mesh::SetWorldPos(float x, float y, float z){
 
 void Mesh::SetScale(float scale){
 	for(int i = 0; i < vertexNum; i++){
-		Vector3D vec = vertexList[i];
-		vertexList[i] = vec.mul(scale);
+		Vector3D vec = posList[i];
+		posList[i] = vec.mul(scale);
 	}
 }
 
@@ -27,24 +51,16 @@ void Mesh::Move(float x, float y, float z){
 }
 
 
-void Mesh::GetVertexList(Vertex list[]){
-	Color color = material->GetColor();
+void Mesh::GetVertexList(){
 	for(int i = 0; i < vertexNum; i++){
-		Vector3D vec = vertexList[i];
+		Vector3D vec = posList[i];
 		Vector3D normal = normalList[i];
 		Vector3D tangent = tangentList[i];
 
-		list[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
-		list[i].color = Float4A{ color.r, color.g, color.b, color.a };
-		list[i].uv = Float2A{ uvList[i].x, uvList[i].y };
-		list[i].normal = Float4{ normal.x, normal.y, normal.z, 1.0f };
-		list[i].tangent = Float4{ tangent.x, tangent.y, tangent.z, 1.0f };
-	}
-}
-
-void Mesh::GetIndexList(int list[]){
-	for(int i = 0; i < indexNum; i++){
-		list[i] = indexList[i];
+		vertexList[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
+		vertexList[i].uv = Float2A{ uvList[i].x, uvList[i].y };
+		vertexList[i].normal = Float4{ normal.x, normal.y, normal.z, 1.0f };
+		vertexList[i].tangent = Float4{ tangent.x, tangent.y, tangent.z, 1.0f };
 	}
 }
 
@@ -76,9 +92,9 @@ void Mesh::CalVertexNormal(){
 			i2 = i * 3 + 2;
 		}
 
-		Vector3D v0 = vertexList[i0];
-		Vector3D v1 = vertexList[i1];
-		Vector3D v2 = vertexList[i2];
+		Vector3D v0 = posList[i0];
+		Vector3D v1 = posList[i1];
+		Vector3D v2 = posList[i2];
 		//计算点法线
 		Vector3D e0 = v1.sub(v0);
 		Vector3D e1 = v2.sub(v0);
@@ -136,4 +152,9 @@ Matrix4x4 Mesh::localToWorldMatrix(){
 	m = m.rotateZ(eulerAngle.z);
 
 	return m;
+}
+
+void Mesh::Dispose(){
+	if(vertexList != nullptr)delete(vertexList);
+	vertexList = nullptr;
 }

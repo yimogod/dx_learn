@@ -28,7 +28,11 @@ public:
 
 	/*顶点个数*/
 	int vertexNum = 0;
-	Vector3D vertexList[256];
+	//汇总的完整顶点数据
+	Vertex* vertexList = nullptr;
+
+	//位置坐标
+	Vector3D posList[256];
 	/*S, T, S, T, S, T, 贴图数据列表*/
 	int uvNum = 0;// == vertexnum
 	Vector2D uvList[256];
@@ -36,20 +40,24 @@ public:
 	Vector3D normalList[256];
 	/*切线数等于索引数量*/
 	Vector3D tangentList[256];
+	
 
 	//顶点索引, 如果=0, 那我们就不用drawindex了.
 	int indexNum = 0;
 	int indexList[512];
 public:
-	/*格式化数据准备传入vertext buff, 我们使用vbo*/
-	/*length is vertex num*/
-	void GetVertexList(Vertex list[]);
-	void GetIndexList(int list[]);
-
+	void Init();
+	void Dispose();
 	/*计算法线数据*/
 	void CalVertexNormal();
 
+private:
+	/*格式化数据准备传入vertext buff, 我们使用vbo*/
+	/*length is vertex num*/
+	void GetVertexList();
 public:
+	
+
 	/* mesh在世界中的坐标 */
 	Vector3D position;
 	void SetWorldPos(float x, float y, float z);
@@ -59,9 +67,6 @@ public:
 	Vector3D eulerAngle;
 	void RotateX(float x);
 	void RotateY(float y);
-
-	//顶点颜色
-	void SetColor(Color& color);
 
 	Matrix4x4 localToWorldMatrix();
 	inline bool UseIndex() const;

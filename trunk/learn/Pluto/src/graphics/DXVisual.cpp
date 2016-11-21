@@ -4,7 +4,7 @@ DXVisual::DXVisual(){}
 
 DXVisual::~DXVisual(){}
 
-bool DXVisual::Init(ID3D11Device* device, char** vertices, int* vertexNum, int* indices, int indexNum){
+bool DXVisual::Init(ID3D11Device* device, char* vertices, int vertexNum, int* indices, int indexNum){
 	//创建 vertex shader
 	bool result = _vs.CreateVertexShader(device, _layout);
 	if(!result)return false;
@@ -13,11 +13,9 @@ bool DXVisual::Init(ID3D11Device* device, char** vertices, int* vertexNum, int* 
 	result = _ps.CreatePixelShader(device);
 	if(!result)return false;
 
-	for(int i = 0; i < _layout.GetSlotNum(); i++){
-		int singleVertexByte = _layout.GetTotalByte(i);
-		result = _vertexBuffer[i].CreateVertexBuffer(device, vertices[i], vertexNum[i], singleVertexByte);
-		if(!result)return false;
-	}
+	int singleVertexByte = _layout.GetTotalByte(0);
+	result = _vertexBuffer[0].CreateVertexBuffer(device, vertices, vertexNum, singleVertexByte);
+	if(!result)return false;
 
 	if(indexNum > 0){
 		result = _indexBuffer.CreateIndexBuffer(device, indices, indexNum);
@@ -98,7 +96,6 @@ void DXVisual::PreSetPSConstBufferSize(int byteWidth){
 void DXVisual::UpdateShader(wchar_t* vsName, wchar_t* psName){
 	//重设shader名称
 	PreInitShader(vsName, psName);
-
 }
 
 void DXVisual::Reset(){

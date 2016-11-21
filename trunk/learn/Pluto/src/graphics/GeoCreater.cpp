@@ -2,10 +2,10 @@
 
 void GeoCreater::CreateSprite(Mesh &m){
 	m.vertexNum = 4;
-	m.vertexList[0] = Vector3D(-1.0f, -1.0f, 0.0f);
-	m.vertexList[1] = Vector3D(-1.0f, 1.0f, 0.0f);
-	m.vertexList[2] = Vector3D(1.0f, -1.0f, 0.0f);
-	m.vertexList[3] = Vector3D(1.0f, 1.0f, 0.0f);
+	m.posList[0] = Vector3D(-1.0f, -1.0f, 0.0f);
+	m.posList[1] = Vector3D(-1.0f, 1.0f, 0.0f);
+	m.posList[2] = Vector3D(1.0f, -1.0f, 0.0f);
+	m.posList[3] = Vector3D(1.0f, 1.0f, 0.0f);
 
 	m.uvNum = 4;
 	m.uvList[0] = Vector2D(0, 1.0f);
@@ -26,10 +26,10 @@ void GeoCreater::CreateSprite(Mesh &m){
 
 void GeoCreater::CreateFloor(Mesh &m){
 	m.vertexNum = 4;
-	m.vertexList[0] = Vector3D(-1.0f, 0.0f, -1.0f);
-	m.vertexList[1] = Vector3D(-1.0f, 0.0f, 1.0f);
-	m.vertexList[2] = Vector3D(1.0f, 0.0f, -1.0f);
-	m.vertexList[3] = Vector3D(1.0f, 0.0f, 1.0f);
+	m.posList[0] = Vector3D(-1.0f, 0.0f, -1.0f);
+	m.posList[1] = Vector3D(-1.0f, 0.0f, 1.0f);
+	m.posList[2] = Vector3D(1.0f, 0.0f, -1.0f);
+	m.posList[3] = Vector3D(1.0f, 0.0f, 1.0f);
 
 	m.uvNum = 4;
 	m.uvList[0] = Vector2D(0, 1.0f);

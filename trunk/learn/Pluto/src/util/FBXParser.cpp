@@ -78,7 +78,7 @@ void FBXParser::readVertex(Mesh* mesh, FbxMesh* fmesh){
 	/* 读取顶点信息 */
 	for(int i = 0; i < mesh->vertexNum; ++i){
 		Vector3D v = Vector3D(ctrlPoint[i][0], ctrlPoint[i][1], ctrlPoint[i][2]);
-		mesh->vertexList[i] = v;
+		mesh->posList[i] = v;
 	}
 }
 

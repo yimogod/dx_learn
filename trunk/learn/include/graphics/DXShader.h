@@ -9,18 +9,18 @@ public:
 	virtual ~Shader();
 
 	virtual void Reset();
-	inline void SetFileName(wchar_t* fileName);
+	inline void SetFileName(const wchar_t* fileName);
 protected:
 	//±‡“Îshader
 	bool CompileShaderFromFile(ID3DBlob** ppBlobOut);
 
 protected:
-	wchar_t* _fileName = nullptr;
+	const wchar_t* _fileName = nullptr;
 	char* _entryPoint = nullptr;
 	char* _shaderModel = nullptr;
 };
 
 
-inline void Shader::SetFileName(wchar_t* fileName){
+inline void Shader::SetFileName(const wchar_t* fileName){
 	_fileName = fileName;
 }

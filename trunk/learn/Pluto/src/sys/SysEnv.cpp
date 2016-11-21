@@ -1,16 +1,9 @@
 #include <sys/SysEnv.h>
 
-SysEnv::SysEnv(){
+SysEnv::SysEnv(){}
+SysEnv::~SysEnv(){}
 
-}
-
-
-SysEnv::~SysEnv(){
-
-}
-
-
-std::string SysEnv::getVariable(std::string const& name){
+std::string SysEnv::GetVariable(std::string const& name){
 	size_t size;
 	getenv_s(&size, nullptr, 0, name.c_str());
 	if(size > 0){

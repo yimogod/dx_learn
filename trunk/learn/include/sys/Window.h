@@ -21,12 +21,7 @@ protected:
 	void UpdateByKey(float value);
 	void UpdateConstBuff();
 
-	void InitVisual(Mesh* mesh, wchar_t* vsName);
-	void InitVisual(Mesh* mesh, char* vertAddOn, int vertAddOnNum, wchar_t* vsName);
-	void InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath);
-
 	//方法代理, 为了让代码更好看
-	void AddTexture(Mesh* mesh, const char* texturePath);//加载多张图片
 	inline void AddSamplerState(Mesh* mesh, D3D11_TEXTURE_ADDRESS_MODE adress);//创建多个sampler
 	inline void PreSetVSConstBufferSize(Mesh* mesh, int byteWidth);
 	inline void PreSetPSConstBufferSize(Mesh* mesh, int byteWidth);

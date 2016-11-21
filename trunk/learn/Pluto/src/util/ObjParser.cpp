@@ -90,7 +90,7 @@ void ObjParser::ParseVUNStr(string& str){
 	//	a = a * 10 + char_2_int(str[k]);
 	//}
 
-	_mesh->vertexList[_mesh->vertexNum] = _vertexList[vertIndex];
+	_mesh->posList[_mesh->vertexNum] = _vertexList[vertIndex];
 	_mesh->uvList[_mesh->uvNum] = _uvList[uvIndex];
 	_mesh->uvNum++;
 	_mesh->vertexNum++;

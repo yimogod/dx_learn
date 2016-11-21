@@ -16,64 +16,6 @@ bool Window::Init(HINSTANCE const &ins, HWND const &hwnd){
 	return LoadContent();
 }
 
-void Window::InitVisual(Mesh* mesh, wchar_t* vsName){
-	InitVisual(mesh, nullptr, 0, vsName);
-}
-
-void Window::InitVisual(Mesh* mesh, char* vertAddOn, int vertAddOnNum, wchar_t* vsName){
-	DXVisual& visual = mesh->visual;
-
-	/*准备shader数据*/
-	visual.PreInitShader(vsName, vsName);
-
-	//创建 layout, 如果之前我们没有手动创建layout, 那我们就用标准的渲染模型的layout
-	if(visual.GetLayoutNum() == 0)
-		visual.PreAddDefaultLayout();
-
-	//创建buffer需要的变量
-	//如果我们没有手动添加多个constbuffer, 那我们就默认添加mvp
-	if(visual.GetConstBufferNum() == 0)
-		visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
-
-	//初始化visual
-	//多个Vertex数组
-	char** vertices = nullptr;
-	int* vertexNum = nullptr;
-	int vertListNum = 1;
-	if(vertAddOnNum == 0){
-		vertListNum = 1;
-	}else{
-		vertListNum = 2;
-	}
-	 
-	vertices = new char*[vertListNum];
-	vertexNum = new int[vertListNum];
-
-	Vertex *vert = new Vertex[mesh->vertexNum];
-	mesh->GetVertexList(vert);
-	vertices[0] = (char*)vert;
-	vertexNum[0] = mesh->vertexNum;
-
-	if(vertListNum == 2){
-		vertices[1] = vertAddOn;
-		vertexNum[1] = vertAddOnNum;
-	}
-
-
-	int* indices = new int[mesh->indexNum];
-	mesh->GetIndexList(indices);
-
-	_dxEngine.InitVisual(visual, vertices, vertexNum, indices, mesh->indexNum);
-
-	delete(vertices);
-	delete(indices);
-}
-
-void Window::InitVisual(Mesh* mesh, wchar_t* vsName, const char* texturePath){
-	AddTexture(mesh, texturePath);
-	InitVisual(mesh, vsName);
-}
-
 void Window::Update(){
 	UpdateByKey(0.002f);
 	UpdateByLMouse(0.003f);
@@ -143,12 +85,6 @@ void Window::UpdateByKey(float value){
 	if(isKeyDown(40)){//back
 		_currMesh->Move(0, 0, -value);
 	}
-}
-
-void Window::AddTexture(Mesh* mesh, const char* texturePath){
-	DXVisual &visual = mesh->visual;
-	std::wstring path = GetFullPathW(texturePath);
-	visual.PreAddTexture(path);
 }
 
 void Window::Destroy(){

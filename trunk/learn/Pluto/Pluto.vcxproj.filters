@@ -138,7 +138,12 @@
     <ClCompile Include="src\graphics\DXVertexShader.cpp">
       <Filter>graphics\dx</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\Texture.cpp" />
+    <ClCompile Include="src\graphics\Texture.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\PlutoUtil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -257,6 +262,11 @@
     <ClInclude Include="..\include\graphics\DXVertexShader.h">
       <Filter>graphics\dx</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\graphics\Texture.h" />
+    <ClInclude Include="..\include\graphics\Texture.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\util\PlutoUtil.h">
+      <Filter>util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

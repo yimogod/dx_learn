@@ -31,19 +31,12 @@ protected:
 	inline int GetMouseX() const;
 	inline int GetMouseY() const;
 
-	std::string const GetAppRoot();
-	std::string GetFullPath(char* path);
-	std::wstring GetFullPathW(const char* path);
-
 protected:
 	HINSTANCE _ins;
 	HWND _hwnd;
 
 	int _width = 0; //屏幕宽度
 	int _height = 0; //屏幕高度
-
-	SysEnv _env;
-
 private:
 	int _pressedKey = -1; //按下的按钮
 	int _mouseX = -1; //鼠标的位置

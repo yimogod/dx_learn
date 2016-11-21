@@ -1,5 +1,6 @@
 #include <util/ObjParser.h>
 #include "DemoApp.h"
+#include <util/PlutoUtil.h>
 
 DemoApp::DemoApp(){}
 
@@ -7,14 +8,20 @@ DemoApp::~DemoApp(){}
 
 bool DemoApp::LoadContent(){
 	ObjParser reader;
-	reader.Read(GetFullPath("assets/cube.obj").c_str(), &_scene);
+	reader.Read(PlutoUtil::GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 	_scene.camera = &_camera;
 	
+	Material* mat = new Material("shader/Triangle.fx");
+	mat->AddTexture("assets/t_01.dds");
+	mat->SetVSConstBufferSize(sizeof(MVPConstBuffer));
+
 	/*准备顶点缓冲数据*/
 	_currMesh = _scene.GetMesh(0);
 	_currMesh->SetWorldPos(0, 0.5f, 1.0f);
-	InitVisual(_currMesh, L"shader/Triangle.fx", "assets/t_01.dds");
+	_currMesh->material = mat;
+
+	_currMesh->Init();
 	return true;
 }
 

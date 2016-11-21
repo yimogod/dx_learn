@@ -26,7 +26,7 @@ public:
 	inline int GetLayoutNum();
 
 	//设置shader的名称
-	inline void PreInitShader(wchar_t* vsName, wchar_t* psName);
+	inline void PreInitShader(const wchar_t* vsName, const wchar_t* psName);
 
 	//设置layout
 	inline void PreAddDefaultLayout();
@@ -42,7 +42,7 @@ public:
 
 	//vertices是个二维数组
 	//vertexNum是个一维数组
-	bool Init(ID3D11Device* device, char** vertices, int* vertexNum, int* indices, int indexNum);
+	bool Init(ID3D11Device* device, char* vertices, int vertexNum, int* indices, int indexNum);
 	//resView 外部传进来的贴图
 	void Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resView = nullptr);
 
@@ -83,7 +83,7 @@ private:
 	ShaderResourceView _resView;
 };
 
-inline void DXVisual::PreInitShader(wchar_t* vsName, wchar_t* psName){
+inline void DXVisual::PreInitShader(const wchar_t* vsName, const wchar_t* psName){
 	_vs.SetFileName(vsName);
 	_ps.SetFileName(psName);
 }
