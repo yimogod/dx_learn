@@ -384,6 +384,7 @@
     <ClCompile Include="src\scene\Light.cpp" />
     <ClCompile Include="src\scene\Mesh.cpp" />
     <ClCompile Include="src\scene\Scene.cpp" />
+    <ClCompile Include="src\scene\Transform.cpp" />
     <ClCompile Include="src\sys\Application.cpp" />
     <ClCompile Include="src\sys\BaseApp.cpp" />
     <ClCompile Include="src\sys\DLog.cpp" />
@@ -428,6 +429,7 @@
     <ClInclude Include="..\include\scene\Light.h" />
     <ClInclude Include="..\include\scene\Mesh.h" />
     <ClInclude Include="..\include\scene\Scene.h" />
+    <ClInclude Include="..\include\scene\Transform.h" />
     <ClInclude Include="..\include\sys\Application.h" />
     <ClInclude Include="..\include\sys\BaseApp.h" />
     <ClInclude Include="..\include\sys\DLog.h" />

@@ -144,6 +144,9 @@
     <ClCompile Include="src\util\PlutoUtil.cpp">
       <Filter>util</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\Transform.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\util\CUtil.h">
@@ -267,6 +270,9 @@
     </ClInclude>
     <ClInclude Include="..\include\util\PlutoUtil.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\scene\Transform.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
