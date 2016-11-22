@@ -1,8 +1,11 @@
+
 #include <graphics/DXEngine.h>
 #include <util/DDSTextureLoader.h>
 #include <BaseDataStruct.h>
 
 using namespace DirectX;
+
+std::unique_ptr<DXEngine> DXEngine::_instance;
 
 DXEngine::DXEngine():
 	_driverType(D3D_DRIVER_TYPE_HARDWARE),
@@ -11,6 +14,20 @@ DXEngine::DXEngine():
 }
 
 DXEngine::~DXEngine(){}
+
+DXEngine& DXEngine::Instance(){
+	if(!_instance){
+		std::lock_guard<std::mutex> lock(singleton_mutex);
+		if(!_instance){
+			_instance = std::unique_ptr<DXEngine>(new DXEngine());
+		}
+	}
+	return *_instance;
+}
+
+void DXEngine::Destroy(){
+
+}
 
 bool DXEngine::CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight){
 	_hwnd = hwnd;

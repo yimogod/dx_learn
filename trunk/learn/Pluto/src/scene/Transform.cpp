@@ -8,7 +8,7 @@ Transform::~Transform()
 {
 }
 
-void Transform::SetParent(Transform* parent){
+void Transform::SetParent(std::shared_ptr<Transform> parent){
 	if(_parent != nullptr)
 		_parent->RemoveChild(std::shared_ptr<Transform>(this));
 
@@ -17,7 +17,7 @@ void Transform::SetParent(Transform* parent){
 }
 
 int Transform::AddChild(std::shared_ptr<Transform> const& child){
-	child->SetParent(this);
+	child->SetParent(std::shared_ptr<Transform>(this));
 
 	// Insert the child in the first available slot (if any).
 	int i = 0;

@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+#include <mutex>
 #include <d3d11_1.h>
 #include <d3dcompiler.h>
 #include <BaseDataStruct.h>
@@ -9,13 +11,19 @@
 #include <graphics/DXRenderTexture.h>
 #include <graphics/DXDepthState.h>
 
+std::mutex singleton_mutex;
+
 class DXEngine{
 public:
 	DXEngine();
 	~DXEngine();
 
+	static DXEngine& Instance();
+	static void Destroy();
+
 	void InitDevice(HWND const &hwnd, int screenWidth, int screenHeight);
 	bool CreateDevice(HWND const &hwnd, int screenWidth, int screenHeight);
+	
 	void InitVisual(DXVisual &visual, char* vertices, int vertexNum, int* indices, int indexNum);
 	inline void SetDefaultRenderTargetView();
 	inline void DrawVisual(DXVisual &visual);
@@ -28,6 +36,7 @@ public:
 public:
 	inline bool GetReady();
 	inline ID3D11Device* GetDevice() const;
+	inline ID3D11DeviceContext* GetContext() const;
 
 	inline void UpdateVSSubResource(DXVisual &visual, int buffIndex, const void* data);
 	inline void UpdatePSSubResource(DXVisual &visual, int buffIndex, const void* data);
@@ -39,6 +48,8 @@ public:
 	inline void TurnOnZBuffer();
 	inline void TurnOffZBuffer();
 private:
+	static std::unique_ptr<DXEngine> _instance;
+
 	HINSTANCE _ins;
 	HWND _hwnd;
 	bool _ready = false;
@@ -56,6 +67,7 @@ private:
 	ID3D11Texture2D* _renderTargetBuffer;
 	ID3D11RenderTargetView* _renderTargetView;
 
+	//…Ó∂»ª∫¥Ê
 	DepthState _defaultDepthState;
 	DepthState _disableDepthState;
 
@@ -90,6 +102,10 @@ private:
 
 inline ID3D11Device* DXEngine::GetDevice() const{
 	return _device;
+}
+
+inline ID3D11DeviceContext* DXEngine::GetContext() const{
+	return _context;
 }
 
 inline bool DXEngine::GetReady(){
