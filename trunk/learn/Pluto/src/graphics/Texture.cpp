@@ -1,15 +1,19 @@
-#include "graphics/Texture.h"
+#include <graphics/Texture.h>
+#include <util/PlutoUtil.h>
 
-Texture::Texture()
-{
+Texture::Texture(){
 }
 
 Texture::Texture(const std::string &path){
-	_path = path;
+	_path = PlutoUtil::GetFullPath(path);
 }
 
-Texture::~Texture()
-{
+Texture::~Texture(){
+	_path = nullptr;
+}
+
+void Texture::SetPath(const std::string &path){
+	_path = PlutoUtil::GetFullPath(path);
 }
 
 Texture2D::Texture2D() : Texture()

@@ -90,7 +90,6 @@ inline void DXVisual::PreInitShader(const wchar_t* vsName, const wchar_t* psName
 
 inline void DXVisual::PreAddDefaultLayout(){
 	_layout.AddPosition();
-	_layout.AddColor();
 	_layout.AddTexCoord();
 	_layout.AddNormal();
 	_layout.AddTangent();

@@ -10,7 +10,8 @@ public:
 
 
 	static std::string const GetAppRoot();
-	static std::string GetFullPath(const char* path);
+	//static std::string GetFullPath(const char* path);
+	static std::string GetFullPath(const std::string& path);
 	static std::wstring GetFullPathW(const char* path);
 	static void AddTexture(Mesh* mesh, const char* texturePath);//º”‘ÿ∂‡’≈Õº∆¨
 };

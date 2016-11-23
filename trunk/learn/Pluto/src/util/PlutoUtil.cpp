@@ -10,7 +10,11 @@ std::string const PlutoUtil::GetAppRoot(){
 	return SysEnv::GetVariable("PLU_ROOT");
 }
 
-std::string PlutoUtil::GetFullPath(const char* path){
+//std::string PlutoUtil::GetFullPath(const char* path){
+//	return SysEnv::GetVariable("PLU_ROOT") + path;
+//}
+
+std::string PlutoUtil::GetFullPath(const std::string& path){
 	return SysEnv::GetVariable("PLU_ROOT") + path;
 }
 

@@ -27,8 +27,7 @@ void Mesh::Init(){
 	int textNum = material->GetTextureNum();
 	for(int i = 0; i < textNum; i++){
 		Texture2D* texture = material->GetTexture(i);
-		std::string& path = texture->GetPath();
-		visual.PreAddTexture(path);
+		visual.PreAddTexture(texture->GetPath());
 	}
 
 	//创建 layout, 如果之前我们没有手动创建layout, 那我们就用标准的渲染模型的layout

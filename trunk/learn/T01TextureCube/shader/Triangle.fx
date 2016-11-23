@@ -9,7 +9,6 @@ cbuffer ConstantBuffer : register(b0){
 
 struct VS_INPUT{
 	float4 pos : POSITION;
-	float4 color : COLOR;
 	float2 tex : TEXCOORD0;
 	float4 normal : NORMAL;
 	float4 tangent : TANGENT;
@@ -18,7 +17,6 @@ struct VS_INPUT{
 struct PS_INPUT{
 	float4 pos : SV_POSITION;
 	float2 tex : TEXCOORD0;
-	float4 color : COLOR;
 };
 
 PS_INPUT VS(VS_INPUT input){
@@ -27,9 +25,7 @@ PS_INPUT VS(VS_INPUT input){
 	output.pos = mul(output.pos, view);
 	output.pos = mul(output.pos, perspective);
 
-	output.color = input.color;
 	output.tex = input.tex;
-
 	return output;
 }
 

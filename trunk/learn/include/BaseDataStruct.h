@@ -61,6 +61,7 @@ struct Int2A{
 	int v;
 };
 
+//这里不需要是16byte的倍数
 struct Vertex{
 	Float4 pos;
 	Float2A uv;
