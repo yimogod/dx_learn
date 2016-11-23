@@ -39,26 +39,6 @@ void Mesh::Init(){
 		(char*)vertexList, vertexNum, indexList, indexNum);
 }
 
-void Mesh::SetWorldPos(float x, float y, float z){
-	position.x = x;
-	position.y = y;
-	position.z = z;
-}
-
-void Mesh::SetScale(float scale){
-	for(int i = 0; i < vertexNum; i++){
-		Vector3D vec = posList[i];
-		posList[i] = vec.mul(scale);
-	}
-}
-
-void Mesh::Move(float x, float y, float z){
-	position.x += x;
-	position.y += y;
-	position.z += z;
-}
-
-
 void Mesh::GetVertexList(){
 	for(int i = 0; i < vertexNum; i++){
 		Vector3D vec = posList[i];
@@ -151,25 +131,6 @@ void Mesh::CalVertexNormal(){
 
 		Vector3D a = tangent.cross(binormal);*/
 	}
-}
-
-void Mesh::RotateX(float x){
-	eulerAngle.x += x;
-}
-void Mesh::RotateY(float y){
-	eulerAngle.y += y;
-}
-
-Matrix4x4 Mesh::localToWorldMatrix(){
-	Matrix4x4 mat(1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		position.x, position.y, position.z, 1.0f);
-	Matrix4x4 m = mat.RotateY(eulerAngle.y);
-	m = m.RotateX(eulerAngle.x);
-	m = m.rotateZ(eulerAngle.z);
-
-	return m;
 }
 
 void Mesh::Dispose(){

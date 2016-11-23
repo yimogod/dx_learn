@@ -10,6 +10,7 @@ bool DemoApp::LoadContent(){
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 	_scene.camera = &_camera;
 
+	Transform* trans = nullptr;
 	ObjParser reader;
 	std::shared_ptr<Mesh> mesh = nullptr;
 	std::shared_ptr<Material> mat = nullptr;
@@ -19,21 +20,25 @@ bool DemoApp::LoadContent(){
 	mat->SetVSConstBufferSize(sizeof(MVPConstBuffer));
 
 	mesh = reader.Read(PlutoUtil::GetFullPath("assets/cube.obj").c_str());
-	mesh->SetWorldPos(0, 0.5f, 1.0f);
 	mesh->material = mat;
 
+	trans = new Transform();
+	trans->SetWorldPos(0, 0.5f, 1.0f);
+	trans->SetMesh(mesh.get());
 	/*准备顶点缓冲数据*/
-	_scene.AddMesh(*mesh);
+	_scene.AddTransform(*trans);
 	
+	_currTrans = trans;
+
 	return true;
 }
 
 void DemoApp::UnloadContent(){}
 
 void DemoApp::Render(){
-	if(!_dxEngine.GetReady())return;
+	if(!DXEngine::Instance().GetReady())return;
 
-	_dxEngine.ClearBuffers();
-	_dxEngine.DrawVisual(GetVisual());
-	_dxEngine.Present();
+	DXEngine::Instance().ClearBuffers();
+	_scene.Draw();
+	DXEngine::Instance().Present();
 }

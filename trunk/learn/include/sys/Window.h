@@ -27,23 +27,15 @@ protected:
 	inline void PreSetPSConstBufferSize(Mesh* mesh, int byteWidth);
 	inline void PreAddDefaultLayout(Mesh* mesh);
 	inline void PreAddLayoutInstance(Mesh* mesh);
-
-	inline DXVisual& GetVisual() const;
 protected:
-	Mesh* _currMesh = nullptr;
+	Transform* _currTrans = nullptr;
 
 	Camera _camera;
 	Scene _scene;
 
-	DXEngine _dxEngine;
-
 	int _lastMouseX = 0;
 	int _lastMouseY = 0;
 };
-
-inline DXVisual& Window::GetVisual() const{
-	return _currMesh->visual;
-}
 
 inline void Window::AddSamplerState(Mesh* mesh, D3D11_TEXTURE_ADDRESS_MODE adress){
 	mesh->visual.PreAddSampleState(adress);

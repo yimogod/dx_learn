@@ -1,11 +1,10 @@
 #include <scene/Transform.h>
 
-Transform::Transform()
-{
+Transform::Transform(){
+	dataType = TT_NULL;
 }
 
-Transform::~Transform()
-{
+Transform::~Transform(){
 }
 
 void Transform::SetParent(std::shared_ptr<Transform> parent){
@@ -74,4 +73,46 @@ std::shared_ptr<Transform> Transform::RemoveChildAt(int index){
 		_children[index] = nullptr;
 	}
 	return child;
+}
+
+Matrix4x4 Transform::localToWorldMatrix(){
+	Matrix4x4 mat(1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		position.x, position.y, position.z, 1.0f);
+	Matrix4x4 m = mat.RotateY(eulerAngle.y);
+	m = m.RotateX(eulerAngle.x);
+	m = m.rotateZ(eulerAngle.z);
+
+	return m;
+}
+
+void Transform::RotateX(float x){
+	eulerAngle.x += x;
+}
+void Transform::RotateY(float y){
+	eulerAngle.y += y;
+}
+
+void Transform::SetWorldPos(float x, float y, float z){
+	position.x = x;
+	position.y = y;
+	position.z = z;
+}
+
+void Transform::SetScale(float value){
+	scale.x = value;
+	scale.y = value;
+	scale.z = value;
+}
+
+void Transform::Move(float x, float y, float z){
+	position.x += x;
+	position.y += y;
+	position.z += z;
+}
+
+void Transform::SetMesh(Mesh* mesh){
+	dataType = TT_Mesh;
+	data = mesh;
 }

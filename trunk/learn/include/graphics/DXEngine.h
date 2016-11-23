@@ -11,7 +11,10 @@
 #include <graphics/DXRenderTexture.h>
 #include <graphics/DXDepthState.h>
 
-std::mutex singleton_mutex;
+//这边必须带namespce, 否则会出现重复定义的错误
+namespace{
+	std::mutex singleton_mutex;
+}
 
 class DXEngine{
 public:

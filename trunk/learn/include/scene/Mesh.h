@@ -58,19 +58,6 @@ private:
 	/*length is vertex num*/
 	void GetVertexList();
 public:
-	
-
-	/* mesh在世界中的坐标 */
-	Vector3D position;
-	void SetWorldPos(float x, float y, float z);
-	void SetScale(float scale);
-	void Move(float x, float y, float z);
-	/* mesh在世界中的旋转, 旋转值是弧度 */
-	Vector3D eulerAngle;
-	void RotateX(float x);
-	void RotateY(float y);
-
-	Matrix4x4 localToWorldMatrix();
 	inline bool UseIndex() const;
 };
 

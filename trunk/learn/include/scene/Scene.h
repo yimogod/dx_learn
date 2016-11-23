@@ -14,10 +14,14 @@ public:
 	Scene();
 	~Scene();
 
+	//获取第i个transform挂着的mesh
 	Mesh* GetMesh(int i);
-	void AddMesh(Mesh& mesh);
+	//获取第i个transform
+	Transform* GetTransform(int i);
+	void AddTransform(Transform& trans);
 
-	void Render();
+	//绘制整个场景中的mesh
+	void Draw();
 public:
 	int renderType;
 	
@@ -26,8 +30,8 @@ public:
 
 	//存储所有的tranform--包含子transform
 	//即不考虑transform的继承关系, 完全扁平保存
-	int meshNum = 0;
-	Transform* meshList[100];
+	int transformNum = 0;
+	Transform* transformList[100];
 
 	int lightNum = 0;
 	Light* lightList[4];

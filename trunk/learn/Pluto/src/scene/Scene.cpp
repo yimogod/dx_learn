@@ -2,31 +2,45 @@
 #include <scene/Scene.h>
 
 Scene::Scene(){
-	meshNum = 0;
+	transformNum = 0;
 }
 
 Scene::~Scene(){}
 
- Mesh* Scene::GetMesh(int i) {
-	 if (i >= meshNum)return nullptr;
-	 return nullptr;
- }
+Mesh* Scene::GetMesh(int i) {
+	if (i >= transformNum)return nullptr;
 
- void Scene::AddMesh(Mesh& mesh){
-	 mesh.Init();
-	 //meshList[meshNum] = mesh;
-	 meshNum++;
- }
+	Transform* trans = transformList[i];
+	if(trans->dataType & Transform::TT_Mesh){
+		return transformList[i]->GetData<Mesh*>();
+	}
+	return nullptr;
+}
 
- void Scene::Render(){
-	 ID3D11DeviceContext* context = DXEngine::Instance().GetContext();
+Transform* Scene::GetTransform(int i) {
+	if(i >= transformNum)return nullptr;
+	return transformList[i];
+}
 
-	 for(int i = 0; i < meshNum; i++){
-		 Transform* tran = meshList[i];
-		 if(tran->dataType & Transform::TT_Mesh)
-		 {
-			 Mesh* mesh = tran->GetData<Mesh*>();
-			 mesh->visual.Draw(context);
-		 }
-	 }
- }
+void Scene::AddTransform(Transform& trans){
+	if(trans.dataType & Transform::TT_Mesh){
+		Mesh* mesh = trans.GetData<Mesh*>();
+		mesh->Init();
+	}
+
+
+	transformList[transformNum] = &trans;
+	transformNum++;
+}
+
+void Scene::Draw(){
+	ID3D11DeviceContext* context = DXEngine::Instance().GetContext();
+
+	for(int i = 0; i < transformNum; i++){
+		Transform* trans = transformList[i];
+		if(trans->dataType & Transform::TT_Mesh){
+			Mesh* mesh = trans->GetData<Mesh*>();
+			mesh->visual.Draw(context);
+		}
+	}
+}
