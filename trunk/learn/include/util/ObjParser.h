@@ -6,13 +6,9 @@ class ObjParser{
 public:
 	ObjParser();
     
-	void Read(const char* name, Scene* scene);
+	std::shared_ptr<Mesh> Read(const char* name);
 
 private:
-	Scene* _scene;
-	/*解析的obj赋予到的mesh*/
-	Mesh* _mesh;
-	
 	//vert的坐标
 	int _vertexNum = 0;
 	Vector3D _vertexList[256];
@@ -22,9 +18,9 @@ private:
 	Vector2D _uvList[128];
 
 	void ReadVertex(std::string& line);
-	void ReadIndex(std::string& line);
 	void ReadUV(std::string& line);
 
+	void ReadIndex(Mesh& mesh, std::string& line);
 	/*解析由vertext_index/un_index/normal_index组成的字符串*/
-	void ParseVUNStr(std::string& line);
+	void ParseVUNStr(Mesh& mesh, std::string& line);
 };

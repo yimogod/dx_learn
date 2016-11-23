@@ -11,17 +11,15 @@ using namespace std;
 
 ObjParser::ObjParser(){}
 
-void ObjParser::Read(const char* name, Scene* pscene){
-	_scene = pscene;
-
+std::shared_ptr<Mesh> ObjParser::Read(const char* name){
 	ifstream fs(name);
 	if(!fs.is_open()){
 		cout << "obj parse file path error!" << endl;
 		fs.close();
-		return;
+		return nullptr;
 	}
 
-	_mesh = new Mesh();
+	std::shared_ptr<Mesh> mesh = std::shared_ptr<Mesh>(new Mesh());
 
 	string line;
 	while(getline(fs, line)){
@@ -33,15 +31,14 @@ void ObjParser::Read(const char* name, Scene* pscene){
 				ReadVertex(line);
 			}
 		}else if(line[0] == 'f'){
-			ReadIndex(line);
+			ReadIndex(*mesh, line);
 		}
 	}
 
 	fs.close();
 
-	_mesh->CalVertexNormal();
-
-	_scene->AddMesh(_mesh);
+	mesh->CalVertexNormal();
+	return mesh;
 }
 
 
@@ -58,17 +55,17 @@ void ObjParser::ReadVertex(string &line){
 }
 
 /*¶ÁÈ¡Ë÷Òý*/
-void ObjParser::ReadIndex(string& line){
+void ObjParser::ReadIndex(Mesh& mesh, string& line){
 	string s1, s2, s3, s4;
 
 	istringstream ss(line);
 	ss >> s1 >> s2 >> s3 >> s4;
-	ParseVUNStr(s4);
-	ParseVUNStr(s3);
-	ParseVUNStr(s2);
+	ParseVUNStr(mesh, s4);
+	ParseVUNStr(mesh, s3);
+	ParseVUNStr(mesh, s2);
 }
 
-void ObjParser::ParseVUNStr(string& str){
+void ObjParser::ParseVUNStr(Mesh& mesh, string& str){
 	int k, a = 0;
 	//read index
 	for(k = 0; str[k] != '/'; k++){
@@ -90,10 +87,8 @@ void ObjParser::ParseVUNStr(string& str){
 	//	a = a * 10 + char_2_int(str[k]);
 	//}
 
-	_mesh->posList[_mesh->vertexNum] = _vertexList[vertIndex];
-	_mesh->uvList[_mesh->uvNum] = _uvList[uvIndex];
-	_mesh->uvNum++;
-	_mesh->vertexNum++;
+	mesh.AddVertexPos(_vertexList[vertIndex]);
+	mesh.AddUVPos(_uvList[uvIndex]);
 }
 
 void ObjParser::ReadUV(string& line){

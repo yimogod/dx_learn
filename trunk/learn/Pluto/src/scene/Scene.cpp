@@ -1,3 +1,4 @@
+#include <graphics/DXEngine.h>
 #include <scene/Scene.h>
 
 Scene::Scene(){
@@ -11,17 +12,21 @@ Scene::~Scene(){}
 	 return nullptr;
  }
 
- void Scene::AddMesh(Mesh* mesh){
+ void Scene::AddMesh(Mesh& mesh){
+	 mesh.Init();
 	 //meshList[meshNum] = mesh;
 	 meshNum++;
  }
 
- void Scene::Render(ID3D11Device* device, ID3D11DeviceContext* context){
+ void Scene::Render(){
+	 ID3D11DeviceContext* context = DXEngine::Instance().GetContext();
+
 	 for(int i = 0; i < meshNum; i++){
 		 Transform* tran = meshList[i];
 		 if(tran->dataType & Transform::TT_Mesh)
 		 {
 			 Mesh* mesh = tran->GetData<Mesh*>();
+			 mesh->visual.Draw(context);
 		 }
 	 }
  }

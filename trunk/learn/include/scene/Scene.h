@@ -15,9 +15,9 @@ public:
 	~Scene();
 
 	Mesh* GetMesh(int i);
-	void AddMesh(Mesh* mesh);
+	void AddMesh(Mesh& mesh);
 
-	void Render(ID3D11Device* device, ID3D11DeviceContext* context);
+	void Render();
 public:
 	int renderType;
 	

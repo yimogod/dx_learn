@@ -1,3 +1,4 @@
+#include <graphics/DXEngine.h>
 #include <math/algebra/Vector3D.h>
 #include <scene/Mesh.h>
 #include <util/CUtil.h>
@@ -9,6 +10,12 @@ Mesh::Mesh(){
 Mesh::~Mesh(){}
 
 void Mesh::Init(){
+	if(material == nullptr){
+		std::cout << "material is null. set a value before init the mesh" << std::endl;
+		return;
+	}
+
+
 	/*准备shader数据*/
 	std::wstring shaderName = material->GetName_w();
 	visual.PreInitShader(shaderName.c_str(), shaderName.c_str());
@@ -28,7 +35,8 @@ void Mesh::Init(){
 	vertexList = new Vertex[vertexNum];
 	GetVertexList();
 
-	//_dxEngine.InitVisual(visual, (char*)vertices, vertexNum, indexList, indexNum);
+	visual.Init(DXEngine::Instance().GetDevice(),
+		(char*)vertexList, vertexNum, indexList, indexNum);
 }
 
 void Mesh::SetWorldPos(float x, float y, float z){
@@ -62,6 +70,16 @@ void Mesh::GetVertexList(){
 		vertexList[i].normal = Float4{ normal.x, normal.y, normal.z, 1.0f };
 		vertexList[i].tangent = Float4{ tangent.x, tangent.y, tangent.z, 1.0f };
 	}
+}
+
+void Mesh::AddVertexPos(Vector3D& value){
+	posList[vertexNum] = value;
+	vertexNum++;
+}
+
+void Mesh::AddUVPos(Vector2D& value){
+	uvList[uvNum] = value;
+	uvNum++;
 }
 
 /* 这个版本的法线是基于index的. 及36个index会有36个点

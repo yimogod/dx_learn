@@ -1,5 +1,5 @@
 #pragma once
-
+#include <memory>
 #include <iostream>
 #include <BaseDataStruct.h>
 #include <graphics/DXVisual.h>
@@ -20,7 +20,7 @@ public:
     
 	DXVisual visual;
 	//一个material会被不同的mesh引用
-	Material* material = nullptr;
+	std::shared_ptr<Material> material = nullptr;
 
     std::string name;
 	/* mesh的状态 */
@@ -50,7 +50,9 @@ public:
 	void Dispose();
 	/*计算法线数据*/
 	void CalVertexNormal();
-
+	//添加顶点位置坐标. 顶点个数也要+1
+	void AddVertexPos(Vector3D& value);
+	void AddUVPos(Vector2D& value);
 private:
 	/*格式化数据准备传入vertext buff, 我们使用vbo*/
 	/*length is vertex num*/

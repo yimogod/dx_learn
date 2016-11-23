@@ -7,21 +7,24 @@ DemoApp::DemoApp(){}
 DemoApp::~DemoApp(){}
 
 bool DemoApp::LoadContent(){
-	ObjParser reader;
-	reader.Read(PlutoUtil::GetFullPath("assets/cube.obj").c_str(), &_scene);
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
 	_scene.camera = &_camera;
-	
-	Material* mat = new Material("shader/Triangle.fx");
+
+	ObjParser reader;
+	std::shared_ptr<Mesh> mesh = nullptr;
+	std::shared_ptr<Material> mat = nullptr;
+
+	mat = std::shared_ptr<Material>(new Material("shader/Triangle.fx"));
 	mat->AddTexture("assets/t_01.dds");
 	mat->SetVSConstBufferSize(sizeof(MVPConstBuffer));
 
-	/*准备顶点缓冲数据*/
-	_currMesh = _scene.GetMesh(0);
-	_currMesh->SetWorldPos(0, 0.5f, 1.0f);
-	_currMesh->material = mat;
+	mesh = reader.Read(PlutoUtil::GetFullPath("assets/cube.obj").c_str());
+	mesh->SetWorldPos(0, 0.5f, 1.0f);
+	mesh->material = mat;
 
-	_currMesh->Init();
+	/*准备顶点缓冲数据*/
+	_scene.AddMesh(*mesh);
+	
 	return true;
 }
 
