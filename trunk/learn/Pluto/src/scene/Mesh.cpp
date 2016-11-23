@@ -7,7 +7,11 @@ Mesh::Mesh(){
 	state = Mesh::STATE_ACTIVE;
 }
 
-Mesh::~Mesh(){}
+Mesh::~Mesh(){
+	state = Mesh::STATE_ACTIVE;
+	material = nullptr;
+	vertexList = nullptr;
+}
 
 void Mesh::Init(){
 	if(material == nullptr){

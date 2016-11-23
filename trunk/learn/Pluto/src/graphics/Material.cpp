@@ -9,6 +9,10 @@ Material::Material(const std::string &name){
 }
 
 Material::~Material(){
+	_name = "";
+	_textureNum = 0;
+	_vsConstBufferNum = 0;
+	_psConstBufferNum = 0;
 }
 
 void Material::AddTexture(const std::string &path){

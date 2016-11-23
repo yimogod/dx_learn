@@ -11,7 +11,7 @@ using namespace std;
 
 ObjParser::ObjParser(){}
 
-std::shared_ptr<Mesh> ObjParser::Read(const char* name){
+Mesh* ObjParser::Read(const char* name){
 	ifstream fs(name);
 	if(!fs.is_open()){
 		cout << "obj parse file path error!" << endl;
@@ -19,7 +19,7 @@ std::shared_ptr<Mesh> ObjParser::Read(const char* name){
 		return nullptr;
 	}
 
-	std::shared_ptr<Mesh> mesh = std::shared_ptr<Mesh>(new Mesh());
+	Mesh* mesh = new Mesh();
 
 	string line;
 	while(getline(fs, line)){

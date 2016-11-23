@@ -12,19 +12,19 @@ bool DemoApp::LoadContent(){
 
 	Transform* trans = nullptr;
 	ObjParser reader;
-	std::shared_ptr<Mesh> mesh = nullptr;
-	std::shared_ptr<Material> mat = nullptr;
+	Mesh* mesh = nullptr;
+	Material* mat = nullptr;
 
-	mat = std::shared_ptr<Material>(new Material("shader/Triangle.fx"));
+	mat = new Material("shader/Triangle.fx");
 	mat->AddTexture("assets/t_01.dds");
 	mat->SetVSConstBufferSize(sizeof(MVPConstBuffer));
 
 	mesh = reader.Read(PlutoUtil::GetFullPath("assets/cube.obj").c_str());
-	mesh->material = mat;
+	mesh->material = std::shared_ptr<Material>(mat);
 
 	trans = new Transform();
 	trans->SetWorldPos(0, 0.5f, 1.0f);
-	trans->SetMesh(mesh.get());
+	trans->SetMesh(mesh);
 	/*准备顶点缓冲数据*/
 	_scene.AddTransform(*trans);
 	

@@ -6,8 +6,7 @@ class ObjParser{
 public:
 	ObjParser();
     
-	std::shared_ptr<Mesh> Read(const char* name);
-
+	Mesh* Read(const char* name);
 private:
 	//vertµÄ×ø±ê
 	int _vertexNum = 0;
