@@ -22,14 +22,14 @@ Transform* Scene::GetTransform(int i) {
 	return transformList[i];
 }
 
-void Scene::AddTransform(Transform& trans){
-	if(trans.dataType & Transform::TT_Mesh){
-		Mesh* mesh = trans.GetData<Mesh*>();
+void Scene::AddTransform(Transform* trans){
+	if(trans->dataType & Transform::TT_Mesh){
+		Mesh* mesh = trans->GetData<Mesh*>();
 		mesh->Init();
 	}
 
 
-	transformList[transformNum] = &trans;
+	transformList[transformNum] = trans;
 	transformNum++;
 }
 

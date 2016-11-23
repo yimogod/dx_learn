@@ -24,6 +24,12 @@ void Mesh::Init(){
 	std::wstring shaderName = material->GetName_w();
 	visual.PreInitShader(shaderName.c_str(), shaderName.c_str());
 
+	int textNum = material->GetTextureNum();
+	for(int i = 0; i < textNum; i++){
+		Texture2D* texture = material->GetTexture(i);
+		std::string& path = texture->GetPath();
+		visual.PreAddTexture(path);
+	}
 
 	//创建 layout, 如果之前我们没有手动创建layout, 那我们就用标准的渲染模型的layout
 	//目前只有instance实例会手动指定

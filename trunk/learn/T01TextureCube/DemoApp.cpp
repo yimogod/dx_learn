@@ -26,10 +26,9 @@ bool DemoApp::LoadContent(){
 	trans->SetWorldPos(0, 0.5f, 1.0f);
 	trans->SetMesh(mesh);
 	/*准备顶点缓冲数据*/
-	_scene.AddTransform(*trans);
+	_scene.AddTransform(trans);
 	
 	_currTrans = trans;
-
 	return true;
 }
 

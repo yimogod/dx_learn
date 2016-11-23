@@ -1,5 +1,6 @@
 #include <graphics/DXShaderResourceView.h>
 #include <util/DDSTextureLoader.h>
+#include <util/CUtil.h>
 
 ShaderResourceView::ShaderResourceView(){
 	for(int i = 0; i < 8; i++){
@@ -20,8 +21,8 @@ bool ShaderResourceView::CreateTexture(ID3D11Device* device){
 	return true;
 }
 
-void ShaderResourceView::AddTexturePath(const std::wstring &path){
-	_texturePathList[_resViewNum] = path;
+void ShaderResourceView::AddTexturePath(const std::string &path){
+	str_2_wstr(path, _texturePathList[_resViewNum]);
 	_resViewNum++;
 }
 

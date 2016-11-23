@@ -3,8 +3,6 @@
 #include <Windows.h>
 #include <stringapiset.h>
 
-using namespace::std;
-
 void print_pwd(){
     //char* path = getcwd(NULL, 0);
     //cout << path << endl;
@@ -40,9 +38,9 @@ void swap_int(int* f1, int* f2){
 	*f1 = temp;
 }
 
-int str_2_int(string& str){
+int str_2_int(std::string& str){
 	int v;
-	if(!(istringstream(str) >> v)) v = 0;
+	if(!(std::istringstream(str) >> v)) v = 0;
 	return v;
 }
 
@@ -50,8 +48,8 @@ int char_2_int(char c){
 	return c - 48;
 }
 
-void str_2_wstr(string& src, wstring& dest){
-	string temp = src;
+void str_2_wstr(const std::string& src, std::wstring& dest){
+	std::string temp = src;
 	int len = MultiByteToWideChar(CP_ACP, 0, (LPCSTR)temp.c_str(), -1, NULL, 0);
 	wchar_t * wszUtf8 = new wchar_t[len + 1];
 	memset(wszUtf8, 0, len * 2 + 2);

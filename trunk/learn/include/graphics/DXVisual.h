@@ -33,7 +33,7 @@ public:
 	inline void PreAddDefaultLayoutInstance();
 
 	//读取图片, 设置resourceview
-	inline void PreAddTexture(const std::wstring &path);
+	inline void PreAddTexture(const std::string &path);
 	inline void PreAddSampleState(const D3D11_TEXTURE_ADDRESS_MODE adress);
 
 	//设置创建buffer需要的各种数据
@@ -107,7 +107,7 @@ inline void DXVisual::UpdatePSConstBuffer(ID3D11DeviceContext* context, int inde
 	_psConstBuffer[index].UpdateConstBuff(context, data);
 }
 
-inline void DXVisual::PreAddTexture(const std::wstring &path){
+inline void DXVisual::PreAddTexture(const std::string &path){
 	_resView.AddTexturePath(path);
 }
 

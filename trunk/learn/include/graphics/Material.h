@@ -18,6 +18,9 @@ public:
 	inline Color GetColor();
 
 	void AddTexture(const std::string &path);
+	Texture2D* GetTexture(int i);
+	inline int GetTextureNum() const;
+
 	void SetVSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
 	void SetPSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
 
@@ -56,4 +59,8 @@ inline void Material::SetColor(Color &color){
 
 inline Color Material::GetColor(){
 	return _color;
+}
+
+inline int Material::GetTextureNum() const{
+	return _textureNum;
 }

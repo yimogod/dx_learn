@@ -74,8 +74,8 @@ void DXVisual::Draw(ID3D11DeviceContext* context, ID3D11ShaderResourceView* resV
 		context->DrawIndexed(_indexBuffer.GetIndexNum(), 0, 0);
 	}else{
 		int vertNum = _vertexBuffer[0].GetVertexNum();
-		int insNum = _vertexBuffer[1].GetVertexNum();
 		if(_layout.HasInstance()){
+			int insNum = _vertexBuffer[1].GetVertexNum();
 			context->DrawInstanced(vertNum, insNum, 0, 0);
 		}else{
 			context->Draw(vertNum, 0);

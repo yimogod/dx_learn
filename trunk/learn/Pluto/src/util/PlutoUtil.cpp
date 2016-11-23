@@ -10,7 +10,7 @@ std::string const PlutoUtil::GetAppRoot(){
 	return SysEnv::GetVariable("PLU_ROOT");
 }
 
-std::string PlutoUtil::GetFullPath(char* path){
+std::string PlutoUtil::GetFullPath(const char* path){
 	return SysEnv::GetVariable("PLU_ROOT") + path;
 }
 
@@ -23,6 +23,6 @@ std::wstring PlutoUtil::GetFullPathW(const char* path){
 
 void PlutoUtil::AddTexture(Mesh* mesh, const char* texturePath){
 	DXVisual &visual = mesh->visual;
-	std::wstring path = PlutoUtil::GetFullPathW(texturePath);
+	std::string path = PlutoUtil::GetFullPath(texturePath);
 	visual.PreAddTexture(path);
 }

@@ -18,7 +18,7 @@ public:
 	Mesh* GetMesh(int i);
 	//获取第i个transform
 	Transform* GetTransform(int i);
-	void AddTransform(Transform& trans);
+	void AddTransform(Transform* trans);
 
 	//绘制整个场景中的mesh
 	void Draw();

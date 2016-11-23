@@ -20,6 +20,11 @@ void Material::AddTexture(const std::string &path){
 	_textureNum++;
 }
 
+Texture2D* Material::GetTexture(int i){
+	if(i >= _textureNum)return nullptr;
+	return &_textureList[i];
+}
+
 void Material::SetVSConstBufferSize(int byteWidth){
 	_vsConstByteWidth[_vsConstBufferNum] = byteWidth;
 	_vsConstBufferNum++;

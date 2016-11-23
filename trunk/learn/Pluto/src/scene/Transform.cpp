@@ -5,6 +5,7 @@ Transform::Transform(){
 }
 
 Transform::~Transform(){
+	dataType = TT_NULL;
 }
 
 void Transform::SetParent(std::shared_ptr<Transform> parent){

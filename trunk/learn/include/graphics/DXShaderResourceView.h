@@ -13,7 +13,7 @@ public:
 
 	void Reset();
 	bool CreateTexture(ID3D11Device* device);
-	void AddTexturePath(const std::wstring &path);
+	void AddTexturePath(const std::string &path);
 	inline void BindShaderResource(ID3D11DeviceContext* context, UINT StartSlot);
 private:
 	/*对贴图资源引用的resource view, 如果一个面需要多张图, 那么我们的_resView就会是个数组*/
