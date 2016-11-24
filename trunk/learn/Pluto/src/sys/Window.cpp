@@ -9,9 +9,9 @@ bool Window::Init(HINSTANCE const &ins, HWND const &hwnd){
 	BaseApp::Init(ins, hwnd);
 	DXEngine::Instance().InitDevice(hwnd, _width, _height);
 
-	_camera.SetPos(0, 0, -2.0f);
-	_camera.SetFrustum(1.0f, 45.0f, 1.0f, 100.0f);
-	_camera.SetAspect(_width, _height);
+	_scene.camera.SetPos(0, 0, -2.0f);
+	_scene.camera.SetFrustum(1.0f, 45.0f, 1.0f, 100.0f);
+	_scene.camera.SetAspect(_width, _height);
 
 	return LoadContent();
 }
@@ -27,18 +27,7 @@ void Window::Update(){
 }
 
 void Window::UpdateConstBuff(){
-	MVPConstBuffer cb;
-	cb.view = _camera.GetWorldToCameraMatrix().transpose();
-	cb.perspective = _camera.GetCameraToProjMatrix().transpose();
-	for(int i = 0; i < _scene.transformNum; i++){
-		Transform* trans = _scene.GetTransform(i);
-		Mesh* mesh = trans->GetData<Mesh*>();
-		mesh->visual.UpdateVSConstBuffer(DXEngine::Instance().GetContext(), 0, &cb);
-		//Matrix4x4 model = trans->localToWorldMatrix().transpose();
-		//mesh->visual.UpdateVSConstBuffer(DXEngine::Instance().GetContext(), 1, &model);
-
-		//DXEngine::Instance().UpdateVSSubResource(mesh->visual, 0, &cb);
-	}
+	_scene.Update();
 }
 
 void Window::UpdateByLMouse(float value){
@@ -59,22 +48,22 @@ void Window::UpdateByRMouse(float value){
 
 	int dx = _lastMouseX - GetMouseX();
 	int dy = _lastMouseY - GetMouseY();
-	_camera.RotateY(dx * value);
-	_camera.PitchRotate(dy * value);
+	_scene.camera.RotateY(dx * value);
+	_scene.camera.PitchRotate(dy * value);
 }
 
 void Window::UpdateByKey(float value){
 	if(isKeyDown(65)){//A
-		_camera.Strafe(-value);
+		_scene.camera.Strafe(-value);
 	}
 	if(isKeyDown(68)){//D
-		_camera.Strafe(value);
+		_scene.camera.Strafe(value);
 	}
 	if(isKeyDown(87)){//W
-		_camera.Walk(value);
+		_scene.camera.Walk(value);
 	}
 	if(isKeyDown(83)){//S
-		_camera.Walk(-value);
+		_scene.camera.Walk(-value);
 	}
 
 	if(isKeyDown(37)){//left

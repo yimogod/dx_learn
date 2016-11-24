@@ -2,9 +2,17 @@
 #include <math/algebra/Vector3D.h>
 #include <scene/Mesh.h>
 #include <util/CUtil.h>
+#include <util/ObjParser.h>
 
 Mesh::Mesh(){
 	state = Mesh::STATE_ACTIVE;
+}
+
+Mesh::Mesh(const std::string path){
+	state = Mesh::STATE_ACTIVE;
+
+	ObjParser reader;
+	reader.Read(this, path.c_str());
 }
 
 Mesh::~Mesh(){
@@ -50,6 +58,10 @@ void Mesh::InitStatic(Transform& trans){
 
 	visual.Init(DXEngine::Instance().GetDevice(),
 		(char*)vertexList, vertexNum, indexList, indexNum);
+}
+
+void Mesh::UpdateCB(const void* data){
+	visual.UpdateVSConstBuffer(DXEngine::Instance().GetContext(), 0, data);
 }
 
 void Mesh::GetVertexList(Transform& trans){

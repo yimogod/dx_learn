@@ -25,8 +25,6 @@ protected:
 	inline void AddSamplerState(Mesh* mesh, D3D11_TEXTURE_ADDRESS_MODE adress);//创建多个sampler
 protected:
 	Transform* _currTrans = nullptr;
-
-	Camera _camera;
 	Scene _scene;
 
 	int _lastMouseX = 0;

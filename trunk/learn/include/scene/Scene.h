@@ -20,12 +20,14 @@ public:
 	Transform* GetTransform(int i);
 	void AddTransform(Transform* trans);
 
+	//根据场景中数据的改变来更新dx中的各个buffer
+	void Update();
 	//绘制整个场景中的mesh
 	void Draw();
 public:
 	int renderType;
 	
-	Camera* camera;
+	Camera camera;
 	Transform root;
 
 	//存储所有的tranform--包含子transform

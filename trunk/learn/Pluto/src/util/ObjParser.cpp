@@ -11,15 +11,13 @@ using namespace std;
 
 ObjParser::ObjParser(){}
 
-Mesh* ObjParser::Read(const char* name){
+Mesh* ObjParser::Read(Mesh* mesh, const char* name){
 	ifstream fs(name);
 	if(!fs.is_open()){
 		cout << "obj parse file path error!" << endl;
 		fs.close();
 		return nullptr;
 	}
-
-	Mesh* mesh = new Mesh();
 
 	string line;
 	while(getline(fs, line)){

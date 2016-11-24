@@ -19,6 +19,7 @@ public:
     static const int STATE_CULLED = 4;
     
 	Mesh();
+	Mesh(const std::string path);
 	~Mesh();
     
 	DXVisual visual;
@@ -51,6 +52,7 @@ public:
 public:
 	void InitStatic(Transform& trans);
 	void Dispose();
+	void UpdateCB(const void* data);//update const buffer
 
 	/*计算法线数据*/
 	void CalVertexNormal();

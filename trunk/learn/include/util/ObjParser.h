@@ -1,12 +1,12 @@
 #pragma once
-#include <scene/Scene.h>
+#include <scene/Mesh.h>
 #include <string>
 
 class ObjParser{
 public:
 	ObjParser();
     
-	Mesh* Read(const char* name);
+	Mesh* Read(Mesh* mesh, const char* name);
 private:
 	//vertµÄ×ø±ê
 	int _vertexNum = 0;

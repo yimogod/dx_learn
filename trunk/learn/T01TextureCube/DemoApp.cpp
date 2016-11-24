@@ -1,4 +1,3 @@
-#include <util/ObjParser.h>
 #include "DemoApp.h"
 #include <util/PlutoUtil.h>
 
@@ -8,10 +7,8 @@ DemoApp::~DemoApp(){}
 
 bool DemoApp::LoadContent(){
 	_scene.renderType = Scene::RENDER_TYPE_FRAME;
-	_scene.camera = &_camera;
 
 	Transform* trans = nullptr;
-	ObjParser reader;
 	Mesh* mesh = nullptr;
 	Material* mat = nullptr;
 
@@ -19,15 +16,14 @@ bool DemoApp::LoadContent(){
 	mat->AddTexture("assets/t_01.dds");
 	mat->Set_VS_CBufferSize(sizeof(MVPConstBuffer));
 
-	mesh = reader.Read(PlutoUtil::GetFullPath("assets/cube.obj").c_str());
+	mesh = new Mesh(PlutoUtil::GetFullPath("assets/cube.obj"));
 	mesh->material = std::shared_ptr<Material>(mat);
 
 	trans = new Transform();
 	trans->SetWorldPos(0, 0.5f, 1.0f);
 	trans->SetMesh(mesh);
-	/*准备顶点缓冲数据*/
+
 	_scene.AddTransform(trans);
-	
 	_currTrans = trans;
 	return true;
 }

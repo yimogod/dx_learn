@@ -32,6 +32,17 @@ void Scene::AddTransform(Transform* trans){
 	transformNum++;
 }
 
+void Scene::Update(){
+	MVPConstBuffer cb;
+	cb.view = camera.GetWorldToCameraMatrix().transpose();
+	cb.perspective = camera.GetCameraToProjMatrix().transpose();
+	for(int i = 0; i < transformNum; i++){
+		Transform* trans = GetTransform(i);
+		Mesh* mesh = trans->GetData<Mesh*>();
+		mesh->UpdateCB(&cb);
+	}
+}
+
 void Scene::Draw(){
 	ID3D11DeviceContext* context = DXEngine::Instance().GetContext();
 
