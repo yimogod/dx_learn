@@ -40,7 +40,6 @@ public:
 	inline ID3D11Device* GetDevice() const;
 	inline ID3D11DeviceContext* GetContext() const;
 
-	inline void UpdateVSSubResource(DXVisual &visual, int buffIndex, const void* data);
 	inline void UpdatePSSubResource(DXVisual &visual, int buffIndex, const void* data);
 	inline void Present();
 	void ClearBuffers(const FLOAT ColorRGBA[4] = DirectX::Colors::MidnightBlue);
@@ -116,10 +115,6 @@ inline bool DXEngine::GetReady(){
 
 inline void DXEngine::SetDefaultRenderTargetView(){
 	_context->OMSetRenderTargets(1, &_renderTargetView, _defaultDepthState.GetDepthStencilView());
-}
-
-inline void DXEngine::UpdateVSSubResource(DXVisual &visual, int buffIndex, const void* data){
-	visual.UpdateVSConstBuffer(_context, buffIndex, data);
 }
 
 inline void DXEngine::UpdatePSSubResource(DXVisual &visual, int buffIndex, const void* data){

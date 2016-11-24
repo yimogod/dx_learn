@@ -7,6 +7,9 @@
 #include <math/algebra/Vector3D.h>
 #include <math/algebra/Vector2D.h>
 #include <math/algebra/Matrix4x4.h>
+#include <scene/Transform.h>
+
+class Transform;
 
 /* 很多个三角形组成的三角网 */
 class Mesh{
@@ -46,8 +49,9 @@ public:
 	int indexNum = 0;
 	int indexList[512];
 public:
-	void Init();
+	void InitStatic(Transform& trans);
 	void Dispose();
+
 	/*计算法线数据*/
 	void CalVertexNormal();
 	//添加顶点位置坐标. 顶点个数也要+1
@@ -56,7 +60,7 @@ public:
 private:
 	/*格式化数据准备传入vertext buff, 我们使用vbo*/
 	/*length is vertex num*/
-	void GetVertexList();
+	void GetVertexList(Transform& trans);
 public:
 	inline bool UseIndex() const;
 };

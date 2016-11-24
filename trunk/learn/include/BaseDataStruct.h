@@ -110,7 +110,6 @@ struct PhongConstBuffer{
 
 //进行mvp转换的buffer
 struct MVPConstBuffer{
-	Matrix4x4 model;
 	Matrix4x4 view;
 	Matrix4x4 perspective;
 };

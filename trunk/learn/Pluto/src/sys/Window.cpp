@@ -33,9 +33,11 @@ void Window::UpdateConstBuff(){
 	for(int i = 0; i < _scene.transformNum; i++){
 		Transform* trans = _scene.GetTransform(i);
 		Mesh* mesh = trans->GetData<Mesh*>();
+		mesh->visual.UpdateVSConstBuffer(DXEngine::Instance().GetContext(), 0, &cb);
+		//Matrix4x4 model = trans->localToWorldMatrix().transpose();
+		//mesh->visual.UpdateVSConstBuffer(DXEngine::Instance().GetContext(), 1, &model);
 
-		cb.model = trans->localToWorldMatrix().transpose();
-		DXEngine::Instance().UpdateVSSubResource(mesh->visual, 0, &cb);
+		//DXEngine::Instance().UpdateVSSubResource(mesh->visual, 0, &cb);
 	}
 }
 

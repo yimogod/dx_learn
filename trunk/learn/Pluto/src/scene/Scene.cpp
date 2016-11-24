@@ -25,9 +25,8 @@ Transform* Scene::GetTransform(int i) {
 void Scene::AddTransform(Transform* trans){
 	if(trans->dataType & Transform::TT_Mesh){
 		Mesh* mesh = trans->GetData<Mesh*>();
-		mesh->Init();
+		mesh->InitStatic(*trans);
 	}
-
 
 	transformList[transformNum] = trans;
 	transformNum++;

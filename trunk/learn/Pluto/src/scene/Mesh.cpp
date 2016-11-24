@@ -13,7 +13,7 @@ Mesh::~Mesh(){
 	vertexList = nullptr;
 }
 
-void Mesh::Init(){
+void Mesh::InitStatic(Transform& trans){
 	if(material == nullptr){
 		std::cout << "material is null. set a value before init the mesh" << std::endl;
 		return;
@@ -42,17 +42,20 @@ void Mesh::Init(){
 		visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
 
 	vertexList = new Vertex[vertexNum];
-	GetVertexList();
+	GetVertexList(trans);
 
 	visual.Init(DXEngine::Instance().GetDevice(),
 		(char*)vertexList, vertexNum, indexList, indexNum);
 }
 
-void Mesh::GetVertexList(){
+void Mesh::GetVertexList(Transform& trans){
 	for(int i = 0; i < vertexNum; i++){
 		Vector3D vec = posList[i];
 		Vector3D normal = normalList[i];
 		Vector3D tangent = tangentList[i];
+		trans.Translate(vec);
+		trans.Translate(normal);
+		trans.Translate(tangent);
 
 		vertexList[i].pos = Float4{ vec.x, vec.y, vec.z, 1.0f };
 		vertexList[i].uv = Float2A{ uvList[i].x, uvList[i].y };

@@ -11,7 +11,6 @@ Shader::Shader(wchar_t* fileName, char* entrytPoint, char* shaderModel):
 
 }
 
-
 Shader::~Shader()
 {
 }
@@ -31,11 +30,14 @@ bool Shader::CompileShaderFromFile(ID3DBlob** ppBlobOut){
 
 	if(FAILED(hr) && pErrorBlob){
 		OutputDebugStringA(reinterpret_cast<const char*>(pErrorBlob->GetBufferPointer()));
+		std::cout << "shader complier error" << _fileName << std::endl;
+		return false;
 	}
 
 	if(pErrorBlob){
 		LPCSTR lpOutputString = reinterpret_cast<const char*>(pErrorBlob->GetBufferPointer());
 		pErrorBlob->Release();
+		std::cout << "shader complier error" << _fileName << std::endl;
 		return false;
 	}
 

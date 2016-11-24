@@ -1,5 +1,6 @@
 #pragma once
 #include <d3d11_1.h>
+#include <iostream>
 #include <graphics/DXInputLayout.h>
 
 class Shader{

@@ -76,6 +76,17 @@ std::shared_ptr<Transform> Transform::RemoveChildAt(int index){
 	return child;
 }
 
+void Transform::Translate(Vector3D& src){
+	Matrix4x4 model = localToWorldMatrix().transpose();
+	float x = src.x;
+	float y = src.y;
+	float z = src.z;
+
+	src.x = x * model.m00 + y * model.m10 + z * model.m20;
+	src.y = x * model.m01 + y * model.m11 + z * model.m21;
+	src.z = x * model.m02 + y * model.m12 + z * model.m22;
+}
+
 Matrix4x4 Transform::localToWorldMatrix(){
 	Matrix4x4 mat(1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,

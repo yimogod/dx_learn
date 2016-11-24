@@ -37,6 +37,8 @@ private:
 	int _vsConstBufferNum = 0;
 	int _psConstByteWidth[4];
 	int _psConstBufferNum = 0;
+
+
 };
 
 inline void Material::SetName(const std::string &name){

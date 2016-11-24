@@ -3,6 +3,8 @@
 #include <memory>
 #include <scene/Mesh.h>
 
+class Mesh;
+
 class Transform
 {
 public:
@@ -50,6 +52,7 @@ public:
 	void RotateX(float x);
 	void RotateY(float y);
 	Matrix4x4 localToWorldMatrix();
+	void Translate(Vector3D& src);
 private:
 	void* data = nullptr;
 	std::shared_ptr<Transform> _parent;
