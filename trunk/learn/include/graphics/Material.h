@@ -21,9 +21,12 @@ public:
 	Texture2D* GetTexture(int i);
 	inline int GetTextureNum() const;
 
-	void SetVSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
-	void SetPSConstBufferSize(int byteWidth);//设置constbuffer对象的byte
-
+	void Set_VS_CBufferSize(int byteWidth);//设置constbuffer对象的byte
+	void Set_PS_CBufferSize(int byteWidth);//设置constbuffer对象的byte
+	int Get_VS_CBufferSize(int i) const;
+	int Get_PS_CBufferSize(int i) const;
+	inline int Get_VS_CBufferNum() const;
+	inline int Get_PS_CBufferNum() const;
 private:
 	std::string _name;
 	//material身上的颜色
@@ -37,8 +40,6 @@ private:
 	int _vsConstBufferNum = 0;
 	int _psConstByteWidth[4];
 	int _psConstBufferNum = 0;
-
-
 };
 
 inline void Material::SetName(const std::string &name){
@@ -65,4 +66,12 @@ inline Color Material::GetColor(){
 
 inline int Material::GetTextureNum() const{
 	return _textureNum;
+}
+
+inline int Material::Get_VS_CBufferNum() const{
+	return _vsConstBufferNum;
+}
+
+inline int Material::Get_PS_CBufferNum() const{
+	return _psConstBufferNum;
 }

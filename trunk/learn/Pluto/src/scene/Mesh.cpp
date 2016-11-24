@@ -35,11 +35,15 @@ void Mesh::InitStatic(Transform& trans){
 	if(visual.GetLayoutNum() == 0)
 		visual.PreAddDefaultLayout();
 
-	//创建buffer需要的变量
-	//如果我们没有手动添加多个constbuffer, 那我们就默认添加mvp
-	//这些我们应该从material读取--TODO
-	if(visual.GetConstBufferNum() == 0)
-		visual.PreSetVSConstBufferSize(sizeof(MVPConstBuffer));
+	for(int i = 0; i < material->Get_VS_CBufferNum(); i++){
+		int size = material->Get_VS_CBufferSize(i);
+		visual.PreSetVSConstBufferSize(size);
+	}
+
+	for(int i = 0; i < material->Get_PS_CBufferNum(); i++){
+		int size = material->Get_PS_CBufferSize(i);
+		visual.PreSetPSConstBufferSize(size);
+	}
 
 	vertexList = new Vertex[vertexNum];
 	GetVertexList(trans);

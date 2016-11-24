@@ -25,12 +25,22 @@ Texture2D* Material::GetTexture(int i){
 	return &_textureList[i];
 }
 
-void Material::SetVSConstBufferSize(int byteWidth){
+void Material::Set_VS_CBufferSize(int byteWidth){
 	_vsConstByteWidth[_vsConstBufferNum] = byteWidth;
 	_vsConstBufferNum++;
 }
 
-void Material::SetPSConstBufferSize(int byteWidth){
+void Material::Set_PS_CBufferSize(int byteWidth){
 	_psConstByteWidth[_psConstBufferNum] = byteWidth;
 	_psConstBufferNum++;
+}
+
+int Material::Get_VS_CBufferSize(int i) const{
+	if(i >= _vsConstBufferNum)return 0;
+	return _vsConstByteWidth[i];
+}
+
+int Material::Get_PS_CBufferSize(int i) const{
+	if(i >= _psConstBufferNum)return 0;
+	return _psConstByteWidth[i];
 }

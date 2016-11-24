@@ -17,7 +17,7 @@ bool DemoApp::LoadContent(){
 
 	mat = new Material("shader/Triangle.fx");
 	mat->AddTexture("assets/t_01.dds");
-	mat->SetVSConstBufferSize(sizeof(MVPConstBuffer));
+	mat->Set_VS_CBufferSize(sizeof(MVPConstBuffer));
 
 	mesh = reader.Read(PlutoUtil::GetFullPath("assets/cube.obj").c_str());
 	mesh->material = std::shared_ptr<Material>(mat);
