@@ -10,20 +10,22 @@ bool DemoApp::LoadContent(){
 
 	Transform* trans = nullptr;
 	Mesh* mesh = nullptr;
-	Material* mat = nullptr;
+	std::shared_ptr<Material> mat = nullptr;
 
-	mat = new Material("shader/Triangle.fx");
+	mat = std::shared_ptr<Material>(new Material("shader/Triangle.fx"));
 	mat->AddTexture("assets/t_01.dds");
 	mat->Set_VS_CBufferSize(sizeof(MVPConstBuffer));
 
 	mesh = new Mesh(PlutoUtil::GetFullPath("assets/cube.obj"));
-	mesh->material = std::shared_ptr<Material>(mat);
+	mesh->material = mat;
 
 	trans = new Transform();
 	trans->SetWorldPos(0, 0.5f, 1.0f);
 	trans->SetMesh(mesh);
 
+	_scene.AddMaterial(mat);
 	_scene.AddTransform(trans);
+
 	_currTrans = trans;
 	return true;
 }
