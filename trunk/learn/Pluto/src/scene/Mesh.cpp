@@ -60,8 +60,16 @@ void Mesh::InitStatic(Transform& trans){
 		(char*)vertexList, vertexNum, indexList, indexNum);
 }
 
-void Mesh::UpdateCB(const void* data){
-	visual.UpdateVSConstBuffer(DXEngine::Instance().GetContext(), 0, data);
+void Mesh::UpdateCB(){
+	for(int i = 0; i < material->Get_VS_CBufferNum(); i++){
+		const void* data = material->Get_VS_CBufferData(i);
+		visual.UpdateVSConstBuffer(DXEngine::Instance().GetContext(), i, data);
+	}
+	
+	for(int i = 0; i < material->Get_PS_CBufferNum(); i++){
+		const void* data = material->Get_PS_CBufferData(i);
+		visual.UpdatePSConstBuffer(DXEngine::Instance().GetContext(), i, data);
+	}
 }
 
 void Mesh::GetVertexList(Transform& trans){

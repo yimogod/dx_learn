@@ -20,6 +20,9 @@ public:
 	Transform* GetTransform(int i);
 	void AddTransform(Transform* trans);
 
+	std::shared_ptr<Material> GetMaterial(int i);
+	void AddMaterial(std::shared_ptr<Material> material);
+
 	//根据场景中数据的改变来更新dx中的各个buffer
 	void Update();
 	//绘制整个场景中的mesh
@@ -34,6 +37,10 @@ public:
 	//即不考虑transform的继承关系, 完全扁平保存
 	int transformNum = 0;
 	Transform* transformList[100];
+
+	//场景用到的材质球
+	int materialNum = 0;
+	std::shared_ptr<Material> materialList[20];
 
 	int lightNum = 0;
 	Light* lightList[4];

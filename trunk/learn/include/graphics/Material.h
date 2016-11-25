@@ -25,6 +25,13 @@ public:
 	void Set_PS_CBufferSize(int byteWidth);//设置constbuffer对象的byte
 	int Get_VS_CBufferSize(int i) const;
 	int Get_PS_CBufferSize(int i) const;
+	
+	//这只要传给dx需要的const 数据
+	void Set_VS_CBufferData(int i, char* data);
+	void Set_PS_CBufferData(int i, char* data);
+	const char* Get_VS_CBufferData(int i) const;
+	const char* Get_PS_CBufferData(int i) const;
+
 	inline int Get_VS_CBufferNum() const;
 	inline int Get_PS_CBufferNum() const;
 private:
@@ -36,8 +43,12 @@ private:
 	Texture2D _textureList[4];
 
 	//For DX
+	char* _vsConstData[4];
 	int _vsConstByteWidth[4];
 	int _vsConstBufferNum = 0;
+
+	//ps buffer对应的数据, 在cpu端赋值后, 要传给dx
+	char* _psConstData[4];
 	int _psConstByteWidth[4];
 	int _psConstBufferNum = 0;
 };
